@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>sceptre.plan.actions &mdash; Sceptre 2.1.3 documentation</title>
+  <title>sceptre.plan.actions &mdash; Sceptre 2.1.4 documentation</title>
   
 
   
@@ -23,7 +23,7 @@
       <script type="text/javascript">
           var DOCUMENTATION_OPTIONS = {
               URL_ROOT:'../../../',
-              VERSION:'2.1.3',
+              VERSION:'2.1.4',
               LANGUAGE:'None',
               COLLAPSE_INDEX:false,
               FILE_SUFFIX:'.html',
@@ -292,34 +292,48 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_protect_execution</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> - Updating Stack&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-        <span class="n">update_stack_kwargs</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;StackName&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">external_name</span><span class="p">,</span>
-            <span class="s2">&quot;Parameters&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_parameters</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">parameters</span><span class="p">),</span>
-            <span class="s2">&quot;Capabilities&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;CAPABILITY_IAM&#39;</span><span class="p">,</span> <span class="s1">&#39;CAPABILITY_NAMED_IAM&#39;</span><span class="p">,</span> <span class="s1">&#39;CAPABILITY_AUTO_EXPAND&#39;</span><span class="p">],</span>
-            <span class="s2">&quot;NotificationARNs&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">notifications</span><span class="p">,</span>
-            <span class="s2">&quot;Tags&quot;</span><span class="p">:</span> <span class="p">[</span>
-                <span class="p">{</span><span class="s2">&quot;Key&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="s2">&quot;Value&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)}</span>
-                <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">tags</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-            <span class="p">]</span>
-        <span class="p">}</span>
-        <span class="n">update_stack_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">template</span><span class="o">.</span><span class="n">get_boto_call_parameter</span><span class="p">())</span>
-        <span class="n">update_stack_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_role_arn</span><span class="p">())</span>
-        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection_manager</span><span class="o">.</span><span class="n">call</span><span class="p">(</span>
-            <span class="n">service</span><span class="o">=</span><span class="s2">&quot;cloudformation&quot;</span><span class="p">,</span>
-            <span class="n">command</span><span class="o">=</span><span class="s2">&quot;update_stack&quot;</span><span class="p">,</span>
-            <span class="n">kwargs</span><span class="o">=</span><span class="n">update_stack_kwargs</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-            <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> - Update Stack response: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">response</span>
-        <span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">update_stack_kwargs</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;StackName&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">external_name</span><span class="p">,</span>
+                <span class="s2">&quot;Parameters&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_parameters</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">parameters</span><span class="p">),</span>
+                <span class="s2">&quot;Capabilities&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s1">&#39;CAPABILITY_IAM&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;CAPABILITY_NAMED_IAM&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;CAPABILITY_AUTO_EXPAND&#39;</span>
+                <span class="p">],</span>
+                <span class="s2">&quot;NotificationARNs&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">notifications</span><span class="p">,</span>
+                <span class="s2">&quot;Tags&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span><span class="s2">&quot;Key&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="s2">&quot;Value&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)}</span>
+                    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">tags</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                <span class="p">]</span>
+            <span class="p">}</span>
+            <span class="n">update_stack_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">template</span><span class="o">.</span><span class="n">get_boto_call_parameter</span><span class="p">())</span>
+            <span class="n">update_stack_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_role_arn</span><span class="p">())</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection_manager</span><span class="o">.</span><span class="n">call</span><span class="p">(</span>
+                <span class="n">service</span><span class="o">=</span><span class="s2">&quot;cloudformation&quot;</span><span class="p">,</span>
+                <span class="n">command</span><span class="o">=</span><span class="s2">&quot;update_stack&quot;</span><span class="p">,</span>
+                <span class="n">kwargs</span><span class="o">=</span><span class="n">update_stack_kwargs</span>
+            <span class="p">)</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wait_for_completion</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">stack_timeout</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> - Update Stack response: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">response</span>
+            <span class="p">)</span>
 
-        <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wait_for_completion</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">stack_timeout</span><span class="p">)</span>
-        <span class="c1"># Cancel update after timeout</span>
-        <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="n">StackStatus</span><span class="o">.</span><span class="n">IN_PROGRESS</span><span class="p">:</span>
-            <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cancel_stack_update</span><span class="p">()</span>
+            <span class="c1"># Cancel update after timeout</span>
+            <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="n">StackStatus</span><span class="o">.</span><span class="n">IN_PROGRESS</span><span class="p">:</span>
+                <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cancel_stack_update</span><span class="p">()</span>
 
-        <span class="k">return</span> <span class="n">status</span></div>
+            <span class="k">return</span> <span class="n">status</span>
+        <span class="k">except</span> <span class="n">botocore</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ClientError</span> <span class="k">as</span> <span class="n">exp</span><span class="p">:</span>
+            <span class="n">error_message</span> <span class="o">=</span> <span class="n">exp</span><span class="o">.</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;Error&quot;</span><span class="p">][</span><span class="s2">&quot;Message&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">error_message</span> <span class="o">==</span> <span class="s2">&quot;No updates are to be performed.&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                    <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> - No updates to perform.&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">name</span>
+                <span class="p">)</span>
+                <span class="k">return</span> <span class="n">StackStatus</span><span class="o">.</span><span class="n">COMPLETE</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span></div>
 
 <div class="viewcode-block" id="StackActions.cancel_stack_update"><a class="viewcode-back" href="../../../apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.cancel_stack_update">[docs]</a>    <span class="k">def</span> <span class="nf">cancel_stack_update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -371,17 +385,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
             <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
         <span class="k">elif</span> <span class="n">existing_status</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;COMPLETE&quot;</span><span class="p">):</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
-            <span class="k">except</span> <span class="n">botocore</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ClientError</span> <span class="k">as</span> <span class="n">exp</span><span class="p">:</span>
-                <span class="n">error_message</span> <span class="o">=</span> <span class="n">exp</span><span class="o">.</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;Error&quot;</span><span class="p">][</span><span class="s2">&quot;Message&quot;</span><span class="p">]</span>
-                <span class="k">if</span> <span class="n">error_message</span> <span class="o">==</span> <span class="s2">&quot;No updates are to be performed.&quot;</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-                        <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> - No updates to perform.&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">name</span>
-                    <span class="p">)</span>
-                    <span class="n">status</span> <span class="o">=</span> <span class="n">StackStatus</span><span class="o">.</span><span class="n">COMPLETE</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="k">raise</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
         <span class="k">elif</span> <span class="n">existing_status</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;IN_PROGRESS&quot;</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
                 <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> - Stack action is already in progress state and cannot &quot;</span>

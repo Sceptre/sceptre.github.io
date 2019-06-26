@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>sceptre.cli package &mdash; Sceptre 2.1.3 documentation</title>
+  <title>sceptre.cli package &mdash; Sceptre 2.1.4 documentation</title>
   
 
   
@@ -23,7 +23,7 @@
       <script type="text/javascript">
           var DOCUMENTATION_OPTIONS = {
               URL_ROOT:'../',
-              VERSION:'2.1.3',
+              VERSION:'2.1.4',
               LANGUAGE:'None',
               COLLAPSE_INDEX:false,
               FILE_SUFFIX:'.html',
@@ -229,6 +229,17 @@
 <div class="section" id="module-sceptre.cli.helpers">
 <span id="sceptre-cli-helpers-module"></span><h2>sceptre.cli.helpers module<a class="headerlink" href="#module-sceptre.cli.helpers" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
+<dt id="sceptre.cli.helpers.CfnYamlLoader">
+<em class="property">class </em><code class="descclassname">sceptre.cli.helpers.</code><code class="descname">CfnYamlLoader</code><span class="sig-paren">(</span><em>stream</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/cli/helpers.html#CfnYamlLoader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.cli.helpers.CfnYamlLoader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">yaml.loader.SafeLoader</span></code></p>
+<dl class="attribute">
+<dt id="sceptre.cli.helpers.CfnYamlLoader.yaml_multi_constructors">
+<code class="descname">yaml_multi_constructors</code><em class="property"> = {'!': &lt;function _tag_constructor&gt;}</em><a class="headerlink" href="#sceptre.cli.helpers.CfnYamlLoader.yaml_multi_constructors" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="sceptre.cli.helpers.ColouredFormatter">
 <em class="property">class </em><code class="descclassname">sceptre.cli.helpers.</code><code class="descname">ColouredFormatter</code><span class="sig-paren">(</span><em>fmt=None</em>, <em>datefmt=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/cli/helpers.html#ColouredFormatter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.cli.helpers.ColouredFormatter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Formatter" title="(in Python v3.7)"><code class="xref py py-class docutils literal"><span class="pre">logging.Formatter</span></code></a></p>
@@ -361,7 +372,7 @@ as long as their level is at least INFO. The log format is set to
 
 <dl class="function">
 <dt id="sceptre.cli.helpers.write">
-<code class="descclassname">sceptre.cli.helpers.</code><code class="descname">write</code><span class="sig-paren">(</span><em>var</em>, <em>output_format='text'</em>, <em>no_colour=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/cli/helpers.html#write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.cli.helpers.write" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">sceptre.cli.helpers.</code><code class="descname">write</code><span class="sig-paren">(</span><em>var</em>, <em>output_format='json'</em>, <em>no_colour=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/cli/helpers.html#write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.cli.helpers.write" title="Permalink to this definition">¶</a></dt>
 <dd><p>Writes <code class="docutils literal"><span class="pre">var</span></code> to stdout. If output_format is set to “json” or “yaml”,
 write <code class="docutils literal"><span class="pre">var</span></code> as a JSON or YAML string.</p>
 <table class="docutils field-list" frame="void" rules="none">
