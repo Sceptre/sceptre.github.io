@@ -191,6 +191,7 @@
 
 <span class="kn">import</span> <span class="nn">functools</span>
 <span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">import</span> <span class="nn">threading</span>
 <span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">import</span> <span class="nn">boto3</span>
@@ -206,8 +207,11 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Retries a Boto3 call up to 30 times if request rate limits are hit.</span>
 
-<span class="sd">    The time waited between retries increases linearly. If rate limits are</span>
-<span class="sd">    hit 30 times, _retry_boto_call raises a</span>
+<span class="sd">    Between each try we wait a random amount with a max of that time being 45 seconds.</span>
+<span class="sd">    Specifically we are picking number between a ceiling (delay_cap) of 45 seconds and the last</span>
+<span class="sd">    delay multiplied by 2.5, rounding to two decimal places.  You can read more</span>
+<span class="sd">    here: https://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/</span>
+<span class="sd">    If rate limits are hit 30 times, _retry_boto_call raises a</span>
 <span class="sd">    sceptre.exceptions.RetryLimitExceededException.</span>
 
 <span class="sd">    :param func: A function that uses boto calls</span>
@@ -222,13 +226,21 @@
     <span class="k">def</span> <span class="nf">decorated</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">max_retries</span> <span class="o">=</span> <span class="mi">30</span>
         <span class="n">attempts</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">mdelay</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">delay_cap</span> <span class="o">=</span> <span class="mi">45</span>
         <span class="k">while</span> <span class="n">attempts</span> <span class="o">&lt;</span> <span class="n">max_retries</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
             <span class="k">except</span> <span class="n">ClientError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;Error&quot;</span><span class="p">][</span><span class="s2">&quot;Code&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Throttling&quot;</span><span class="p">:</span>
-                    <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Request limit exceeded, pausing...&quot;</span><span class="p">)</span>
-                    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">attempts</span><span class="p">)</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Request limit exceeded, pausing </span><span class="si">{}</span><span class="s2">...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mdelay</span><span class="p">))</span>
+                    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">mdelay</span><span class="p">)</span>
+
+                    <span class="c1"># Using De-correlated Jitter Algorithm</span>
+                    <span class="c1"># We are picking number between a ceiling (delay_cap) of 45 seconds and the</span>
+                    <span class="c1"># last delay multiplied by 2.5, rounding to two decimal places.</span>
+                    <span class="n">mdelay</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">delay_cap</span><span class="p">,</span> <span class="nb">round</span><span class="p">((</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">mdelay</span> <span class="o">*</span> <span class="mf">2.5</span><span class="p">)),</span> <span class="mi">2</span><span class="p">))</span>
+
                     <span class="n">attempts</span> <span class="o">+=</span> <span class="mi">1</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">raise</span>
