@@ -210,12 +210,12 @@ Templates. They are read in and used without modification.</p>
 </div>
 <div class="section" id="jinja">
 <h2>Jinja<a class="headerlink" href="#jinja" title="Permalink to this headline">¶</a></h2>
-<p>{% raw %} Templates with <code class="docutils literal"><span class="pre">.j2</span></code> extensions are treated as Jinja2 Templates.
+<p>Templates with <code class="docutils literal"><span class="pre">.j2</span></code> extensions are treated as Jinja2 Templates.
 These are rendered and should create a raw JSON or YAML CloudFormation
 Template. Sceptre User Data is accessible within Templates as
 <code class="docutils literal"><span class="pre">sceptre_user_data</span></code>. For example <code class="docutils literal"><span class="pre">{{</span> <span class="pre">sceptre_user_data.some_variable</span> <span class="pre">}}</span></code>.
 <code class="docutils literal"><span class="pre">sceptre_user_data</span></code> accesses the <code class="docutils literal"><span class="pre">sceptre_user_data</span></code> key in the Stack
-Config file. {% endraw %}</p>
+Config file.</p>
 </div>
 <div class="section" id="python">
 <h2>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h2>

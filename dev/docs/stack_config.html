@@ -384,8 +384,8 @@ described in the section in StackGroup Config on <a class="reference external" h
 <h3>StackGroup config<a class="headerlink" href="#stackgroup-config" title="Permalink to this headline">¶</a></h3>
 <p>StackGroup config properties are available via the stack_group_config variable
 when using templating.</p>
-<div class="highlight-jinja"><div class="highlight"><pre><span></span><span class="x">parameters:</span>
-<span class="x">  sceptre-project-code: </span><span class="cp">{%</span> <span class="k">raw</span> <span class="cp">%}</span>{{ stack_group_config.sceptre-project-code }}<span class="cp">{%</span> <span class="k">endraw</span> <span class="cp">%}</span><span class="x"></span>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">parameters</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">sceptre-project-code</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">{{</span> <span class="nv">stack_group_config.sceptre-project-code</span> <span class="p p-Indicator">}}</span>
 </pre></div>
 </div>
 </div>
@@ -421,36 +421,34 @@ the <code class="docutils literal"><span class="pre">sceptre_handler(sceptre_use
   <span class="l l-Scalar l-Scalar-Plain">param_2</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">value_2</span>
 </pre></div>
 </div>
-<div class="highlight-jinja"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">raw</span> <span class="cp">%}</span>
-template_path: example.json
-dependencies:
-    - dev/vpc.yaml
-hooks:
-    before_create:
-        - !cmd &quot;echo creating...&quot;
-    after_create:
-        - !cmd &quot;echo created&quot;
-        - !cmd &quot;echo done&quot;
-    after_update:
-        - !cmd &quot;mkdir example&quot;
-        - !cmd &quot;touch example.txt&quot;
-parameters:
-    param_1: !stack_output stack_name::output_name
-    param_2: !stack_output_external full_stack_name.yaml::output_name
-    param_3: !environment_variable VALUE_3
-    param_4:
-        {{ var.value4 }}
-    param_5:
-        {{ command_path.3 }}
-    param_6:
-        {{ environment_variable.VALUE_6 }}
-sceptre_user_data:
-    thing_1: value_1
-    thing_2: !file_contents path/to/file.txt
-stack_tags:
-    tag_1: value_1
-    tag_2: value_2
-<span class="cp">{%</span> <span class="k">endraw</span> <span class="cp">%}</span><span class="x"></span>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">template_path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">example.json</span>
+<span class="l l-Scalar l-Scalar-Plain">dependencies</span><span class="p p-Indicator">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">dev/vpc.yaml</span>
+<span class="l l-Scalar l-Scalar-Plain">hooks</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">before_create</span><span class="p p-Indicator">:</span>
+        <span class="p p-Indicator">-</span> <span class="kt">!cmd</span> <span class="s">&quot;echo</span><span class="nv"> </span><span class="s">creating...&quot;</span>
+    <span class="l l-Scalar l-Scalar-Plain">after_create</span><span class="p p-Indicator">:</span>
+        <span class="p p-Indicator">-</span> <span class="kt">!cmd</span> <span class="s">&quot;echo</span><span class="nv"> </span><span class="s">created&quot;</span>
+        <span class="p p-Indicator">-</span> <span class="kt">!cmd</span> <span class="s">&quot;echo</span><span class="nv"> </span><span class="s">done&quot;</span>
+    <span class="l l-Scalar l-Scalar-Plain">after_update</span><span class="p p-Indicator">:</span>
+        <span class="p p-Indicator">-</span> <span class="kt">!cmd</span> <span class="s">&quot;mkdir</span><span class="nv"> </span><span class="s">example&quot;</span>
+        <span class="p p-Indicator">-</span> <span class="kt">!cmd</span> <span class="s">&quot;touch</span><span class="nv"> </span><span class="s">example.txt&quot;</span>
+<span class="l l-Scalar l-Scalar-Plain">parameters</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">param_1</span><span class="p p-Indicator">:</span> <span class="kt">!stack_output</span> <span class="l l-Scalar l-Scalar-Plain">stack_name::output_name</span>
+    <span class="l l-Scalar l-Scalar-Plain">param_2</span><span class="p p-Indicator">:</span> <span class="kt">!stack_output_external</span> <span class="l l-Scalar l-Scalar-Plain">full_stack_name.yaml::output_name</span>
+    <span class="l l-Scalar l-Scalar-Plain">param_3</span><span class="p p-Indicator">:</span> <span class="kt">!environment_variable</span> <span class="l l-Scalar l-Scalar-Plain">VALUE_3</span>
+    <span class="l l-Scalar l-Scalar-Plain">param_4</span><span class="p p-Indicator">:</span>
+        <span class="p p-Indicator">{{</span> <span class="nv">var.value4</span> <span class="p p-Indicator">}}</span>
+    <span class="l l-Scalar l-Scalar-Plain">param_5</span><span class="p p-Indicator">:</span>
+        <span class="p p-Indicator">{{</span> <span class="nv">command_path.3</span> <span class="p p-Indicator">}}</span>
+    <span class="l l-Scalar l-Scalar-Plain">param_6</span><span class="p p-Indicator">:</span>
+        <span class="p p-Indicator">{{</span> <span class="nv">environment_variable.VALUE_6</span> <span class="p p-Indicator">}}</span>
+<span class="l l-Scalar l-Scalar-Plain">sceptre_user_data</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">thing_1</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">value_1</span>
+    <span class="l l-Scalar l-Scalar-Plain">thing_2</span><span class="p p-Indicator">:</span> <span class="kt">!file_contents</span> <span class="l l-Scalar l-Scalar-Plain">path/to/file.txt</span>
+<span class="l l-Scalar l-Scalar-Plain">stack_tags</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">tag_1</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">value_1</span>
+    <span class="l l-Scalar l-Scalar-Plain">tag_2</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">value_2</span>
 </pre></div>
 </div>
 </div>

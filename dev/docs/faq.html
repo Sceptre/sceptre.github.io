@@ -195,7 +195,7 @@
 syntax for replacing the other items is the same, with the word <code class="docutils literal"><span class="pre">region</span></code>
 substituted out.</p>
 <p>In config.yaml:</p>
-<div class="highlight-jinja"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">raw</span> <span class="cp">%}</span>region: {{ var.region }}<span class="cp">{%</span> <span class="k">endraw</span> <span class="cp">%}</span><span class="x"></span>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">region</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">{{</span> <span class="nv">var.region</span> <span class="p p-Indicator">}}</span>
 </pre></div>
 </div>
 <p>On the CLI:</p>
@@ -230,7 +230,7 @@ template based on the value of a config value.</p>
 <p>It is possible to replace values in stack config files with environment
 variables in two ways.</p>
 <p>The first is by using templating, and the syntax
-<code class="docutils literal"><span class="pre">{%</span> <span class="pre">raw</span> <span class="pre">%}{{</span> <span class="pre">environment_variable.VALUE</span> <span class="pre">}}{%</span> <span class="pre">endraw</span> <span class="pre">%}</span></code>. Any value in a
+<code class="docutils literal"><span class="pre">{{</span> <span class="pre">environment_variable.VALUE</span> <span class="pre">}}</span></code>. Any value in a
 config file may be replaced using this method.</p>
 <p>The second is by using a resolver, and the syntax:</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">parameters</span><span class="p p-Indicator">:</span>
