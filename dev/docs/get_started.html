@@ -100,7 +100,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Get Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#install">Install</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#directory-structure">Directory Structure</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#our-first-template-vpc-json">Our First Template - vpc.json</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#our-first-template-vpc-yaml">Our First Template - vpc.yaml</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#our-first-stackgroup-config-config-yaml">Our First StackGroup config - config.yaml</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#our-first-stack-config-vpc-yaml">Our First Stack config - vpc.yaml</a></li>
 </ul>
@@ -232,39 +232,28 @@ CloudFormation templates.</p>
 <code class="docutils literal"><span class="pre">VPC</span></code> in it.</p>
 <p>On *nix systems:</p>
 <div class="highlight-text"><div class="highlight"><pre><span></span>mkdir config/dev
-touch config/dev/config.yaml config/dev/vpc.yaml templates/vpc.json
+touch config/dev/config.yaml config/dev/vpc.yaml templates/vpc.yaml
 </pre></div>
 </div>
-<p><code class="docutils literal"><span class="pre">vpc.json</span></code> will contain a CloudFormation template, <code class="docutils literal"><span class="pre">vpc.yaml</span></code> will contain
+<p><code class="docutils literal"><span class="pre">templates/vpc.yaml</span></code> will contain a CloudFormation template, <code class="docutils literal"><span class="pre">config/dev/vpc.yaml</span></code> will contain
 config relevant to that template, and <code class="docutils literal"><span class="pre">config.yaml</span></code> will contain environment
 config.</p>
-<div class="section" id="our-first-template-vpc-json">
-<h3>Our First Template - vpc.json<a class="headerlink" href="#our-first-template-vpc-json" title="Permalink to this headline">¶</a></h3>
-<p>Add the following CloudFormation to <code class="docutils literal"><span class="pre">templates/vpc.json</span></code>:</p>
-<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;Parameters&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;CidrBlock&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;Type&quot;</span><span class="p">:</span> <span class="s2">&quot;String&quot;</span>
-    <span class="p">}</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;Resources&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;VPC&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;Type&quot;</span><span class="p">:</span> <span class="s2">&quot;AWS::EC2::VPC&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;Properties&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;CidrBlock&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;Ref&quot;</span><span class="p">:</span> <span class="s2">&quot;CidrBlock&quot;</span>
-        <span class="p">}</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;Outputs&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;VpcId&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;Value&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;Ref&quot;</span><span class="p">:</span> <span class="s2">&quot;VPC&quot;</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<div class="section" id="our-first-template-vpc-yaml">
+<h3>Our First Template - vpc.yaml<a class="headerlink" href="#our-first-template-vpc-yaml" title="Permalink to this headline">¶</a></h3>
+<p>Add the following CloudFormation to <code class="docutils literal"><span class="pre">templates/vpc.yaml</span></code>:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">Parameters</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">CidrBlock</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">Type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">String</span>
+<span class="l l-Scalar l-Scalar-Plain">Resources</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">VPC</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">Type</span><span class="p p-Indicator">:</span> <span class="s">&#39;AWS::EC2::VPC&#39;</span>
+    <span class="l l-Scalar l-Scalar-Plain">Properties</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">CidrBlock</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">Ref</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">CidrBlock</span>
+<span class="l l-Scalar l-Scalar-Plain">Outputs</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">VpcId</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">Value</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">Ref</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">VPC</span>
 </pre></div>
 </div>
 <p>For more information on CloudFormation, see the AWS documentation on
@@ -283,7 +272,7 @@ StackGroup will be built in the AWS region <code class="docutils literal"><span 
 <div class="section" id="our-first-stack-config-vpc-yaml">
 <h3>Our First Stack config - vpc.yaml<a class="headerlink" href="#our-first-stack-config-vpc-yaml" title="Permalink to this headline">¶</a></h3>
 <p>Add the following configuration to <code class="docutils literal"><span class="pre">config/dev/vpc.yaml</span></code>:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">template_path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">vpc.json</span>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">template_path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">vpc.yaml</span>
 <span class="l l-Scalar l-Scalar-Plain">parameters</span><span class="p p-Indicator">:</span>
   <span class="l l-Scalar l-Scalar-Plain">CidrBlock</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">10.0.0.0/16</span>
 </pre></div>
@@ -292,7 +281,7 @@ StackGroup will be built in the AWS region <code class="docutils literal"><span 
 Jinja2 template to use to launch the Stack. Sceptre will use the <code class="docutils literal"><span class="pre">templates</span></code>
 directory as the root templates directory to base your <code class="docutils literal"><span class="pre">template_path</span></code> from.</p>
 <p><code class="docutils literal"><span class="pre">parameters</span></code> lists the parameters which are supplied to the template
-<code class="docutils literal"><span class="pre">vpc.json</span></code>.</p>
+<code class="docutils literal"><span class="pre">vpc.yaml</span></code>.</p>
 <p>You should now have a Sceptre project that looks a bit like:</p>
 <div class="highlight-text"><div class="highlight"><pre><span></span>tree
 .
@@ -302,7 +291,7 @@ directory as the root templates directory to base your <code class="docutils lit
 │       ├── config.yaml
 │       └── vpc.yaml
 └── templates
-    └── vpc.json
+    └── vpc.yaml
 </pre></div>
 </div>
 <blockquote>
