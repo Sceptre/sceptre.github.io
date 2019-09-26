@@ -214,9 +214,27 @@ available commands.</p>
 available commands.</p>
 <div class="section" id="autocomplete">
 <h2>Autocomplete<a class="headerlink" href="#autocomplete" title="Permalink to this headline">¶</a></h2>
-<p>If you are using Bash you can enable autocomplete by entering the following
-command <code class="docutils literal"><span class="pre">eval</span> <span class="pre">&quot;$(_SCEPTRE_COMPLETE=source</span> <span class="pre">sceptre)&quot;</span></code>. Autocomplete will work
-for subcommands and parameters.</p>
+<p>To enable CLI autocomplete for subcommands and parameters execute the
+following command:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="83%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">shell</th>
+<th class="head">command</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>bash</td>
+<td>eval “$(_SCEPTRE_COMPLETE=source sceptre)”</td>
+</tr>
+<tr class="row-odd"><td>zsh</td>
+<td>eval “$(_SCEPTRE_COMPLETE=source_zsh sceptre)”</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="export-stack-outputs-to-environment-variables">
 <h2>Export Stack Outputs to Environment Variables<a class="headerlink" href="#export-stack-outputs-to-environment-variables" title="Permalink to this headline">¶</a></h2>
