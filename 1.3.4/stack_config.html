@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="/assets/css/sceptre.css">
+    <link rel="stylesheet" href="/assets/css/syntax.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+  <nav class="navbar navbar-default navbar-static-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">Sceptre</a>
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapsable-navbar">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      </button>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="collapsable-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/docs/index.html">Docs</a></li>
+        <li><a href="https://github.com/cloudreach/sceptre">GitHub</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <div class="container">
+    <div class="col-sm-3">
+      <div class="spt-docs-nav">
+  <ul>
+    <li><a href="/docs/install.html">Installation</a></li>
+    <li><a href="/docs/get_started.html">Get Started</a></li>
+    <li><a href="/docs/terminology.html">Terminology</a></li>
+  </ul>
+  <hr>
+  <ul>
+    <li><a href="/docs/cli.html">Commands (CLI)</a></li>
+    <li><a href="/docs/environment_config.html">Environment Config</a></li>
+    <li><a href="/docs/stack_config.html">Stack Config</a></li>
+    <li><a href="/docs/templates.html">Templates</a></li>
+    <li><a href="/docs/hooks.html">Hooks</a></li>
+    <li><a href="/docs/resolvers.html">Resolvers</a></li>
+  </ul>
+  <hr>
+  <ul>
+    <li><a href="/docs/architecture.html">Architecting Sceptre</a></li>
+    <li><a href="/docs/faq.html">FAQ</a></li>
+    <li><a href="/docs/api/sceptre.html">API</a></li>
+  </ul>
+</div>
+
+    </div>
+    <div class="col-sm-9">
+      <h1 id="stack-config">Stack Config</h1>
+
+<p>Stack config stores config related to a particular stack, such as the path to that stack’s template, and any parameters that stack may require.</p>
+
+<h2 id="structure">Structure</h2>
+
+<p>A stack config file is a yaml object of key-value pairs configuring a particular stack. The available keys are listed below.</p>
+
+<ul>
+  <li><a href="#dependencies">dependencies</a> <em>(optional)</em></li>
+  <li><a href="#hooks">hooks</a> <em>(optional)</em></li>
+  <li><a href="#on_failure">on_failure</a> <em>(optional)</em></li>
+  <li><a href="#parameters">parameters</a> <em>(optional)</em></li>
+  <li><a href="#protect">protect</a> <em>(optional)</em></li>
+  <li><a href="#sceptre_user_data">sceptre_user_data</a> <em>(optional)</em></li>
+  <li><a href="#stack_name">stack_name</a> <em>(optional)</em></li>
+  <li><a href="#stack_tags">stack_tags</a> <em>(optional)</em></li>
+  <li><a href="#role_arn">role_arn</a> <em>(optional)</em></li>
+  <li><a href="#notifications">notifications</a> <em>(optional)</em></li>
+  <li><a href="#template_path">template_path</a> <em>(required)</em></li>
+</ul>
+
+<h3 id="dependencies">dependencies</h3>
+
+<p>A list of other stacks in the environment that this stack depends on. Note that if a stack fetches an output value from another stack using the <code class="highlighter-rouge">stack_output</code> resolver, that stack is automatically added as a dependency, and that stack need not be added as an explicit dependency here.</p>
+
+<h3 id="hooks">hooks</h3>
+
+<p>A list of arbitrary shell or python commands or scripts to run. Find out more in the <a href="/docs/hooks.html">Hooks</a> section.</p>
+
+<h3 id="on_failure">on_failure</h3>
+
+<p>This parameter describes the action taken by CloudFormation when a stack fails to create. For more information and valid values see the <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateStack.html">AWS Documentation</a>.</p>
+
+<h3 id="parameters">parameters</h3>
+
+<div class="alert alert-danger">
+Sensitive data such as passwords or secret keys should not be stored in plaintext in stack config files. Instead, they should be passed in from the CLI with <a href="/docs/environment_config.html#var">User Variables</a>, or set via an environment variable with the <a href="/docs/resolvers.html#environment_variable">environment variable resolver</a>.
+</div>
+
+<p>A dictionary of key-value pairs to be supplied to a template as parameters. The keys must match up with the name of the parameter, and the value must be of the type as defined in the template. Note that Boto3 throws an exception if parameters are supplied to a template that are not required by that template. Resolvers can be used to add functionality to this key. Find out more in the <a href="/docs/resolvers.html">Resolvers</a> section.</p>
+
+<p>A parameter can be specified either as a single value/resolver or a list of values/resolvers. Lists of values/resolvers will be formatted into an AWS compatible comma separated string e.g. <code class="highlighter-rouge">value1,value2,value3</code>. Lists can contain a mixture of values and resolvers.</p>
+
+<p>Syntax:</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">parameters</span><span class="pi">:</span>
+    <span class="s">&lt;parameter1_name&gt;</span><span class="pi">:</span> <span class="s2">"</span><span class="s">value"</span>
+    <span class="s">&lt;parameter2_name&gt;</span><span class="pi">:</span> <span class="kt">!&lt;resolver_name&gt;</span> <span class="s">&lt;resolver_value&gt;</span>
+    <span class="s">&lt;parameter3_name&gt;</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s2">"</span><span class="s">value1"</span>
+        <span class="pi">-</span> <span class="s2">"</span><span class="s">value2"</span>
+    <span class="s">&lt;parameter4_name&gt;</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="kt">!&lt;resolver_name&gt;</span> <span class="s">&lt;resolver_value&gt;</span>
+        <span class="pi">-</span> <span class="kt">!&lt;resolver_name&gt;</span> <span class="s">&lt;resolver_value&gt;</span>
+    <span class="s">&lt;parameter5_name&gt;</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="kt">!&lt;resolver_name&gt;</span> <span class="s">&lt;resolver_value&gt;</span>
+        <span class="pi">-</span> <span class="s2">"</span><span class="s">value1"</span>
+</code></pre>
+</div>
+
+<p>Example:</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">parameters</span><span class="pi">:</span>
+    <span class="s">database_username</span><span class="pi">:</span> <span class="s2">"</span><span class="s">mydbuser"</span>
+    <span class="s">database_password</span><span class="pi">:</span> <span class="kt">!environment_variable</span> <span class="s">DATABASE_PASSWORD</span>
+    <span class="s">subnet_ids</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s2">"</span><span class="s">subnet-12345678"</span>
+        <span class="pi">-</span> <span class="s2">"</span><span class="s">subnet-87654321"</span>
+    <span class="s">security_group_ids</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s2">"</span><span class="s">sg-12345678"</span>
+        <span class="pi">-</span> <span class="kt">!stack_output</span> <span class="s">security-groups::BaseSecurityGroupId</span>
+        <span class="pi">-</span> <span class="kt">!file_contents</span> <span class="s">/file/with/security_group_id.txt</span>
+</code></pre>
+</div>
+
+<h3 id="protect">protect</h3>
+
+<p>Stack protection against execution of the following commands:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">launch-stack</code></li>
+  <li><code class="highlighter-rouge">create-stack</code></li>
+  <li><code class="highlighter-rouge">update-stack</code></li>
+  <li><code class="highlighter-rouge">delete-stack</code></li>
+  <li><code class="highlighter-rouge">execute-change-set</code></li>
+</ul>
+
+<p>If a user tries to run one of these commands on a protected stack, Sceptre will throw an error.</p>
+
+<h3 id="sceptre_user_data">sceptre_user_data</h3>
+
+<p>Represents data to be passed to the <code class="highlighter-rouge">sceptre_handler(sceptre_user_data)</code> function in Python templates or accessible under <code class="highlighter-rouge">sceptre_user_data</code> variable key within Jinja2 templates.</p>
+
+<h3 id="stack_name">stack_name</h3>
+
+<p>A custom name name to use instead of the Sceptre default.</p>
+
+<div class="alert alert-warning">
+Outputs from stacks with custom names can't be resolved using the standard <a href="/docs/resolvers.html#stack_output">stack output resolver</a>. Outputs should be resolved using the <a href="/docs/resolvers.html#stack_output_external">stack output external resolver</a>. An explicit dependency should be added, using the <a href="#dependencies">dependencies</a> parameter, to make sure the stacks are launched in the correct order.
+</div>
+
+<p>e.g:</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">parameters</span><span class="pi">:</span>
+    <span class="s">VpcID</span><span class="pi">:</span> <span class="kt">!stack_output_external</span> <span class="s">&lt;custom-named-vpc-stack&gt;::VpcID</span>
+<span class="s">dependencies</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">&lt;environment&gt;/&lt;stack&gt;</span>
+</code></pre>
+</div>
+
+<h3 id="stack_tags">stack_tags</h3>
+
+<p>A dictionary of <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_Tag.html">CloudFormation Tags</a> to be applied to the stack.</p>
+
+<h3 id="role_arn">role_arn</h3>
+
+<p>The ARN of a <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-servicerole.html">CloudFormation Service Role</a> that is assumed by CloudFormation to create, update or delete resources.</p>
+
+<h3 id="notifications">notifications</h3>
+
+<p>List of SNS topic ARNs to publish stack related events to. A maximum of 5 ARNs can be specified per stack. This configuration will be used by the <code class="highlighter-rouge">create-stack</code>, <code class="highlighter-rouge">update-stack</code>, and <code class="highlighter-rouge">create-change-set</code> commands. More information about stack notifications can found under the relevant section in the <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateStack.html">AWS CloudFormation API documentation</a>.</p>
+
+<h3 id="template_path">template_path</h3>
+
+<p>The path to the CloudFormation, Jinja2 or Python template to build the stack from. The path can either be absolute or relative to the Sceptre Directory. Sceptre treats the template as CloudFormation, Jinja2 or Python depending on the template’s file extension. Note that the template filename may be different from the stack config filename.</p>
+
+<h2 id="cascading-config">Cascading Config</h2>
+
+<div class="alert alert-warning">
+Cascading stack config is being deprecated, and should not be used.
+</div>
+
+<p>Stack config can be cascaded in the same way Environment config can be, as described in the section in Environment Config on <a href="/docs/environment_config.html#cascading-config">Cascading Config</a>.</p>
+
+<h2 id="templating">Templating</h2>
+
+<p>Stack config supports templating in the same way Environment config can be, as described in the section in Environment Config on <a href="/docs/environment_config.html#templating">Templating</a>.</p>
+
+<p>Stack config makes environment config available to template.</p>
+
+<h3 id="environment-config">Environment config</h3>
+
+<p>Environment config properties are available via the environment_config variable when using templating.</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">parameters</span><span class="pi">:</span>
+  <span class="s">Region</span><span class="pi">:</span> <span class="pi">{{</span> <span class="nv">environment_config.region</span> <span class="pi">}}</span>
+</code></pre>
+</div>
+
+<h2 id="environment-variables">Environment Variables</h2>
+
+<p>It is possible to replace values in stack config files with environment variables in two ways. For an explanation on why this is the case, see the <a href="/docs/faq.html#why-are-there-two-ways-to-supply-environment-variables-in-stack-config-files">FAQ</a>.</p>
+
+<h2 id="sceptre-user-data">Sceptre User Data</h2>
+
+<p>Python or Jinja templates can contain data which should be parameterised, but can’t be parameterised using CloudFormation parameters. An example of this is if a Python template which creates an IAM Role reads in the policy from a JSON file. The file path must be hardcoded in the Python template.</p>
+
+<p>Sceptre user data allows users to store arbitrary key-value pairs in their <code class="highlighter-rouge">&lt;stack-name&gt;.yaml</code> file. This data is then passed as a Python <code class="highlighter-rouge">dict</code> to the <code class="highlighter-rouge">sceptre_handler(sceptre_user_data)</code> function in Python templates.</p>
+
+<p>Syntax:</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">sceptre_user_data</span><span class="pi">:</span>
+    <span class="s">iam_policy_file_path</span><span class="pi">:</span> <span class="s">/path/to/policy.json</span>
+</code></pre>
+</div>
+
+<p>When compiled, <code class="highlighter-rouge">sceptre_user_data</code> would be the dictionary <code class="highlighter-rouge"><span class="p">{</span><span class="nt">"iam_policy_file"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/path/to/policy.json"</span><span class="p">}</span></code>.</p>
+
+<h2 id="examples">Examples</h2>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">template_path</span><span class="pi">:</span> <span class="s">templates/example.py</span>
+<span class="s">parameters</span><span class="pi">:</span>
+    <span class="s">param_1</span><span class="pi">:</span> <span class="s">value_1</span>
+    <span class="s">param_2</span><span class="pi">:</span> <span class="s">value_2</span>
+</code></pre>
+</div>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code>
+<span class="s">template_path</span><span class="pi">:</span> <span class="s">templates/example.json</span>
+<span class="s">dependencies</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">vpc</span>
+<span class="s">hooks</span><span class="pi">:</span>
+    <span class="s">before_create</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="kt">!bash</span> <span class="s2">"</span><span class="s">echo</span><span class="nv"> </span><span class="s">creating..."</span>
+    <span class="s">after_create</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="kt">!bash</span> <span class="s2">"</span><span class="s">echo</span><span class="nv"> </span><span class="s">created"</span>
+        <span class="pi">-</span> <span class="kt">!bash</span> <span class="s2">"</span><span class="s">echo</span><span class="nv"> </span><span class="s">done"</span>
+    <span class="s">after_update</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="kt">!bash</span> <span class="s2">"</span><span class="s">mkdir</span><span class="nv"> </span><span class="s">example"</span>
+        <span class="pi">-</span> <span class="kt">!bash</span> <span class="s2">"</span><span class="s">touch</span><span class="nv"> </span><span class="s">example.txt"</span>
+<span class="s">parameters</span><span class="pi">:</span>
+    <span class="s">param_1</span><span class="pi">:</span> <span class="kt">!stack_output</span> <span class="s">stack_name::output_name</span>
+    <span class="s">param_2</span><span class="pi">:</span> <span class="kt">!stack_output_external</span> <span class="s">full_stack_name::output_name</span>
+    <span class="s">param_3</span><span class="pi">:</span> <span class="kt">!environment_variable</span> <span class="s">VALUE_3</span>
+    <span class="s">param_4</span><span class="pi">:</span>
+        <span class="pi">{{</span> <span class="nv">var.value4</span> <span class="pi">}}</span>
+    <span class="s">param_5</span><span class="pi">:</span>
+        <span class="pi">{{</span> <span class="nv">environment_path.3</span> <span class="pi">}}</span>
+    <span class="s">param_6</span><span class="pi">:</span>
+        <span class="pi">{{</span> <span class="nv">environment_variable.VALUE_6</span> <span class="pi">}}</span>
+<span class="s">sceptre_user_data</span><span class="pi">:</span>
+    <span class="s">thing_1</span><span class="pi">:</span> <span class="s">value_1</span>
+    <span class="s">thing_2</span><span class="pi">:</span> <span class="kt">!file_contents</span> <span class="s">path/to/file.txt</span>
+<span class="s">stack_tags</span><span class="pi">:</span>
+    <span class="s">tag_1</span><span class="pi">:</span> <span class="s">value_1</span>
+    <span class="s">tag_2</span><span class="pi">:</span> <span class="s">value_2</span>
+
+</code></pre>
+</div>
+
+    </div>
+  </div>
+  
+
+<footer>
+    <hr>
+    <div class="container">
+        <div class="col-md-6">
+            <p>Copyright Cloudreach 2017</p>
+        </div>
+    </div>
+</footer>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+
+</html>
