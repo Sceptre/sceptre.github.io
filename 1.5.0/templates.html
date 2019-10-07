@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/css/sceptre.css">
+    <link rel="stylesheet" href="./assets/css/syntax.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/png" href="./assets/images/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Templates | Sceptre</title>
+    
+</head>
+
+<body>
+<div class="alert alert-warning text-center" role="alert">
+        This document is for a version of Sceptre that is no longer supported.
+        <a href="#" class="alert-link">You can find the latest version here.</a>
+</div>
+  <nav class="navbar navbar-default navbar-static-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="https://sceptre.cloudreach.com/latest/">Sceptre</a>
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapsable-navbar">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      </button>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="collapsable-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="https://sceptre.cloudreach.com/latest/">About</a></li>
+        <li><a href="https://github.com/cloudreach/sceptre">GitHub</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <div class="container">
+    <div class="col-sm-3">
+      <div class="spt-docs-nav">
+  <ul>
+    <li><a href="./install.html">Installation</a></li>
+    <li><a href="./get_started.html">Get Started</a></li>
+    <li><a href="./terminology.html">Terminology</a></li>
+  </ul>
+  <hr>
+  <ul>
+    <li><a href="./cli.html">Commands (CLI)</a></li>
+    <li><a href="./environment_config.html">Environment Config</a></li>
+    <li><a href="./stack_config.html">Stack Config</a></li>
+    <li><a href="./templates.html">Templates</a></li>
+    <li><a href="./hooks.html">Hooks</a></li>
+    <li><a href="./resolvers.html">Resolvers</a></li>
+  </ul>
+  <hr>
+  <ul>
+    <li><a href="./architecture.html">Architecting Sceptre</a></li>
+    <li><a href="./faq.html">FAQ</a></li>
+  </ul>
+</div>
+
+    </div>
+    <div class="col-sm-9">
+      <h1 id="templates">Templates</h1>
+
+<p>Sceptre uses CloudFormation templates to launch AWS Stacks. Conventionally, templates are stored in a directory named templates, in the same directory as the config directory:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>.
+├── config
+│   └── dev
+│       ├── config.yaml
+│       └── vpc.yaml
+└── templates
+    └── vpc.py
+</code></pre>
+</div>
+
+<p>Note that as a path to the template is supplied in a Stack Config file, templates may be stored at any arbitrary location on disk.</p>
+
+<h2 id="cloudformation">CloudFormation</h2>
+
+<p>Templates with <code class="highlighter-rouge">.json</code> or <code class="highlighter-rouge">.yaml</code> extensions are treated as CloudFormation templates. They are read in and used without modification.</p>
+
+<h2 id="jinja">Jinja</h2>
+
+<p>Templates with <code class="highlighter-rouge">.j2</code> extensions are treated as Jinja2 templates. These are rendered and should create a raw JSON or YAML CloudFormation template. Sceptre User Data is accessible within templates as <code class="highlighter-rouge">sceptre_user_data</code>. For example <code class="highlighter-rouge"><span class="p">{</span><span class="err">{</span><span class="w"> </span><span class="err">sceptre_user_data.some_variable</span><span class="w"> </span><span class="p">}</span><span class="err">}</span></code>.</p>
+
+<h2 id="python">Python</h2>
+
+<p>Templates with a <code class="highlighter-rouge">.py</code> extension are treated as Python templates. They should implement a function named <code class="highlighter-rouge">sceptre_handler(sceptre_user_data)</code> which returns the CloudFormation template as a <code class="highlighter-rouge">string</code>. Sceptre User Data is passed to this function as an argument. If Sceptre User Data is not defined in the Stack Config file, Sceptre passes an empty <code class="highlighter-rouge">dict</code>.</p>
+
+<h3 id="example">Example</h3>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">troposphere</span> <span class="kn">import</span> <span class="n">Template</span><span class="p">,</span> <span class="n">Parameter</span><span class="p">,</span> <span class="n">Ref</span>
+<span class="kn">from</span> <span class="nn">troposphere.ec2</span> <span class="kn">import</span> <span class="n">VPC</span>
+
+
+<span class="k">class</span> <span class="nc">Vpc</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sceptre_user_data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">template</span> <span class="o">=</span> <span class="n">Template</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sceptre_user_data</span> <span class="o">=</span> <span class="n">sceptre_user_data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_vpc</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">add_vpc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vpc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">template</span><span class="o">.</span><span class="n">add_resource</span><span class="p">(</span><span class="n">VPC</span><span class="p">(</span>
+            <span class="s">"VirtualPrivateCloud"</span><span class="p">,</span>
+            <span class="n">CidrBlock</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sceptre_user_data</span><span class="p">[</span><span class="s">"cidr_block"</span><span class="p">]</span>
+        <span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">sceptre_handler</span><span class="p">(</span><span class="n">sceptre_user_data</span><span class="p">):</span>
+    <span class="n">vpc</span> <span class="o">=</span> <span class="n">Vpc</span><span class="p">(</span><span class="n">sceptre_user_data</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">vpc</span><span class="o">.</span><span class="n">template</span><span class="o">.</span><span class="n">to_json</span><span class="p">()</span>
+</code></pre>
+</div>
+
+    </div>
+  </div>
+  
+
+<footer>
+    <hr>
+    <div class="container">
+        <div class="col-md-6">
+            <p>Copyright Cloudreach 2019</p>
+        </div>
+    </div>
+</footer>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+
+</html>

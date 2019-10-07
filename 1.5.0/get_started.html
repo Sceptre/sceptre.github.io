@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/css/sceptre.css">
+    <link rel="stylesheet" href="./assets/css/syntax.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/png" href="./assets/images/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Get Started | Sceptre</title>
+    
+</head>
+
+<body>
+<div class="alert alert-warning text-center" role="alert">
+        This document is for a version of Sceptre that is no longer supported.
+        <a href="#" class="alert-link">You can find the latest version here.</a>
+</div>
+  <nav class="navbar navbar-default navbar-static-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="https://sceptre.cloudreach.com/latest/">Sceptre</a>
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapsable-navbar">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      </button>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="collapsable-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="https://sceptre.cloudreach.com/latest/">About</a></li>
+        <li><a href="https://github.com/cloudreach/sceptre">GitHub</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <div class="container">
+    <div class="col-sm-3">
+      <div class="spt-docs-nav">
+  <ul>
+    <li><a href="./install.html">Installation</a></li>
+    <li><a href="./get_started.html">Get Started</a></li>
+    <li><a href="./terminology.html">Terminology</a></li>
+  </ul>
+  <hr>
+  <ul>
+    <li><a href="./cli.html">Commands (CLI)</a></li>
+    <li><a href="./environment_config.html">Environment Config</a></li>
+    <li><a href="./stack_config.html">Stack Config</a></li>
+    <li><a href="./templates.html">Templates</a></li>
+    <li><a href="./hooks.html">Hooks</a></li>
+    <li><a href="./resolvers.html">Resolvers</a></li>
+  </ul>
+  <hr>
+  <ul>
+    <li><a href="./architecture.html">Architecting Sceptre</a></li>
+    <li><a href="./faq.html">FAQ</a></li>
+  </ul>
+</div>
+
+    </div>
+    <div class="col-sm-9">
+      <h1 id="get-started">Get Started</h1>
+
+<h2 id="install">Install</h2>
+
+<p>This tutorial assumes that you have installed Sceptre. Instructions on how to do this are found in the section on <a href="https://sceptre.cloudreach.com./docs/install.html">installation</a>.</p>
+
+<h2 id="directory-structure">Directory Structure</h2>
+
+<p>Create the following directory structure in a clean directory named <code class="highlighter-rouge">sceptre-example</code>:</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code>.
+├── config
+│   └── dev
+│       ├── config.yaml
+│       └── vpc.yaml
+└── templates
+    └── vpc.json
+</code></pre>
+</div>
+
+<p>On Unix systems, this can be done with the following commands:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ mkdir config config/dev templates
+$ touch config/dev/config.yaml config/dev/vpc.yaml templates/vpc.json
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">vpc.json</code> will contain a CloudFormation template, <code class="highlighter-rouge">vpc.yaml</code> will contain config relevant to that template, and <code class="highlighter-rouge">config.yaml</code> will contain environment config.</p>
+
+<h3 id="vpcjson">vpc.json</h3>
+
+<p>Add the following CloudFormation to <code class="highlighter-rouge">vpc.json</code>:</p>
+
+<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"Parameters"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"CidrBlock"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"Type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"String"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"Resources"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"VPC"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"Type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AWS::EC2::VPC"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"Properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nt">"CidrBlock"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nt">"Ref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CidrBlock"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"Outputs"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"VpcId"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"Value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nt">"Ref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VPC"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>For more information on CloudFormation, see the AWS documentation on <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html">CloudFormation</a>.</p>
+
+<h3 id="configyaml">config.yaml</h3>
+
+<p>Add the following config to <code class="highlighter-rouge">config.yaml</code>:</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">project_code</span><span class="pi">:</span> <span class="s">sceptre-example</span>
+<span class="s">region</span><span class="pi">:</span> <span class="s">eu-west-1</span>
+</code></pre>
+</div>
+
+<p>Sceptre prefixes stack names with the <code class="highlighter-rouge">project_code</code>. Resources will be built in the AWS region <code class="highlighter-rouge">region</code>.</p>
+
+<h3 id="vpcyaml">vpc.yaml</h3>
+
+<p>Add the following config to <code class="highlighter-rouge">vpc.yaml</code>:</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">template_path</span><span class="pi">:</span> <span class="s">templates/vpc.json</span>
+<span class="s">parameters</span><span class="pi">:</span>
+    <span class="s">CidrBlock</span><span class="pi">:</span> <span class="s">10.0.0.0/16</span>
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">template_path</code> specifies the relative path to the CloudFormation, Python or Jinja2 template to use to launch the stack.</p>
+
+<p><code class="highlighter-rouge">parameters</code> lists the parameters which should be supplied by Sceptre to the template.</p>
+
+<h2 id="commands">Commands</h2>
+
+<h3 id="create-stack">Create stack</h3>
+
+<p>We can create the VPC stack with the following command:</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>sceptre create-stack dev vpc
+</code></pre>
+</div>
+
+<p>This command must be run from the <code class="highlighter-rouge">sceptre-examples</code> directory.</p>
+
+<h3 id="meta-commands">Meta commands</h3>
+
+<p>We can find out information about our running stack:</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>sceptre describe-env-resources dev
+<span class="gp">$ </span>sceptre describe-stack-resources dev vpc
+<span class="gp">$ </span>sceptre describe-stack-outputs dev vpc
+</code></pre>
+</div>
+
+<h3 id="update-stack">Update stack</h3>
+
+<p>If the stack’s config or template is changed in vpc.yaml, the stack can be updated with:</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>sceptre update-stack dev vpc
+</code></pre>
+</div>
+
+<h3 id="delete-stack">Delete stack</h3>
+
+<p>Delete the stack:</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>sceptre delete-stack dev vpc
+</code></pre>
+</div>
+
+<h2 id="next-steps">Next Steps</h2>
+
+<p>Further details can be found in the full <a href="https://sceptre.cloudreach.com./docs">documentation</a>.</p>
+
+    </div>
+  </div>
+  
+
+<footer>
+    <hr>
+    <div class="container">
+        <div class="col-md-6">
+            <p>Copyright Cloudreach 2019</p>
+        </div>
+    </div>
+</footer>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+
+</html>
