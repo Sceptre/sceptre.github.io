@@ -203,7 +203,7 @@ and all <a class="reference external" href="https://aws.amazon.com/cloudformatio
 <p>Sceptre is used by defining CloudFormation, Jinja2 or Python templates, with
 corresponding YAML configuration files. The configuration files include which
 account and region to use as well as the parameters to supply the templates.</p>
-<p>For a tutorial on using Sceptre, see <a class="reference external" href="%7B%7B%20site.baseurl%20%7D%7D/docs/get_started.html">Get Started</a>, or find out more
+<p>For a tutorial on using Sceptre, see <a class="reference external" href="docs/get_started.html">Get Started</a>, or find out more
 information about Sceptre below.</p>
 </div>
 <div class="section" id="code">
@@ -274,7 +274,7 @@ information about Sceptre below.</p>
                     function () {
                         versions.forEach(function (item, index) {
                             if (item !== "2.2.1") {
-                                $('#other-versions').append('<dd><a href="../' + item + '">' + item + "<a/></dd>");
+                                $('#other-versions').append('<dd><a href="'+ window.location.origin + '/' + item +'">' + item + "<a/></dd>");;
                             }
                         })
                     });
