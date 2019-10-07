@@ -304,6 +304,6 @@ Examples
 .. _AWS Documentation: http://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateStack.html
 .. _CloudFormation Service Role: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-servicerole.html
 .. _CloudFormation Tags: https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_Tag.html
-.. _Cascading Config: %7B%7B%20site.baseurl%20%7D%7D/docs/stack_group_config.html#cascading-config
-.. _Templating: %7B%7B%20site.baseurl%20%7D%7D/docs/stack_group_config.html#templating
-.. _FAQ: %7B%7B%20site.baseurl%20%7D%7D/docs/faq.html#why-are-there-two-ways-to-supply-environment-variables-in-Stack-config-files
+.. _Cascading Config: stack_group_config.html#cascading-config
+.. _Templating: stack_group_config.html#templating
+.. _FAQ: faq.html#why-are-there-two-ways-to-supply-environment-variables-in-Stack-config-files
