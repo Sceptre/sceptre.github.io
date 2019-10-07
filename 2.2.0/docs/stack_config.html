@@ -373,12 +373,12 @@ integer value.</p>
 <div class="section" id="cascading-config">
 <h2>Cascading Config<a class="headerlink" href="#cascading-config" title="Permalink to this headline">¶</a></h2>
 <p>Stack config can be cascaded in the same way StackGroup config can be, as
-described in the section in StackGroup Config on <a class="reference external" href="%7B%7B%20site.baseurl%20%7D%7D/docs/stack_group_config.html#cascading-config">Cascading Config</a>.</p>
+described in the section in StackGroup Config on <a class="reference external" href="stack_group_config.html#cascading-config">Cascading Config</a>.</p>
 </div>
 <div class="section" id="templating">
 <h2>Templating<a class="headerlink" href="#templating" title="Permalink to this headline">¶</a></h2>
 <p>Stack config supports templating in the same way StackGroup config can be, as
-described in the section in StackGroup Config on <a class="reference external" href="%7B%7B%20site.baseurl%20%7D%7D/docs/stack_group_config.html#templating">Templating</a>.</p>
+described in the section in StackGroup Config on <a class="reference external" href="stack_group_config.html#templating">Templating</a>.</p>
 <p>Stack config makes StackGroup config available to template.</p>
 <div class="section" id="stackgroup-config">
 <h3>StackGroup config<a class="headerlink" href="#stackgroup-config" title="Permalink to this headline">¶</a></h3>
@@ -394,7 +394,7 @@ when using templating.</p>
 <h2>Environment Variables<a class="headerlink" href="#environment-variables" title="Permalink to this headline">¶</a></h2>
 <p>It is possible to replace values in Stack config files with environment
 variables in two ways. For an explanation on why this is the case, see the
-<a class="reference external" href="%7B%7B%20site.baseurl%20%7D%7D/docs/faq.html#why-are-there-two-ways-to-supply-environment-variables-in-Stack-config-files">FAQ</a>.</p>
+<a class="reference external" href=faq.html#why-are-there-two-ways-to-supply-environment-variables-in-stack-config-files>FAQ</a>.</p>
 </div>
 <div class="section" id="id1">
 <h2>Sceptre User Data<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
@@ -526,7 +526,7 @@ stack_tags:
                     function () {
                         versions.forEach(function (item, index) {
                             if (item !== "2.2.0") {
-                                $('#other-versions').append('<dd><a href="../' + item + '">' + item + "<a/></dd>");
+                                $('#other-versions').append('<dd><a href="'+ window.location.origin + '/' + item +'">' + item + "<a/></dd>");;
                             }
                         })
                     });
