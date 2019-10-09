@@ -3,18 +3,22 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="/assets/css/sceptre.css">
-    <link rel="stylesheet" href="/assets/css/syntax.css">
+    <link rel="stylesheet" href="./assets/css/sceptre.css">
+    <link rel="stylesheet" href="./assets/css/syntax.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
+  <div class="alert alert-warning text-center" role="alert">
+        This document is for a version of Sceptre that is no longer supported.
+        <a href="#" class="alert-link">You can find the latest version here.</a>
+</div>
   <nav class="navbar navbar-default navbar-static-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <a class="navbar-brand" href="/">Sceptre</a>
+      <a class="navbar-brand" href="https://sceptre.cloudreach.com/latest/">Sceptre</a>
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapsable-navbar">
       <span class="sr-only">Toggle navigation</span>
       <span class="icon-bar"></span>
@@ -26,8 +30,7 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="collapsable-navbar">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="/about.html">About</a></li>
-        <li><a href="/docs/index.html">Docs</a></li>
+        <li><a href="https://sceptre.cloudreach.com/latest/">About</a></li>
         <li><a href="https://github.com/cloudreach/sceptre">GitHub</a></li>
       </ul>
     </div>
@@ -38,24 +41,24 @@
     <div class="col-sm-3">
       <div class="spt-docs-nav">
   <ul>
-    <li><a href="/docs/install.html">Installation</a></li>
-    <li><a href="/docs/get_started.html">Get Started</a></li>
-    <li><a href="/docs/terminology.html">Terminology</a></li>
+    <li><a href="./install.html">Installation</a></li>
+    <li><a href="./get_started.html">Get Started</a></li>
+    <li><a href="./terminology.html">Terminology</a></li>
   </ul>
   <hr>
   <ul>
-    <li><a href="/docs/cli.html">Commands (CLI)</a></li>
-    <li><a href="/docs/environment_config.html">Environment Config</a></li>
-    <li><a href="/docs/stack_config.html">Stack Config</a></li>
-    <li><a href="/docs/templates.html">Templates</a></li>
-    <li><a href="/docs/hooks.html">Hooks</a></li>
-    <li><a href="/docs/resolvers.html">Resolvers</a></li>
+    <li><a href="./cli.html">Commands (CLI)</a></li>
+    <li><a href="./environment_config.html">Environment Config</a></li>
+    <li><a href="./stack_config.html">Stack Config</a></li>
+    <li><a href="./templates.html">Templates</a></li>
+    <li><a href="./hooks.html">Hooks</a></li>
+    <li><a href="./resolvers.html">Resolvers</a></li>
   </ul>
   <hr>
   <ul>
-    <li><a href="/docs/architecture.html">Architecting Sceptre</a></li>
-    <li><a href="/docs/faq.html">FAQ</a></li>
-    <li><a href="/docs/api/sceptre.html">API</a></li>
+    <li><a href="./architecture.html">Architecting Sceptre</a></li>
+    <li><a href="./faq.html">FAQ</a></li>
+    <li><a href="./api/sceptre.html">API</a></li>
   </ul>
 </div>
 
@@ -89,7 +92,7 @@
 
 <h3 id="hooks">hooks</h3>
 
-<p>A list of arbitrary shell or python commands or scripts to run. Find out more in the <a href="/docs/hooks.html">Hooks</a> section.</p>
+<p>A list of arbitrary shell or python commands or scripts to run. Find out more in the <a href="./docs/hooks.html">Hooks</a> section.</p>
 
 <h3 id="on_failure">on_failure</h3>
 
@@ -98,10 +101,10 @@
 <h3 id="parameters">parameters</h3>
 
 <div class="alert alert-danger">
-Sensitive data such as passwords or secret keys should not be stored in plaintext in stack config files. Instead, they should be passed in from the CLI with <a href="/docs/environment_config.html#var">User Variables</a>, or set via an environment variable with the <a href="/docs/resolvers.html#environment_variable">environment variable resolver</a>.
+Sensitive data such as passwords or secret keys should not be stored in plaintext in stack config files. Instead, they should be passed in from the CLI with <a href="./docs/environment_config.html#var">User Variables</a>, or set via an environment variable with the <a href="./docs/resolvers.html#environment_variable">environment variable resolver</a>.
 </div>
 
-<p>A dictionary of key-value pairs to be supplied to a template as parameters. The keys must match up with the name of the parameter, and the value must be of the type as defined in the template. Note that Boto3 throws an exception if parameters are supplied to a template that are not required by that template. Resolvers can be used to add functionality to this key. Find out more in the <a href="/docs/resolvers.html">Resolvers</a> section.</p>
+<p>A dictionary of key-value pairs to be supplied to a template as parameters. The keys must match up with the name of the parameter, and the value must be of the type as defined in the template. Note that Boto3 throws an exception if parameters are supplied to a template that are not required by that template. Resolvers can be used to add functionality to this key. Find out more in the <a href="./docs/resolvers.html">Resolvers</a> section.</p>
 
 <p>A parameter can be specified either as a single value/resolver or a list of values/resolvers. Lists of values/resolvers will be formatted into an AWS compatible comma separated string e.g. <code class="highlighter-rouge">value1,value2,value3</code>. Lists can contain a mixture of values and resolvers.</p>
 
@@ -160,7 +163,7 @@ Sensitive data such as passwords or secret keys should not be stored in plaintex
 <p>A custom name name to use instead of the Sceptre default.</p>
 
 <div class="alert alert-warning">
-Outputs from stacks with custom names can't be resolved using the standard <a href="/docs/resolvers.html#stack_output">stack output resolver</a>. Outputs should be resolved using the <a href="/docs/resolvers.html#stack_output_external">stack output external resolver</a>. An explicit dependency should be added, using the <a href="#dependencies">dependencies</a> parameter, to make sure the stacks are launched in the correct order.
+Outputs from stacks with custom names can't be resolved using the standard <a href="./docs/resolvers.html#stack_output">stack output resolver</a>. Outputs should be resolved using the <a href="./docs/resolvers.html#stack_output_external">stack output external resolver</a>. An explicit dependency should be added, using the <a href="#dependencies">dependencies</a> parameter, to make sure the stacks are launched in the correct order.
 </div>
 
 <p>e.g:</p>
@@ -194,11 +197,11 @@ Outputs from stacks with custom names can't be resolved using the standard <a hr
 Cascading stack config is being deprecated, and should not be used.
 </div>
 
-<p>Stack config can be cascaded in the same way Environment config can be, as described in the section in Environment Config on <a href="/docs/environment_config.html#cascading-config">Cascading Config</a>.</p>
+<p>Stack config can be cascaded in the same way Environment config can be, as described in the section in Environment Config on <a href="./docs/environment_config.html#cascading-config">Cascading Config</a>.</p>
 
 <h2 id="templating">Templating</h2>
 
-<p>Stack config supports templating in the same way Environment config can be, as described in the section in Environment Config on <a href="/docs/environment_config.html#templating">Templating</a>.</p>
+<p>Stack config supports templating in the same way Environment config can be, as described in the section in Environment Config on <a href="./docs/environment_config.html#templating">Templating</a>.</p>
 
 <p>Stack config makes environment config available to template.</p>
 
@@ -213,7 +216,7 @@ Cascading stack config is being deprecated, and should not be used.
 
 <h2 id="environment-variables">Environment Variables</h2>
 
-<p>It is possible to replace values in stack config files with environment variables in two ways. For an explanation on why this is the case, see the <a href="/docs/faq.html#why-are-there-two-ways-to-supply-environment-variables-in-stack-config-files">FAQ</a>.</p>
+<p>It is possible to replace values in stack config files with environment variables in two ways. For an explanation on why this is the case, see the <a href="./docs/faq.html#why-are-there-two-ways-to-supply-environment-variables-in-stack-config-files">FAQ</a>.</p>
 
 <h2 id="sceptre-user-data">Sceptre User Data</h2>
 
@@ -280,7 +283,7 @@ Cascading stack config is being deprecated, and should not be used.
     <hr>
     <div class="container">
         <div class="col-md-6">
-            <p>Copyright Cloudreach 2017</p>
+            <p>Copyright Cloudreach 2019</p>
         </div>
     </div>
 </footer>
