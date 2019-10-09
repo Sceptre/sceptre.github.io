@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/css/sceptre.css">
+    <link rel="stylesheet" href="./assets/css/syntax.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/png" href="./assets/images/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Environment Config | Sceptre</title>
+    
+</head>
+
+<body>
+  <div class="alert alert-warning text-center" role="alert">
+        This document is for a version of Sceptre that is no longer supported.
+        <a href="#" class="alert-link">You can find the latest version here.</a>
+</div>
+  <nav class="navbar navbar-default navbar-static-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="https://sceptre.cloudreach.com/latest/">Sceptre</a>
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapsable-navbar">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      </button>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="collapsable-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="https://sceptre.cloudreach.com/latest/">About</a></li>
+        <li><a href="https://github.com/cloudreach/sceptre">GitHub</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <div class="container">
+    <div class="col-sm-3">
+      <div class="spt-docs-nav">
+  <ul>
+    <li><a href="./install.html">Installation</a></li>
+    <li><a href="./get_started.html">Get Started</a></li>
+    <li><a href="./terminology.html">Terminology</a></li>
+  </ul>
+  <hr>
+  <ul>
+    <li><a href="./cli.html">Commands (CLI)</a></li>
+    <li><a href="./environment_config.html">Environment Config</a></li>
+    <li><a href="./stack_config.html">Stack Config</a></li>
+    <li><a href="./templates.html">Templates</a></li>
+    <li><a href="./hooks.html">Hooks</a></li>
+    <li><a href="./resolvers.html">Resolvers</a></li>
+  </ul>
+  <hr>
+  <ul>
+    <li><a href="./architecture.html">Architecting Sceptre</a></li>
+    <li><a href="./faq.html">FAQ</a></li>
+    <li><a href="./api/sceptre.html">API</a></li>
+  </ul>
+</div>
+
+    </div>
+    <div class="col-sm-9">
+      <h1 id="environment-config">Environment Config</h1>
+
+<p>Environment config stores information related to the environment, such as a particular IAM role to assume, the name of the S3 bucket in which to store templates, and the target region in which to build resources. Environment config is stored in various files around the directory structure, all with the name <code class="highlighter-rouge">config.yaml</code>.</p>
+
+<h2 id="structure">Structure</h2>
+
+<p>An environment config file is a yaml object of key-value pairs configuring Sceptre. The available keys are listed below.</p>
+
+<ul>
+  <li><a href="#iam_role">iam_role</a> <em>(optional)</em></li>
+  <li><a href="#profile">profile</a> <em>optional</em></li>
+  <li><a href="#project_code">project_code</a> <em>(required)</em></li>
+  <li><a href="#region">region</a> <em>(required)</em></li>
+  <li><a href="#template_bucket_name">template_bucket_name</a> <em>(optional)</em></li>
+  <li><a href="#template_key_prefix">template_key_prefix</a> <em>(optional)</em></li>
+  <li><a href="#require_version">require_version</a> <em>(optional)</em></li>
+</ul>
+
+<p>Sceptre only checks for and uses the above keys in environment config files, but any others added by the user are read in and are made available to the user via the <code class="highlighter-rouge">sceptre.environment.Environment().config</code> attribute.</p>
+
+<h3 id="iam_role">iam_role</h3>
+
+<p>The ARN of a role for Sceptre to assume before interacting with the environment. If not supplied, Sceptre uses the user’s AWS CLI credentials.</p>
+
+<h3 id="profile">profile</h3>
+
+<p>The name of the profile as defined in ~/.aws/config and ~/.aws/credentials. If <code class="highlighter-rouge">iam_role</code> is also provided, Sceptre will use <code class="highlighter-rouge">profile</code> to assume the <code class="highlighter-rouge">iam_role</code>. If <code class="highlighter-rouge">iam_role</code> is not provided, Sceptre will use <code class="highlighter-rouge">profile</code> to interact with the environment.</p>
+
+<h3 id="project_code">project_code</h3>
+
+<p>A code which is prepended to the stack names of all stacks built by Sceptre.</p>
+
+<h3 id="region">region</h3>
+
+<p>The AWS region to build stacks in. Sceptre should work in any <a href="http://docs.aws.amazon.com/general/latest/gr/rande.html#cfn_region">region which supports CloudFormation</a>.</p>
+
+<h3 id="template_bucket_name">template_bucket_name</h3>
+
+<p>The name of an S3 bucket to upload CloudFormation Templates to. Note that S3 bucket names must be globally unique. If the bucket does not exist, Sceptre creates one using the given name, in the AWS region specified by <code class="highlighter-rouge">region</code>.</p>
+
+<p>If this parameter is not added, Sceptre does not upload the template to S3, but supplies the template to Boto3 via the <code class="highlighter-rouge">TemplateBody</code> argument. Templates supplied in this way have a lower maximum length, so using the <code class="highlighter-rouge">template_bucket_name</code> parameter is recommended.</p>
+
+<h3 id="template_key_prefix">template_key_prefix</h3>
+
+<p>A string which is prefixed onto the key used to store templates uploaded to S3. Templates are stored using the key:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;template_key_prefix&gt;/&lt;region&gt;/&lt;environment&gt;/&lt;stack_name&gt;-&lt;timestamp&gt;.&lt;extension&gt;
+</code></pre>
+</div>
+
+<p>Template key prefix can contain slashes (“/”), which are displayed as directories in the S3 console.</p>
+
+<p>Extension can be <code class="highlighter-rouge">json</code> or <code class="highlighter-rouge">yaml</code>.</p>
+
+<p>Note that if <code class="highlighter-rouge">template_bucket_name</code> is not supplied, this parameter is ignored.</p>
+
+<h3 id="require_version">require_version</h3>
+
+<p>A <a href="https://www.python.org/dev/peps/pep-0440/#version-specifiers">PEP 440</a> compatible version specifier. If the Sceptre version does not fall within the given version requirement it will abort.</p>
+
+<h2 id="cascading-config">Cascading Config</h2>
+
+<p>Using Sceptre, config files can be cascaded. Given the following sceptre directory structure:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>.
+└── config
+    ├── account-1
+    │   ├── config.yaml
+    │   └── dev
+    │       └── config.yaml
+    └── config.yaml
+</code></pre>
+</div>
+
+<p>General configurations should be defined at a high level, and more specific configurations should be defined at a lower directory level. YAML files which define configuration settings with names which overlap will take precedence if they are deeper in the directory structure. For example, if you wanted the dev environment to build to a different region, this setting could be specified in the config/dev/config.yaml file, and would only be applied to builds in the dev environment.</p>
+
+<p>In the above directory structure, <code class="highlighter-rouge">config/config.yaml</code> will be read in first, followed by <code class="highlighter-rouge">config/account-1/config.yaml</code>, followed by <code class="highlighter-rouge">config/account-1/dev/config.yaml</code>. Config files read in later overwrite any key-value pairs shared by those previously read in. Thus general config can be defined at a high level, and more specific config can be defined at a lower directory level.</p>
+
+<h2 id="templating">Templating</h2>
+
+<p>Sceptre supports the use of templating in config files. Templating allows config files to be further configured using values from the command line, environment variables, files or parts of the environment path.</p>
+
+<p>Internally, Sceptre uses Jinja2 for templating, so any valid Jinja2 syntax should work with Sceptre templating.</p>
+
+<p>Templating can be used for any values in the config files, not just those that are used by Sceptre.</p>
+
+<h3 id="var">Var</h3>
+
+<p>User variables are used to replace the value of any item in a config file with a value defined by a cli flag or in a YAML variable file:</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">iam_role</span><span class="pi">:</span> <span class="pi">{{</span> <span class="nv">var.iam_role</span> <span class="pi">}}</span>
+<span class="s">region</span><span class="pi">:</span> <span class="s">eu-west-1</span>
+</code></pre>
+</div>
+
+<p>This item can be set using either a command line flag:</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>sceptre --var <span class="s2">"iam_role=&lt;your iam role&gt;"</span> &lt;COMMAND&gt;
+</code></pre>
+</div>
+
+<p>Or from a YAML variable file:</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>sceptre --var-file<span class="o">=</span>variables.yaml &lt;COMMAND&gt;
+</code></pre>
+</div>
+
+<p>where <code class="highlighter-rouge">variables.yaml</code> contains::</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">iam_role</span><span class="pi">:</span> <span class="s">&lt;your iam role&gt;</span>
+</code></pre>
+</div>
+
+<p>Both the <code class="highlighter-rouge">--var</code> and <code class="highlighter-rouge">--var-file</code> flags can be used multiple times. If multiple <code class="highlighter-rouge">--var-file</code> options are supplied, the variables from these files will be merged, with a higher precedence given to options specified later in the command. Values supplied using <code class="highlighter-rouge">--var</code> take the highest precedence and will overwrite any value defined in the variable files.</p>
+
+<p>For example if we have the following variable files:</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">---- default.yaml</span>
+<span class="s">region</span><span class="pi">:</span> <span class="s">eu-west-1</span>
+<span class="s">profile</span><span class="pi">:</span> <span class="s">dev</span>
+<span class="s">project_code</span><span class="pi">:</span> <span class="s">api</span>
+
+<span class="s">---- prod.yaml</span>
+<span class="s">profile</span><span class="pi">:</span> <span class="s">prod</span>
+</code></pre>
+</div>
+
+<p>The following sceptre command:</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code>sceptre --var-file<span class="o">=</span>default.yaml --var-file<span class="o">=</span>prod.yaml --var <span class="nv">region</span><span class="o">=</span>us-east-1 &lt;COMMAND&gt;
+</code></pre>
+</div>
+
+<p>Will result in the following variables being available to the jinja templating:</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">region</span><span class="pi">:</span> <span class="s">us-east-1</span>
+<span class="s">profile</span><span class="pi">:</span> <span class="s">prod</span>
+<span class="s">project_code</span><span class="pi">:</span> <span class="s">api</span>
+</code></pre>
+</div>
+
+<p>For command line flags, Sceptre splits the string on the first equals sign “=”, and sets the key to be the first substring, and the value to be the second. Due to the large number of possible user inputs, no error checking is performed on the value of the –var flag, and it is the user’s responsibility to make sure that the value is correctly formatted.</p>
+
+<p>All user variables are supplied to all config files, so users must be careful to make sure that user variable names do not unintentionally clash.</p>
+
+<h3 id="environment-variables">Environment Variables</h3>
+
+<p>Config item values can be replaced with environment variables:</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">iam_role</span><span class="pi">:</span> <span class="pi">{{</span> <span class="nv">environment_variable.IAM_ROLE</span> <span class="pi">}}</span>
+<span class="s">region</span><span class="pi">:</span> <span class="s">eu-west-1</span>
+</code></pre>
+</div>
+
+<p>Where <code class="highlighter-rouge">IAM_ROLE</code> is the name of an environment variable.</p>
+
+<h3 id="environment-path">Environment Path</h3>
+
+<p>Config item values can be replaced with parts of the environment path:</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">region</span><span class="pi">:</span> <span class="pi">{{</span> <span class="nv">environment_path.0</span> <span class="pi">}}</span>
+<span class="s">iam_role</span><span class="pi">:</span> <span class="s">role</span>
+</code></pre>
+</div>
+
+<p>Where the value is taken from the first part of the environment path from the invoking sceptre command:</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>sceptre launch-stack eu-west-1/dev vpc
+</code></pre>
+</div>
+
+<h3 id="template-defaults">Template Defaults</h3>
+
+<p>Any templated value can be supplied with a default value with the syntax:</p>
+
+<pre><code class="language-jinja2">{{ var.value | default("default_value") }}
+</code></pre>
+
+<h2 id="examples">Examples</h2>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">iam_role</span><span class="pi">:</span> <span class="s">arn:aws:iam::123456789012:role/sceptrerole</span>
+<span class="s">project_code</span><span class="pi">:</span> <span class="s">prj</span>
+<span class="s">region</span><span class="pi">:</span> <span class="s">eu-west-1</span>
+<span class="s">template_bucket_name</span><span class="pi">:</span> <span class="s">sceptre-artifacts</span>
+<span class="s">template_key_prefix</span><span class="pi">:</span> <span class="s">my/prefix</span>
+</code></pre>
+</div>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code>
+<span class="s">iam_role</span><span class="pi">:</span> <span class="pi">{{</span> <span class="nv">var.iam_role</span> <span class="pi">}}</span>
+<span class="s">project_code</span><span class="pi">:</span> <span class="pi">{{</span> <span class="nv">var.project_code | default("prj")</span> <span class="pi">}}</span>
+<span class="s">region</span><span class="pi">:</span> <span class="pi">{{</span> <span class="nv">environment_path.2</span> <span class="pi">}}</span>
+<span class="s">template_bucket_name</span><span class="pi">:</span> <span class="pi">{{</span> <span class="nv">environment_variable.TEMPLATE_BUCKET_NAME</span> <span class="pi">}}</span>
+
+</code></pre>
+</div>
+
+    </div>
+  </div>
+  
+
+<footer>
+    <hr>
+    <div class="container">
+        <div class="col-md-6">
+            <p>Copyright Cloudreach 2019</p>
+        </div>
+    </div>
+</footer>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+
+</html>
