@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/css/sceptre.css">
+    <link rel="stylesheet" href="./assets/css/syntax.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+  <div class="alert alert-warning text-center" role="alert">
+        This document is for a version of Sceptre that is no longer supported.
+        <a href="#" class="alert-link">You can find the latest version here.</a>
+</div>
+  <nav class="navbar navbar-default navbar-static-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="https://sceptre.cloudreach.com/latest/">Sceptre</a>
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapsable-navbar">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      </button>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="collapsable-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="https://sceptre.cloudreach.com/latest/">About</a></li>
+        <li><a href="https://github.com/cloudreach/sceptre">GitHub</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <div class="container">
+    <div class="col-sm-3">
+      <div class="spt-docs-nav">
+  <ul>
+    <li><a href="./install.html">Installation</a></li>
+    <li><a href="./get_started.html">Get Started</a></li>
+    <li><a href="./terminology.html">Terminology</a></li>
+  </ul>
+  <hr>
+  <ul>
+    <li><a href="./cli.html">Commands (CLI)</a></li>
+    <li><a href="./environment_config.html">Environment Config</a></li>
+    <li><a href="./stack_config.html">Stack Config</a></li>
+    <li><a href="./templates.html">Templates</a></li>
+    <li><a href="./hooks.html">Hooks</a></li>
+    <li><a href="./resolvers.html">Resolvers</a></li>
+  </ul>
+  <hr>
+  <ul>
+    <li><a href="./architecture.html">Architecting Sceptre</a></li>
+    <li><a href="./faq.html">FAQ</a></li>
+    <li><a href="./api/sceptre.html">API</a></li>
+  </ul>
+</div>
+
+    </div>
+    <div class="col-sm-9">
+      <h1 id="command-line-interface">Command Line Interface</h1>
+
+<p>Sceptre can be used as a command line tool. Sceptre commands take the format:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ sceptre [GLOBAL_OPTIONS] COMMAND [ARGS] [COMMAND_OPTIONS]
+</code></pre>
+</div>
+
+<p>Running sceptre without a subcommand will display help, showing a list of the available commands.</p>
+
+<h2 id="global-options">Global Options</h2>
+
+<ul>
+  <li><code class="highlighter-rouge">--debug</code>: Turn on debug logging.</li>
+  <li><code class="highlighter-rouge">--dir</code>: Specify the sceptre directory with an absolute or relative path.</li>
+  <li><code class="highlighter-rouge">--no-colour</code>: Disable coloured output.</li>
+  <li><code class="highlighter-rouge">--output</code>: Specify the output format. Available formats: <code class="highlighter-rouge">[yaml, json]</code>.</li>
+  <li><code class="highlighter-rouge">--var</code>: Overwrite an arbitrary config item. For more information, see the section on <a href="./docs/environment_config.html#templating">Templating</a>.</li>
+  <li><code class="highlighter-rouge">--var-file</code>: Overwrite arbitrary config item(s) with data from a variables file. For more information, see the section on <a href="./docs/environment_config.html#templating">Templating</a>.</li>
+</ul>
+
+<h2 id="commands">Commands</h2>
+
+<p>The available commands are:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ sceptre continue-update-rollback
+$ sceptre create-change-set
+$ sceptre create-stack
+$ sceptre delete-change-set
+$ sceptre delete-env
+$ sceptre delete-stack
+$ sceptre describe-change-set
+$ sceptre describe-env
+$ sceptre describe-env-resources
+$ sceptre describe-stack-outputs
+$ sceptre describe-stack-resources
+$ sceptre diff
+$ sceptre execute-change-set
+$ sceptre generate-template
+$ sceptre get-stack-policy
+$ sceptre init
+$ sceptre launch-env
+$ sceptre launch-stack
+$ sceptre list-change-sets
+$ sceptre lock-stack
+$ sceptre set-stack-policy
+$ sceptre unlock-stack
+$ sceptre update-stack
+$ sceptre update-stack-cs
+$ sceptre validate-template
+</code></pre>
+</div>
+
+<h2 id="command-options">Command Options</h2>
+
+<p>Command options differ depending on the command, and can be found by running:</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>sceptre COMMAND --help
+</code></pre>
+</div>
+
+<h2 id="export-stack-outputs-to-environment-variables">Export Stack Outputs to Environment Variables</h2>
+
+<p>Stack outputs can be exported as environment variables with the command:</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span><span class="nb">eval</span> <span class="k">$(</span>sceptre describe-stack-outputs ENVIRONMENT STACK --export<span class="o">=</span>envvar<span class="k">)</span>
+</code></pre>
+</div>
+
+<p>Note that Sceptre prepends the string <code class="highlighter-rouge">SCEPTRE_</code> to the name of the environment variable:</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>env | grep SCEPTRE
+SCEPTRE_&lt;output_name&gt;<span class="o">=</span>&lt;output_value&gt;
+</code></pre>
+</div>
+
+    </div>
+  </div>
+  
+
+<footer>
+    <hr>
+    <div class="container">
+        <div class="col-md-6">
+            <p>Copyright Cloudreach 2019</p>
+        </div>
+    </div>
+</footer>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+
+</html>

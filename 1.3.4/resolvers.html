@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/css/sceptre.css">
+    <link rel="stylesheet" href="./assets/css/syntax.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+  <div class="alert alert-warning text-center" role="alert">
+        This document is for a version of Sceptre that is no longer supported.
+        <a href="#" class="alert-link">You can find the latest version here.</a>
+</div>
+  <nav class="navbar navbar-default navbar-static-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="https://sceptre.cloudreach.com/latest/">Sceptre</a>
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapsable-navbar">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      </button>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="collapsable-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="https://sceptre.cloudreach.com/latest/">About</a></li>
+        <li><a href="https://github.com/cloudreach/sceptre">GitHub</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <div class="container">
+    <div class="col-sm-3">
+      <div class="spt-docs-nav">
+  <ul>
+    <li><a href="./install.html">Installation</a></li>
+    <li><a href="./get_started.html">Get Started</a></li>
+    <li><a href="./terminology.html">Terminology</a></li>
+  </ul>
+  <hr>
+  <ul>
+    <li><a href="./cli.html">Commands (CLI)</a></li>
+    <li><a href="./environment_config.html">Environment Config</a></li>
+    <li><a href="./stack_config.html">Stack Config</a></li>
+    <li><a href="./templates.html">Templates</a></li>
+    <li><a href="./hooks.html">Hooks</a></li>
+    <li><a href="./resolvers.html">Resolvers</a></li>
+  </ul>
+  <hr>
+  <ul>
+    <li><a href="./architecture.html">Architecting Sceptre</a></li>
+    <li><a href="./faq.html">FAQ</a></li>
+    <li><a href="./api/sceptre.html">API</a></li>
+  </ul>
+</div>
+
+    </div>
+    <div class="col-sm-9">
+      <h1 id="resolvers">Resolvers</h1>
+
+<p>Sceptre implements resolvers, which can be used to resolve a value of a CloudFormation <code class="highlighter-rouge">parameter</code> or <code class="highlighter-rouge">sceptre_user_data</code> value at runtime. This is most commonly used to chain the outputs of one stack to the inputs of another.</p>
+
+<p>If required, users can create their own resolvers, as described in the section on <a href="#custom-resolvers">Custom Resolvers</a>.</p>
+
+<p>Syntax:</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">parameters</span><span class="pi">:</span>
+    <span class="s">&lt;parameter_name&gt;</span><span class="pi">:</span> <span class="kt">!&lt;resolver_name&gt;</span> <span class="s">&lt;resolver_value&gt;</span>
+<span class="s">sceptre_user_data</span><span class="pi">:</span>
+    <span class="s">&lt;name&gt;</span><span class="pi">:</span> <span class="kt">!&lt;resolver_name&gt;</span> <span class="s">&lt;resolver_value&gt;</span>
+</code></pre>
+</div>
+
+<h2 id="available-resolvers">Available Resolvers</h2>
+
+<h3 id="environment_variable">environment_variable</h3>
+
+<p>Fetches the value from an environment variable.</p>
+
+<p>Syntax:</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">parameter|sceptre_user_data</span><span class="pi">:</span>
+    <span class="s">&lt;name&gt;</span><span class="pi">:</span> <span class="kt">!environment_variable</span> <span class="s">ENVIRONMENT_VARIABLE_NAME</span>
+</code></pre>
+</div>
+
+<p>Example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>parameters:
+    database_password: !environment_variable DATABASE_PASSWORD
+</code></pre>
+</div>
+
+<h3 id="file_contents">file_contents</h3>
+
+<p>Reads in the contents of a file.</p>
+
+<p>Syntax:</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">parameters|sceptre_user_data</span><span class="pi">:</span>
+    <span class="s">&lt;name&gt;</span><span class="pi">:</span> <span class="kt">!file_contents</span> <span class="s">/path/to/file.txt</span>
+</code></pre>
+</div>
+
+<p>Example:</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">sceptre_user_data</span><span class="pi">:</span>
+    <span class="s">iam_policy</span><span class="pi">:</span> <span class="kt">!file_contents</span> <span class="s">/path/to/policy.json</span>
+</code></pre>
+</div>
+
+<h3 id="stack_output">stack_output</h3>
+
+<p>Fetches the value of an output from a different stack controlled by Sceptre.</p>
+
+<p>Syntax:</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">parameters | sceptre_user_data</span><span class="pi">:</span>
+    <span class="s">&lt;name&gt;</span><span class="pi">:</span> <span class="kt">!stack_output</span> <span class="s">&lt;stack_name&gt;::&lt;output_name&gt;</span>
+</code></pre>
+</div>
+
+<p>Example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>parameters:
+    VpcIdParameter: !stack_output shared/vpc::VpcIdOutput
+</code></pre>
+</div>
+
+<p>Sceptre infers that the stack to fetch the output value from is a dependency, and builds that stack before the current one.
+This resolver will add a dependency for the stack in which needs the output from.</p>
+
+<h3 id="stack_output_external">stack_output_external</h3>
+
+<p>Fetches the value of an output from a different stack in the same account and region.</p>
+
+<p>If the stack whose output is being fetched is in the same environment, the basename of that stack can be used.</p>
+
+<p>Syntax:</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">parameters/sceptre_user_data</span><span class="pi">:</span>
+    <span class="s">&lt;name&gt;</span><span class="pi">:</span> <span class="kt">!stack_output_external</span> <span class="s">&lt;full_stack_name&gt;::&lt;output_name&gt;</span>
+</code></pre>
+</div>
+
+<p>Example:</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">parameters</span><span class="pi">:</span>
+    <span class="s">VpcIdParameter</span><span class="pi">:</span> <span class="kt">!stack_output_external</span> <span class="s">prj-network-vpc::VpcIdOutput</span>
+</code></pre>
+</div>
+
+<h3 id="project_variables">project_variables</h3>
+
+<div class="alert alert-warning">
+The project_variables resolver has been deprecated, and will be removed in a later version of Sceptre. Depending on your use case, you may find <a href="./docs/environment_config.html#var">User Variables</a> appropriate.
+</div>
+
+<p>Keys through the YAML object stored at <code class="highlighter-rouge">/path/to/file.yaml</code> with the segments of the stack name.</p>
+
+<p>Syntax:</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">parameters | sceptre_user_data</span><span class="pi">:</span>
+    <span class="s">&lt;name&gt;</span><span class="pi">:</span> <span class="kt">!project_variables</span> <span class="s">/path/to/file.yaml</span>
+</code></pre>
+</div>
+
+<p>For example, given the stack <code class="highlighter-rouge">dev/vpc</code>, and the following file (<code class="highlighter-rouge">/my_config_file.yaml</code>):</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">dev</span><span class="pi">:</span>
+    <span class="s">vpc</span><span class="pi">:</span>
+        <span class="s">Name</span><span class="pi">:</span> <span class="s">my_vpc</span>
+</code></pre>
+</div>
+
+<p>The resolver will return the dictionary <code class="highlighter-rouge"><span class="p">{</span><span class="nt">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"my_vpc"</span><span class="p">}</span></code>.</p>
+
+<p>Example (<code class="highlighter-rouge">config/dev/vpc.yaml</code>):</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">parameters</span><span class="pi">:</span>
+    <span class="s">Tag</span><span class="pi">:</span> <span class="kt">!project_variables</span> <span class="s">/my_config_file.yaml</span>
+</code></pre>
+</div>
+
+<h2 id="custom-resolvers">Custom Resolvers</h2>
+
+<p>Users can define their own resolvers which are used by Sceptre to resolve the value of a parameter before it is passed to the CloudFormation template.</p>
+
+<p>A resolver is a Python class which inherits from abstract base class <code class="highlighter-rouge">Resolver</code> found in the <code class="highlighter-rouge">sceptre.resolvers module</code>.</p>
+
+<p>Resolvers are require to implement a <code class="highlighter-rouge">resolve()</code> function that takes no parameters and to call the base class initializer on initialisation.</p>
+
+<p>Resolvers may have access to <code class="highlighter-rouge">argument</code>,  <code class="highlighter-rouge">stack_config</code>, <code class="highlighter-rouge">environment_config</code> and <code class="highlighter-rouge">connection_manager</code> as an attribute of <code class="highlighter-rouge">self</code>. For example <code class="highlighter-rouge">self.stack_config</code>.</p>
+
+<p>This class should be defined in a file which is located at:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;sceptre_dir&gt;/resolvers/&lt;your resolver&gt;.py
+</code></pre>
+</div>
+
+<p>An arbitrary file name may be used as it is not checked by Sceptre.</p>
+
+<p>The following python module template can be copied and used:</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">sceptre.resolvers</span> <span class="kn">import</span> <span class="n">Resolver</span>
+
+<span class="k">class</span> <span class="nc">CustomResolver</span><span class="p">(</span><span class="n">Resolver</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CustomResolver</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">resolve</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">"""
+        resolve is the method called by Sceptre. It should carry out the work
+        intended by this resolver. It should return a string to become the
+        final value.
+
+        self.argument is available from the base class and contains the
+        argument defined in the sceptre config file (see below)
+
+        The following attributes may be available from the base class:
+        self.stack_config  (A dict of data from &lt;stack_name&gt;.yaml)
+        self.environment_config  (A dict of data from config.yaml)
+        self.connection_manager (A connection_manager)
+        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">argument</span>
+</code></pre>
+</div>
+
+<p>The resolver name is the lower snake-case version of the class name. The argument of the resolver (<code class="highlighter-rouge">&lt;value&gt;</code>) will be available inside the resolver as <code class="highlighter-rouge">self.argument</code>. The resolver subclass above can be used in a stack config file with the following syntax:</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">template_path</span><span class="pi">:</span> <span class="s">&lt;...&gt;</span>
+<span class="s">parameters</span><span class="pi">:</span>
+    <span class="s">param1</span><span class="pi">:</span> <span class="kt">!&lt;your_resolver_name&gt;</span> <span class="s">&lt;value&gt;</span>
+</code></pre>
+</div>
+
+    </div>
+  </div>
+  
+
+<footer>
+    <hr>
+    <div class="container">
+        <div class="col-md-6">
+            <p>Copyright Cloudreach 2019</p>
+        </div>
+    </div>
+</footer>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+
+</html>
