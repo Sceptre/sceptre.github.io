@@ -218,24 +218,25 @@
 <span class="n">ConfigAttributes</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;Attributes&quot;</span><span class="p">,</span> <span class="s2">&quot;required optional&quot;</span><span class="p">)</span>
 
 <span class="n">CONFIG_MERGE_STRATEGIES</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;dependencies&#39;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">list_join</span><span class="p">,</span>
-    <span class="s1">&#39;hooks&#39;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
-    <span class="s1">&#39;notifications&#39;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
-    <span class="s1">&#39;on_failure&#39;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
-    <span class="s1">&#39;parameters&#39;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
-    <span class="s1">&#39;profile&#39;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
-    <span class="s1">&#39;project_code&#39;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
-    <span class="s1">&#39;protect&#39;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
-    <span class="s1">&#39;region&#39;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
-    <span class="s1">&#39;required_version&#39;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
-    <span class="s1">&#39;role_arn&#39;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
-    <span class="s1">&#39;sceptre_user_data&#39;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
-    <span class="s1">&#39;stack_name&#39;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
-    <span class="s1">&#39;stack_tags&#39;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
-    <span class="s1">&#39;stack_timeout&#39;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
-    <span class="s1">&#39;template_bucket_name&#39;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
-    <span class="s1">&#39;template_key_value&#39;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
-    <span class="s1">&#39;template_path&#39;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span>
+    <span class="s2">&quot;dependencies&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">list_join</span><span class="p">,</span>
+    <span class="s2">&quot;hooks&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
+    <span class="s2">&quot;iam_role&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
+    <span class="s2">&quot;notifications&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
+    <span class="s2">&quot;on_failure&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
+    <span class="s2">&quot;parameters&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
+    <span class="s2">&quot;profile&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
+    <span class="s2">&quot;project_code&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
+    <span class="s2">&quot;protect&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
+    <span class="s2">&quot;region&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
+    <span class="s2">&quot;required_version&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
+    <span class="s2">&quot;role_arn&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
+    <span class="s2">&quot;sceptre_user_data&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
+    <span class="s2">&quot;stack_name&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
+    <span class="s2">&quot;stack_tags&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
+    <span class="s2">&quot;stack_timeout&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
+    <span class="s2">&quot;template_bucket_name&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
+    <span class="s2">&quot;template_key_value&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
+    <span class="s2">&quot;template_path&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span>
 <span class="p">}</span>
 
 <span class="n">STACK_GROUP_CONFIG_ATTRIBUTES</span> <span class="o">=</span> <span class="n">ConfigAttributes</span><span class="p">(</span>
@@ -257,6 +258,7 @@
     <span class="p">{</span>
         <span class="s2">&quot;dependencies&quot;</span><span class="p">,</span>
         <span class="s2">&quot;hooks&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;iam_role&quot;</span><span class="p">,</span>
         <span class="s2">&quot;notifications&quot;</span><span class="p">,</span>
         <span class="s2">&quot;on_failure&quot;</span><span class="p">,</span>
         <span class="s2">&quot;parameters&quot;</span><span class="p">,</span>
@@ -659,6 +661,7 @@
             <span class="n">template_bucket_name</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;template_bucket_name&quot;</span><span class="p">),</span>
             <span class="n">template_key_prefix</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;template_key_prefix&quot;</span><span class="p">),</span>
             <span class="n">required_version</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;required_version&quot;</span><span class="p">),</span>
+            <span class="n">iam_role</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;iam_role&quot;</span><span class="p">),</span>
             <span class="n">profile</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;profile&quot;</span><span class="p">),</span>
             <span class="n">parameters</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;parameters&quot;</span><span class="p">,</span> <span class="p">{}),</span>
             <span class="n">sceptre_user_data</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;sceptre_user_data&quot;</span><span class="p">,</span> <span class="p">{}),</span>

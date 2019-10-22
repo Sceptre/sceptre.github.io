@@ -209,7 +209,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">StackOutputBase</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_get_output_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack_name</span><span class="p">,</span> <span class="n">output_key</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_get_output_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack_name</span><span class="p">,</span> <span class="n">output_key</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">iam_role</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Attempts to get the Stack output named by ``output_key``</span>
 
@@ -221,7 +221,7 @@
 <span class="sd">        :rtype: str</span>
 <span class="sd">        :raises: sceptre.exceptions.DependencyStackMissingOutputError</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_stack_outputs</span><span class="p">(</span><span class="n">stack_name</span><span class="p">,</span> <span class="n">profile</span><span class="p">,</span> <span class="n">region</span><span class="p">)</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_stack_outputs</span><span class="p">(</span><span class="n">stack_name</span><span class="p">,</span> <span class="n">profile</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">iam_role</span><span class="p">)</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">outputs</span><span class="p">[</span><span class="n">output_key</span><span class="p">]</span>
@@ -232,7 +232,7 @@
                 <span class="p">)</span>
             <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_get_stack_outputs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack_name</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_get_stack_outputs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack_name</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">iam_role</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Communicates with AWS CloudFormation to fetch outputs from a specific</span>
 <span class="sd">        Stack.</span>
@@ -255,7 +255,8 @@
                 <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;StackName&quot;</span><span class="p">:</span> <span class="n">stack_name</span><span class="p">},</span>
                 <span class="n">profile</span><span class="o">=</span><span class="n">profile</span><span class="p">,</span>
                 <span class="n">region</span><span class="o">=</span><span class="n">region</span><span class="p">,</span>
-                <span class="n">stack_name</span><span class="o">=</span><span class="n">stack_name</span>
+                <span class="n">stack_name</span><span class="o">=</span><span class="n">stack_name</span><span class="p">,</span>
+                <span class="n">iam_role</span><span class="o">=</span><span class="n">iam_role</span>
             <span class="p">)</span>
         <span class="k">except</span> <span class="n">ClientError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">if</span> <span class="s2">&quot;does not exist&quot;</span> <span class="ow">in</span> <span class="n">e</span><span class="o">.</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;Error&quot;</span><span class="p">][</span><span class="s2">&quot;Message&quot;</span><span class="p">]:</span>
@@ -313,8 +314,8 @@
 
         <span class="n">stack_name</span> <span class="o">=</span> <span class="s2">&quot;-&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">stack</span><span class="o">.</span><span class="n">project_code</span><span class="p">,</span> <span class="n">friendly_stack_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">)])</span>
 
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_output_value</span><span class="p">(</span><span class="n">stack_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_key</span><span class="p">,</span>
-                                      <span class="n">profile</span><span class="o">=</span><span class="n">stack</span><span class="o">.</span><span class="n">profile</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="n">stack</span><span class="o">.</span><span class="n">region</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_output_value</span><span class="p">(</span><span class="n">stack_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_key</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="n">stack</span><span class="o">.</span><span class="n">profile</span><span class="p">,</span>
+                                      <span class="n">region</span><span class="o">=</span><span class="n">stack</span><span class="o">.</span><span class="n">region</span><span class="p">,</span> <span class="n">iam_role</span><span class="o">=</span><span class="n">stack</span><span class="o">.</span><span class="n">iam_role</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="StackOutputExternal"><a class="viewcode-back" href="../../../apidoc/sceptre.resolvers.html#sceptre.resolvers.stack_output.StackOutputExternal">[docs]</a><span class="k">class</span> <span class="nc">StackOutputExternal</span><span class="p">(</span><span class="n">StackOutputBase</span><span class="p">):</span>
@@ -341,15 +342,19 @@
         <span class="p">)</span>
 
         <span class="n">profile</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">region</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">iam_role</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">arguments</span> <span class="o">=</span> <span class="n">shlex</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">argument</span><span class="p">)</span>
 
         <span class="n">stack_argument</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">profile</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">extra_args</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;::&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">profile</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">iam_role</span> <span class="o">=</span> <span class="n">extra_args</span> <span class="o">+</span> <span class="p">(</span><span class="mi">3</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">extra_args</span><span class="p">))</span> <span class="o">*</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span>
 
         <span class="n">dependency_stack_name</span><span class="p">,</span> <span class="n">output_key</span> <span class="o">=</span> <span class="n">stack_argument</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;::&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_output_value</span><span class="p">(</span>
-            <span class="n">dependency_stack_name</span><span class="p">,</span> <span class="n">output_key</span><span class="p">,</span> <span class="n">profile</span>
+            <span class="n">dependency_stack_name</span><span class="p">,</span> <span class="n">output_key</span><span class="p">,</span>
+            <span class="n">profile</span> <span class="ow">or</span> <span class="kc">None</span><span class="p">,</span> <span class="n">region</span> <span class="ow">or</span> <span class="kc">None</span><span class="p">,</span> <span class="n">iam_role</span> <span class="ow">or</span> <span class="kc">None</span>
         <span class="p">)</span></div></div>
 </pre></div>
 

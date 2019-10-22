@@ -260,6 +260,8 @@
 
 <span class="sd">    :param profile: The AWS credentials profile that should be used.</span>
 <span class="sd">    :type profile: str</span>
+<span class="sd">    :param iam_role: The iam_role that should be assumed in the account.</span>
+<span class="sd">    :type iam_role: str</span>
 <span class="sd">    :param stack_name: The CloudFormation stack name for this connection.</span>
 <span class="sd">    :type stack_name: str</span>
 <span class="sd">    :param region: The region to use.</span>
@@ -272,25 +274,26 @@
     <span class="n">_clients</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">_stack_keys</span> <span class="o">=</span> <span class="p">{}</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">stack_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">stack_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">iam_role</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">region</span> <span class="o">=</span> <span class="n">region</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">profile</span> <span class="o">=</span> <span class="n">profile</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stack_name</span> <span class="o">=</span> <span class="n">stack_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iam_role</span> <span class="o">=</span> <span class="n">iam_role</span>
 
         <span class="k">if</span> <span class="n">stack_name</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_stack_keys</span><span class="p">[</span><span class="n">stack_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">profile</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stack_keys</span><span class="p">[</span><span class="n">stack_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">profile</span><span class="p">,</span> <span class="n">iam_role</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">(</span>
             <span class="s2">&quot;sceptre.connection_manager.ConnectionManager(region=&#39;</span><span class="si">{0}</span><span class="s2">&#39;, &quot;</span>
-            <span class="s2">&quot;profile=&#39;</span><span class="si">{1}</span><span class="s2">&#39;, stack_name=&#39;</span><span class="si">{2}</span><span class="s2">&#39;)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">region</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">profile</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack_name</span>
+            <span class="s2">&quot;profile=&#39;</span><span class="si">{1}</span><span class="s2">&#39;, stack_name=&#39;</span><span class="si">{2}</span><span class="s2">&#39;, iam_role=&#39;</span><span class="si">{3}</span><span class="s2">&#39;)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">region</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">profile</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iam_role</span>
             <span class="p">)</span>
         <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_get_session</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_get_session</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">iam_role</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a boto session in the target account.</span>
 
@@ -305,7 +308,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session_lock</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Getting Boto3 session&quot;</span><span class="p">)</span>
-            <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">profile</span><span class="p">)</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">profile</span><span class="p">,</span> <span class="n">iam_role</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_boto_sessions</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;No Boto3 session found, creating one...&quot;</span><span class="p">)</span>
@@ -316,9 +319,7 @@
                     <span class="s2">&quot;profile_name&quot;</span><span class="p">:</span> <span class="n">profile</span><span class="p">,</span>
                     <span class="s2">&quot;region_name&quot;</span><span class="p">:</span> <span class="n">region</span><span class="p">,</span>
                     <span class="s2">&quot;aws_access_key_id&quot;</span><span class="p">:</span> <span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;AWS_ACCESS_KEY_ID&quot;</span><span class="p">),</span>
-                    <span class="s2">&quot;aws_secret_access_key&quot;</span><span class="p">:</span> <span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-                        <span class="s2">&quot;AWS_SECRET_ACCESS_KEY&quot;</span>
-                    <span class="p">),</span>
+                    <span class="s2">&quot;aws_secret_access_key&quot;</span><span class="p">:</span> <span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;AWS_SECRET_ACCESS_KEY&quot;</span><span class="p">),</span>
                     <span class="s2">&quot;aws_session_token&quot;</span><span class="p">:</span> <span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;AWS_SESSION_TOKEN&quot;</span><span class="p">)</span>
                 <span class="p">}</span>
 
@@ -331,6 +332,32 @@
                             <span class="n">config</span><span class="p">[</span><span class="s2">&quot;profile_name&quot;</span><span class="p">],</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;region_name&quot;</span><span class="p">]</span>
                         <span class="p">)</span>
                     <span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">iam_role</span><span class="p">:</span>
+                    <span class="n">sts_client</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s2">&quot;sts&quot;</span><span class="p">)</span>
+                    <span class="n">sts_response</span> <span class="o">=</span> <span class="n">sts_client</span><span class="o">.</span><span class="n">assume_role</span><span class="p">(</span>
+                        <span class="n">RoleArn</span><span class="o">=</span><span class="n">iam_role</span><span class="p">,</span>
+                        <span class="n">RoleSessionName</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">-session&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                            <span class="n">iam_role</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+
+                    <span class="n">credentials</span> <span class="o">=</span> <span class="n">sts_response</span><span class="p">[</span><span class="s2">&quot;Credentials&quot;</span><span class="p">]</span>
+                    <span class="n">session</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span>
+                        <span class="n">aws_access_key_id</span><span class="o">=</span><span class="n">credentials</span><span class="p">[</span><span class="s2">&quot;AccessKeyId&quot;</span><span class="p">],</span>
+                        <span class="n">aws_secret_access_key</span><span class="o">=</span><span class="n">credentials</span><span class="p">[</span><span class="s2">&quot;SecretAccessKey&quot;</span><span class="p">],</span>
+                        <span class="n">aws_session_token</span><span class="o">=</span><span class="n">credentials</span><span class="p">[</span><span class="s2">&quot;SessionToken&quot;</span><span class="p">],</span>
+                        <span class="n">region_name</span><span class="o">=</span><span class="n">region</span>
+                    <span class="p">)</span>
+
+                    <span class="k">if</span> <span class="n">session</span><span class="o">.</span><span class="n">get_credentials</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="n">InvalidAWSCredentialsError</span><span class="p">(</span>
+                            <span class="s2">&quot;Session credentials were not found. Role: </span><span class="si">{0}</span><span class="s2">. Region: </span><span class="si">{1}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                                <span class="n">iam_role</span><span class="p">,</span> <span class="n">region</span>
+                            <span class="p">)</span>
+                        <span class="p">)</span>
+
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_boto_sessions</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">session</span>
 
                 <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
                     <span class="s2">&quot;Using credential set from </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
@@ -350,7 +377,7 @@
 
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_boto_sessions</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">_get_client</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">profile</span><span class="p">,</span> <span class="n">stack_name</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_get_client</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">profile</span><span class="p">,</span> <span class="n">stack_name</span><span class="p">,</span> <span class="n">iam_role</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the Boto3 client associated with &lt;service&gt;.</span>
 
@@ -363,20 +390,21 @@
 <span class="sd">        :rtype: boto3.client.Client</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client_lock</span><span class="p">:</span>
-            <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">service</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">profile</span><span class="p">,</span> <span class="n">stack_name</span><span class="p">)</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">service</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">profile</span><span class="p">,</span> <span class="n">stack_name</span><span class="p">,</span> <span class="n">iam_role</span><span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clients</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
                     <span class="s2">&quot;No </span><span class="si">%s</span><span class="s2"> client found, creating one...&quot;</span><span class="p">,</span> <span class="n">service</span>
                 <span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_clients</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_session</span><span class="p">(</span>
-                    <span class="n">profile</span><span class="p">,</span> <span class="n">region</span>
+                    <span class="n">profile</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">iam_role</span>
                 <span class="p">)</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="n">service</span><span class="p">)</span>
+
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clients</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
 
 <div class="viewcode-block" id="ConnectionManager.call"><a class="viewcode-back" href="../../apidoc/sceptre.html#sceptre.connection_manager.ConnectionManager.call">[docs]</a>    <span class="nd">@_retry_boto_call</span>
     <span class="k">def</span> <span class="nf">call</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">service</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">stack_name</span><span class="o">=</span><span class="kc">None</span>
+        <span class="n">stack_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">iam_role</span><span class="o">=</span><span class="kc">None</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Makes a thread-safe Boto3 client call.</span>
@@ -392,16 +420,18 @@
 <span class="sd">        :returns: The response from the Boto3 call.</span>
 <span class="sd">        :rtype: dict</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">region</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">profile</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">region</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">profile</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">iam_role</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">stack_name</span> <span class="ow">and</span> <span class="n">stack_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stack_keys</span><span class="p">:</span>
-                <span class="n">region</span><span class="p">,</span> <span class="n">profile</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stack_keys</span><span class="p">[</span><span class="n">stack_name</span><span class="p">]</span>
+                <span class="n">region</span><span class="p">,</span> <span class="n">profile</span><span class="p">,</span> <span class="n">iam_role</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stack_keys</span><span class="p">[</span><span class="n">stack_name</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">region</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">region</span>
                 <span class="n">profile</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">profile</span>
+                <span class="n">iam_role</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iam_role</span>
 
         <span class="k">if</span> <span class="n">kwargs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
             <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">client</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_client</span><span class="p">(</span><span class="n">service</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">profile</span><span class="p">,</span> <span class="n">stack_name</span><span class="p">)</span>
+
+        <span class="n">client</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_client</span><span class="p">(</span><span class="n">service</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">profile</span><span class="p">,</span> <span class="n">stack_name</span><span class="p">,</span> <span class="n">iam_role</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">command</span><span class="p">)(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
 </pre></div>
 
