@@ -102,6 +102,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#sceptre-project">Sceptre Project:</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#sceptre-context">Sceptre Context</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#sceptre-plan">Sceptre Plan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sceptreplanexecutor">SceptrePlanExecutor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stackgraph">StackGraph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stackactions">StackActions</a></li>
 </ul>
@@ -245,7 +246,9 @@ and access the results from each stack. For example,</p>
 <span class="n">responses</span> <span class="o">=</span> <span class="n">plan</span><span class="o">.</span><span class="n">launch</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>##&nbsp;SceptrePlanExecutor</p>
+</div>
+<div class="section" id="sceptreplanexecutor">
+<h2>SceptrePlanExecutor<a class="headerlink" href="#sceptreplanexecutor" title="Permalink to this headline">¶</a></h2>
 <p>You won’t be able to interact with the <code class="docutils literal"><span class="pre">SceptrePlanExecutor</span></code> directly but
 this part of the code is responsible for taking a <code class="docutils literal"><span class="pre">SceptrePlan</span></code> and ensuring
 all commands on every stack, are executed in the correct order, concurrently.
