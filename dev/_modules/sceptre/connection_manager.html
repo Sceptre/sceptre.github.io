@@ -199,8 +199,8 @@
 <span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">environ</span>
 <span class="kn">from</span> <span class="nn">botocore.exceptions</span> <span class="k">import</span> <span class="n">ClientError</span>
 
-<span class="kn">from</span> <span class="nn">.helpers</span> <span class="k">import</span> <span class="n">mask_key</span>
-<span class="kn">from</span> <span class="nn">.exceptions</span> <span class="k">import</span> <span class="n">InvalidAWSCredentialsError</span><span class="p">,</span> <span class="n">RetryLimitExceededError</span>
+<span class="kn">from</span> <span class="nn">sceptre.helpers</span> <span class="k">import</span> <span class="n">mask_key</span>
+<span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="k">import</span> <span class="n">InvalidAWSCredentialsError</span><span class="p">,</span> <span class="n">RetryLimitExceededError</span>
 
 
 <span class="k">def</span> <span class="nf">_retry_boto_call</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
