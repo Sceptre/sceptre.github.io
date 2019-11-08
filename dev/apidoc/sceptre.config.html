@@ -329,6 +329,27 @@ within the Sceptre project folder.</p>
 </table>
 </dd></dl>
 
+<dl class="method">
+<dt id="sceptre.config.reader.ConfigReader.resolve_stacks">
+<code class="descname">resolve_stacks</code><span class="sig-paren">(</span><em>stack_map</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/config/reader.html#ConfigReader.resolve_stacks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.config.reader.ConfigReader.resolve_stacks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transforms map of Stacks into a set of Stacks, transforms dependencies
+from a list of Strings (stack names) to a list of Stacks.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>stack_map</strong> – Map of stacks, containing dependencies as list of Strings.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Set of stacks, containing dependencies as list of Stacks.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.8)">set</a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body">sceptre.exceptions.DependencyDoesNotExistError</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 </div>

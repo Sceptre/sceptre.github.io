@@ -207,6 +207,7 @@
 <span class="kn">from</span> <span class="nn">packaging.version</span> <span class="k">import</span> <span class="n">Version</span>
 
 <span class="kn">from</span> <span class="nn">sceptre</span> <span class="k">import</span> <span class="n">__version__</span>
+<span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="k">import</span> <span class="n">DependencyDoesNotExistError</span>
 <span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="k">import</span> <span class="n">InvalidConfigFileError</span>
 <span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="k">import</span> <span class="n">InvalidSceptreDirectoryError</span>
 <span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="k">import</span> <span class="n">VersionIncompatibleError</span>
@@ -408,18 +409,41 @@
             <span class="k">if</span> <span class="n">abs_path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">full_command_path</span><span class="p">()):</span>
                 <span class="n">command_stacks</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span>
 
+        <span class="n">stacks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">resolve_stacks</span><span class="p">(</span><span class="n">stack_map</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">stacks</span><span class="p">,</span> <span class="n">command_stacks</span></div>
+
+<div class="viewcode-block" id="ConfigReader.resolve_stacks"><a class="viewcode-back" href="../../../apidoc/sceptre.config.html#sceptre.config.reader.ConfigReader.resolve_stacks">[docs]</a>    <span class="k">def</span> <span class="nf">resolve_stacks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack_map</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Transforms map of Stacks into a set of Stacks, transforms dependencies</span>
+<span class="sd">        from a list of Strings (stack names) to a list of Stacks.</span>
+
+<span class="sd">        :param stack_map: Map of stacks, containing dependencies as list of Strings.</span>
+<span class="sd">        :type base_config: dict</span>
+<span class="sd">        :returns: Set of stacks, containing dependencies as list of Stacks.</span>
+<span class="sd">        :rtype: set</span>
+<span class="sd">        :raises: sceptre.exceptions.DependencyDoesNotExistError</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">stacks</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">stack</span> <span class="ow">in</span> <span class="n">stack_map</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">ignore_dependencies</span><span class="p">:</span>
-                <span class="n">stack</span><span class="o">.</span><span class="n">dependencies</span> <span class="o">=</span> <span class="p">[</span>
-                    <span class="n">stack_map</span><span class="p">[</span><span class="n">sceptreise_path</span><span class="p">(</span><span class="n">dep</span><span class="p">)]</span>
-                    <span class="k">for</span> <span class="n">dep</span> <span class="ow">in</span> <span class="n">stack</span><span class="o">.</span><span class="n">dependencies</span>
-                <span class="p">]</span>
+                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">dep</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">stack</span><span class="o">.</span><span class="n">dependencies</span><span class="p">):</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">stack</span><span class="o">.</span><span class="n">dependencies</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">stack_map</span><span class="p">[</span><span class="n">sceptreise_path</span><span class="p">(</span><span class="n">dep</span><span class="p">)]</span>
+                    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="n">DependencyDoesNotExistError</span><span class="p">(</span>
+                            <span class="s2">&quot;</span><span class="si">{stackname}</span><span class="s2">: Dependency </span><span class="si">{dep}</span><span class="s2"> not found. &quot;</span>
+                            <span class="s2">&quot;Valid dependency names are: &quot;</span>
+                            <span class="s2">&quot;</span><span class="si">{stackkeys}</span><span class="s2">. &quot;</span>
+                            <span class="s2">&quot;Please make sure that your dependencies stack_outputs &quot;</span>
+                            <span class="s2">&quot;have their full path from `config` defined.&quot;</span>
+                            <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stackname</span><span class="o">=</span><span class="n">stack</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">dep</span><span class="o">=</span><span class="n">dep</span><span class="p">,</span>
+                                    <span class="n">stackkeys</span><span class="o">=</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">stack_map</span><span class="o">.</span><span class="n">keys</span><span class="p">())))</span>
+
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">stack</span><span class="o">.</span><span class="n">dependencies</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="n">stacks</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">stacks</span><span class="p">,</span> <span class="n">command_stacks</span></div>
+        <span class="k">return</span> <span class="n">stacks</span></div>
 
 <div class="viewcode-block" id="ConfigReader.read"><a class="viewcode-back" href="../../../apidoc/sceptre.config.html#sceptre.config.reader.ConfigReader.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rel_path</span><span class="p">,</span> <span class="n">base_config</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
