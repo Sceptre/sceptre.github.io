@@ -258,7 +258,10 @@
     <span class="k">if</span> <span class="n">output_format</span> <span class="o">==</span> <span class="s2">&quot;yaml&quot;</span><span class="p">:</span>
         <span class="n">output</span> <span class="o">=</span> <span class="n">_generate_yaml</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">output_format</span> <span class="o">==</span> <span class="s2">&quot;text&quot;</span><span class="p">:</span>
-        <span class="n">output</span> <span class="o">=</span> <span class="n">var</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="s2">&quot;---</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="n">var</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">no_colour</span><span class="p">:</span>
         <span class="n">stack_status_colourer</span> <span class="o">=</span> <span class="n">StackStatusColourer</span><span class="p">()</span>
         <span class="n">output</span> <span class="o">=</span> <span class="n">stack_status_colourer</span><span class="o">.</span><span class="n">colour</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">output</span><span class="p">))</span>
