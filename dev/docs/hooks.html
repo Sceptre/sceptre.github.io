@@ -118,6 +118,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#example">Example</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#custom-hook-py">custom_hook.py</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#setup-py">setup.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hook-arguments">hook arguments</a></li>
 </ul>
 </li>
 </ul>
@@ -355,6 +356,24 @@ In case you are not familiar with python packaging, <a class="reference external
 <span class="l l-Scalar l-Scalar-Plain">hooks</span><span class="p p-Indicator">:</span>
   <span class="l l-Scalar l-Scalar-Plain">before_create</span><span class="p p-Indicator">:</span>
     <span class="p p-Indicator">-</span> <span class="kt">!custom_hook_command_name</span> <span class="l l-Scalar l-Scalar-Plain">&lt;argument&gt;</span> <span class="c1"># The argument is accessible via self.argument</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="hook-arguments">
+<h4>hook arguments<a class="headerlink" href="#hook-arguments" title="Permalink to this headline">¶</a></h4>
+<p>Hook arguments can be a simple string or a complex data structure.
+Assume a Sceptre <cite>copy</cite> hook that calls the <a class="reference external" href="http://man7.org/linux/man-pages/man1/cp.1.html">cp command</a>:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">template_path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;...&gt;</span>
+<span class="l l-Scalar l-Scalar-Plain">hooks</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">before_create</span><span class="p p-Indicator">:</span>
+    <span class="p p-Indicator">-</span> <span class="kt">!copy</span> <span class="s">&quot;-r</span><span class="nv"> </span><span class="s">from_dir</span><span class="nv"> </span><span class="s">to_dir&quot;</span>
+  <span class="l l-Scalar l-Scalar-Plain">before_update</span><span class="p p-Indicator">:</span>
+    <span class="p p-Indicator">-</span> <span class="kt">!copy</span> <span class="p p-Indicator">{</span><span class="s">&quot;options&quot;</span><span class="p p-Indicator">:</span><span class="s">&quot;-r&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;source&quot;</span><span class="p p-Indicator">:</span> <span class="s">&quot;from_dir&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;destination&quot;</span><span class="p p-Indicator">:</span> <span class="s">&quot;to_dir&quot;</span><span class="p p-Indicator">}</span>
+  <span class="l l-Scalar l-Scalar-Plain">after_update</span><span class="p p-Indicator">:</span>
+    <span class="p p-Indicator">-</span> <span class="kt">!copy</span>
+        <span class="l l-Scalar l-Scalar-Plain">options</span><span class="p p-Indicator">:</span> <span class="s">&quot;-r&quot;</span>
+        <span class="l l-Scalar l-Scalar-Plain">source</span><span class="p p-Indicator">:</span> <span class="s">&quot;from_dir&quot;</span>
+        <span class="l l-Scalar l-Scalar-Plain">destination</span><span class="p p-Indicator">:</span> <span class="s">&quot;to_dir&quot;</span>
 </pre></div>
 </div>
 </div>
