@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2.2.1',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -208,9 +199,9 @@ infrastructure being built.</p>
 </div>
 <div class="section" id="directory-layout">
 <h2>Directory layout<a class="headerlink" href="#directory-layout" title="Permalink to this headline">¶</a></h2>
-<p>You need to store your <a class="reference internal" href="templates.html"><span class="doc">Sceptre templates</span></a> in the <code class="docutils literal"><span class="pre">templates</span></code> directory within
+<p>You need to store your <a class="reference internal" href="templates.html"><span class="doc">Sceptre templates</span></a> in the <code class="docutils literal notranslate"><span class="pre">templates</span></code> directory within
 your Sceptre Project.</p>
-<div class="highlight-text"><div class="highlight"><pre><span></span>.
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>.
 ├── config
 └── templates
 </pre></div>
@@ -229,7 +220,7 @@ multiple regions; a StackGroup can, however, contain sub-StackGroups in
 different regions. A StackGroup should therefore contain Stacks that belong
 in the same region.</p>
 </li>
-<li><p class="first">Command related. StackGroup level commands (like <code class="docutils literal"><span class="pre">launch</span></code>) are applied to
+<li><p class="first">Command related. StackGroup level commands (like <code class="docutils literal notranslate"><span class="pre">launch</span></code>) are applied to
 every stack in a StackGroup. There is no way to exclude stacks from an
 StackGroup level command. Therefore, StackGroups should contain stacks that
 can be launched and deleted together.</p>
@@ -247,7 +238,7 @@ projects. Only configuration layout is shown, and the examples are merely meant
 to demonstrate ways of organising different projects.</p>
 <ul>
 <li><p class="first">Application development within an externally defined VPC</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">config</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">config</span>
     <span class="l l-Scalar l-Scalar-Plain">- prod</span>
         <span class="l l-Scalar l-Scalar-Plain">- application</span>
             <span class="l l-Scalar l-Scalar-Plain">- asg.yaml</span>
@@ -259,7 +250,7 @@ to demonstrate ways of organising different projects.</p>
 </div>
 </li>
 <li><p class="first">DevOps team who manage all the infrastructure for their service</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">config</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">config</span>
     <span class="l l-Scalar l-Scalar-Plain">- prod</span>
         <span class="l l-Scalar l-Scalar-Plain">- network</span>
             <span class="l l-Scalar l-Scalar-Plain">- vpc.yaml</span>
@@ -275,7 +266,7 @@ to demonstrate ways of organising different projects.</p>
 </div>
 </li>
 <li><p class="first">Centralised, company-wide networking</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">config</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">config</span>
     <span class="l l-Scalar l-Scalar-Plain">- prod</span>
         <span class="l l-Scalar l-Scalar-Plain">- vpc.yaml</span>
         <span class="l l-Scalar l-Scalar-Plain">- public-subnet.yaml</span>
@@ -290,7 +281,7 @@ to demonstrate ways of organising different projects.</p>
 </div>
 </li>
 <li><p class="first">IAM management</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">config</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">config</span>
     <span class="l l-Scalar l-Scalar-Plain">- account-1</span>
         <span class="l l-Scalar l-Scalar-Plain">- iam-role-admin.yaml</span>
         <span class="l l-Scalar l-Scalar-Plain">- iam-role-developer.yaml</span>

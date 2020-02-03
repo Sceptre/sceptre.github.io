@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2.2.1',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -211,13 +202,13 @@
 <dl class="exception">
 <dt id="sceptre.resolvers.RecursiveGet">
 <em class="property">exception </em><code class="descclassname">sceptre.resolvers.</code><code class="descname">RecursiveGet</code><a class="reference internal" href="../_modules/sceptre/resolvers.html#RecursiveGet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.resolvers.RecursiveGet" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">exceptions.Exception</span></code></p>
 </dd></dl>
 
 <dl class="class">
 <dt id="sceptre.resolvers.ResolvableProperty">
 <em class="property">class </em><code class="descclassname">sceptre.resolvers.</code><code class="descname">ResolvableProperty</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/resolvers.html#ResolvableProperty"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.resolvers.ResolvableProperty" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>This is a descriptor class used to store an attribute that may contain
 Resolver objects. When retrieving the dictionary or list, any Resolver
 objects contains are a value or within a list are resolved to a primitive
@@ -233,7 +224,7 @@ type. Supports nested dictionary and lists.</p>
 <dl class="class">
 <dt id="sceptre.resolvers.ResolvableProperty.ResolveLater">
 <em class="property">class </em><code class="descname">ResolveLater</code><span class="sig-paren">(</span><em>instance</em>, <em>name</em>, <em>key</em>, <em>resolution_function</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/resolvers.html#ResolvableProperty.ResolveLater"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.resolvers.ResolvableProperty.ResolveLater" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Represents a value that could not yet be resolved but can be resolved in the future.</p>
 </dd></dl>
 
@@ -242,7 +233,7 @@ type. Supports nested dictionary and lists.</p>
 <dl class="class">
 <dt id="sceptre.resolvers.Resolver">
 <em class="property">class </em><code class="descclassname">sceptre.resolvers.</code><code class="descname">Resolver</code><span class="sig-paren">(</span><em>argument=None</em>, <em>stack=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/resolvers.html#Resolver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.resolvers.Resolver" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Resolver is an abstract base class that should be inherited by all
 Resolvers.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -284,7 +275,7 @@ initial setup of the object.</p>
 <dl class="class">
 <dt id="sceptre.resolvers.environment_variable.EnvironmentVariable">
 <em class="property">class </em><code class="descclassname">sceptre.resolvers.environment_variable.</code><code class="descname">EnvironmentVariable</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/resolvers/environment_variable.html#EnvironmentVariable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.resolvers.environment_variable.EnvironmentVariable" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#sceptre.resolvers.Resolver" title="sceptre.resolvers.Resolver"><code class="xref py py-class docutils literal"><span class="pre">sceptre.resolvers.Resolver</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.resolvers.Resolver" title="sceptre.resolvers.Resolver"><code class="xref py py-class docutils literal notranslate"><span class="pre">sceptre.resolvers.Resolver</span></code></a></p>
 <p>Resolver for shell environment variables.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -318,7 +309,7 @@ initial setup of the object.</p>
 <dl class="class">
 <dt id="sceptre.resolvers.file_contents.FileContents">
 <em class="property">class </em><code class="descclassname">sceptre.resolvers.file_contents.</code><code class="descname">FileContents</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/resolvers/file_contents.html#FileContents"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.resolvers.file_contents.FileContents" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#sceptre.resolvers.Resolver" title="sceptre.resolvers.Resolver"><code class="xref py py-class docutils literal"><span class="pre">sceptre.resolvers.Resolver</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.resolvers.Resolver" title="sceptre.resolvers.Resolver"><code class="xref py py-class docutils literal notranslate"><span class="pre">sceptre.resolvers.Resolver</span></code></a></p>
 <p>Resolver for the contents of a file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -352,7 +343,7 @@ initial setup of the object.</p>
 <dl class="class">
 <dt id="sceptre.resolvers.stack_output.StackOutput">
 <em class="property">class </em><code class="descclassname">sceptre.resolvers.stack_output.</code><code class="descname">StackOutput</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/resolvers/stack_output.html#StackOutput"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.resolvers.stack_output.StackOutput" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#sceptre.resolvers.stack_output.StackOutputBase" title="sceptre.resolvers.stack_output.StackOutputBase"><code class="xref py py-class docutils literal"><span class="pre">sceptre.resolvers.stack_output.StackOutputBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.resolvers.stack_output.StackOutputBase" title="sceptre.resolvers.stack_output.StackOutputBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">sceptre.resolvers.stack_output.StackOutputBase</span></code></a></p>
 <p>Resolver for retrieving the value of a Stack output within the current
 Sceptre StackGroup. Adds the target Stack to the dependencies of the
 Stack using the Resolver.</p>
@@ -360,7 +351,7 @@ Stack using the Resolver.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>argument</strong> (str in the format <code class="docutils literal"><span class="pre">&quot;&lt;stack</span> <span class="pre">name&gt;::&lt;output</span> <span class="pre">key&gt;&quot;</span></code>) – The Stack name and output name to get.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>argument</strong> (str in the format <code class="docutils literal notranslate"><span class="pre">&quot;&lt;stack</span> <span class="pre">name&gt;::&lt;output</span> <span class="pre">key&gt;&quot;</span></code>) – The Stack name and output name to get.</td>
 </tr>
 </tbody>
 </table>
@@ -391,21 +382,21 @@ Stack using the Resolver.</p>
 <dl class="class">
 <dt id="sceptre.resolvers.stack_output.StackOutputBase">
 <em class="property">class </em><code class="descclassname">sceptre.resolvers.stack_output.</code><code class="descname">StackOutputBase</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/resolvers/stack_output.html#StackOutputBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.resolvers.stack_output.StackOutputBase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#sceptre.resolvers.Resolver" title="sceptre.resolvers.Resolver"><code class="xref py py-class docutils literal"><span class="pre">sceptre.resolvers.Resolver</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.resolvers.Resolver" title="sceptre.resolvers.Resolver"><code class="xref py py-class docutils literal notranslate"><span class="pre">sceptre.resolvers.Resolver</span></code></a></p>
 <p>A abstract base class which provides methods for getting Stack outputs.</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="sceptre.resolvers.stack_output.StackOutputExternal">
 <em class="property">class </em><code class="descclassname">sceptre.resolvers.stack_output.</code><code class="descname">StackOutputExternal</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/resolvers/stack_output.html#StackOutputExternal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.resolvers.stack_output.StackOutputExternal" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#sceptre.resolvers.stack_output.StackOutputBase" title="sceptre.resolvers.stack_output.StackOutputBase"><code class="xref py py-class docutils literal"><span class="pre">sceptre.resolvers.stack_output.StackOutputBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.resolvers.stack_output.StackOutputBase" title="sceptre.resolvers.stack_output.StackOutputBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">sceptre.resolvers.stack_output.StackOutputBase</span></code></a></p>
 <p>Resolver for retrieving the value of an output of any Stack within the
 current Sceptre stack_group’s account and region.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>argument</strong> (str in the format <code class="docutils literal"><span class="pre">&quot;&lt;full</span> <span class="pre">stack</span> <span class="pre">name&gt;::&lt;output</span> <span class="pre">key&gt;&quot;</span></code>) – The Stack name and output name to get.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>argument</strong> (str in the format <code class="docutils literal notranslate"><span class="pre">&quot;&lt;full</span> <span class="pre">stack</span> <span class="pre">name&gt;::&lt;output</span> <span class="pre">key&gt;&quot;</span></code>) – The Stack name and output name to get.</td>
 </tr>
 </tbody>
 </table>

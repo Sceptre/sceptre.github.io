@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../../../',
-              VERSION:'2.2.1',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../../../_static/jquery.js"></script>
         <script type="text/javascript" src="../../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -182,20 +173,20 @@
   <h1>Source code for sceptre.cli.helpers</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">partial</span><span class="p">,</span> <span class="n">wraps</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span><span class="p">,</span> <span class="n">wraps</span>
 
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">click</span>
 <span class="kn">import</span> <span class="nn">six</span>
 <span class="kn">import</span> <span class="nn">yaml</span>
 
-<span class="kn">from</span> <span class="nn">boto3.exceptions</span> <span class="k">import</span> <span class="n">Boto3Error</span>
-<span class="kn">from</span> <span class="nn">botocore.exceptions</span> <span class="k">import</span> <span class="n">BotoCoreError</span><span class="p">,</span> <span class="n">ClientError</span>
-<span class="kn">from</span> <span class="nn">jinja2.exceptions</span> <span class="k">import</span> <span class="n">TemplateError</span>
+<span class="kn">from</span> <span class="nn">boto3.exceptions</span> <span class="kn">import</span> <span class="n">Boto3Error</span>
+<span class="kn">from</span> <span class="nn">botocore.exceptions</span> <span class="kn">import</span> <span class="n">BotoCoreError</span><span class="p">,</span> <span class="n">ClientError</span>
+<span class="kn">from</span> <span class="nn">jinja2.exceptions</span> <span class="kn">import</span> <span class="n">TemplateError</span>
 
-<span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="k">import</span> <span class="n">SceptreException</span>
-<span class="kn">from</span> <span class="nn">sceptre.stack_status</span> <span class="k">import</span> <span class="n">StackStatus</span>
-<span class="kn">from</span> <span class="nn">sceptre.stack_status_colourer</span> <span class="k">import</span> <span class="n">StackStatusColourer</span>
+<span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">SceptreException</span>
+<span class="kn">from</span> <span class="nn">sceptre.stack_status</span> <span class="kn">import</span> <span class="n">StackStatus</span>
+<span class="kn">from</span> <span class="nn">sceptre.stack_status_colourer</span> <span class="kn">import</span> <span class="n">StackStatusColourer</span>
 
 
 <div class="viewcode-block" id="catch_exceptions"><a class="viewcode-back" href="../../../apidoc/sceptre.cli.html#sceptre.cli.helpers.catch_exceptions">[docs]</a><span class="k">def</span> <span class="nf">catch_exceptions</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>

@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2.2.1',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -212,7 +203,7 @@
 that Stack’s Template, and any parameters that Stack may require.</p>
 <div class="section" id="structure">
 <span id="stack-config-structure"></span><h2>Structure<a class="headerlink" href="#structure" title="Permalink to this headline">¶</a></h2>
-<p>A Stack config file is a <code class="docutils literal"><span class="pre">yaml</span></code> object of key-value pairs configuring a
+<p>A Stack config file is a <code class="docutils literal notranslate"><span class="pre">yaml</span></code> object of key-value pairs configuring a
 particular Stack. The available keys are listed below.</p>
 <ul class="simple">
 <li><a class="reference external" href="#template_path">template_path</a> <em>(required)</em></li>
@@ -240,7 +231,7 @@ from the Stack config filename.</p>
 <h3>dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h3>
 <p>A list of other Stacks in the environment that this Stack depends on. Note that
 if a Stack fetches an output value from another Stack using the
-<code class="docutils literal"><span class="pre">stack_output</span></code> resolver, that Stack is automatically added as a dependency,
+<code class="docutils literal notranslate"><span class="pre">stack_output</span></code> resolver, that Stack is automatically added as a dependency,
 and that Stack need not be added as an explicit dependency.</p>
 </div>
 <div class="section" id="hooks">
@@ -251,8 +242,8 @@ in the <a class="reference internal" href="hooks.html"><span class="doc">Hooks</
 <div class="section" id="notifications">
 <h3>notifications<a class="headerlink" href="#notifications" title="Permalink to this headline">¶</a></h3>
 <p>List of SNS topic ARNs to publish Stack related events to. A maximum of 5 ARNs
-can be specified per Stack. This configuration will be used by the <code class="docutils literal"><span class="pre">create</span></code>,
-<code class="docutils literal"><span class="pre">update</span></code>, and <code class="docutils literal"><span class="pre">delete</span></code> commands. More information about Stack notifications
+can be specified per Stack. This configuration will be used by the <code class="docutils literal notranslate"><span class="pre">create</span></code>,
+<code class="docutils literal notranslate"><span class="pre">update</span></code>, and <code class="docutils literal notranslate"><span class="pre">delete</span></code> commands. More information about Stack notifications
 can found under the relevant section in the <a class="reference external" href="http://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateStack.html">AWS CloudFormation API
 documentation</a>.</p>
 </div>
@@ -277,31 +268,31 @@ that are not required by that template. Resolvers can be used to add
 functionality to this key. Find out more in the <a class="reference internal" href="resolvers.html"><span class="doc">Resolvers</span></a> section.</div></blockquote>
 <p>A parameter can be specified either as a single value/resolver or a list of
 values/resolvers. Lists of values/resolvers will be formatted into an AWS
-compatible comma separated string e.g.&nbsp;<code class="docutils literal"><span class="pre">value1,value2,value3</span></code>. Lists can
+compatible comma separated string e.g.&nbsp;<code class="docutils literal notranslate"><span class="pre">value1,value2,value3</span></code>. Lists can
 contain a mixture of values and resolvers.</p>
 <p>Syntax:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">parameters</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">&lt;parameter1_name&gt;</span><span class="p p-Indicator">:</span> <span class="s">&quot;value&quot;</span>
-  <span class="l l-Scalar l-Scalar-Plain">&lt;parameter2_name&gt;</span><span class="p p-Indicator">:</span> <span class="kt">!&lt;resolver_name&gt;</span> <span class="l l-Scalar l-Scalar-Plain">&lt;resolver_value&gt;</span>
-  <span class="l l-Scalar l-Scalar-Plain">&lt;parameter3_name&gt;</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span>
+  <span class="nt">&lt;parameter1_name&gt;</span><span class="p">:</span> <span class="s">&quot;value&quot;</span>
+  <span class="nt">&lt;parameter2_name&gt;</span><span class="p">:</span> <span class="kt">!&lt;resolver_name&gt;</span> <span class="l l-Scalar l-Scalar-Plain">&lt;resolver_value&gt;</span>
+  <span class="nt">&lt;parameter3_name&gt;</span><span class="p">:</span>
     <span class="p p-Indicator">-</span> <span class="s">&quot;value1&quot;</span>
     <span class="p p-Indicator">-</span> <span class="s">&quot;value2&quot;</span>
-  <span class="l l-Scalar l-Scalar-Plain">&lt;parameter4_name&gt;</span><span class="p p-Indicator">:</span>
+  <span class="nt">&lt;parameter4_name&gt;</span><span class="p">:</span>
     <span class="p p-Indicator">-</span> <span class="kt">!&lt;resolver_name&gt;</span> <span class="l l-Scalar l-Scalar-Plain">&lt;resolver_value&gt;</span>
     <span class="p p-Indicator">-</span> <span class="kt">!&lt;resolver_name&gt;</span> <span class="l l-Scalar l-Scalar-Plain">&lt;resolver_value&gt;</span>
-  <span class="l l-Scalar l-Scalar-Plain">&lt;parameter5_name&gt;</span><span class="p p-Indicator">:</span>
+  <span class="nt">&lt;parameter5_name&gt;</span><span class="p">:</span>
     <span class="p p-Indicator">-</span> <span class="kt">!&lt;resolver_name&gt;</span> <span class="l l-Scalar l-Scalar-Plain">&lt;resolver_value&gt;</span>
     <span class="p p-Indicator">-</span> <span class="s">&quot;value1&quot;</span>
 </pre></div>
 </div>
 <p>Example:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">parameters</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">database_username</span><span class="p p-Indicator">:</span> <span class="s">&quot;mydbuser&quot;</span>
-  <span class="l l-Scalar l-Scalar-Plain">database_password</span><span class="p p-Indicator">:</span> <span class="kt">!environment_variable</span> <span class="l l-Scalar l-Scalar-Plain">DATABASE_PASSWORD</span>
-  <span class="l l-Scalar l-Scalar-Plain">subnet_ids</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span>
+  <span class="nt">database_username</span><span class="p">:</span> <span class="s">&quot;mydbuser&quot;</span>
+  <span class="nt">database_password</span><span class="p">:</span> <span class="kt">!environment_variable</span> <span class="l l-Scalar l-Scalar-Plain">DATABASE_PASSWORD</span>
+  <span class="nt">subnet_ids</span><span class="p">:</span>
     <span class="p p-Indicator">-</span> <span class="s">&quot;subnet-12345678&quot;</span>
     <span class="p p-Indicator">-</span> <span class="s">&quot;subnet-87654321&quot;</span>
-  <span class="l l-Scalar l-Scalar-Plain">security_group_ids</span><span class="p p-Indicator">:</span>
+  <span class="nt">security_group_ids</span><span class="p">:</span>
     <span class="p p-Indicator">-</span> <span class="s">&quot;sg-12345678&quot;</span>
     <span class="p p-Indicator">-</span> <span class="kt">!stack_output</span> <span class="l l-Scalar l-Scalar-Plain">security-groups::BaseSecurityGroupId</span>
     <span class="p p-Indicator">-</span> <span class="kt">!file_contents</span> <span class="l l-Scalar l-Scalar-Plain">/file/with/security_group_id.txt</span>
@@ -312,11 +303,11 @@ contain a mixture of values and resolvers.</p>
 <h3>protected<a class="headerlink" href="#protected" title="Permalink to this headline">¶</a></h3>
 <p>Stack protection against execution of the following commands:</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">launch</span></code></li>
-<li><code class="docutils literal"><span class="pre">create</span></code></li>
-<li><code class="docutils literal"><span class="pre">update</span></code></li>
-<li><code class="docutils literal"><span class="pre">delete</span></code></li>
-<li><code class="docutils literal"><span class="pre">execute</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">launch</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">create</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">update</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">delete</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">execute</span></code></li>
 </ul>
 <p>If a user tries to run one of these commands on a protected Stack, Sceptre will
 throw an error.</p>
@@ -328,8 +319,8 @@ to create, update or delete resources.</p>
 </div>
 <div class="section" id="sceptre-user-data">
 <h3>sceptre_user_data<a class="headerlink" href="#sceptre-user-data" title="Permalink to this headline">¶</a></h3>
-<p>Represents data to be passed to the <code class="docutils literal"><span class="pre">sceptre_handler(sceptre_user_data)</span></code>
-function in Python templates or accessible under <code class="docutils literal"><span class="pre">sceptre_user_data</span></code> variable
+<p>Represents data to be passed to the <code class="docutils literal notranslate"><span class="pre">sceptre_handler(sceptre_user_data)</span></code>
+function in Python templates or accessible under <code class="docutils literal notranslate"><span class="pre">sceptre_user_data</span></code> variable
 key within Jinja2 templates.</p>
 </div>
 <div class="section" id="stack-name">
@@ -342,18 +333,18 @@ external resolver. An explicit dependency should be added, using the
 dependencies parameter, to make sure the Stacks are launched in the correct
 order.</div>
 <p>e.g:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">parameters</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">VpcID</span><span class="p p-Indicator">:</span> <span class="kt">!stack_output_external</span> <span class="l l-Scalar l-Scalar-Plain">&lt;custom-named-vpc-stack&gt;.yaml::VpcID</span>
-<span class="l l-Scalar l-Scalar-Plain">dependencies</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span>
+  <span class="nt">VpcID</span><span class="p">:</span> <span class="kt">!stack_output_external</span> <span class="l l-Scalar l-Scalar-Plain">&lt;custom-named-vpc-stack&gt;.yaml::VpcID</span>
+<span class="nt">dependencies</span><span class="p">:</span>
   <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">&lt;environment&gt;/&lt;Stack&gt;</span>
 </pre></div>
 </div>
-<p>You can also pass an optional argument to <code class="docutils literal"><span class="pre">stack_output_external</span></code> specifying
+<p>You can also pass an optional argument to <code class="docutils literal notranslate"><span class="pre">stack_output_external</span></code> specifying
 the profile you want to use. This is especially useful if the Template you’re
 referring to is in a different AWS account or region.</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">parameters</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">VpcID</span><span class="p p-Indicator">:</span> <span class="kt">!stack_output_external</span> <span class="l l-Scalar l-Scalar-Plain">&lt;custom-named-vpc-stack&gt;.yaml::VpcID my-aws-prod-profile</span>
-<span class="l l-Scalar l-Scalar-Plain">dependencies</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span>
+  <span class="nt">VpcID</span><span class="p">:</span> <span class="kt">!stack_output_external</span> <span class="l l-Scalar l-Scalar-Plain">&lt;custom-named-vpc-stack&gt;.yaml::VpcID my-aws-prod-profile</span>
+<span class="nt">dependencies</span><span class="p">:</span>
   <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">&lt;environment&gt;/&lt;Stack&gt;</span>
 </pre></div>
 </div>
@@ -385,8 +376,8 @@ described in the section in StackGroup Config on <a class="reference internal" h
 <h3>StackGroup config<a class="headerlink" href="#stackgroup-config" title="Permalink to this headline">¶</a></h3>
 <p>StackGroup config properties are available via the stack_group_config variable
 when using templating.</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">parameters</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">sceptre-project-code</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">{{</span> <span class="nv">stack_group_config.sceptre-project-code</span> <span class="p p-Indicator">}}</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span>
+  <span class="nt">sceptre-project-code</span><span class="p">:</span> <span class="p p-Indicator">{{</span> <span class="nv">stack_group_config.sceptre-project-code</span> <span class="p p-Indicator">}}</span>
 </pre></div>
 </div>
 </div>
@@ -404,52 +395,52 @@ can’t be parameterised using CloudFormation parameters. An example of this is
 if a Python template which creates an IAM Role reads in the policy from a JSON
 file. The file path must be hard-coded in the Python template.</p>
 <p>Sceptre user data allows users to store arbitrary key-value pairs in their
-<code class="docutils literal"><span class="pre">&lt;stack-name&gt;.yaml</span></code> file. This data is then passed as a Python <code class="docutils literal"><span class="pre">dict</span></code> to
-the <code class="docutils literal"><span class="pre">sceptre_handler(sceptre_user_data)</span></code> function in Python templates.</p>
+<code class="docutils literal notranslate"><span class="pre">&lt;stack-name&gt;.yaml</span></code> file. This data is then passed as a Python <code class="docutils literal notranslate"><span class="pre">dict</span></code> to
+the <code class="docutils literal notranslate"><span class="pre">sceptre_handler(sceptre_user_data)</span></code> function in Python templates.</p>
 <p>Syntax:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">sceptre_user_data</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">iam_policy_file_path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/path/to/policy.json</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sceptre_user_data</span><span class="p">:</span>
+  <span class="nt">iam_policy_file_path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/path/to/policy.json</span>
 </pre></div>
 </div>
-<p>When compiled, <code class="docutils literal"><span class="pre">sceptre_user_data</span></code> would be the dictionary
-<code class="docutils literal"><span class="pre">{&quot;iam_policy_file&quot;:</span> <span class="pre">&quot;/path/to/policy.json&quot;}</span></code>.</p>
+<p>When compiled, <code class="docutils literal notranslate"><span class="pre">sceptre_user_data</span></code> would be the dictionary
+<code class="docutils literal notranslate"><span class="pre">{&quot;iam_policy_file&quot;:</span> <span class="pre">&quot;/path/to/policy.json&quot;}</span></code>.</p>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">template_path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">templates/example.py</span>
-<span class="l l-Scalar l-Scalar-Plain">parameters</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">param_1</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">value_1</span>
-  <span class="l l-Scalar l-Scalar-Plain">param_2</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">value_2</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template_path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">templates/example.py</span>
+<span class="nt">parameters</span><span class="p">:</span>
+  <span class="nt">param_1</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">value_1</span>
+  <span class="nt">param_2</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">value_2</span>
 </pre></div>
 </div>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">template_path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">example.yaml</span>
-<span class="l l-Scalar l-Scalar-Plain">dependencies</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template_path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">example.yaml</span>
+<span class="nt">dependencies</span><span class="p">:</span>
     <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">dev/vpc.yaml</span>
-<span class="l l-Scalar l-Scalar-Plain">hooks</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">before_create</span><span class="p p-Indicator">:</span>
+<span class="nt">hooks</span><span class="p">:</span>
+    <span class="nt">before_create</span><span class="p">:</span>
         <span class="p p-Indicator">-</span> <span class="kt">!cmd</span> <span class="s">&quot;echo</span><span class="nv"> </span><span class="s">creating...&quot;</span>
-    <span class="l l-Scalar l-Scalar-Plain">after_create</span><span class="p p-Indicator">:</span>
+    <span class="nt">after_create</span><span class="p">:</span>
         <span class="p p-Indicator">-</span> <span class="kt">!cmd</span> <span class="s">&quot;echo</span><span class="nv"> </span><span class="s">created&quot;</span>
         <span class="p p-Indicator">-</span> <span class="kt">!cmd</span> <span class="s">&quot;echo</span><span class="nv"> </span><span class="s">done&quot;</span>
-    <span class="l l-Scalar l-Scalar-Plain">after_update</span><span class="p p-Indicator">:</span>
+    <span class="nt">after_update</span><span class="p">:</span>
         <span class="p p-Indicator">-</span> <span class="kt">!cmd</span> <span class="s">&quot;mkdir</span><span class="nv"> </span><span class="s">example&quot;</span>
         <span class="p p-Indicator">-</span> <span class="kt">!cmd</span> <span class="s">&quot;touch</span><span class="nv"> </span><span class="s">example.txt&quot;</span>
-<span class="l l-Scalar l-Scalar-Plain">parameters</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">param_1</span><span class="p p-Indicator">:</span> <span class="kt">!stack_output</span> <span class="l l-Scalar l-Scalar-Plain">stack_name::output_name</span>
-    <span class="l l-Scalar l-Scalar-Plain">param_2</span><span class="p p-Indicator">:</span> <span class="kt">!stack_output_external</span> <span class="l l-Scalar l-Scalar-Plain">full_stack_name.yaml::output_name</span>
-    <span class="l l-Scalar l-Scalar-Plain">param_3</span><span class="p p-Indicator">:</span> <span class="kt">!environment_variable</span> <span class="l l-Scalar l-Scalar-Plain">VALUE_3</span>
-    <span class="l l-Scalar l-Scalar-Plain">param_4</span><span class="p p-Indicator">:</span>
+<span class="nt">parameters</span><span class="p">:</span>
+    <span class="nt">param_1</span><span class="p">:</span> <span class="kt">!stack_output</span> <span class="l l-Scalar l-Scalar-Plain">stack_name::output_name</span>
+    <span class="nt">param_2</span><span class="p">:</span> <span class="kt">!stack_output_external</span> <span class="l l-Scalar l-Scalar-Plain">full_stack_name.yaml::output_name</span>
+    <span class="nt">param_3</span><span class="p">:</span> <span class="kt">!environment_variable</span> <span class="l l-Scalar l-Scalar-Plain">VALUE_3</span>
+    <span class="nt">param_4</span><span class="p">:</span>
         <span class="p p-Indicator">{{</span> <span class="nv">var.value4</span> <span class="p p-Indicator">}}</span>
-    <span class="l l-Scalar l-Scalar-Plain">param_5</span><span class="p p-Indicator">:</span>
+    <span class="nt">param_5</span><span class="p">:</span>
         <span class="p p-Indicator">{{</span> <span class="nv">command_path.3</span> <span class="p p-Indicator">}}</span>
-    <span class="l l-Scalar l-Scalar-Plain">param_6</span><span class="p p-Indicator">:</span>
+    <span class="nt">param_6</span><span class="p">:</span>
         <span class="p p-Indicator">{{</span> <span class="nv">environment_variable.VALUE_6</span> <span class="p p-Indicator">}}</span>
-<span class="l l-Scalar l-Scalar-Plain">sceptre_user_data</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">thing_1</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">value_1</span>
-    <span class="l l-Scalar l-Scalar-Plain">thing_2</span><span class="p p-Indicator">:</span> <span class="kt">!file_contents</span> <span class="l l-Scalar l-Scalar-Plain">path/to/file.txt</span>
-<span class="l l-Scalar l-Scalar-Plain">stack_tags</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">tag_1</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">value_1</span>
-    <span class="l l-Scalar l-Scalar-Plain">tag_2</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">value_2</span>
+<span class="nt">sceptre_user_data</span><span class="p">:</span>
+    <span class="nt">thing_1</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">value_1</span>
+    <span class="nt">thing_2</span><span class="p">:</span> <span class="kt">!file_contents</span> <span class="l l-Scalar l-Scalar-Plain">path/to/file.txt</span>
+<span class="nt">stack_tags</span><span class="p">:</span>
+    <span class="nt">tag_1</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">value_1</span>
+    <span class="nt">tag_2</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">value_2</span>
 </pre></div>
 </div>
 </div>

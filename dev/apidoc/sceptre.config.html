@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2.2.1',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -212,11 +203,14 @@
 <dl class="class">
 <dt id="sceptre.config.NullHandler">
 <em class="property">class </em><code class="descclassname">sceptre.config.</code><code class="descname">NullHandler</code><span class="sig-paren">(</span><em>level=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/config.html#NullHandler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.config.NullHandler" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Handler" title="(in Python v3.8)"><code class="xref py py-class docutils literal"><span class="pre">logging.Handler</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Handler" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">logging.Handler</span></code></a></p>
 <dl class="method">
 <dt id="sceptre.config.NullHandler.emit">
 <code class="descname">emit</code><span class="sig-paren">(</span><em>record</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/config.html#NullHandler.emit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.config.NullHandler.emit" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Do whatever it takes to actually log the specified logging record.</p>
+<p>This version is intended to be implemented by subclasses and so
+raises a NotImplementedError.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -231,7 +225,7 @@ acyclic graph of a Stack’s dependencies.</p>
 <dl class="class">
 <dt id="sceptre.config.graph.StackGraph">
 <em class="property">class </em><code class="descclassname">sceptre.config.graph.</code><code class="descname">StackGraph</code><span class="sig-paren">(</span><em>stacks</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/config/graph.html#StackGraph"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.config.graph.StackGraph" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>A Directed Acyclic Graph representing the relationship between a Stack
 and its dependencies. Responsible for initalising the graph based on a set
 of Stacks.</p>
@@ -267,13 +261,13 @@ and constructing Stacks.</p>
 <dl class="attribute">
 <dt id="sceptre.config.reader.ConfigAttributes">
 <code class="descclassname">sceptre.config.reader.</code><code class="descname">ConfigAttributes</code><a class="headerlink" href="#sceptre.config.reader.ConfigAttributes" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Attributes</span></code></p>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">sceptre.config.reader.Attributes</span></code></p>
 </dd></dl>
 
 <dl class="class">
 <dt id="sceptre.config.reader.ConfigReader">
 <em class="property">class </em><code class="descclassname">sceptre.config.reader.</code><code class="descname">ConfigReader</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/config/reader.html#ConfigReader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.config.reader.ConfigReader" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Parses YAML configuration files and produces Stack objects.</p>
 <p>Responsible for loading Resolvers and Hook classes and adding them as
 constructors to the PyYAML parser.</p>
@@ -417,15 +411,15 @@ attributes.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>a</strong> (<a class="reference internal" href="sceptre.cli.html#module-sceptre.cli.list" title="sceptre.cli.list"><em>list</em></a>) – A list.</li>
-<li><strong>b</strong> (<a class="reference internal" href="sceptre.cli.html#module-sceptre.cli.list" title="sceptre.cli.list"><em>list</em></a>) – A list.</li>
+<li><strong>a</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – A list.</li>
+<li><strong>b</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – A list.</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A joined list from the two parameters.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="sceptre.cli.html#module-sceptre.cli.list" title="sceptre.cli.list">list</a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)">list</a></p>
 </td>
 </tr>
 </tbody>

@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2.2.1',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -197,18 +188,18 @@
 <p>The directory which stores the top level config directory.</p>
 <ul>
 <li><p class="first"><strong>Command Path</strong> The Stack or StackGroup that you want to execute a Sceptre
-command against. For example, if you want to launch <code class="docutils literal"><span class="pre">vpc.yaml</span></code> in the
-example below the command path would be <code class="docutils literal"><span class="pre">dev/vpc.yaml</span></code>.</p>
-<div class="highlight-text"><div class="highlight"><pre><span></span>.
+command against. For example, if you want to launch <code class="docutils literal notranslate"><span class="pre">vpc.yaml</span></code> in the
+example below the command path would be <code class="docutils literal notranslate"><span class="pre">dev/vpc.yaml</span></code>.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>.
 └── config
     └── dev
         ├── config.yaml
         └── vpc.yaml
 </pre></div>
 </div>
-<p>Where as if you wanted to <code class="docutils literal"><span class="pre">delete</span></code> <code class="docutils literal"><span class="pre">account-1</span></code> in the example below the
-command path would be <code class="docutils literal"><span class="pre">account-1</span></code>.</p>
-<div class="highlight-text"><div class="highlight"><pre><span></span>.
+<p>Where as if you wanted to <code class="docutils literal notranslate"><span class="pre">delete</span></code> <code class="docutils literal notranslate"><span class="pre">account-1</span></code> in the example below the
+command path would be <code class="docutils literal notranslate"><span class="pre">account-1</span></code>.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>.
 └── config
     └── account-1
         └── dev
@@ -223,25 +214,25 @@ command path would be <code class="docutils literal"><span class="pre">account-1
 <div class="section" id="sceptre-context">
 <h2>Sceptre Context<a class="headerlink" href="#sceptre-context" title="Permalink to this headline">¶</a></h2>
 <p>Unless you go looking in the code, or you use Sceptre as a python module, you
-won’t need to worry about <code class="docutils literal"><span class="pre">SceptreContext</span></code>.</p>
-<p><code class="docutils literal"><span class="pre">SceptreContext</span></code> is a place where we hold information that is relevant to the
+won’t need to worry about <code class="docutils literal notranslate"><span class="pre">SceptreContext</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">SceptreContext</span></code> is a place where we hold information that is relevant to the
 project, including references to the project paths such as the path to your
 Sceptre project, templates path, config path, and the default names for your
 configuration files.</p>
 <p>If you are adding functionality to the CLI or you want to use Sceptre as a
-module you will need to create a <code class="docutils literal"><span class="pre">SceptreContext</span></code> and pass it an absolute
+module you will need to create a <code class="docutils literal notranslate"><span class="pre">SceptreContext</span></code> and pass it an absolute
 path to your Sceptre project directory and the “command_path” - the path you
 are going to execute commands on.</p>
 </div>
 <div class="section" id="sceptre-plan">
 <h2>Sceptre Plan<a class="headerlink" href="#sceptre-plan" title="Permalink to this headline">¶</a></h2>
-<p>As with <code class="docutils literal"><span class="pre">SceptreContext</span></code> you shouldn’t need to interact with <code class="docutils literal"><span class="pre">SceptrePlan</span></code>
+<p>As with <code class="docutils literal notranslate"><span class="pre">SceptreContext</span></code> you shouldn’t need to interact with <code class="docutils literal notranslate"><span class="pre">SceptrePlan</span></code>
 most of the time.</p>
-<p>A <code class="docutils literal"><span class="pre">SceptrePlan</span></code> takes a <code class="docutils literal"><span class="pre">SceptreContext</span></code> and constructs everything you will
+<p>A <code class="docutils literal notranslate"><span class="pre">SceptrePlan</span></code> takes a <code class="docutils literal notranslate"><span class="pre">SceptreContext</span></code> and constructs everything you will
 need to execute a command against your project. After creating a
-<code class="docutils literal"><span class="pre">SceptrePlan</span></code> you will be able to call all available methods for your stacks
+<code class="docutils literal notranslate"><span class="pre">SceptrePlan</span></code> you will be able to call all available methods for your stacks
 and access the results from each stack. For example,</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">plan</span> <span class="o">=</span> <span class="n">SceptrePlan</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plan</span> <span class="o">=</span> <span class="n">SceptrePlan</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
 
 <span class="n">responses</span> <span class="o">=</span> <span class="n">plan</span><span class="o">.</span><span class="n">launch</span><span class="p">()</span>
 </pre></div>
@@ -249,29 +240,29 @@ and access the results from each stack. For example,</p>
 </div>
 <div class="section" id="sceptreplanexecutor">
 <h2>SceptrePlanExecutor<a class="headerlink" href="#sceptreplanexecutor" title="Permalink to this headline">¶</a></h2>
-<p>You won’t be able to interact with the <code class="docutils literal"><span class="pre">SceptrePlanExecutor</span></code> directly but
-this part of the code is responsible for taking a <code class="docutils literal"><span class="pre">SceptrePlan</span></code> and ensuring
+<p>You won’t be able to interact with the <code class="docutils literal notranslate"><span class="pre">SceptrePlanExecutor</span></code> directly but
+this part of the code is responsible for taking a <code class="docutils literal notranslate"><span class="pre">SceptrePlan</span></code> and ensuring
 all commands on every stack, are executed in the correct order, concurrently.
 The executor algorithm focuses on correctness over maximal concurrency. It know
-what to execute and when based on a <code class="docutils literal"><span class="pre">StackGraph</span></code> which is created when a
-<code class="docutils literal"><span class="pre">SceptrePlan</span></code> is created.</p>
+what to execute and when based on a <code class="docutils literal notranslate"><span class="pre">StackGraph</span></code> which is created when a
+<code class="docutils literal notranslate"><span class="pre">SceptrePlan</span></code> is created.</p>
 </div>
 <div class="section" id="stackgraph">
 <h2>StackGraph<a class="headerlink" href="#stackgraph" title="Permalink to this headline">¶</a></h2>
-<p>A <code class="docutils literal"><span class="pre">StackGraph</span></code> is a Directed Acyclic Graph where the nodes hold <code class="docutils literal"><span class="pre">Stack</span></code>
+<p>A <code class="docutils literal notranslate"><span class="pre">StackGraph</span></code> is a Directed Acyclic Graph where the nodes hold <code class="docutils literal notranslate"><span class="pre">Stack</span></code>
 objects and the edges represent a “depends on” relationship. The graph is
-created when a <code class="docutils literal"><span class="pre">SceptrePlan</span></code> is instantiated and is then used during the
+created when a <code class="docutils literal notranslate"><span class="pre">SceptrePlan</span></code> is instantiated and is then used during the
 execution phase to ensure that stack dependency relationships are complete and
-correct. Previously, in <code class="docutils literal"><span class="pre">v1</span></code> stack dependencies were available between
-<code class="docutils literal"><span class="pre">Environments</span></code> and even within <code class="docutils literal"><span class="pre">Environments</span></code> they could be temperamental,
+correct. Previously, in <code class="docutils literal notranslate"><span class="pre">v1</span></code> stack dependencies were available between
+<code class="docutils literal notranslate"><span class="pre">Environments</span></code> and even within <code class="docutils literal notranslate"><span class="pre">Environments</span></code> they could be temperamental,
 this concept resolves this issue.</p>
 </div>
 <div class="section" id="stackactions">
 <h2>StackActions<a class="headerlink" href="#stackactions" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal"><span class="pre">StackActions</span></code> class takes a <code class="docutils literal"><span class="pre">Stack</span></code> object and uses the data held on
-the <code class="docutils literal"><span class="pre">Stack</span></code> when calling AWS. StackActions is used by the
-<code class="docutils literal"><span class="pre">SceptrePlanExecutor</span></code>. To add new functionality you can add a method to
-<code class="docutils literal"><span class="pre">StackActions</span></code> and it will become available to all <code class="docutils literal"><span class="pre">Stacks</span></code> in Sceptre.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">StackActions</span></code> class takes a <code class="docutils literal notranslate"><span class="pre">Stack</span></code> object and uses the data held on
+the <code class="docutils literal notranslate"><span class="pre">Stack</span></code> when calling AWS. StackActions is used by the
+<code class="docutils literal notranslate"><span class="pre">SceptrePlanExecutor</span></code>. To add new functionality you can add a method to
+<code class="docutils literal notranslate"><span class="pre">StackActions</span></code> and it will become available to all <code class="docutils literal notranslate"><span class="pre">Stacks</span></code> in Sceptre.</p>
 </div>
 </div>
 

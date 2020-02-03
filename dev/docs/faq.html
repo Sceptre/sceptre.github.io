@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2.2.1',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -192,14 +183,14 @@
 <h2>How do I set AWS Region or Profile via the CLI?<a class="headerlink" href="#how-do-i-set-aws-region-or-profile-via-the-cli" title="Permalink to this headline">¶</a></h2>
 <p>These configuration items, and others, can be set from the CLI using
 <a class="reference internal" href="stack_group_config.html#stack-group-config-templating"><span class="std std-ref">templating</span></a>. The syntax for setting the AWS region is presented below. The
-syntax for replacing the other items is the same, with the word <code class="docutils literal"><span class="pre">region</span></code>
+syntax for replacing the other items is the same, with the word <code class="docutils literal notranslate"><span class="pre">region</span></code>
 substituted out.</p>
 <p>In config.yaml:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">region</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">{{</span> <span class="nv">var.region</span> <span class="p p-Indicator">}}</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">region</span><span class="p">:</span> <span class="p p-Indicator">{{</span> <span class="nv">var.region</span> <span class="p p-Indicator">}}</span>
 </pre></div>
 </div>
 <p>On the CLI:</p>
-<div class="highlight-text"><div class="highlight"><pre><span></span>sceptre --var &quot;region=&lt;your region name&gt;&quot; COMMAND
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sceptre --var &quot;region=&lt;your region name&gt;&quot; COMMAND
 </pre></div>
 </div>
 </div>
@@ -218,7 +209,7 @@ a CloudFormation template. They offer:</p>
 <p>Sceptre user data was added to fix this limitation. It is configuration that is
 passed directly to a template, and so can be used to change the template based
 on the configuration item’s value.</p>
-<p>For example, if the Sceptre user data item <code class="docutils literal"><span class="pre">number_of_azs</span></code> is passed to a
+<p>For example, if the Sceptre user data item <code class="docutils literal notranslate"><span class="pre">number_of_azs</span></code> is passed to a
 subnet tier template, the value could be used to create different numbers of
 subnets. This cannot be done with native parameters.</p>
 <p>In general, native CloudFormation parameters should be used in almost all
@@ -230,25 +221,25 @@ template based on the value of a config value.</p>
 <p>It is possible to replace values in stack config files with environment
 variables in two ways.</p>
 <p>The first is by using templating, and the syntax
-<code class="docutils literal"><span class="pre">{{</span> <span class="pre">environment_variable.VALUE</span> <span class="pre">}}</span></code>. Any value in a
+<code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">environment_variable.VALUE</span> <span class="pre">}}</span></code>. Any value in a
 config file may be replaced using this method.</p>
 <p>The second is by using a resolver, and the syntax:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">parameters</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">param_1</span><span class="p p-Indicator">:</span> <span class="kt">!environment_variable</span> <span class="l l-Scalar l-Scalar-Plain">VALUE</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span>
+  <span class="nt">param_1</span><span class="p">:</span> <span class="kt">!environment_variable</span> <span class="l l-Scalar l-Scalar-Plain">VALUE</span>
 </pre></div>
 </div>
 <p>This second syntax is only able to replace parameter values.</p>
 <p>The difference between these two methods lies in when the value of the
 environment variable is obtained. The templating method obtains the environment
 variable when Sceptre is first invoked. The resolver method obtains the
-environment variable just before the operations <code class="docutils literal"><span class="pre">create</span></code>, <code class="docutils literal"><span class="pre">update</span></code>,
-<code class="docutils literal"><span class="pre">launch</span></code> operation is executed (Note that these are the only commands which
+environment variable just before the operations <code class="docutils literal notranslate"><span class="pre">create</span></code>, <code class="docutils literal notranslate"><span class="pre">update</span></code>,
+<code class="docutils literal notranslate"><span class="pre">launch</span></code> operation is executed (Note that these are the only commands which
 require parameters). This difference becomes most apparent with the use of the
-<code class="docutils literal"><span class="pre">launch</span></code> command. As multiple stacks are launched, early stacks can set
+<code class="docutils literal notranslate"><span class="pre">launch</span></code> command. As multiple stacks are launched, early stacks can set
 environment variables (using Hooks) which can then be read in by later stacks.
 This is only possible using resolvers.</p>
 <p>In order to use environment variables set by Hooks run by a stack previously
-built in the same <code class="docutils literal"><span class="pre">launch</span></code> command, the environment variable resolver must be
+built in the same <code class="docutils literal notranslate"><span class="pre">launch</span></code> command, the environment variable resolver must be
 used.</p>
 </div>
 </div>

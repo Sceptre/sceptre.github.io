@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2.2.1',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -207,7 +198,7 @@
 particular profile to use, the name of the S3 bucket in which to store
 templates, and the target region in which to build resources. StackGroup config
 is stored in various files around the directory structure, all with the name
-<code class="docutils literal"><span class="pre">config.yaml</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>.</p>
 <div class="section" id="structure">
 <h2>Structure<a class="headerlink" href="#structure" title="Permalink to this headline">¶</a></h2>
 <p>An StackGroup config file is a yaml object of key-value pairs configuring
@@ -222,11 +213,11 @@ Sceptre. The available keys are listed below.</p>
 </ul>
 <p>Sceptre will only check for and uses the above keys in StackGroup config files
 and are directly accessible from Stack(). Any other keys added by the user are
-made available via <code class="docutils literal"><span class="pre">stack_group_confg</span></code> attribute on <code class="docutils literal"><span class="pre">Stack()</span></code>.</p>
+made available via <code class="docutils literal notranslate"><span class="pre">stack_group_confg</span></code> attribute on <code class="docutils literal notranslate"><span class="pre">Stack()</span></code>.</p>
 <div class="section" id="profile">
 <h3>profile<a class="headerlink" href="#profile" title="Permalink to this headline">¶</a></h3>
-<p>The name of the profile as defined in <code class="docutils literal"><span class="pre">~/.aws/config</span></code> and
-<code class="docutils literal"><span class="pre">~/.aws/credentials</span></code>.</p>
+<p>The name of the profile as defined in <code class="docutils literal notranslate"><span class="pre">~/.aws/config</span></code> and
+<code class="docutils literal notranslate"><span class="pre">~/.aws/credentials</span></code>.</p>
 </div>
 <div class="section" id="project-code">
 <h3>project_code<a class="headerlink" href="#project-code" title="Permalink to this headline">¶</a></h3>
@@ -241,23 +232,23 @@ supports CloudFormation</a>.</p>
 <h3>template_bucket_name<a class="headerlink" href="#template-bucket-name" title="Permalink to this headline">¶</a></h3>
 <p>The name of an S3 bucket to upload CloudFormation Templates to. Note that S3
 bucket names must be globally unique. If the bucket does not exist, Sceptre
-creates one using the given name, in the AWS region specified by <code class="docutils literal"><span class="pre">region</span></code>.</p>
+creates one using the given name, in the AWS region specified by <code class="docutils literal notranslate"><span class="pre">region</span></code>.</p>
 <p>If this parameter is not added, Sceptre does not upload the template to S3, but
-supplies the template to Boto3 via the <code class="docutils literal"><span class="pre">TemplateBody</span></code> argument. Templates
+supplies the template to Boto3 via the <code class="docutils literal notranslate"><span class="pre">TemplateBody</span></code> argument. Templates
 supplied in this way have a lower maximum length, so using the
-<code class="docutils literal"><span class="pre">template_bucket_name</span></code> parameter is recommended.</p>
+<code class="docutils literal notranslate"><span class="pre">template_bucket_name</span></code> parameter is recommended.</p>
 </div>
 <div class="section" id="template-key-prefix">
 <h3>template_key_prefix<a class="headerlink" href="#template-key-prefix" title="Permalink to this headline">¶</a></h3>
 <p>A string which is prefixed onto the key used to store templates uploaded to S3.
 Templates are stored using the key:</p>
-<div class="highlight-text"><div class="highlight"><pre><span></span>&lt;template_key_prefix&gt;/&lt;region&gt;/&lt;stack_group&gt;/&lt;stack_name&gt;-&lt;timestamp&gt;.&lt;extension&gt;
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&lt;template_key_prefix&gt;/&lt;region&gt;/&lt;stack_group&gt;/&lt;stack_name&gt;-&lt;timestamp&gt;.&lt;extension&gt;
 </pre></div>
 </div>
 <p>Template key prefix can contain slashes (“/”), which are displayed as
 directories in the S3 console.</p>
-<p>Extension can be <code class="docutils literal"><span class="pre">json</span></code> or <code class="docutils literal"><span class="pre">yaml</span></code>.</p>
-<p>Note that if <code class="docutils literal"><span class="pre">template_bucket_name</span></code> is not supplied, this parameter is
+<p>Extension can be <code class="docutils literal notranslate"><span class="pre">json</span></code> or <code class="docutils literal notranslate"><span class="pre">yaml</span></code>.</p>
+<p>Note that if <code class="docutils literal notranslate"><span class="pre">template_bucket_name</span></code> is not supplied, this parameter is
 ignored.</p>
 </div>
 <div class="section" id="require-version">
@@ -270,7 +261,7 @@ within the given version requirement it will abort.</p>
 <span id="stack-group-config-cascading-config"></span><h2>Cascading Config<a class="headerlink" href="#cascading-config" title="Permalink to this headline">¶</a></h2>
 <p>Using Sceptre, config files are cascaded. Given the following sceptre directory
 structure:</p>
-<div class="highlight-text"><div class="highlight"><pre><span></span>.
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>.
 └── config
     ├── account-1
     │   ├── config.yaml
@@ -283,18 +274,18 @@ structure:</p>
 configurations should be defined at a lower directory level.</p>
 <p>YAML files that define configuration settings with conflicting keys, the child
 configuration file will take precedence.</p>
-<p>In the above directory structure, <code class="docutils literal"><span class="pre">config/config.yaml</span></code> will be read in first,
-followed by <code class="docutils literal"><span class="pre">config/account-1/config.yaml</span></code>, followed by
-<code class="docutils literal"><span class="pre">config/account-1/dev/config.yaml</span></code>.</p>
-<p>For example, if you wanted the <code class="docutils literal"><span class="pre">dev</span></code> StackGroup to build to a different
-region, this setting could be specified in the <code class="docutils literal"><span class="pre">config/dev/config.yaml</span></code> file,
-and would only be applied to builds in the <code class="docutils literal"><span class="pre">dev</span></code> StackGroup.</p>
+<p>In the above directory structure, <code class="docutils literal notranslate"><span class="pre">config/config.yaml</span></code> will be read in first,
+followed by <code class="docutils literal notranslate"><span class="pre">config/account-1/config.yaml</span></code>, followed by
+<code class="docutils literal notranslate"><span class="pre">config/account-1/dev/config.yaml</span></code>.</p>
+<p>For example, if you wanted the <code class="docutils literal notranslate"><span class="pre">dev</span></code> StackGroup to build to a different
+region, this setting could be specified in the <code class="docutils literal notranslate"><span class="pre">config/dev/config.yaml</span></code> file,
+and would only be applied to builds in the <code class="docutils literal notranslate"><span class="pre">dev</span></code> StackGroup.</p>
 </div>
 <div class="section" id="templating">
 <span id="stack-group-config-templating"></span><h2>Templating<a class="headerlink" href="#templating" title="Permalink to this headline">¶</a></h2>
 <p>Sceptre supports the use of templating in config files. Templating allows
 config files to be further configured using values from the command line,
-environment variables, files or parts of the <code class="docutils literal"><span class="pre">command_path</span></code>.</p>
+environment variables, files or parts of the <code class="docutils literal notranslate"><span class="pre">command_path</span></code>.</p>
 <p>Internally, Sceptre uses Jinja2 for templating, so any valid Jinja2 syntax
 should work with Sceptre templating.</p>
 <p>Templating can be used for any values in the config files, not just those that
@@ -303,46 +294,46 @@ are used by Sceptre.</p>
 <h3>Var<a class="headerlink" href="#var" title="Permalink to this headline">¶</a></h3>
 <p>User variables are used to replace the value of any item in a config file with
 a value defined by a CLI flag or in a YAML variable file:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">profile</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">{{</span> <span class="nv">var.profile</span> <span class="p p-Indicator">}}</span>
-<span class="l l-Scalar l-Scalar-Plain">region</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">eu-west-1</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">profile</span><span class="p">:</span> <span class="p p-Indicator">{{</span> <span class="nv">var.profile</span> <span class="p p-Indicator">}}</span>
+<span class="nt">region</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">eu-west-1</span>
 </pre></div>
 </div>
 <p>This item can be set using either a command line flag:</p>
-<div class="highlight-text"><div class="highlight"><pre><span></span>sceptre --var &quot;profile=&lt;your profile&gt;&quot; &lt;COMMAND&gt;
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sceptre --var &quot;profile=&lt;your profile&gt;&quot; &lt;COMMAND&gt;
 </pre></div>
 </div>
 <p>Or from a YAML variable file:</p>
-<div class="highlight-text"><div class="highlight"><pre><span></span>sceptre --var-file=variables.yaml &lt;COMMAND&gt;
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sceptre --var-file=variables.yaml &lt;COMMAND&gt;
 </pre></div>
 </div>
-<p>where <code class="docutils literal"><span class="pre">variables.yaml</span></code> contains:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">profile</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;your profile&gt;</span>
+<p>where <code class="docutils literal notranslate"><span class="pre">variables.yaml</span></code> contains:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">profile</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;your profile&gt;</span>
 </pre></div>
 </div>
-<p>Both the <code class="docutils literal"><span class="pre">--var</span></code> and <code class="docutils literal"><span class="pre">--var-file</span></code> flags can be used multiple times. If
-multiple <code class="docutils literal"><span class="pre">--var-file</span></code> options are supplied, the variables from these files
+<p>Both the <code class="docutils literal notranslate"><span class="pre">--var</span></code> and <code class="docutils literal notranslate"><span class="pre">--var-file</span></code> flags can be used multiple times. If
+multiple <code class="docutils literal notranslate"><span class="pre">--var-file</span></code> options are supplied, the variables from these files
 will be merged, with a higher precedence given to options specified later in
-the command. Values supplied using <code class="docutils literal"><span class="pre">--var</span></code> take the highest precedence and
+the command. Values supplied using <code class="docutils literal notranslate"><span class="pre">--var</span></code> take the highest precedence and
 will overwrite any value defined in the variable files.</p>
 <p>For example if we have the following variable files:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="c1"># default.yaml</span>
-<span class="l l-Scalar l-Scalar-Plain">region</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">eu-west-1</span>
-<span class="l l-Scalar l-Scalar-Plain">profile</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">dev</span>
-<span class="l l-Scalar l-Scalar-Plain">project_code</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">api</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># default.yaml</span>
+<span class="nt">region</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">eu-west-1</span>
+<span class="nt">profile</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">dev</span>
+<span class="nt">project_code</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">api</span>
 </pre></div>
 </div>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="c1"># prod.yaml</span>
-<span class="l l-Scalar l-Scalar-Plain">profile</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">prod</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># prod.yaml</span>
+<span class="nt">profile</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">prod</span>
 </pre></div>
 </div>
 <p>The following sceptre command:</p>
-<div class="highlight-text"><div class="highlight"><pre><span></span>sceptre --var-file=default.yaml --var-file=prod.yaml --var region=us-east-1 &lt;COMMAND&gt;
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sceptre --var-file=default.yaml --var-file=prod.yaml --var region=us-east-1 &lt;COMMAND&gt;
 </pre></div>
 </div>
 <p>Will result in the following variables being available to the jinja templating:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">region</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">us-east-1</span>
-<span class="l l-Scalar l-Scalar-Plain">profile</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">prod</span>
-<span class="l l-Scalar l-Scalar-Plain">project_code</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">api</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">region</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">us-east-1</span>
+<span class="nt">profile</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">prod</span>
+<span class="nt">project_code</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">api</span>
 </pre></div>
 </div>
 <p>For command line flags, Sceptre splits the string on the first equals sign “=”,
@@ -356,46 +347,46 @@ to make sure that user variable names do not unintentionally clash.</p>
 <div class="section" id="environment-variables">
 <h3>Environment Variables<a class="headerlink" href="#environment-variables" title="Permalink to this headline">¶</a></h3>
 <p>Config item values can be replaced with environment variables:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">profile</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">{{</span> <span class="nv">environment_variable.PROFILE</span> <span class="p p-Indicator">}}</span>
-<span class="l l-Scalar l-Scalar-Plain">region</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">eu-west-1</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">profile</span><span class="p">:</span> <span class="p p-Indicator">{{</span> <span class="nv">environment_variable.PROFILE</span> <span class="p p-Indicator">}}</span>
+<span class="nt">region</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">eu-west-1</span>
 </pre></div>
 </div>
-<p>Where <code class="docutils literal"><span class="pre">PROFILE</span></code> is the name of an environment variable.</p>
+<p>Where <code class="docutils literal notranslate"><span class="pre">PROFILE</span></code> is the name of an environment variable.</p>
 </div>
 <div class="section" id="command-path">
 <h3>Command Path<a class="headerlink" href="#command-path" title="Permalink to this headline">¶</a></h3>
-<p>Config item values can be replaced with parts of the <code class="docutils literal"><span class="pre">command_path</span></code></p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">region</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">{{</span> <span class="nv">command_path.0</span> <span class="p p-Indicator">}}</span>
-<span class="l l-Scalar l-Scalar-Plain">profile</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
+<p>Config item values can be replaced with parts of the <code class="docutils literal notranslate"><span class="pre">command_path</span></code></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">region</span><span class="p">:</span> <span class="p p-Indicator">{{</span> <span class="nv">command_path.0</span> <span class="p p-Indicator">}}</span>
+<span class="nt">profile</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
 </pre></div>
 </div>
-<p>Where the value is taken from the first part of the <code class="docutils literal"><span class="pre">command_path</span></code> from the
+<p>Where the value is taken from the first part of the <code class="docutils literal notranslate"><span class="pre">command_path</span></code> from the
 invoking sceptre command:</p>
-<div class="highlight-text"><div class="highlight"><pre><span></span>sceptre launch eu-west-1/dev/vpc.yaml
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sceptre launch eu-west-1/dev/vpc.yaml
 </pre></div>
 </div>
 </div>
 <div class="section" id="template-defaults">
 <h3>Template Defaults<a class="headerlink" href="#template-defaults" title="Permalink to this headline">¶</a></h3>
 <p>Any templated value can be supplied with a default value with the syntax:</p>
-<div class="highlight-text"><div class="highlight"><pre><span></span>{{ var.value | default(&quot;default_value&quot;) }}
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{{ var.value | default(&quot;default_value&quot;) }}
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">profile</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">profile</span>
-<span class="l l-Scalar l-Scalar-Plain">project_code</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">prj</span>
-<span class="l l-Scalar l-Scalar-Plain">region</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">eu-west-1</span>
-<span class="l l-Scalar l-Scalar-Plain">template_bucket_name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">sceptre-artifacts</span>
-<span class="l l-Scalar l-Scalar-Plain">template_key_prefix</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">my/prefix</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">profile</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">profile</span>
+<span class="nt">project_code</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">prj</span>
+<span class="nt">region</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">eu-west-1</span>
+<span class="nt">template_bucket_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sceptre-artifacts</span>
+<span class="nt">template_key_prefix</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">my/prefix</span>
 </pre></div>
 </div>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">profile</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">{{</span> <span class="nv">var.profile</span> <span class="p p-Indicator">}}</span>
-<span class="l l-Scalar l-Scalar-Plain">project_code</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">{{</span> <span class="nv">var.project_code | default(&quot;prj&quot;)</span> <span class="p p-Indicator">}}</span>
-<span class="l l-Scalar l-Scalar-Plain">region</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">{{</span> <span class="nv">command_path.2</span> <span class="p p-Indicator">}}</span>
-<span class="l l-Scalar l-Scalar-Plain">template_bucket_name</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">{{</span> <span class="nv">environment_variable.TEMPLATE_BUCKET_NAME</span> <span class="p p-Indicator">}}</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">profile</span><span class="p">:</span> <span class="p p-Indicator">{{</span> <span class="nv">var.profile</span> <span class="p p-Indicator">}}</span>
+<span class="nt">project_code</span><span class="p">:</span> <span class="p p-Indicator">{{</span> <span class="nv">var.project_code | default(&quot;prj&quot;)</span> <span class="p p-Indicator">}}</span>
+<span class="nt">region</span><span class="p">:</span> <span class="p p-Indicator">{{</span> <span class="nv">command_path.2</span> <span class="p p-Indicator">}}</span>
+<span class="nt">template_bucket_name</span><span class="p">:</span> <span class="p p-Indicator">{{</span> <span class="nv">environment_variable.TEMPLATE_BUCKET_NAME</span> <span class="p p-Indicator">}}</span>
 </pre></div>
 </div>
 </div>

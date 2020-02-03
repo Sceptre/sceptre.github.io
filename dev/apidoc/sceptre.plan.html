@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2.2.1',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -212,11 +203,14 @@
 <dl class="class">
 <dt id="sceptre.plan.NullHandler">
 <em class="property">class </em><code class="descclassname">sceptre.plan.</code><code class="descname">NullHandler</code><span class="sig-paren">(</span><em>level=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan.html#NullHandler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.plan.NullHandler" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Handler" title="(in Python v3.8)"><code class="xref py py-class docutils literal"><span class="pre">logging.Handler</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Handler" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">logging.Handler</span></code></a></p>
 <dl class="method">
 <dt id="sceptre.plan.NullHandler.emit">
 <code class="descname">emit</code><span class="sig-paren">(</span><em>record</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan.html#NullHandler.emit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.plan.NullHandler.emit" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Do whatever it takes to actually log the specified logging record.</p>
+<p>This version is intended to be implemented by subclasses and so
+raises a NotImplementedError.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -231,7 +225,7 @@ available to a Stack.</p>
 <dl class="class">
 <dt id="sceptre.plan.actions.StackActions">
 <em class="property">class </em><code class="descclassname">sceptre.plan.actions.</code><code class="descname">StackActions</code><span class="sig-paren">(</span><em>stack</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/actions.html#StackActions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.plan.actions.StackActions" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>StackActions stores the operations a Stack can take, such as creating or
 deleting the Stack.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -284,7 +278,7 @@ UPDATE_ROLLBACK_COMPLETE.</p>
 <dl class="method">
 <dt id="sceptre.plan.actions.StackActions.create_change_set">
 <code class="descname">create_change_set</code><span class="sig-paren">(</span><em>change_set_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/actions.html#StackActions.create_change_set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.plan.actions.StackActions.create_change_set" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a Change Set with the name <code class="docutils literal"><span class="pre">change_set_name</span></code>.</p>
+<dd><p>Creates a Change Set with the name <code class="docutils literal notranslate"><span class="pre">change_set_name</span></code>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -314,7 +308,7 @@ UPDATE_ROLLBACK_COMPLETE.</p>
 <dl class="method">
 <dt id="sceptre.plan.actions.StackActions.delete_change_set">
 <code class="descname">delete_change_set</code><span class="sig-paren">(</span><em>change_set_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/actions.html#StackActions.delete_change_set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.plan.actions.StackActions.delete_change_set" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deletes the Change Set <code class="docutils literal"><span class="pre">change_set_name</span></code>.</p>
+<dd><p>Deletes the Change Set <code class="docutils literal notranslate"><span class="pre">change_set_name</span></code>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -344,7 +338,7 @@ UPDATE_ROLLBACK_COMPLETE.</p>
 <dl class="method">
 <dt id="sceptre.plan.actions.StackActions.describe_change_set">
 <code class="descname">describe_change_set</code><span class="sig-paren">(</span><em>change_set_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/actions.html#StackActions.describe_change_set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.plan.actions.StackActions.describe_change_set" title="Permalink to this definition">¶</a></dt>
-<dd><p>Describes the Change Set <code class="docutils literal"><span class="pre">change_set_name</span></code>.</p>
+<dd><p>Describes the Change Set <code class="docutils literal notranslate"><span class="pre">change_set_name</span></code>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -385,7 +379,7 @@ UPDATE_ROLLBACK_COMPLETE.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The Stack’s outputs.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="sceptre.cli.html#module-sceptre.cli.list" title="sceptre.cli.list">list</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)">list</a></td>
 </tr>
 </tbody>
 </table>
@@ -428,7 +422,7 @@ UPDATE_ROLLBACK_COMPLETE.</p>
 <dl class="method">
 <dt id="sceptre.plan.actions.StackActions.execute_change_set">
 <code class="descname">execute_change_set</code><span class="sig-paren">(</span><em>change_set_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/actions.html#StackActions.execute_change_set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.plan.actions.StackActions.execute_change_set" title="Permalink to this definition">¶</a></dt>
-<dd><p>Executes the Change Set <code class="docutils literal"><span class="pre">change_set_name</span></code>.</p>
+<dd><p>Executes the Change Set <code class="docutils literal notranslate"><span class="pre">change_set_name</span></code>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -511,7 +505,7 @@ performed, launch exits gracefully.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The Stack’s Change Sets.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)">dict</a> or <a class="reference internal" href="sceptre.cli.html#module-sceptre.cli.list" title="sceptre.cli.list">list</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)">dict</a> or <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)">list</a></td>
 </tr>
 </tbody>
 </table>
@@ -607,7 +601,7 @@ executing the command specified in a SceptrePlan.</p>
 <dl class="class">
 <dt id="sceptre.plan.executor.SceptrePlanExecutor">
 <em class="property">class </em><code class="descclassname">sceptre.plan.executor.</code><code class="descname">SceptrePlanExecutor</code><span class="sig-paren">(</span><em>command</em>, <em>launch_order</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/executor.html#SceptrePlanExecutor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.plan.executor.SceptrePlanExecutor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="method">
 <dt id="sceptre.plan.executor.SceptrePlanExecutor.execute">
 <code class="descname">execute</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/executor.html#SceptrePlanExecutor.execute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.plan.executor.SceptrePlanExecutor.execute" title="Permalink to this definition">¶</a></dt>
@@ -635,7 +629,7 @@ nessessary information for a command to execute.</p>
 <dl class="class">
 <dt id="sceptre.plan.plan.SceptrePlan">
 <em class="property">class </em><code class="descclassname">sceptre.plan.plan.</code><code class="descname">SceptrePlan</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/plan.html#SceptrePlan"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.plan.plan.SceptrePlan" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="method">
 <dt id="sceptre.plan.plan.SceptrePlan.cancel_stack_update">
 <code class="descname">cancel_stack_update</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/plan.html#SceptrePlan.cancel_stack_update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.plan.plan.SceptrePlan.cancel_stack_update" title="Permalink to this definition">¶</a></dt>
@@ -688,7 +682,7 @@ UPDATE_ROLLBACK_COMPLETE.</p>
 <dl class="method">
 <dt id="sceptre.plan.plan.SceptrePlan.create_change_set">
 <code class="descname">create_change_set</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/plan.html#SceptrePlan.create_change_set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.plan.plan.SceptrePlan.create_change_set" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a Change Set with the name <code class="docutils literal"><span class="pre">change_set_name</span></code>.</p>
+<dd><p>Creates a Change Set with the name <code class="docutils literal notranslate"><span class="pre">change_set_name</span></code>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -722,7 +716,7 @@ UPDATE_ROLLBACK_COMPLETE.</p>
 <dl class="method">
 <dt id="sceptre.plan.plan.SceptrePlan.delete_change_set">
 <code class="descname">delete_change_set</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/plan.html#SceptrePlan.delete_change_set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.plan.plan.SceptrePlan.delete_change_set" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deletes the Change Set <code class="docutils literal"><span class="pre">change_set_name</span></code>.</p>
+<dd><p>Deletes the Change Set <code class="docutils literal notranslate"><span class="pre">change_set_name</span></code>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -756,7 +750,7 @@ UPDATE_ROLLBACK_COMPLETE.</p>
 <dl class="method">
 <dt id="sceptre.plan.plan.SceptrePlan.describe_change_set">
 <code class="descname">describe_change_set</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/plan.html#SceptrePlan.describe_change_set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.plan.plan.SceptrePlan.describe_change_set" title="Permalink to this definition">¶</a></dt>
-<dd><p>Describes the Change Set <code class="docutils literal"><span class="pre">change_set_name</span></code>.</p>
+<dd><p>Describes the Change Set <code class="docutils literal notranslate"><span class="pre">change_set_name</span></code>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -840,7 +834,7 @@ UPDATE_ROLLBACK_COMPLETE.</p>
 <dl class="method">
 <dt id="sceptre.plan.plan.SceptrePlan.execute_change_set">
 <code class="descname">execute_change_set</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/plan.html#SceptrePlan.execute_change_set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.plan.plan.SceptrePlan.execute_change_set" title="Permalink to this definition">¶</a></dt>
-<dd><p>Executes the Change Set <code class="docutils literal"><span class="pre">change_set_name</span></code>.</p>
+<dd><p>Executes the Change Set <code class="docutils literal notranslate"><span class="pre">change_set_name</span></code>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />

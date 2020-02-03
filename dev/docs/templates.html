@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2.2.1',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -192,9 +183,9 @@
   <div class="section" id="templates">
 <h1>Templates<a class="headerlink" href="#templates" title="Permalink to this headline">¶</a></h1>
 <p>Sceptre uses CloudFormation Templates to launch AWS Stacks. Templates must be
-stored in a directory named <code class="docutils literal"><span class="pre">templates/</span></code>, in the same directory as the
-<code class="docutils literal"><span class="pre">config/</span></code> directory:</p>
-<div class="highlight-text"><div class="highlight"><pre><span></span>.
+stored in a directory named <code class="docutils literal notranslate"><span class="pre">templates/</span></code>, in the same directory as the
+<code class="docutils literal notranslate"><span class="pre">config/</span></code> directory:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>.
 ├── config
 │   └── dev
 │       ├── config.yaml
@@ -205,30 +196,30 @@ stored in a directory named <code class="docutils literal"><span class="pre">tem
 </div>
 <div class="section" id="cloudformation">
 <h2>CloudFormation<a class="headerlink" href="#cloudformation" title="Permalink to this headline">¶</a></h2>
-<p>Templates with <code class="docutils literal"><span class="pre">.json</span></code> or <code class="docutils literal"><span class="pre">.yaml</span></code> extensions are treated as CloudFormation
+<p>Templates with <code class="docutils literal notranslate"><span class="pre">.json</span></code> or <code class="docutils literal notranslate"><span class="pre">.yaml</span></code> extensions are treated as CloudFormation
 Templates. They are read in and used without modification.</p>
 </div>
 <div class="section" id="jinja">
 <h2>Jinja<a class="headerlink" href="#jinja" title="Permalink to this headline">¶</a></h2>
-<p>Templates with <code class="docutils literal"><span class="pre">.j2</span></code> extensions are treated as Jinja2 Templates.
+<p>Templates with <code class="docutils literal notranslate"><span class="pre">.j2</span></code> extensions are treated as Jinja2 Templates.
 These are rendered and should create a raw JSON or YAML CloudFormation
 Template. Sceptre User Data is accessible within Templates as
-<code class="docutils literal"><span class="pre">sceptre_user_data</span></code>. For example <code class="docutils literal"><span class="pre">{{</span> <span class="pre">sceptre_user_data.some_variable</span> <span class="pre">}}</span></code>.
-<code class="docutils literal"><span class="pre">sceptre_user_data</span></code> accesses the <code class="docutils literal"><span class="pre">sceptre_user_data</span></code> key in the Stack
+<code class="docutils literal notranslate"><span class="pre">sceptre_user_data</span></code>. For example <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">sceptre_user_data.some_variable</span> <span class="pre">}}</span></code>.
+<code class="docutils literal notranslate"><span class="pre">sceptre_user_data</span></code> accesses the <code class="docutils literal notranslate"><span class="pre">sceptre_user_data</span></code> key in the Stack
 Config file.</p>
 </div>
 <div class="section" id="python">
 <h2>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h2>
-<p>Templates with a <code class="docutils literal"><span class="pre">.py</span></code> extension are treated as Python Templates. They should
-implement a function named <code class="docutils literal"><span class="pre">sceptre_handler(sceptre_user_data)</span></code> which returns
-the CloudFormation Template as a <code class="docutils literal"><span class="pre">string</span></code>. Sceptre User Data is passed to
+<p>Templates with a <code class="docutils literal notranslate"><span class="pre">.py</span></code> extension are treated as Python Templates. They should
+implement a function named <code class="docutils literal notranslate"><span class="pre">sceptre_handler(sceptre_user_data)</span></code> which returns
+the CloudFormation Template as a <code class="docutils literal notranslate"><span class="pre">string</span></code>. Sceptre User Data is passed to
 this function as an argument. If Sceptre User Data is not defined in the Stack
-Config file, Sceptre passes an empty <code class="docutils literal"><span class="pre">dict</span></code>.</p>
+Config file, Sceptre passes an empty <code class="docutils literal notranslate"><span class="pre">dict</span></code>.</p>
 <div class="section" id="example">
 <h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
 <p>This example is using <a class="reference external" href="https://github.com/cloudtools/troposphere/">troposphere</a>
 to generate CloudFormation Template as a <cite>json</cite> string.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">troposphere</span> <span class="kn">import</span> <span class="n">Template</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">troposphere</span> <span class="kn">import</span> <span class="n">Template</span>
 <span class="kn">from</span> <span class="nn">troposphere.ec2</span> <span class="kn">import</span> <span class="n">VPC</span>
 
 <span class="k">def</span> <span class="nf">vpc</span><span class="p">(</span><span class="n">sceptre_user_data</span><span class="p">):</span>

@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../../../',
-              VERSION:'2.2.1',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../../../_static/jquery.js"></script>
         <script type="text/javascript" src="../../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -190,18 +181,18 @@
 <span class="sd">This module implements a SceptrePlan, which is responsible for holding all</span>
 <span class="sd">nessessary information for a command to execute.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">path</span><span class="p">,</span> <span class="n">walk</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span><span class="p">,</span> <span class="n">walk</span>
 
-<span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="k">import</span> <span class="n">ConfigFileNotFoundError</span>
-<span class="kn">from</span> <span class="nn">sceptre.config.graph</span> <span class="k">import</span> <span class="n">StackGraph</span>
-<span class="kn">from</span> <span class="nn">sceptre.config.reader</span> <span class="k">import</span> <span class="n">ConfigReader</span>
-<span class="kn">from</span> <span class="nn">sceptre.plan.executor</span> <span class="k">import</span> <span class="n">SceptrePlanExecutor</span>
-<span class="kn">from</span> <span class="nn">sceptre.helpers</span> <span class="k">import</span> <span class="n">sceptreise_path</span>
+<span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">ConfigFileNotFoundError</span>
+<span class="kn">from</span> <span class="nn">sceptre.config.graph</span> <span class="kn">import</span> <span class="n">StackGraph</span>
+<span class="kn">from</span> <span class="nn">sceptre.config.reader</span> <span class="kn">import</span> <span class="n">ConfigReader</span>
+<span class="kn">from</span> <span class="nn">sceptre.plan.executor</span> <span class="kn">import</span> <span class="n">SceptrePlanExecutor</span>
+<span class="kn">from</span> <span class="nn">sceptre.helpers</span> <span class="kn">import</span> <span class="n">sceptreise_path</span>
 
 
 <div class="viewcode-block" id="SceptrePlan"><a class="viewcode-back" href="../../../apidoc/sceptre.plan.html#sceptre.plan.plan.SceptrePlan">[docs]</a><span class="k">class</span> <span class="nc">SceptrePlan</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Intialises a SceptrePlan and generates the Stacks, StackGraph and</span>
 <span class="sd">        launch order of required.</span>
