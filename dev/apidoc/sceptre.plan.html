@@ -483,7 +483,7 @@ UPDATE_ROLLBACK_COMPLETE.</p>
 
 <dl class="method">
 <dt id="sceptre.plan.actions.StackActions.launch">
-<code class="descname">launch</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/actions.html#StackActions.launch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.plan.actions.StackActions.launch" title="Permalink to this definition">¶</a></dt>
+<code class="descname">launch</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/actions.html#StackActions.launch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.plan.actions.StackActions.launch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Launches the Stack.</p>
 <p>If the Stack status is create_failed or rollback_complete, the
 Stack is deleted. Launch then tries to create or update the Stack,
@@ -617,7 +617,8 @@ concurrently, in the correct order.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>*args</strong> – Any arguments that should be passed through to the                StackAction being called.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>*args</strong> – <p>Any arguments that should be passed through to the                StackAction being called.</p>
+</td>
 </tr>
 </tbody>
 </table>
