@@ -701,6 +701,17 @@
 <span class="sd">        :rtype: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_protect_execution</span><span class="p">()</span>
+        <span class="n">change_set</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">describe_change_set</span><span class="p">(</span><span class="n">change_set_name</span><span class="p">)</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="n">change_set</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Status&quot;</span><span class="p">)</span>
+        <span class="n">reason</span> <span class="o">=</span> <span class="n">change_set</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;StatusReason&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="s2">&quot;FAILED&quot;</span> <span class="ow">and</span> <span class="s2">&quot;submitted information didn&#39;t contain changes&quot;</span> <span class="ow">in</span> <span class="n">reason</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                    <span class="s2">&quot;Skipping ChangeSet on Stack: </span><span class="si">{}</span><span class="s2"> - there are no changes&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">change_set</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;StackName&quot;</span><span class="p">)</span>
+                        <span class="p">)</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="mi">0</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
             <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> - Executing Change Set &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">change_set_name</span>
         <span class="p">)</span>
