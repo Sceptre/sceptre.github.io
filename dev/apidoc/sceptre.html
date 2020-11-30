@@ -201,7 +201,7 @@
 <dl class="class">
 <dt id="sceptre.NullHandler">
 <em class="property">class </em><code class="descclassname">sceptre.</code><code class="descname">NullHandler</code><span class="sig-paren">(</span><em>level=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre.html#NullHandler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.NullHandler" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Handler" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">logging.Handler</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Handler" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">logging.Handler</span></code></a></p>
 <dl class="method">
 <dt id="sceptre.NullHandler.emit">
 <code class="descname">emit</code><span class="sig-paren">(</span><em>record</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre.html#NullHandler.emit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.NullHandler.emit" title="Permalink to this definition">¶</a></dt>
@@ -273,7 +273,7 @@ Boto3 calls.</p>
 <dl class="class">
 <dt id="sceptre.connection_manager.ConnectionManager">
 <em class="property">class </em><code class="descclassname">sceptre.connection_manager.</code><code class="descname">ConnectionManager</code><span class="sig-paren">(</span><em>region</em>, <em>profile=None</em>, <em>stack_name=None</em>, <em>iam_role=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/connection_manager.html#ConnectionManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.connection_manager.ConnectionManager" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>The Connection Manager is used to create boto3 clients for
 the various AWS services that Sceptre needs to interact with.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -281,10 +281,10 @@ the various AWS services that Sceptre needs to interact with.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>profile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The AWS credentials profile that should be used.</li>
-<li><strong>iam_role</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The iam_role that should be assumed in the account.</li>
-<li><strong>stack_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The CloudFormation stack name for this connection.</li>
-<li><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The region to use.</li>
+<li><strong>profile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The AWS credentials profile that should be used.</li>
+<li><strong>iam_role</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The iam_role that should be assumed in the account.</li>
+<li><strong>stack_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The CloudFormation stack name for this connection.</li>
+<li><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The region to use.</li>
 </ul>
 </td>
 </tr>
@@ -300,16 +300,16 @@ the various AWS services that Sceptre needs to interact with.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>service</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The Boto3 service to return a client for.</li>
-<li><strong>command</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The Boto3 command to call.</li>
-<li><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – The keyword arguments to supply to &lt;command&gt;.</li>
+<li><strong>service</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The Boto3 service to return a client for.</li>
+<li><strong>command</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The Boto3 command to call.</li>
+<li><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The keyword arguments to supply to &lt;command&gt;.</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The response from the Boto3 call.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)">dict</a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
 </td>
 </tr>
 </tbody>
@@ -327,7 +327,7 @@ paths used in a Sceptre project.</p>
 <dl class="class">
 <dt id="sceptre.context.SceptreContext">
 <em class="property">class </em><code class="descclassname">sceptre.context.</code><code class="descname">SceptreContext</code><span class="sig-paren">(</span><em>project_path</em>, <em>command_path</em>, <em>user_variables=None</em>, <em>options=None</em>, <em>output_format=None</em>, <em>no_colour=False</em>, <em>ignore_dependencies=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/context.html#SceptreContext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.context.SceptreContext" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>SceptreContext is a place that holds data that is relevant to the
 project, including references to the project paths such as the path to your
 Sceptre project, templates path, config path, and the default names for
@@ -337,12 +337,12 @@ your configuration files.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>project_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Absolute path to the base sceptre project folder</li>
-<li><strong>command_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The relative path to either StackGroup or Stack.</li>
-<li><strong>user_variables</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – Used to replace the value of anyvitem in a Config            file with a value defined by the CLI flag or in a YAML variable            file</li>
-<li><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – The options specified in by the CLI command</li>
-<li><strong>output_format</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Specify the output format. Available formats:            [yaml, json]</li>
-<li><strong>no_colour</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Specify whether colouring should be used in the CLI            output</li>
+<li><strong>project_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Absolute path to the base sceptre project folder</li>
+<li><strong>command_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The relative path to either StackGroup or Stack.</li>
+<li><strong>user_variables</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – Used to replace the value of anyvitem in a Config            file with a value defined by the CLI flag or in a YAML variable            file</li>
+<li><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The options specified in by the CLI command</li>
+<li><strong>output_format</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Specify the output format. Available formats:            [yaml, json]</li>
+<li><strong>no_colour</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Specify whether colouring should be used in the CLI            output</li>
 </ul>
 </td>
 </tr>
@@ -358,7 +358,7 @@ your configuration files.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if the command path is a file</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></td>
 </tr>
 </tbody>
 </table>
@@ -375,7 +375,7 @@ your configuration files.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The absolute path to the path that will be executed</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></td>
 </tr>
 </tbody>
 </table>
@@ -391,7 +391,7 @@ your configuration files.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The absolute path to the config directory</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></td>
 </tr>
 </tbody>
 </table>
@@ -407,7 +407,7 @@ your configuration files.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The absolute path to the  templates directory</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></td>
 </tr>
 </tbody>
 </table>
@@ -611,11 +611,11 @@ character “*”.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The string to mask.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The string to mask.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">An masked version of the key</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></td>
 </tr>
 </tbody>
 </table>
@@ -655,7 +655,7 @@ trailing slash.
 <dl class="class">
 <dt id="sceptre.stack.Stack">
 <em class="property">class </em><code class="descclassname">sceptre.stack.</code><code class="descname">Stack</code><span class="sig-paren">(</span><em>name</em>, <em>project_code</em>, <em>template_path</em>, <em>region</em>, <em>template_bucket_name=None</em>, <em>template_key_prefix=None</em>, <em>required_version=None</em>, <em>parameters=None</em>, <em>sceptre_user_data=None</em>, <em>hooks=None</em>, <em>s3_details=None</em>, <em>iam_role=None</em>, <em>dependencies=None</em>, <em>role_arn=None</em>, <em>protected=False</em>, <em>tags=None</em>, <em>external_name=None</em>, <em>notifications=None</em>, <em>on_failure=None</em>, <em>profile=None</em>, <em>stack_timeout=0</em>, <em>stack_group_config={}</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/stack.html#Stack"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.stack.Stack" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Stack stores information about a particular CloudFormation Stack.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -663,27 +663,27 @@ trailing slash.
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>name</strong> – The name of the Stack.</li>
-<li><strong>project_code</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – A code which is prepended to the Stack names            of all Stacks built by Sceptre.</li>
-<li><strong>template_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The relative path to the CloudFormation, Jinja2            or Python template to build the Stack from.</li>
-<li><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The AWS region to build Stacks in.</li>
-<li><strong>template_bucket_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The name of the S3 bucket the Template is uploaded to.</li>
-<li><strong>template_key_prefix</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – A prefix to the key used to store templates uploaded to S3</li>
-<li><strong>required_version</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – A PEP 440 compatible version specifier. If the Sceptre version does            not fall within the given version requirement it will abort.</li>
-<li><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – The keys must match up with the name of the parameter.            The value must be of the type as defined in the template.</li>
-<li><strong>sceptre_user_data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – Data passed into            <cite>sceptre_handler(sceptre_user_data)</cite> function in Python templates            or accessible under <cite>sceptre_user_data</cite> variable within Jinja2            templates.</li>
+<li><strong>project_code</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – A code which is prepended to the Stack names            of all Stacks built by Sceptre.</li>
+<li><strong>template_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The relative path to the CloudFormation, Jinja2            or Python template to build the Stack from.</li>
+<li><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The AWS region to build Stacks in.</li>
+<li><strong>template_bucket_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The name of the S3 bucket the Template is uploaded to.</li>
+<li><strong>template_key_prefix</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – A prefix to the key used to store templates uploaded to S3</li>
+<li><strong>required_version</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – A PEP 440 compatible version specifier. If the Sceptre version does            not fall within the given version requirement it will abort.</li>
+<li><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The keys must match up with the name of the parameter.            The value must be of the type as defined in the template.</li>
+<li><strong>sceptre_user_data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – Data passed into            <cite>sceptre_handler(sceptre_user_data)</cite> function in Python templates            or accessible under <cite>sceptre_user_data</cite> variable within Jinja2            templates.</li>
 <li><strong>hooks</strong> (<a class="reference internal" href="sceptre.hooks.html#sceptre.hooks.Hook" title="sceptre.hooks.Hook"><em>sceptre.hooks.Hook</em></a>) – A list of arbitrary shell or python commands or scripts to            run.</li>
-<li><strong>s3_details</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – </li>
-<li><strong>dependencies</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – The relative path to the Stack, including the file            extension of the Stack.</li>
-<li><strong>role_arn</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The ARN of a CloudFormation Service Role that is assumed            by CloudFormation to create, update or delete resources.</li>
-<li><strong>protected</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Stack protection against execution.</li>
-<li><strong>tags</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – CloudFormation Tags to be applied to the Stack.</li>
-<li><strong>external_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – </li>
-<li><strong>notifications</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – SNS topic ARNs to publish Stack related events to.            A maximum of 5 ARNs can be specified per Stack.</li>
-<li><strong>on_failure</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – This parameter describes the action taken by            CloudFormation when a Stack fails to create.</li>
-<li><strong>iam_role</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The ARN of a role for Sceptre to assume before interacting            with the environment. If not supplied, Sceptre uses the user’s AWS CLI            credentials.</li>
-<li><strong>profile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The name of the profile as defined in ~/.aws/config and            ~/.aws/credentials.</li>
-<li><strong>stack_timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – A timeout in minutes before considering the Stack            deployment as failed. After the specified timeout, the Stack will            be rolled back. Specifiyng zero, as well as ommiting the field,            will result in no timeout. Supports only positive integer value.</li>
-<li><strong>stack_group_config</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – The StackGroup config for the Stack</li>
+<li><strong>s3_details</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – </li>
+<li><strong>dependencies</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The relative path to the Stack, including the file            extension of the Stack.</li>
+<li><strong>role_arn</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The ARN of a CloudFormation Service Role that is assumed            by CloudFormation to create, update or delete resources.</li>
+<li><strong>protected</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Stack protection against execution.</li>
+<li><strong>tags</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – CloudFormation Tags to be applied to the Stack.</li>
+<li><strong>external_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – </li>
+<li><strong>notifications</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – SNS topic ARNs to publish Stack related events to.            A maximum of 5 ARNs can be specified per Stack.</li>
+<li><strong>on_failure</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – This parameter describes the action taken by            CloudFormation when a Stack fails to create.</li>
+<li><strong>iam_role</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The ARN of a role for Sceptre to assume before interacting            with the environment. If not supplied, Sceptre uses the user’s AWS CLI            credentials.</li>
+<li><strong>profile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The name of the profile as defined in ~/.aws/config and            ~/.aws/credentials.</li>
+<li><strong>stack_timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – A timeout in minutes before considering the Stack            deployment as failed. After the specified timeout, the Stack will            be rolled back. Specifiyng zero, as well as ommiting the field,            will result in no timeout. Supports only positive integer value.</li>
+<li><strong>stack_group_config</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The StackGroup config for the Stack</li>
 </ul>
 </td>
 </tr>
@@ -724,7 +724,7 @@ nested dictionary and lists.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Attribute suffix used to store the property in the instance.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Attribute suffix used to store the property in the instance.</td>
 </tr>
 </tbody>
 </table>
@@ -748,7 +748,7 @@ nested dictionary and lists.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)">dict</a> or <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)">list</a> or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)">None</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a> or <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a> or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a></td>
 </tr>
 </tbody>
 </table>
@@ -764,7 +764,7 @@ nested dictionary and lists.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The Stack’s template.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></td>
 </tr>
 </tbody>
 </table>
@@ -781,7 +781,7 @@ ChangeSet status values.</p>
 <dl class="class">
 <dt id="sceptre.stack_status.StackChangeSetStatus">
 <em class="property">class </em><code class="descclassname">sceptre.stack_status.</code><code class="descname">StackChangeSetStatus</code><a class="reference internal" href="../_modules/sceptre/stack_status.html#StackChangeSetStatus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.stack_status.StackChangeSetStatus" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>StackChangeSetStatus stores simplified ChangeSet statuses.</p>
 <dl class="attribute">
 <dt id="sceptre.stack_status.StackChangeSetStatus.DEFUNCT">
@@ -803,7 +803,7 @@ ChangeSet status values.</p>
 <dl class="class">
 <dt id="sceptre.stack_status.StackStatus">
 <em class="property">class </em><code class="descclassname">sceptre.stack_status.</code><code class="descname">StackStatus</code><a class="reference internal" href="../_modules/sceptre/stack_status.html#StackStatus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.stack_status.StackStatus" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>StackStatus stores simplified Stack statuses.</p>
 <dl class="attribute">
 <dt id="sceptre.stack_status.StackStatus.COMPLETE">
@@ -836,7 +836,7 @@ found in a given string.</p>
 <dl class="class">
 <dt id="sceptre.stack_status_colourer.StackStatusColourer">
 <em class="property">class </em><code class="descclassname">sceptre.stack_status_colourer.</code><code class="descname">StackStatusColourer</code><a class="reference internal" href="../_modules/sceptre/stack_status_colourer.html#StackStatusColourer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.stack_status_colourer.StackStatusColourer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>StackStatusColourer adds colours to stack statuses.</p>
 <dl class="attribute">
 <dt id="sceptre.stack_status_colourer.StackStatusColourer.STACK_STATUS_CODES">
@@ -858,11 +858,11 @@ found in a given string.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>string</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – A string to colour.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>string</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – A string to colour.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The string with all stack status values coloured.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></td>
 </tr>
 </tbody>
 </table>
@@ -879,7 +879,7 @@ and implements methods for uploading it to S3.</p>
 <dl class="class">
 <dt id="sceptre.template.Template">
 <em class="property">class </em><code class="descclassname">sceptre.template.</code><code class="descname">Template</code><span class="sig-paren">(</span><em>path</em>, <em>sceptre_user_data</em>, <em>connection_manager=None</em>, <em>s3_details=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/template.html#Template"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.template.Template" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Template represents an AWS CloudFormation template. It is responsible for
 loading, storing and optionally uploading local templates for use by
 CloudFormation.</p>
@@ -888,10 +888,10 @@ CloudFormation.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The absolute path to the file which stores the CloudFormation            template.</li>
-<li><strong>sceptre_user_data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – A dictionary of arbitrary data to be passed to            a handler function in an external Python script.</li>
+<li><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The absolute path to the file which stores the CloudFormation            template.</li>
+<li><strong>sceptre_user_data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – A dictionary of arbitrary data to be passed to            a handler function in an external Python script.</li>
 <li><strong>connection_manager</strong> (<a class="reference internal" href="#sceptre.connection_manager.ConnectionManager" title="sceptre.connection_manager.ConnectionManager"><em>sceptre.connection_manager.ConnectionManager</em></a>) – </li>
-<li><strong>s3_details</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – </li>
+<li><strong>s3_details</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – </li>
 </ul>
 </td>
 </tr>
@@ -907,7 +907,7 @@ CloudFormation.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The body of the CloudFormation template.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></td>
 </tr>
 </tbody>
 </table>
@@ -925,7 +925,7 @@ the template itself.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The boto call parameter for the template.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)">dict</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></td>
 </tr>
 </tbody>
 </table>
@@ -942,7 +942,7 @@ the template itself.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The URL of the Template object in S3.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body">botocore.exceptions.ClientError</td>
 </tr>

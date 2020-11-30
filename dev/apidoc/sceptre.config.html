@@ -203,7 +203,7 @@
 <dl class="class">
 <dt id="sceptre.config.NullHandler">
 <em class="property">class </em><code class="descclassname">sceptre.config.</code><code class="descname">NullHandler</code><span class="sig-paren">(</span><em>level=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/config.html#NullHandler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.config.NullHandler" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Handler" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">logging.Handler</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Handler" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">logging.Handler</span></code></a></p>
 <dl class="method">
 <dt id="sceptre.config.NullHandler.emit">
 <code class="descname">emit</code><span class="sig-paren">(</span><em>record</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/config.html#NullHandler.emit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.config.NullHandler.emit" title="Permalink to this definition">¶</a></dt>
@@ -225,7 +225,7 @@ acyclic graph of a Stack’s dependencies.</p>
 <dl class="class">
 <dt id="sceptre.config.graph.StackGraph">
 <em class="property">class </em><code class="descclassname">sceptre.config.graph.</code><code class="descname">StackGraph</code><span class="sig-paren">(</span><em>stacks</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/config/graph.html#StackGraph"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.config.graph.StackGraph" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>A Directed Acyclic Graph representing the relationship between a Stack
 and its dependencies. Responsible for initalising the graph based on a set
 of Stacks.</p>
@@ -267,7 +267,7 @@ and constructing Stacks.</p>
 <dl class="class">
 <dt id="sceptre.config.reader.ConfigReader">
 <em class="property">class </em><code class="descclassname">sceptre.config.reader.</code><code class="descname">ConfigReader</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/config/reader.html#ConfigReader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.config.reader.ConfigReader" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Parses YAML configuration files and produces Stack objects.</p>
 <p>Responsible for loading Resolvers and Hook classes and adding them as
 constructors to the PyYAML parser.</p>
@@ -292,7 +292,7 @@ and a final set of Stacks is returned.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A set of Stacks.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.8)">set</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.9)">set</a></td>
 </tr>
 </tbody>
 </table>
@@ -308,15 +308,15 @@ within the Sceptre project folder.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>rel_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Relative path to config to read.</li>
-<li><strong>base_config</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – Base config to provide defaults.</li>
+<li><strong>rel_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Relative path to config to read.</li>
+<li><strong>base_config</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – Base config to provide defaults.</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Config read from config files.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)">dict</a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
 </td>
 </tr>
 </tbody>
@@ -341,7 +341,7 @@ from a list of Strings (stack names) to a list of Stacks.</p>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Set of stacks, containing dependencies as list of Stacks.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.8)">set</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.9)">set</a></td>
 </tr>
 <tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body">sceptre.exceptions.DependencyDoesNotExistError</td>
 </tr>
@@ -366,8 +366,8 @@ attributes.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>a</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><em>object</em></a>) – An object.</li>
-<li><strong>b</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><em>object</em></a>) – An object.</li>
+<li><strong>a</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><em>object</em></a>) – An object.</li>
+<li><strong>b</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><em>object</em></a>) – An object.</li>
 </ul>
 </td>
 </tr>
@@ -387,15 +387,15 @@ attributes.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>a</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – A dictionary.</li>
-<li><strong>b</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – A dictionary.</li>
+<li><strong>a</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – A dictionary.</li>
+<li><strong>b</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – A dictionary.</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A merged dict.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)">dict</a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
 </td>
 </tr>
 </tbody>
@@ -411,15 +411,15 @@ attributes.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>a</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – A list.</li>
-<li><strong>b</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – A list.</li>
+<li><strong>a</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – A list.</li>
+<li><strong>b</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – A list.</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A joined list from the two parameters.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)">list</a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a></p>
 </td>
 </tr>
 </tbody>

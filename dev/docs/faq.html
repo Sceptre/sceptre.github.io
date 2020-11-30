@@ -107,6 +107,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#how-do-i-set-aws-region-or-profile-via-the-cli">How do I set AWS Region or Profile via the CLI?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#should-i-use-a-parameter-or-sceptre-user-data">Should I use a Parameter or Sceptre User Data?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#why-are-there-two-ways-to-supply-environment-variables-in-stack-config-files">Why are there two ways to supply environment variables in stack config files?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-do-i-build-a-serverless-application-using-sceptre-and-sam">How do I build a Serverless application using Sceptre and SAM?</a></li>
 </ul>
 </li>
 </ul>
@@ -241,6 +242,18 @@ This is only possible using resolvers.</p>
 <p>In order to use environment variables set by Hooks run by a stack previously
 built in the same <code class="docutils literal notranslate"><span class="pre">launch</span></code> command, the environment variable resolver must be
 used.</p>
+</div>
+<div class="section" id="how-do-i-build-a-serverless-application-using-sceptre-and-sam">
+<h2>How do I build a Serverless application using Sceptre and SAM?<a class="headerlink" href="#how-do-i-build-a-serverless-application-using-sceptre-and-sam" title="Permalink to this headline">¶</a></h2>
+<p>There are a few different ways that Sceptre can help create serverless
+applications or lambdas.  One approach is to use the <a class="reference external" href="https://github.com/aws/aws-sam-cli">SAM CLI</a> to build
+and deploy your SAM templates to an S3 bucket then have Sceptre deploy the
+generated SAM template to your AWS account. Examples of this approach can
+be found in these projects:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/Sage-Bionetworks-IT/lambda-template">Sage-Bionetworks Sceptre lambda github template</a></li>
+<li><a class="reference external" href="https://github.com/Versent/sam-sceptre">Versant SAM Sceptre skeleton example</a></li>
+</ul>
 </div>
 </div>
 

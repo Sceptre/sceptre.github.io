@@ -203,14 +203,14 @@
 <dl class="class">
 <dt id="sceptre.hooks.Hook">
 <em class="property">class </em><code class="descclassname">sceptre.hooks.</code><code class="descname">Hook</code><span class="sig-paren">(</span><em>argument=None</em>, <em>stack=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/hooks.html#Hook"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.hooks.Hook" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Hook is an abstract base class that should be inherited by all hooks.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>argument</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The argument of the hook.</li>
+<li><strong>argument</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The argument of the hook.</li>
 <li><strong>stack</strong> (<a class="reference internal" href="sceptre.html#sceptre.stack.Stack" title="sceptre.stack.Stack"><em>sceptre.stack.Stack</em></a>) – The associated stack of the hook.</li>
 </ul>
 </td>
@@ -236,7 +236,7 @@ hooks to run so initalisation steps when config is first read.</p>
 <dl class="class">
 <dt id="sceptre.hooks.HookProperty">
 <em class="property">class </em><code class="descclassname">sceptre.hooks.</code><code class="descname">HookProperty</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/hooks.html#HookProperty"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.hooks.HookProperty" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>This is a descriptor class used to store an attribute that may contain
 Hook objects. Used to setup Hooks when added as a attribute. Supports
 nested dictionary and lists.</p>
@@ -244,7 +244,7 @@ nested dictionary and lists.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Attribute suffix used to store the property in the instance.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Attribute suffix used to store the property in the instance.</td>
 </tr>
 </tbody>
 </table>
@@ -269,11 +269,11 @@ Does not detect Resolver objects used as keys in dictionaries.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>attr</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – A complex data structure to search through.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>attr</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – A complex data structure to search through.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A complex data structure without Resolver objects.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)">dict</a> or <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)">list</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a> or <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a></td>
 </tr>
 </tbody>
 </table>

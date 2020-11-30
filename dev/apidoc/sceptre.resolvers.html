@@ -208,7 +208,7 @@
 <dl class="class">
 <dt id="sceptre.resolvers.ResolvableProperty">
 <em class="property">class </em><code class="descclassname">sceptre.resolvers.</code><code class="descname">ResolvableProperty</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/resolvers.html#ResolvableProperty"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.resolvers.ResolvableProperty" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>This is a descriptor class used to store an attribute that may contain
 Resolver objects. When retrieving the dictionary or list, any Resolver
 objects contains are a value or within a list are resolved to a primitive
@@ -217,14 +217,14 @@ type. Supports nested dictionary and lists.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Attribute suffix used to store the property in the instance.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Attribute suffix used to store the property in the instance.</td>
 </tr>
 </tbody>
 </table>
 <dl class="class">
 <dt id="sceptre.resolvers.ResolvableProperty.ResolveLater">
 <em class="property">class </em><code class="descname">ResolveLater</code><span class="sig-paren">(</span><em>instance</em>, <em>name</em>, <em>key</em>, <em>resolution_function</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/resolvers.html#ResolvableProperty.ResolveLater"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.resolvers.ResolvableProperty.ResolveLater" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Represents a value that could not yet be resolved but can be resolved in the future.</p>
 </dd></dl>
 
@@ -233,7 +233,7 @@ type. Supports nested dictionary and lists.</p>
 <dl class="class">
 <dt id="sceptre.resolvers.Resolver">
 <em class="property">class </em><code class="descclassname">sceptre.resolvers.</code><code class="descname">Resolver</code><span class="sig-paren">(</span><em>argument=None</em>, <em>stack=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/resolvers.html#Resolver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.resolvers.Resolver" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Resolver is an abstract base class that should be inherited by all
 Resolvers.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -241,7 +241,7 @@ Resolvers.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>argument</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The argument of the resolver.</li>
+<li><strong>argument</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The argument of the resolver.</li>
 <li><strong>stack</strong> (<a class="reference internal" href="sceptre.html#sceptre.stack.Stack" title="sceptre.stack.Stack"><em>sceptre.stack.Stack</em></a>) – The associated stack of the resolver.</li>
 </ul>
 </td>
@@ -281,7 +281,7 @@ initial setup of the object.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>argument</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Name of the environment variable to return.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>argument</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Name of the environment variable to return.</td>
 </tr>
 </tbody>
 </table>
@@ -295,7 +295,7 @@ initial setup of the object.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Value of the environment variable.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></td>
 </tr>
 </tbody>
 </table>
@@ -315,7 +315,7 @@ initial setup of the object.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>argument</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Absolute path to file.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>argument</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Absolute path to file.</td>
 </tr>
 </tbody>
 </table>
@@ -329,7 +329,7 @@ initial setup of the object.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Contents of file.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></td>
 </tr>
 </tbody>
 </table>
@@ -365,7 +365,7 @@ Stack using the Resolver.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The value of the Stack output.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></td>
 </tr>
 </tbody>
 </table>
@@ -410,7 +410,7 @@ current Sceptre stack_group’s account and region.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The value of the Stack output.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></td>
 </tr>
 </tbody>
 </table>
