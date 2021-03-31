@@ -292,7 +292,7 @@ the various AWS services that Sceptre needs to interact with.</p>
 </table>
 <dl class="method">
 <dt id="sceptre.connection_manager.ConnectionManager.call">
-<code class="descname">call</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/connection_manager.html#ConnectionManager.call"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.connection_manager.ConnectionManager.call" title="Permalink to this definition">¶</a></dt>
+<code class="descname">call</code><span class="sig-paren">(</span><em>service</em>, <em>command</em>, <em>kwargs=None</em>, <em>profile=None</em>, <em>region=None</em>, <em>stack_name=None</em>, <em>iam_role=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/connection_manager.html#ConnectionManager.call"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.connection_manager.ConnectionManager.call" title="Permalink to this definition">¶</a></dt>
 <dd><p>Makes a thread-safe Boto3 client call.</p>
 <p>Equivalent to <code class="docutils literal notranslate"><span class="pre">boto3.client(&lt;service&gt;).&lt;command&gt;(**kwargs)</span></code>.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -533,7 +533,7 @@ your configuration files.</p>
 <dl class="exception">
 <dt id="sceptre.exceptions.SceptreException">
 <em class="property">exception </em><code class="descclassname">sceptre.exceptions.</code><code class="descname">SceptreException</code><a class="reference internal" href="../_modules/sceptre/exceptions.html#SceptreException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.exceptions.SceptreException" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">exceptions.Exception</span></code></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
 <p>Base class for all Sceptre errors</p>
 </dd></dl>
 
@@ -845,7 +845,7 @@ found in a given string.</p>
 
 <dl class="attribute">
 <dt id="sceptre.stack_status_colourer.StackStatusColourer.STACK_STATUS_PATTERN">
-<code class="descname">STACK_STATUS_PATTERN</code><em class="property"> = &lt;_sre.SRE_Pattern object&gt;</em><a class="headerlink" href="#sceptre.stack_status_colourer.StackStatusColourer.STACK_STATUS_PATTERN" title="Permalink to this definition">¶</a></dt>
+<code class="descname">STACK_STATUS_PATTERN</code><em class="property"> = re.compile('\\b(PENDING|CREATE_COMPLETE|CREATE_FAILED|CREATE_IN_PROGRESS|DELETE_COMPLETE|DELETE_FAILED|DELETE_IN_PROGRESS|ROLLBACK_COMPLETE|ROLLBACK_FAILED|ROLLBACK_IN_PROGRESS|UPDATE_COMPLETE|UPDATE_COMPLETE_CL)</em><a class="headerlink" href="#sceptre.stack_status_colourer.StackStatusColourer.STACK_STATUS_PATTERN" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1007,12 +1007,12 @@ the template itself.</p>
                 
 
                     <dd>
-                        <a href="https://www.sceptre.cloudreach.com">Sceptre Home</a>
+                        <a href="https://www.cloudreach.com">Cloudreach</a>
                     </dd>
                 
 
                     <dd>
-                        <a href="https://www.cloudreach.com">Cloudreach</a>
+                        <a href="https://www.sceptre.cloudreach.com">Sceptre Home</a>
                     </dd>
                 
             </dl>

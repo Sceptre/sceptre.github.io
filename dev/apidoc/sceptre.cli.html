@@ -232,7 +232,7 @@
 
 <dl class="class">
 <dt id="sceptre.cli.helpers.ColouredFormatter">
-<em class="property">class </em><code class="descclassname">sceptre.cli.helpers.</code><code class="descname">ColouredFormatter</code><span class="sig-paren">(</span><em>fmt=None</em>, <em>datefmt=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/cli/helpers.html#ColouredFormatter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.cli.helpers.ColouredFormatter" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">sceptre.cli.helpers.</code><code class="descname">ColouredFormatter</code><span class="sig-paren">(</span><em>fmt=None</em>, <em>datefmt=None</em>, <em>style='%'</em>, <em>validate=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/cli/helpers.html#ColouredFormatter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.cli.helpers.ColouredFormatter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Formatter" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">logging.Formatter</span></code></a></p>
 <p>ColouredFormatter add colours to all stack statuses that appear in log
 messages.</p>
@@ -261,7 +261,7 @@ messages.</p>
 
 <dl class="class">
 <dt id="sceptre.cli.helpers.CustomJsonEncoder">
-<em class="property">class </em><code class="descclassname">sceptre.cli.helpers.</code><code class="descname">CustomJsonEncoder</code><span class="sig-paren">(</span><em>skipkeys=False</em>, <em>ensure_ascii=True</em>, <em>check_circular=True</em>, <em>allow_nan=True</em>, <em>sort_keys=False</em>, <em>indent=None</em>, <em>separators=None</em>, <em>encoding='utf-8'</em>, <em>default=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/cli/helpers.html#CustomJsonEncoder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.cli.helpers.CustomJsonEncoder" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">sceptre.cli.helpers.</code><code class="descname">CustomJsonEncoder</code><span class="sig-paren">(</span><em>*</em>, <em>skipkeys=False</em>, <em>ensure_ascii=True</em>, <em>check_circular=True</em>, <em>allow_nan=True</em>, <em>sort_keys=False</em>, <em>indent=None</em>, <em>separators=None</em>, <em>default=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/cli/helpers.html#CustomJsonEncoder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.cli.helpers.CustomJsonEncoder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">json.encoder.JSONEncoder</span></code></p>
 <p>CustomJsonEncoder is a JSONEncoder which encodes all items as JSON by
 calling their __str__() method.</p>
@@ -457,12 +457,12 @@ write <code class="docutils literal notranslate"><span class="pre">var</span></c
                 
 
                     <dd>
-                        <a href="https://www.sceptre.cloudreach.com">Sceptre Home</a>
+                        <a href="https://www.cloudreach.com">Cloudreach</a>
                     </dd>
                 
 
                     <dd>
-                        <a href="https://www.cloudreach.com">Cloudreach</a>
+                        <a href="https://www.sceptre.cloudreach.com">Sceptre Home</a>
                     </dd>
                 
             </dl>

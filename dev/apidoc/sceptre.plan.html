@@ -261,7 +261,7 @@ UPDATE_ROLLBACK_COMPLETE.</p>
 
 <dl class="method">
 <dt id="sceptre.plan.actions.StackActions.create">
-<code class="descname">create</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/actions.html#StackActions.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.plan.actions.StackActions.create" title="Permalink to this definition">¶</a></dt>
+<code class="descname">create</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/actions.html#StackActions.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.plan.actions.StackActions.create" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a Stack.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -277,7 +277,7 @@ UPDATE_ROLLBACK_COMPLETE.</p>
 
 <dl class="method">
 <dt id="sceptre.plan.actions.StackActions.create_change_set">
-<code class="descname">create_change_set</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/actions.html#StackActions.create_change_set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.plan.actions.StackActions.create_change_set" title="Permalink to this definition">¶</a></dt>
+<code class="descname">create_change_set</code><span class="sig-paren">(</span><em>change_set_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/actions.html#StackActions.create_change_set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.plan.actions.StackActions.create_change_set" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a Change Set with the name <code class="docutils literal notranslate"><span class="pre">change_set_name</span></code>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -291,7 +291,7 @@ UPDATE_ROLLBACK_COMPLETE.</p>
 
 <dl class="method">
 <dt id="sceptre.plan.actions.StackActions.delete">
-<code class="descname">delete</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/actions.html#StackActions.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.plan.actions.StackActions.delete" title="Permalink to this definition">¶</a></dt>
+<code class="descname">delete</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/actions.html#StackActions.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.plan.actions.StackActions.delete" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deletes the Stack.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -439,7 +439,7 @@ UPDATE_ROLLBACK_COMPLETE.</p>
 
 <dl class="method">
 <dt id="sceptre.plan.actions.StackActions.generate">
-<code class="descname">generate</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/actions.html#StackActions.generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.plan.actions.StackActions.generate" title="Permalink to this definition">¶</a></dt>
+<code class="descname">generate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/actions.html#StackActions.generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.plan.actions.StackActions.generate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the Template for the Stack</p>
 </dd></dl>
 
@@ -477,7 +477,7 @@ UPDATE_ROLLBACK_COMPLETE.</p>
 
 <dl class="method">
 <dt id="sceptre.plan.actions.StackActions.launch">
-<code class="descname">launch</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/actions.html#StackActions.launch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.plan.actions.StackActions.launch" title="Permalink to this definition">¶</a></dt>
+<code class="descname">launch</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/actions.html#StackActions.launch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.plan.actions.StackActions.launch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Launches the Stack.</p>
 <p>If the Stack status is create_failed or rollback_complete, the
 Stack is deleted. Launch then tries to create or update the Stack,
@@ -539,7 +539,7 @@ performed, launch exits gracefully.</p>
 
 <dl class="method">
 <dt id="sceptre.plan.actions.StackActions.update">
-<code class="descname">update</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/actions.html#StackActions.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.plan.actions.StackActions.update" title="Permalink to this definition">¶</a></dt>
+<code class="descname">update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/actions.html#StackActions.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.plan.actions.StackActions.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates the Stack.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -555,7 +555,7 @@ performed, launch exits gracefully.</p>
 
 <dl class="method">
 <dt id="sceptre.plan.actions.StackActions.validate">
-<code class="descname">validate</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/actions.html#StackActions.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.plan.actions.StackActions.validate" title="Permalink to this definition">¶</a></dt>
+<code class="descname">validate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/actions.html#StackActions.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sceptre.plan.actions.StackActions.validate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Validates the Stack’s CloudFormation Template.</p>
 <p>Raises an error if the Template is invalid.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -1116,12 +1116,12 @@ performed, launch exits gracefully.</p>
                 
 
                     <dd>
-                        <a href="https://www.sceptre.cloudreach.com">Sceptre Home</a>
+                        <a href="https://www.cloudreach.com">Cloudreach</a>
                     </dd>
                 
 
                     <dd>
-                        <a href="https://www.cloudreach.com">Cloudreach</a>
+                        <a href="https://www.sceptre.cloudreach.com">Sceptre Home</a>
                     </dd>
                 
             </dl>
