@@ -254,6 +254,53 @@ be found in these projects:</p>
 <li><a class="reference external" href="https://github.com/Sage-Bionetworks-IT/lambda-template">Sage-Bionetworks Sceptre lambda github template</a></li>
 <li><a class="reference external" href="https://github.com/Versent/sam-sceptre">Versant SAM Sceptre skeleton example</a></li>
 </ul>
+<p>Another approach is to use the Sceptre <cite>before_launch</cite> hook to run either the
+SAM or CFN “package” command to generate the packaged version of the template.</p>
+<p>CloudFormation Example:</p>
+<p><a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>yaml
+template_path: generated/lambda-packaged.json
+stack_name: cfn-lambda-example
+hooks:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>before_launch:</dt>
+<dd><ul class="first last simple">
+<li><dl class="first docutils">
+<dt>!cmd &gt;</dt>
+<dd>aws –profile {{ stack_group_config.profile }} cloudformation package
+–template-file templates/cfn-lambda.yaml
+–s3-bucket {{ stack_group_config.template_bucket_name }}
+–output json
+–output-template-file templates/generated/lambda-packaged.json</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</div></blockquote>
+<p><a href="#id5"><span class="problematic" id="id6">``</span></a><a href="#id7"><span class="problematic" id="id8">`</span></a></p>
+<p>SAM Example:</p>
+<p><a href="#id9"><span class="problematic" id="id10">``</span></a><a href="#id11"><span class="problematic" id="id12">`</span></a>yaml
+template_path: generated/sam-packaged.yaml
+stack_name: sam-example
+hooks:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>before_launch:</dt>
+<dd><ul class="first last simple">
+<li><dl class="first docutils">
+<dt>!cmd &gt;</dt>
+<dd>sam package –profile {{ stack_group_config.profile }}
+–s3-bucket {{ stack_group_config.template_bucket_name }}
+–template-file templates/sam-app.yaml
+–output-template-file templates/generated/sam-packaged.yaml</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</div></blockquote>
+<p><a href="#id13"><span class="problematic" id="id14">``</span></a><a href="#id15"><span class="problematic" id="id16">`</span></a></p>
 </div>
 </div>
 
