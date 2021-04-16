@@ -173,6 +173,7 @@
   <h1>Source code for sceptre.cli.helpers</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">cycle</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span><span class="p">,</span> <span class="n">wraps</span>
 
 <span class="kn">import</span> <span class="nn">json</span>
@@ -249,10 +250,7 @@
     <span class="k">if</span> <span class="n">output_format</span> <span class="o">==</span> <span class="s2">&quot;yaml&quot;</span><span class="p">:</span>
         <span class="n">output</span> <span class="o">=</span> <span class="n">_generate_yaml</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">output_format</span> <span class="o">==</span> <span class="s2">&quot;text&quot;</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-            <span class="n">output</span> <span class="o">=</span> <span class="s2">&quot;---</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">output</span> <span class="o">=</span> <span class="n">var</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">_generate_text</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">no_colour</span><span class="p">:</span>
         <span class="n">stack_status_colourer</span> <span class="o">=</span> <span class="n">StackStatusColourer</span><span class="p">()</span>
         <span class="n">output</span> <span class="o">=</span> <span class="n">stack_status_colourer</span><span class="o">.</span><span class="n">colour</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">output</span><span class="p">))</span>
@@ -307,6 +305,36 @@
             <span class="k">return</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_loads</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">stream</span>
+
+
+<span class="k">def</span> <span class="nf">_generate_text</span><span class="p">(</span><span class="n">stream</span><span class="p">):</span>
+    <span class="n">pad</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">stream</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                    <span class="c1"># use keys as headers, and add a blank row</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">items</span><span class="p">:</span>
+                        <span class="n">items</span> <span class="o">=</span> <span class="p">[[</span><span class="s2">&quot;Stack&quot;</span><span class="p">]]</span>
+                        <span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="o">*</span><span class="n">item</span><span class="o">.</span><span class="n">values</span><span class="p">()))))</span>
+                        <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s2">&quot;&quot;</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]))])</span>
+                    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">item</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">item</span><span class="p">[</span><span class="n">k</span><span class="p">]:</span>
+                            <span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="p">]</span>
+                            <span class="n">row</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+                            <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;An error occured writing the text object.&quot;</span><span class="p">)</span>
+        <span class="n">col_widths</span> <span class="o">=</span> <span class="p">[</span><span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">b</span><span class="p">)</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">items</span><span class="p">)]</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+            <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">field</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="n">width</span> <span class="o">+</span> <span class="n">pad</span><span class="p">)</span>
+                                  <span class="k">for</span> <span class="n">field</span><span class="p">,</span> <span class="n">width</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">cycle</span><span class="p">(</span><span class="n">col_widths</span><span class="p">))]))</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">stream</span>
 
 
 <div class="viewcode-block" id="stack_status_exit_code"><a class="viewcode-back" href="../../../apidoc/sceptre.cli.html#sceptre.cli.helpers.stack_status_exit_code">[docs]</a><span class="k">def</span> <span class="nf">stack_status_exit_code</span><span class="p">(</span><span class="n">statuses</span><span class="p">):</span>
