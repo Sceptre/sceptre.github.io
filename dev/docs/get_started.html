@@ -90,6 +90,7 @@
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Get Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#install">Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#aws-cli-config">AWS CLI Config</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#directory-structure">Directory Structure</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#our-first-template-vpc-yaml">Our First Template - vpc.yaml</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#our-first-stackgroup-config-config-yaml">Our First StackGroup config - config.yaml</a></li>
@@ -195,6 +196,14 @@
 <h2>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h2>
 <p>This tutorial assumes that you have installed Sceptre. Instructions on how to
 do this can be found in the section on <a class="reference internal" href="install.html"><span class="doc">installing Sceptre</span></a>.</p>
+</div>
+<div class="section" id="aws-cli-config">
+<h2>AWS CLI Config<a class="headerlink" href="#aws-cli-config" title="Permalink to this headline">¶</a></h2>
+<p>Sceptre uses the same configuration files as the official AWS CLI and can be
+configured using the <cite>aws configure</cite> command. This command configures 2 files
+<cite>~/.aws/config</cite> and <cite>~/.aws/credentials</cite> to setup the API Keys to access your
+AWS Account.</p>
+<p>Reference: <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html">AWS_CLI_Configure</a></p>
 </div>
 <div class="section" id="directory-structure">
 <h2>Directory Structure<a class="headerlink" href="#directory-structure" title="Permalink to this headline">¶</a></h2>
