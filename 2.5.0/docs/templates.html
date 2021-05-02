@@ -1,0 +1,487 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Templates &mdash; Sceptre 2.5.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Hooks" href="hooks.html" />
+    <link rel="prev" title="Stack Config" href="stack_config.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Sceptre
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.5.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_started.html">Get Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="terminology.html">Terminology</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stack_group_config.html">StackGroup Config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stack_config.html">Stack Config</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Templates</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#cloudformation">CloudFormation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#jinja">Jinja</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#python">Python</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Example</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#troposphere">Troposphere</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#aws-cdk">AWS CDK</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hooks.html">Hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resolvers.html">Resolvers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecting Sceptre</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Support</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../apidoc/modules.html">sceptre</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Sceptre</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Templates</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/docs/templates.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="templates">
+<h1>Templates<a class="headerlink" href="#templates" title="Permalink to this headline">¶</a></h1>
+<p>Sceptre uses CloudFormation Templates to launch AWS Stacks. Templates must be
+stored in a directory named <code class="docutils literal notranslate"><span class="pre">templates/</span></code>, in the same directory as the
+<code class="docutils literal notranslate"><span class="pre">config/</span></code> directory:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>.
+├── config
+│   └── dev
+│       ├── config.yaml
+│       └── vpc.yaml
+└── templates
+    └── vpc.py
+</pre></div>
+</div>
+<div class="section" id="cloudformation">
+<h2>CloudFormation<a class="headerlink" href="#cloudformation" title="Permalink to this headline">¶</a></h2>
+<p>Templates with <code class="docutils literal notranslate"><span class="pre">.json</span></code> or <code class="docutils literal notranslate"><span class="pre">.yaml</span></code> extensions are treated as CloudFormation
+Templates. They are read in and used without modification.</p>
+</div>
+<div class="section" id="jinja">
+<h2>Jinja<a class="headerlink" href="#jinja" title="Permalink to this headline">¶</a></h2>
+<p>Templates with <code class="docutils literal notranslate"><span class="pre">.j2</span></code> extensions are treated as Jinja2 Templates.
+These are rendered and should create a raw JSON or YAML CloudFormation
+Template. Sceptre User Data is accessible within Templates as
+<code class="docutils literal notranslate"><span class="pre">sceptre_user_data</span></code>. For example <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">sceptre_user_data.some_variable</span> <span class="pre">}}</span></code>.
+<code class="docutils literal notranslate"><span class="pre">sceptre_user_data</span></code> accesses the <code class="docutils literal notranslate"><span class="pre">sceptre_user_data</span></code> key in the Stack
+Config file.</p>
+<div class="section" id="example">
+<h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<p>While rendering templates with Jinja2, some characters aren’t supported by AWS. A workaround for this is to use Jinja to replace <cite>-</cite>, <cite>.</cite> and <cite>_</cite> with other characters to ensure that we produce a valid template. With this we had some plasticity to the template and it becomes easier to add/remove entries on a particular stack.</p>
+<p>With this templating some problems will arise, such empty strings as parameters. In the following example you can find a work around for this issues.</p>
+<p>This represents a stack to deploy route53 records, it’s only showing CNAME and ALIAS records to not get too large.</p>
+<p>Stack:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template_path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">dns-extras.j2</span>
+<span class="nt">dependencies</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">prod/route53/domain-zone.yaml</span>
+<span class="nt">parameters</span><span class="p">:</span>
+  <span class="nt">DomainName</span><span class="p">:</span> <span class="s">&quot;example.com&quot;</span><span class="kt">!stack_output</span> <span class="l l-Scalar l-Scalar-Plain">prod/route53/example-com-zone.yaml::FullDomainName</span>
+  <span class="nt">Zone</span><span class="p">:</span> <span class="kt">!stack_output</span> <span class="l l-Scalar l-Scalar-Plain">prod/route53/example-com-zone.yaml::HostedZoneID</span>
+<span class="nt">sceptre_user_data</span><span class="p">:</span>
+  <span class="nt">CNAMErecords</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">record</span><span class="p">:</span> <span class="s">&quot;example01&quot;</span>
+      <span class="nt">address</span><span class="p">:</span> <span class="s">&quot;example01.otherdomain.com.&quot;</span>
+      <span class="nt">ttl</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">600</span>
+    <span class="p p-Indicator">-</span> <span class="nt">record</span><span class="p">:</span> <span class="s">&quot;example02&quot;</span>
+      <span class="nt">address</span><span class="p">:</span> <span class="s">&quot;example01.otherdomain.com.&quot;</span>
+      <span class="nt">ttl</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">600</span>
+  <span class="nt">ALIASrecords</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">record</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+      <span class="nt">hostedzoneid</span><span class="p">:</span> <span class="s">&quot;ZYOURZONEIDDDD&quot;</span>
+      <span class="nt">dnsnamealias</span><span class="p">:</span> <span class="s">&quot;ELB07-Sites-000000000.us-east-1.elb.amazonaws.com&quot;</span>
+      <span class="nt">ttl</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">600</span>
+    <span class="p p-Indicator">-</span> <span class="nt">record</span><span class="p">:</span> <span class="s">&quot;www&quot;</span>
+      <span class="nt">hostedzoneid</span><span class="p">:</span> <span class="s">&quot;Z32O12XQLNTSW2&quot;</span>
+      <span class="nt">dnsnamealias</span><span class="p">:</span> <span class="s">&quot;ELB07-Sit</span><span class="nv"> </span><span class="s">es-000000000.us-east-1.elb.amazonaws.com&quot;</span>
+      <span class="nt">ttl</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">600</span>
+</pre></div>
+</div>
+<p>Template <cite>dns-extras.j2</cite>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span>AWSTemplateFormatVersion: &#39;2010-09-09&#39;
+Description: &#39;Add Route53 - CNAME and ALIAS records&#39;
+Parameters:
+  DomainName:
+    Type: String
+    Default: example.net
+  Zone:
+    Type: String
+  {% if sceptre_user_data.CNAMErecords is defined %}{% for rule in sceptre_user_data.CNAMErecords %}
+  {{ rule.record |replace(&quot;-&quot;,&quot;d&quot;)|replace(&quot;_&quot;,&quot;s&quot;)|replace(&#39;.&#39;,&quot;p&quot;)}}cnamerecord:
+    Type: String
+    Default: &quot;{{rule.record}}&quot;{% endfor %}{% endif %}
+  {% if sceptre_user_data.ALIASrecords is defined %}{% for rule in sceptre_user_data.ALIASrecords %}
+  {{ rule.record |replace(&quot;-&quot;,&quot;d&quot;)|replace(&quot;_&quot;,&quot;s&quot;)|replace(&#39;.&#39;,&quot;p&quot;)}}aliasrecord:
+    Type: String
+    Default: &quot;{{rule.record}}&quot;
+  {{ rule.record |replace(&quot;-&quot;,&quot;d&quot;)|replace(&quot;_&quot;,&quot;s&quot;)|replace(&#39;.&#39;,&quot;p&quot;)}}aliasvalue:
+    Type: String
+    Default: &quot;{{rule.dnsnamealias}}&quot;
+  {{ rule.record |replace(&quot;-&quot;,&quot;d&quot;)|replace(&quot;_&quot;,&quot;s&quot;)|replace(&#39;.&#39;,&quot;p&quot;)}}aliaszoneid:
+    Type: String
+    Default: &quot;{{rule.hostedzoneid}}&quot;
+  {% endfor %}{% endif %}
+Resources:
+{% if sceptre_user_data.CNAMErecords is defined %}{% for rule in sceptre_user_data.CNAMErecords %}add{{ rule.record |    replace(&quot;-&quot;,&quot;d&quot;)|replace(&quot;_&quot;,&quot;s&quot;)|replace(&#39;.&#39;,&quot;p&quot;)}}cnamerecord:
+    {% set record = rule.record %}
+    Type: &#39;AWS::Route53::RecordSet&#39;
+    Properties:
+      Name: !Join
+        - &quot;&quot;
+        - [ !Sub &#39;${ {{ rule.record |replace(&quot;-&quot;,&quot;d&quot;)|replace(&quot;_&quot;,&quot;s&quot;)|replace(&#39;.&#39;,&quot;p&quot;)}}cnamerecord }&#39;,&#39;.&#39;, !Ref DomainName, &#39;.&#39;]
+      HostedZoneId: !Sub &#39;${Zone}&#39;
+      Type: CNAME
+      TTL: {{ rule.ttl }}
+      ResourceRecords:
+        - {{ rule.address }}
+  {% endfor %}{% endif %}
+    {% if sceptre_user_data.ALIASrecords is defined %}{% for rule in sceptre_user_data.ALIASrecords %}
+  {% set entry = rule.record |replace(&quot;-&quot;,&quot;d&quot;)|replace(&quot;_&quot;,&quot;s&quot;)|replace(&#39;.&#39;,&quot;p&quot;)%}add{{entry}}aliasrecord:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      {% if rule.record == &quot;&quot; %}
+      Name: !Ref DomainName
+      {% else %}
+      Name: !Join
+        - &quot;&quot;
+        - [ !Sub &#39;${ {{ rule.record |replace(&quot;-&quot;,&quot;d&quot;)|replace(&quot;_&quot;,&quot;s&quot;)|replace(&#39;.&#39;,&quot;p&quot;)}}aliasrecord }&#39;,&#39;.&#39;, !Ref DomainName, &#39;.&#39;]
+      {% endif %}
+      Type: A
+      HostedZoneId: !Ref Zone
+      AliasTarget:
+        DNSName: &quot;{{ rule.dnsnamealias }}&quot;
+        HostedZoneId: &quot;{{ rule.hostedzoneid }}&quot;
+  {% endfor %}{% endif %}
+Outputs:
+  {% if sceptre_user_data.CNAMErecords is defined %}{% for rule in sceptre_user_data.CNAMErecords %}add{{ rule.record |    replace(&quot;-&quot;,&quot;d&quot;)|replace(&quot;_&quot;,&quot;s&quot;)|replace(&#39;.&#39;,&quot;p&quot;)}}cnamerecord:
+    Value: !Ref &#39;add{{ rule.record |replace(&quot;-&quot;,&quot;d&quot;)|replace(&quot;_&quot;,&quot;s&quot;)|replace(&#39;.&#39;,&quot;p&quot;)}}cnamerecord&#39;
+    Description: &#39;{{ rule.address }}&#39;
+  {% endfor %}{% endif %}
+  {% if sceptre_user_data.ALIASrecords is defined %}{% for rule in sceptre_user_data.ALIASrecords %}add{{ rule.record |    replace(&quot;-&quot;,&quot;d&quot;)|replace(&quot;_&quot;,&quot;s&quot;)|replace(&#39;.&#39;,&quot;p&quot;)}}aliasrecord:
+    Value: !Ref &#39;add{{ rule.record |replace(&quot;-&quot;,&quot;d&quot;)|replace(&quot;_&quot;,&quot;s&quot;)|replace(&#39;.&#39;,&quot;p&quot;)}}aliasrecord&#39;
+    Description: &#39;{{ rule.dnsnamealias }}&#39;
+  {% endfor %}{% endif %}
+  StackName:
+    Description: &#39;Stack name.&#39;
+    Value: !Sub &#39;${AWS::StackName}&#39;
+    Export:
+      Name: !Sub &#39;${AWS::StackName}&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="python">
+<h2>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h2>
+<p>Templates with a <code class="docutils literal notranslate"><span class="pre">.py</span></code> extension are treated as Python Templates. They should
+implement a function named <code class="docutils literal notranslate"><span class="pre">sceptre_handler(sceptre_user_data)</span></code> which returns
+the CloudFormation Template as a <code class="docutils literal notranslate"><span class="pre">string</span></code>. Sceptre User Data is passed to
+this function as an argument. If Sceptre User Data is not defined in the Stack
+Config file, Sceptre passes an empty <code class="docutils literal notranslate"><span class="pre">dict</span></code>.</p>
+<div class="section" id="id1">
+<h3>Example<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="troposphere">
+<h4>Troposphere<a class="headerlink" href="#troposphere" title="Permalink to this headline">¶</a></h4>
+<p>This example is using <a class="reference external" href="https://github.com/cloudtools/troposphere/">troposphere</a>
+to generate CloudFormation Template as a <cite>json</cite> string.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">troposphere</span> <span class="kn">import</span> <span class="n">Template</span>
+<span class="kn">from</span> <span class="nn">troposphere.ec2</span> <span class="kn">import</span> <span class="n">VPC</span>
+
+<span class="k">def</span> <span class="nf">vpc</span><span class="p">(</span><span class="n">sceptre_user_data</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;AWS VPC CloudFormationTemplate&quot;&quot;&quot;</span>
+    <span class="n">template</span> <span class="o">=</span> <span class="n">Template</span><span class="p">()</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">add_resource</span><span class="p">(</span><span class="n">VPC</span><span class="p">(</span>
+            <span class="s2">&quot;VirtualPrivateCloud&quot;</span><span class="p">,</span>
+            <span class="n">CidrBlock</span><span class="o">=</span><span class="n">sceptre_user_data</span><span class="p">[</span><span class="s2">&quot;cidr_block&quot;</span><span class="p">]</span>
+        <span class="p">))</span>
+    <span class="k">return</span> <span class="n">template</span><span class="o">.</span><span class="n">to_yaml</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">sceptre_handler</span><span class="p">(</span><span class="n">sceptre_user_data</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">vpc</span><span class="p">(</span><span class="n">sceptre_user_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="aws-cdk">
+<h4>AWS CDK<a class="headerlink" href="#aws-cdk" title="Permalink to this headline">¶</a></h4>
+<p>This example generates a cloudformation template from <a class="reference internal" href="#aws-cdk">AWS CDK</a> code.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sceptre_user_data</span><span class="p">:</span>
+  <span class="nt">BucketName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">my-bucket</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">yaml</span>
+<span class="kn">from</span> <span class="nn">aws_cdk</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">aws_s3</span> <span class="k">as</span> <span class="n">s3</span><span class="p">,</span>
+    <span class="n">core</span> <span class="k">as</span> <span class="n">cdk</span>
+<span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">S3CdkStack</span><span class="p">(</span><span class="n">cdk</span><span class="o">.</span><span class="n">Stack</span><span class="p">):</span>
+
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope</span><span class="p">:</span> <span class="n">cdk</span><span class="o">.</span><span class="n">Stack</span><span class="p">,</span> <span class="n">construct_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">sceptre_user_data</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="n">construct_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="n">bucket_name</span> <span class="o">=</span> <span class="n">sceptre_user_data</span><span class="p">[</span><span class="s1">&#39;BucketName&#39;</span><span class="p">]</span>
+    <span class="n">bucket</span> <span class="o">=</span> <span class="n">s3</span><span class="o">.</span><span class="n">Bucket</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;S3Bucket&quot;</span><span class="p">,</span>
+                       <span class="n">bucket_name</span><span class="o">=</span><span class="n">bucket_name</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">sceptre_handler</span><span class="p">(</span><span class="n">sceptre_user_data</span><span class="p">):</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">cdk</span><span class="o">.</span><span class="n">App</span><span class="p">()</span>
+    <span class="n">S3CdkStack</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="s2">&quot;S3CdkStack&quot;</span><span class="p">,</span> <span class="n">sceptre_user_data</span><span class="p">)</span>
+    <span class="n">template</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">synth</span><span class="p">()</span><span class="o">.</span><span class="n">get_stack</span><span class="p">(</span><span class="s2">&quot;S3CdkStack&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">template</span>
+    <span class="k">return</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_dump</span><span class="p">(</span><span class="n">template</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Generate cloudformation:</p>
+<p><code class="docutils literal notranslate"><span class="pre">sceptre</span> <span class="pre">generate</span> <span class="pre">dev/S3CdkStack.yaml</span></code></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Resources</span><span class="p">:</span>
+  <span class="nt">S3Bucket07682993</span><span class="p">:</span>
+    <span class="nt">DeletionPolicy</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Retain</span>
+    <span class="nt">Properties</span><span class="p">:</span>
+      <span class="nt">BucketName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">my-bucket</span>
+    <span class="nt">Type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">AWS::S3::Bucket</span>
+    <span class="nt">UpdateReplacePolicy</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Retain</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="hooks.html" class="btn btn-neutral float-right" title="Hooks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="stack_config.html" class="btn btn-neutral float-left" title="Stack Config" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Cloudreach
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+    <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: 2.5.0
+      <span class="fa fa-caret-down"></span>
+    </span>
+
+        <div class="rst-other-versions">
+            <dl id="other-versions">
+                <dt>Versions</dt>
+            </dl>
+            <dl>
+                
+                <dt>Other Links</dt>
+                
+
+                    <dd>
+                        <a href="https://www.cloudreach.com">Cloudreach</a>
+                    </dd>
+                
+
+                    <dd>
+                        <a href="https://www.sceptre.cloudreach.com">Sceptre Home</a>
+                    </dd>
+                
+            </dl>
+            <hr/>
+            Original template provided by <a href="http://www.readthedocs.org">Read the Docs</a>.
+        </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                $.getScript("../../version-helper.js").done(
+                    function () {
+                        versions.forEach(function (item, index) {
+                            if (item !== "2.5.0") {
+                                $('#other-versions').append('<dd><a href="'+ window.location.origin + '/' + item +'">' + item + "<a/></dd>");
+                            }
+                        })
+                    });
+            });
+        </script>
+    </div>
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
