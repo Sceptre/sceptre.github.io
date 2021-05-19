@@ -380,7 +380,7 @@
         <span class="c1"># Remove any leading or trailing slashes the user may have added.</span>
         <span class="n">bucket_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s3_details</span><span class="p">[</span><span class="s2">&quot;bucket_name&quot;</span><span class="p">]</span>
         <span class="n">bucket_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s3_details</span><span class="p">[</span><span class="s2">&quot;bucket_key&quot;</span><span class="p">]</span>
-        <span class="n">bucket_region</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s3_details</span><span class="p">[</span><span class="s2">&quot;bucket_region&quot;</span><span class="p">]</span>
+        <span class="n">bucket_region</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bucket_region</span><span class="p">(</span><span class="n">bucket_name</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
             <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> - Uploading template to: &#39;s3://</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="p">,</span>
@@ -397,16 +397,9 @@
             <span class="p">}</span>
         <span class="p">)</span>
 
-        <span class="n">china_regions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;cn-north-1&quot;</span><span class="p">,</span> <span class="s2">&quot;cn-northwest-1&quot;</span><span class="p">]</span>
-
-        <span class="k">if</span> <span class="n">bucket_region</span> <span class="ow">in</span> <span class="n">china_regions</span><span class="p">:</span>
-            <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://</span><span class="si">{0}</span><span class="s2">.s3.</span><span class="si">{1}</span><span class="s2">.amazonaws.com.cn/</span><span class="si">{2}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                <span class="n">bucket_name</span><span class="p">,</span> <span class="n">bucket_region</span><span class="p">,</span> <span class="n">bucket_key</span>
-            <span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://</span><span class="si">{0}</span><span class="s2">.s3.amazonaws.com/</span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                <span class="n">bucket_name</span><span class="p">,</span> <span class="n">bucket_key</span>
-            <span class="p">)</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://</span><span class="si">{}</span><span class="s2">.s3.</span><span class="si">{}</span><span class="s2">.amazonaws.</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">bucket_name</span><span class="p">,</span> <span class="n">bucket_region</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_domain_from_region</span><span class="p">(</span><span class="n">bucket_region</span><span class="p">),</span> <span class="n">bucket_key</span>
+        <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> - Template URL: &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span>
 
@@ -491,6 +484,18 @@
             <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;TemplateURL&quot;</span><span class="p">:</span> <span class="n">url</span><span class="p">}</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;TemplateBody&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="p">}</span></div>
+
+    <span class="k">def</span> <span class="nf">_bucket_region</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bucket_name</span><span class="p">):</span>
+        <span class="n">region</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection_manager</span><span class="o">.</span><span class="n">call</span><span class="p">(</span>
+            <span class="n">service</span><span class="o">=</span><span class="s2">&quot;s3&quot;</span><span class="p">,</span>
+            <span class="n">command</span><span class="o">=</span><span class="s2">&quot;get_bucket_location&quot;</span><span class="p">,</span>
+            <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Bucket&quot;</span><span class="p">:</span> <span class="n">bucket_name</span><span class="p">}</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;LocationConstraint&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">region</span> <span class="k">if</span> <span class="n">region</span> <span class="k">else</span> <span class="s2">&quot;us-east-1&quot;</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_domain_from_region</span><span class="p">(</span><span class="n">region</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;com.cn&quot;</span> <span class="k">if</span> <span class="n">region</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;cn-&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;com&quot;</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_render_jinja_template</span><span class="p">(</span><span class="n">template_dir</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">jinja_vars</span><span class="p">):</span>
