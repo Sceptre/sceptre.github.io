@@ -629,13 +629,16 @@
                 <span class="p">)</span>
             <span class="p">])</span>
 
+            <span class="n">bucket_region</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;region&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
             <span class="k">if</span> <span class="s2">&quot;template_key_prefix&quot;</span> <span class="ow">in</span> <span class="n">config</span><span class="p">:</span>
                 <span class="n">prefix</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;template_key_prefix&quot;</span><span class="p">]</span>
                 <span class="n">template_key</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">prefix</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">),</span> <span class="n">template_key</span><span class="p">])</span>
 
             <span class="n">s3_details</span> <span class="o">=</span> <span class="p">{</span>
                 <span class="s2">&quot;bucket_name&quot;</span><span class="p">:</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;template_bucket_name&quot;</span><span class="p">],</span>
-                <span class="s2">&quot;bucket_key&quot;</span><span class="p">:</span> <span class="n">template_key</span>
+                <span class="s2">&quot;bucket_key&quot;</span><span class="p">:</span> <span class="n">template_key</span><span class="p">,</span>
+                <span class="s2">&quot;bucket_region&quot;</span><span class="p">:</span> <span class="n">bucket_region</span>
             <span class="p">}</span>
         <span class="k">return</span> <span class="n">s3_details</span>
 
