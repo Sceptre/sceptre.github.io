@@ -1,44 +1,38 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Stack Config &mdash; Sceptre 2.5.0 documentation</title>
   
 
   
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-
+  
   
   
 
   
-  
-
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -84,7 +78,6 @@
           
         </div>
 
-        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -145,7 +138,6 @@
             
           
         </div>
-        
       </div>
     </nav>
 
@@ -180,20 +172,18 @@
 
 
 
-
-
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><a href="../index.html">Docs</a> &raquo;</li>
         
       <li>Stack Config</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="../_sources/docs/stack_config.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -216,18 +206,18 @@ that Stack’s Template, and any parameters that Stack may require.</p>
 <p>A Stack config file is a <code class="docutils literal notranslate"><span class="pre">yaml</span></code> object of key-value pairs configuring a
 particular Stack. The available keys are listed below.</p>
 <ul class="simple">
-<li><p><a class="reference external" href="#template_path">template_path</a> <em>(required)</em></p></li>
-<li><p><a class="reference external" href="#dependencies">dependencies</a> <em>(optional)</em></p></li>
-<li><p><a class="reference external" href="#hooks">hooks</a> <em>(optional)</em></p></li>
-<li><p><a class="reference external" href="#notifications">notifications</a> <em>(optional)</em></p></li>
-<li><p><a class="reference external" href="#on_failure">on_failure</a> <em>(optional)</em></p></li>
-<li><p><a class="reference external" href="#parameters">parameters</a> <em>(optional)</em></p></li>
-<li><p><a class="reference external" href="#protected">protected</a> <em>(optional)</em></p></li>
-<li><p><a class="reference external" href="#role_arn">role_arn</a> <em>(optional)</em></p></li>
-<li><p><a class="reference external" href="#sceptre_user_data">sceptre_user_data</a> <em>(optional)</em></p></li>
-<li><p><a class="reference external" href="#stack_name">stack_name</a> <em>(optional)</em></p></li>
-<li><p><a class="reference external" href="#stack_tags">stack_tags</a> <em>(optional)</em></p></li>
-<li><p><a class="reference external" href="#stack_timeout">stack_timeout</a> <em>(optional)</em></p></li>
+<li><a class="reference external" href="#template_path">template_path</a> <em>(required)</em></li>
+<li><a class="reference external" href="#dependencies">dependencies</a> <em>(optional)</em></li>
+<li><a class="reference external" href="#hooks">hooks</a> <em>(optional)</em></li>
+<li><a class="reference external" href="#notifications">notifications</a> <em>(optional)</em></li>
+<li><a class="reference external" href="#on_failure">on_failure</a> <em>(optional)</em></li>
+<li><a class="reference external" href="#parameters">parameters</a> <em>(optional)</em></li>
+<li><a class="reference external" href="#protected">protected</a> <em>(optional)</em></li>
+<li><a class="reference external" href="#role_arn">role_arn</a> <em>(optional)</em></li>
+<li><a class="reference external" href="#sceptre_user_data">sceptre_user_data</a> <em>(optional)</em></li>
+<li><a class="reference external" href="#stack_name">stack_name</a> <em>(optional)</em></li>
+<li><a class="reference external" href="#stack_tags">stack_tags</a> <em>(optional)</em></li>
+<li><a class="reference external" href="#stack_timeout">stack_timeout</a> <em>(optional)</em></li>
 </ul>
 <div class="section" id="template-path-required">
 <h3>template_path - required<a class="headerlink" href="#template-path-required" title="Permalink to this headline">¶</a></h3>
@@ -269,8 +259,8 @@ to create. For more information and valid values see the <a class="reference ext
 <div class="section" id="parameters">
 <h3>parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h3>
 <div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Sensitive data such as passwords or secret keys should not be stored in
+<p class="first admonition-title">Warning</p>
+<p class="last">Sensitive data such as passwords or secret keys should not be stored in
 plaintext in Stack config files. Instead, they should be passed in from the
 CLI with User Variables, or set via an environment variable with the
 environment variable resolver.</p>
@@ -279,19 +269,19 @@ environment variable resolver.</p>
 keys must match up with the name of the parameter, and the value must be of the
 type as defined in the template.</p>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Note that Boto3 throws an exception if parameters are supplied to a template
+<p class="first admonition-title">Note</p>
+<p class="last">Note that Boto3 throws an exception if parameters are supplied to a template
 that are not required by that template. Resolvers can be used to add
 functionality to this key. Find out more in the <a class="reference internal" href="resolvers.html"><span class="doc">Resolvers</span></a> section.</p>
 </div>
 <div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>In case the same parameter key is supplied more than once, the last
+<p class="first admonition-title">Warning</p>
+<p class="last">In case the same parameter key is supplied more than once, the last
 definition silently overrides the earlier definitions.</p>
 </div>
 <p>A parameter can be specified either as a single value/resolver or a list of
 values/resolvers. Lists of values/resolvers will be formatted into an AWS
-compatible comma separated string e.g. <code class="docutils literal notranslate"><span class="pre">value1,value2,value3</span></code>. Lists can
+compatible comma separated string e.g.&nbsp;<code class="docutils literal notranslate"><span class="pre">value1,value2,value3</span></code>. Lists can
 contain a mixture of values and resolvers.</p>
 <p>Syntax:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span>
@@ -326,11 +316,11 @@ contain a mixture of values and resolvers.</p>
 <h3>protected<a class="headerlink" href="#protected" title="Permalink to this headline">¶</a></h3>
 <p>Stack protection against execution of the following commands:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">launch</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">create</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">update</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">delete</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">execute</span></code></p></li>
+<li><code class="docutils literal notranslate"><span class="pre">launch</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">create</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">update</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">delete</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">execute</span></code></li>
 </ul>
 <p>If a user tries to run one of these commands on a protected Stack, Sceptre will
 throw an error.</p>
@@ -350,12 +340,11 @@ key within Jinja2 templates.</p>
 <h3>stack_name<a class="headerlink" href="#stack-name" title="Permalink to this headline">¶</a></h3>
 <p>A custom name to use instead of the Sceptre default.</p>
 <div class="alert alert-warning docutils container">
-<p>Outputs from Stacks with custom names can’t be resolved using the standard
+Outputs from Stacks with custom names can’t be resolved using the standard
 stack output resolver. Outputs should be resolved using the stack output
 external resolver. An explicit dependency should be added, using the
 dependencies parameter, to make sure the Stacks are launched in the correct
-order.</p>
-</div>
+order.</div>
 <p>e.g:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span>
   <span class="nt">VpcID</span><span class="p">:</span> <span class="kt">!stack_output_external</span> <span class="l l-Scalar l-Scalar-Plain">&lt;custom-named-vpc-stack&gt;.yaml::VpcID</span>
@@ -475,29 +464,29 @@ the <code class="docutils literal notranslate"><span class="pre">sceptre_handler
            
           </div>
           <footer>
+  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="templates.html" class="btn btn-neutral float-right" title="Templates" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="stack_group_config.html" class="btn btn-neutral float-left" title="StackGroup Config" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+      
+        <a href="templates.html" class="btn btn-neutral float-right" title="Templates" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="stack_group_config.html" class="btn btn-neutral float-left" title="StackGroup Config" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
     </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2018, Cloudreach.
+        &copy; Copyright 2018, Cloudreach
 
     </p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
+
         </div>
       </div>
 

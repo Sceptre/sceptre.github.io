@@ -1,44 +1,38 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Architecting Sceptre &mdash; Sceptre 2.5.0 documentation</title>
   
 
   
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-
+  
   
   
 
   
-  
-
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -84,7 +78,6 @@
           
         </div>
 
-        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -126,7 +119,6 @@
             
           
         </div>
-        
       </div>
     </nav>
 
@@ -161,20 +153,18 @@
 
 
 
-
-
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><a href="../index.html">Docs</a> &raquo;</li>
         
       <li>Architecting Sceptre</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="../_sources/docs/architecture.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -225,11 +215,12 @@ divide StackGroups up.</p>
 <p>When considering how to split StackGroups up, it’s useful to remember the
 following properties of StackGroups:</p>
 <ol class="arabic">
-<li><p>Region specific. There is no way for an StackGroup to launch stacks in
+<li><p class="first">Region specific. There is no way for an StackGroup to launch stacks in
 multiple regions; a StackGroup can, however, contain sub-StackGroups in
 different regions. A StackGroup should therefore contain Stacks that belong
-in the same region.</p></li>
-<li><p>Command related. StackGroup level commands (like <code class="docutils literal notranslate"><span class="pre">launch</span></code>) are applied to
+in the same region.</p>
+</li>
+<li><p class="first">Command related. StackGroup level commands (like <code class="docutils literal notranslate"><span class="pre">launch</span></code>) are applied to
 every stack in a StackGroup. There is no way to exclude stacks from an
 StackGroup level command. Therefore, StackGroups should contain stacks that
 can be launched and deleted together.</p>
@@ -246,7 +237,7 @@ split these up into separate StackGroups.</p>
 projects. Only configuration layout is shown, and the examples are merely meant
 to demonstrate ways of organising different projects.</p>
 <ul>
-<li><p>Application development within an externally defined VPC</p>
+<li><p class="first">Application development within an externally defined VPC</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">config</span>
     <span class="l l-Scalar l-Scalar-Plain">- prod</span>
         <span class="l l-Scalar l-Scalar-Plain">- application</span>
@@ -258,7 +249,7 @@ to demonstrate ways of organising different projects.</p>
 </pre></div>
 </div>
 </li>
-<li><p>DevOps team who manage all the infrastructure for their service</p>
+<li><p class="first">DevOps team who manage all the infrastructure for their service</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">config</span>
     <span class="l l-Scalar l-Scalar-Plain">- prod</span>
         <span class="l l-Scalar l-Scalar-Plain">- network</span>
@@ -274,7 +265,7 @@ to demonstrate ways of organising different projects.</p>
 </pre></div>
 </div>
 </li>
-<li><p>Centralised, company-wide networking</p>
+<li><p class="first">Centralised, company-wide networking</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">config</span>
     <span class="l l-Scalar l-Scalar-Plain">- prod</span>
         <span class="l l-Scalar l-Scalar-Plain">- vpc.yaml</span>
@@ -289,7 +280,7 @@ to demonstrate ways of organising different projects.</p>
 </pre></div>
 </div>
 </li>
-<li><p>IAM management</p>
+<li><p class="first">IAM management</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">config</span>
     <span class="l l-Scalar l-Scalar-Plain">- account-1</span>
         <span class="l l-Scalar l-Scalar-Plain">- iam-role-admin.yaml</span>
@@ -309,29 +300,29 @@ to demonstrate ways of organising different projects.</p>
            
           </div>
           <footer>
+  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="faq.html" class="btn btn-neutral float-right" title="FAQ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="resolvers.html" class="btn btn-neutral float-left" title="Resolvers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+      
+        <a href="faq.html" class="btn btn-neutral float-right" title="FAQ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="resolvers.html" class="btn btn-neutral float-left" title="Resolvers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
     </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2018, Cloudreach.
+        &copy; Copyright 2018, Cloudreach
 
     </p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
+
         </div>
       </div>
 

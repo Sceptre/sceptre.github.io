@@ -1,44 +1,38 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Resolvers &mdash; Sceptre 2.5.0 documentation</title>
   
 
   
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-
+  
   
   
 
   
-  
-
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -84,7 +78,6 @@
           
         </div>
 
-        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -108,18 +101,17 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Resolvers</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#available-resolvers">Available Resolvers</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#environment-variable">environment_variable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#file">file</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id29">]</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#file-contents">file_contents</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stack-output">stack_output</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stack-output-external">stack_output_external</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#custom-resolvers">Custom Resolvers</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#example">Example</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#custom-resolver-py">custom_resolver.py</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#setup-py">setup.py</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#resolver-arguments">resolver arguments</a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="#example">Example</a></li>
 </ul>
 </li>
 </ul>
@@ -138,7 +130,6 @@
             
           
         </div>
-        
       </div>
     </nav>
 
@@ -173,20 +164,18 @@
 
 
 
-
-
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><a href="../index.html">Docs</a> &raquo;</li>
         
       <li>Resolvers</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="../_sources/docs/resolvers.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -230,8 +219,87 @@ on <a class="reference external" href="#custom-resolvers">Custom Resolvers</a>.<
 </pre></div>
 </div>
 </div>
+<div class="section" id="file">
+<h3>file<a class="headerlink" href="#file" title="Permalink to this headline">¶</a></h3>
+<p>A Sceptre resolver to get file contents.  The returned value can be
+passed into a parameter as a string, json, or yaml object.  The
+file extension determines the return type.  By default, contents from
+any files that do not end in <cite>.json</cite> or <cite>.yaml</cite> will be passed in as
+a string.</p>
+<p>Motivation:</p>
+<p>Unlike the <a class="reference internal" href="#file-contents">file_contents</a> resolver which can only pass strings to parameters
+this resolver can also pass file content in as json and yaml object.  This
+resolver can also resolve remote file contents from the web.</p>
+<p>Syntax:</p>
+<p><a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>yaml
+parameters|sceptre_user_data:</p>
+<blockquote>
+<div>&lt;name&gt;: !file /path/to/local/file</div></blockquote>
+<p><a href="#id5"><span class="problematic" id="id6">``</span></a><a href="#id7"><span class="problematic" id="id8">`</span></a></p>
+<p><a href="#id9"><span class="problematic" id="id10">``</span></a><a href="#id11"><span class="problematic" id="id12">`</span></a>yaml
+parameters|sceptre_user_data:</p>
+<blockquote>
+<div>&lt;name&gt;: !file URL/To/File</div></blockquote>
+<p><a href="#id13"><span class="problematic" id="id14">``</span></a><a href="#id15"><span class="problematic" id="id16">`</span></a></p>
+<p>Examples:</p>
+<p><strong>Local file</strong></p>
+<p><em>text</em>
+Get file content and pass it to the parameter as a text string:</p>
+<p>tags/departments.txt
+<code class="docutils literal notranslate"><span class="pre">`text</span>
+<span class="pre">&quot;HR,</span> <span class="pre">Governance,</span> <span class="pre">Engineering,</span> <span class="pre">Marketing&quot;</span>
+<span class="pre">`</span></code></p>
+<p><a href="#id17"><span class="problematic" id="id18">``</span></a><a href="#id19"><span class="problematic" id="id20">`</span></a>yaml
+parameters:</p>
+<blockquote>
+<div>departments: !file tags/departments.txt</div></blockquote>
+<p><a href="#id21"><span class="problematic" id="id22">``</span></a><a href="#id23"><span class="problematic" id="id24">`</span></a></p>
+<p><em>json</em>
+Get file contents and pass it to the parameter as a json object:</p>
+<p>tags/departments.json
+<a href="#id25"><span class="problematic" id="id26">``</span></a><a href="#id27"><span class="problematic" id="id28">`</span></a>json
+[</p>
+<blockquote>
+<div>“HR”,
+“Governance”,
+“Engineering”,
+“Marketing”</div></blockquote>
+<div class="section" id="id29">
+<h4>]<a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h4>
+<p><a href="#id30"><span class="problematic" id="id31">``</span></a><a href="#id32"><span class="problematic" id="id33">`</span></a>yaml
+parameters:</p>
+<blockquote>
+<div>departments: !file tags/departments.json</div></blockquote>
+<p><a href="#id34"><span class="problematic" id="id35">``</span></a><a href="#id36"><span class="problematic" id="id37">`</span></a></p>
+<p><em>yaml</em>
+Get file contents and pass it to the sceptre_user_data as a yaml object:</p>
+<p>tags/departments.yaml
+<code class="docutils literal notranslate"><span class="pre">`yaml</span>
+<span class="pre">-</span> <span class="pre">&quot;HR&quot;</span>
+<span class="pre">-</span> <span class="pre">&quot;Governance&quot;</span>
+<span class="pre">-</span> <span class="pre">&quot;Engineering&quot;</span>
+<span class="pre">-</span> <span class="pre">&quot;Marketing&quot;</span>
+<span class="pre">`</span></code></p>
+<p><a href="#id38"><span class="problematic" id="id39">``</span></a><a href="#id40"><span class="problematic" id="id41">`</span></a>yaml
+sceptre_user_data:</p>
+<blockquote>
+<div>departments: !file tags/departments.yaml</div></blockquote>
+<p><a href="#id42"><span class="problematic" id="id43">``</span></a><a href="#id44"><span class="problematic" id="id45">`</span></a></p>
+<p>__Note__: will do the same for files with <cite>.yml</cite> extension.</p>
+<p><strong>Remote file</strong>
+Works similarly to local file except this will get file contents from the web.</p>
+<p><em>URL</em>
+Get file contents from a URL reference:</p>
+<p><a href="#id46"><span class="problematic" id="id47">``</span></a><a href="#id48"><span class="problematic" id="id49">`</span></a>yaml
+sceptre_user_data:</p>
+<blockquote>
+<div>departments: !file <a class="reference external" href="https://my-bucket.s3.us-east-1.amazonaws.com/tags/departments.json">https://my-bucket.s3.us-east-1.amazonaws.com/tags/departments.json</a></div></blockquote>
+<p><a href="#id50"><span class="problematic" id="id51">``</span></a><a href="#id52"><span class="problematic" id="id53">`</span></a></p>
+</div>
+</div>
 <div class="section" id="file-contents">
 <h3>file_contents<a class="headerlink" href="#file-contents" title="Permalink to this headline">¶</a></h3>
+<p><strong>deprecated</strong>: Consider using the <a class="reference internal" href="#file">file</a> resolver instead.</p>
 <p>Reads in the contents of a file.</p>
 <p>Syntax:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters|sceptre_user_data</span><span class="p">:</span>
@@ -305,8 +373,6 @@ In case you are not familiar with python packaging, <a class="reference external
 </pre></div>
 </div>
 <p>The following python module template can be copied and used:</p>
-<div class="section" id="custom-resolver-py">
-<h4>custom_resolver.py<a class="headerlink" href="#custom-resolver-py" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sceptre.resolvers</span> <span class="kn">import</span> <span class="n">Resolver</span>
 
 
@@ -347,9 +413,6 @@ In case you are not familiar with python packaging, <a class="reference external
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">argument</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="setup-py">
-<h4>setup.py<a class="headerlink" href="#setup-py" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">setuptools</span> <span class="kn">import</span> <span class="n">setup</span>
 
 <span class="n">setup</span><span class="p">(</span>
@@ -370,9 +433,6 @@ In case you are not familiar with python packaging, <a class="reference external
   <span class="nt">param1</span><span class="p">:</span> <span class="kt">!&lt;custom_resolver_command_name&gt;</span> <span class="l l-Scalar l-Scalar-Plain">&lt;value&gt; &lt;optional-aws-profile&gt;</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="resolver-arguments">
-<h4>resolver arguments<a class="headerlink" href="#resolver-arguments" title="Permalink to this headline">¶</a></h4>
 <p>Resolver arguments can be a simple string or a complex data structure.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template_path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;...&gt;</span>
 <span class="nt">parameters</span><span class="p">:</span>
@@ -385,36 +445,35 @@ In case you are not familiar with python packaging, <a class="reference external
 </div>
 </div>
 </div>
-</div>
 
 
            </div>
            
           </div>
           <footer>
+  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="architecture.html" class="btn btn-neutral float-right" title="Architecting Sceptre" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="hooks.html" class="btn btn-neutral float-left" title="Hooks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+      
+        <a href="architecture.html" class="btn btn-neutral float-right" title="Architecting Sceptre" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="hooks.html" class="btn btn-neutral float-left" title="Hooks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
     </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2018, Cloudreach.
+        &copy; Copyright 2018, Cloudreach
 
     </p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
+
         </div>
       </div>
 
