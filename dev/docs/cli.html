@@ -1,38 +1,44 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Command Line Interface &mdash; Sceptre 2.5.0 documentation</title>
   
 
   
-  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
   
   
 
   
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -78,6 +84,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -137,6 +144,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -171,18 +179,20 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Command Line Interface</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../_sources/docs/cli.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -207,22 +217,22 @@ available commands.</p>
 <h2>Autocomplete<a class="headerlink" href="#autocomplete" title="Permalink to this headline">¶</a></h2>
 <p>To enable CLI autocomplete for subcommands and parameters execute the
 following command:</p>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="17%" />
-<col width="83%" />
+<col style="width: 17%" />
+<col style="width: 83%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">shell</th>
-<th class="head">command</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>shell</p></th>
+<th class="head"><p>command</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>bash</td>
-<td>eval “$(_SCEPTRE_COMPLETE=source sceptre)”</td>
+<tbody>
+<tr class="row-even"><td><p>bash</p></td>
+<td><p>eval “$(_SCEPTRE_COMPLETE=source sceptre)”</p></td>
 </tr>
-<tr class="row-odd"><td>zsh</td>
-<td>eval “$(_SCEPTRE_COMPLETE=source_zsh sceptre)”</td>
+<tr class="row-odd"><td><p>zsh</p></td>
+<td><p>eval “$(_SCEPTRE_COMPLETE=source_zsh sceptre)”</p></td>
 </tr>
 </tbody>
 </table>
@@ -260,8 +270,8 @@ given a variable file “vars.yaml”:</p>
 <p>we could overwrite <code class="docutils literal notranslate"><span class="pre">nested:</span> <span class="pre">world</span></code> to <code class="docutils literal notranslate"><span class="pre">nested:</span> <span class="pre">hi</span></code> using:</p>
 <p><code class="docutils literal notranslate"><span class="pre">sceptre</span> <span class="pre">--var-file</span> <span class="pre">vars.yaml</span> <span class="pre">--var</span> <span class="pre">top.middle2.nested=hi</span> <span class="pre">launch</span> <span class="pre">stack</span></code></p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Sceptre will load your entire project to build a full dependency graph.
+<p class="admonition-title">Note</p>
+<p>Sceptre will load your entire project to build a full dependency graph.
 This means that all stacks that use variables will need to have a value
 provided to them - even if they are not in your <code class="docutils literal notranslate"><span class="pre">command_path</span></code> or are not
 a dependency. Using a –var-file with all variables set can help meet this
@@ -283,59 +293,56 @@ sceptre COMMAND --help
 </pre></div>
 </div>
 <p class="rubric">Options</p>
-<dl class="option">
-<dt id="cmdoption-sceptre-version">
-<code class="descname">--version</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sceptre-version" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-version">
+<span class="sig-name descname"><span class="pre">--version</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-version" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show the version and exit.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-sceptre-debug">
-<code class="descname">--debug</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sceptre-debug" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-debug">
+<span class="sig-name descname"><span class="pre">--debug</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-debug" title="Permalink to this definition">¶</a></dt>
 <dd><p>Turn on debug logging.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-sceptre-dir">
-<code class="descname">--dir</code><code class="descclassname"> &lt;directory&gt;</code><a class="headerlink" href="#cmdoption-sceptre-dir" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-dir">
+<span class="sig-name descname"><span class="pre">--dir</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;directory&gt;</span></span><a class="headerlink" href="#cmdoption-sceptre-dir" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specify sceptre directory.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-sceptre-output">
-<code class="descname">--output</code><code class="descclassname"> &lt;output&gt;</code><a class="headerlink" href="#cmdoption-sceptre-output" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-output">
+<span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-sceptre-output" title="Permalink to this definition">¶</a></dt>
 <dd><p>The formatting style for command output.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Options:</th><td class="field-body">text | yaml | json</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Options</dt>
+<dd class="field-odd"><p>text | yaml | json</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-sceptre-no-colour">
-<code class="descname">--no-colour</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sceptre-no-colour" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-no-colour">
+<span class="sig-name descname"><span class="pre">--no-colour</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-no-colour" title="Permalink to this definition">¶</a></dt>
 <dd><p>Turn off output colouring.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-sceptre-var">
-<code class="descname">--var</code><code class="descclassname"> &lt;var&gt;</code><a class="headerlink" href="#cmdoption-sceptre-var" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-var">
+<span class="sig-name descname"><span class="pre">--var</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;var&gt;</span></span><a class="headerlink" href="#cmdoption-sceptre-var" title="Permalink to this definition">¶</a></dt>
 <dd><p>A variable to template into config files.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-sceptre-var-file">
-<code class="descname">--var-file</code><code class="descclassname"> &lt;var_file&gt;</code><a class="headerlink" href="#cmdoption-sceptre-var-file" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-var-file">
+<span class="sig-name descname"><span class="pre">--var-file</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;var_file&gt;</span></span><a class="headerlink" href="#cmdoption-sceptre-var-file" title="Permalink to this definition">¶</a></dt>
 <dd><p>A YAML file of variables to template into config files.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-sceptre-ignore-dependencies">
-<code class="descname">--ignore-dependencies</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sceptre-ignore-dependencies" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-ignore-dependencies">
+<span class="sig-name descname"><span class="pre">--ignore-dependencies</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-ignore-dependencies" title="Permalink to this definition">¶</a></dt>
 <dd><p>Ignore dependencies when executing command.</p>
 </dd></dl>
 
@@ -347,22 +354,22 @@ creates a change set for stack in PATH.</p>
 </pre></div>
 </div>
 <p class="rubric">Options</p>
-<dl class="option">
-<dt id="cmdoption-sceptre-create-y">
-<code class="descname">-y</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--yes</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sceptre-create-y" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-create-y">
+<span id="cmdoption-sceptre-create-yes"></span><span class="sig-name descname"><span class="pre">-y</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--yes</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-create-y" title="Permalink to this definition">¶</a></dt>
 <dd><p>Assume yes to all questions.</p>
 </dd></dl>
 
 <p class="rubric">Arguments</p>
-<dl class="option">
-<dt id="cmdoption-sceptre-create-arg-path">
-<code class="descname">PATH</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sceptre-create-arg-path" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-create-arg-PATH">
+<span id="cmdoption-sceptre-create-arg-path"></span><span class="sig-name descname"><span class="pre">PATH</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-create-arg-PATH" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required argument</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-sceptre-create-arg-change-set-name">
-<code class="descname">CHANGE_SET_NAME</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sceptre-create-arg-change-set-name" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-create-arg-CHANGE_SET_NAME">
+<span id="cmdoption-sceptre-create-arg-change-set-name"></span><span class="sig-name descname"><span class="pre">CHANGE_SET_NAME</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-create-arg-CHANGE_SET_NAME" title="Permalink to this definition">¶</a></dt>
 <dd><p>Optional argument</p>
 </dd></dl>
 
@@ -375,22 +382,22 @@ deletes a change set for stack in PATH.</p>
 </pre></div>
 </div>
 <p class="rubric">Options</p>
-<dl class="option">
-<dt id="cmdoption-sceptre-delete-y">
-<code class="descname">-y</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--yes</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sceptre-delete-y" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-delete-y">
+<span id="cmdoption-sceptre-delete-yes"></span><span class="sig-name descname"><span class="pre">-y</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--yes</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-delete-y" title="Permalink to this definition">¶</a></dt>
 <dd><p>Assume yes to all questions.</p>
 </dd></dl>
 
 <p class="rubric">Arguments</p>
-<dl class="option">
-<dt id="cmdoption-sceptre-delete-arg-path">
-<code class="descname">PATH</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sceptre-delete-arg-path" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-delete-arg-PATH">
+<span id="cmdoption-sceptre-delete-arg-path"></span><span class="sig-name descname"><span class="pre">PATH</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-delete-arg-PATH" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required argument</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-sceptre-delete-arg-change-set-name">
-<code class="descname">CHANGE_SET_NAME</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sceptre-delete-arg-change-set-name" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-delete-arg-CHANGE_SET_NAME">
+<span id="cmdoption-sceptre-delete-arg-change-set-name"></span><span class="sig-name descname"><span class="pre">CHANGE_SET_NAME</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-delete-arg-CHANGE_SET_NAME" title="Permalink to this definition">¶</a></dt>
 <dd><p>Optional argument</p>
 </dd></dl>
 
@@ -409,22 +416,22 @@ deletes a change set for stack in PATH.</p>
 </pre></div>
 </div>
 <p class="rubric">Options</p>
-<dl class="option">
-<dt id="cmdoption-sceptre-describe-change-set-v">
-<code class="descname">-v</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--verbose</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sceptre-describe-change-set-v" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-describe-change-set-v">
+<span id="cmdoption-sceptre-describe-change-set-verbose"></span><span class="sig-name descname"><span class="pre">-v</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--verbose</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-describe-change-set-v" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display verbose output.</p>
 </dd></dl>
 
 <p class="rubric">Arguments</p>
-<dl class="option">
-<dt id="cmdoption-sceptre-describe-change-set-arg-path">
-<code class="descname">PATH</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sceptre-describe-change-set-arg-path" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-describe-change-set-arg-PATH">
+<span id="cmdoption-sceptre-describe-change-set-arg-path"></span><span class="sig-name descname"><span class="pre">PATH</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-describe-change-set-arg-PATH" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required argument</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-sceptre-describe-change-set-arg-change-set-name">
-<code class="descname">CHANGE_SET_NAME</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sceptre-describe-change-set-arg-change-set-name" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-describe-change-set-arg-CHANGE_SET_NAME">
+<span id="cmdoption-sceptre-describe-change-set-arg-change-set-name"></span><span class="sig-name descname"><span class="pre">CHANGE_SET_NAME</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-describe-change-set-arg-CHANGE_SET_NAME" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required argument</p>
 </dd></dl>
 
@@ -436,9 +443,9 @@ deletes a change set for stack in PATH.</p>
 </pre></div>
 </div>
 <p class="rubric">Arguments</p>
-<dl class="option">
-<dt id="cmdoption-sceptre-describe-policy-arg-path">
-<code class="descname">PATH</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sceptre-describe-policy-arg-path" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-describe-policy-arg-PATH">
+<span id="cmdoption-sceptre-describe-policy-arg-path"></span><span class="sig-name descname"><span class="pre">PATH</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-describe-policy-arg-PATH" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required argument</p>
 </dd></dl>
 
@@ -453,9 +460,9 @@ browser with the returned URI.</p>
 </pre></div>
 </div>
 <p class="rubric">Arguments</p>
-<dl class="option">
-<dt id="cmdoption-sceptre-estimate-cost-arg-path">
-<code class="descname">PATH</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sceptre-estimate-cost-arg-path" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-estimate-cost-arg-PATH">
+<span id="cmdoption-sceptre-estimate-cost-arg-path"></span><span class="sig-name descname"><span class="pre">PATH</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-estimate-cost-arg-PATH" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required argument</p>
 </dd></dl>
 
@@ -467,22 +474,22 @@ browser with the returned URI.</p>
 </pre></div>
 </div>
 <p class="rubric">Options</p>
-<dl class="option">
-<dt id="cmdoption-sceptre-execute-y">
-<code class="descname">-y</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--yes</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sceptre-execute-y" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-execute-y">
+<span id="cmdoption-sceptre-execute-yes"></span><span class="sig-name descname"><span class="pre">-y</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--yes</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-execute-y" title="Permalink to this definition">¶</a></dt>
 <dd><p>Assume yes to all questions.</p>
 </dd></dl>
 
 <p class="rubric">Arguments</p>
-<dl class="option">
-<dt id="cmdoption-sceptre-execute-arg-path">
-<code class="descname">PATH</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sceptre-execute-arg-path" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-execute-arg-PATH">
+<span id="cmdoption-sceptre-execute-arg-path"></span><span class="sig-name descname"><span class="pre">PATH</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-execute-arg-PATH" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required argument</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-sceptre-execute-arg-change-set-name">
-<code class="descname">CHANGE_SET_NAME</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sceptre-execute-arg-change-set-name" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-execute-arg-CHANGE_SET_NAME">
+<span id="cmdoption-sceptre-execute-arg-change-set-name"></span><span class="sig-name descname"><span class="pre">CHANGE_SET_NAME</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-execute-arg-CHANGE_SET_NAME" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required argument</p>
 </dd></dl>
 
@@ -494,9 +501,9 @@ browser with the returned URI.</p>
 </pre></div>
 </div>
 <p class="rubric">Arguments</p>
-<dl class="option">
-<dt id="cmdoption-sceptre-generate-arg-path">
-<code class="descname">PATH</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sceptre-generate-arg-path" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-generate-arg-PATH">
+<span id="cmdoption-sceptre-generate-arg-path"></span><span class="sig-name descname"><span class="pre">PATH</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-generate-arg-PATH" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required argument</p>
 </dd></dl>
 
@@ -508,16 +515,16 @@ browser with the returned URI.</p>
 </pre></div>
 </div>
 <p class="rubric">Options</p>
-<dl class="option">
-<dt id="cmdoption-sceptre-launch-y">
-<code class="descname">-y</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--yes</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sceptre-launch-y" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-launch-y">
+<span id="cmdoption-sceptre-launch-yes"></span><span class="sig-name descname"><span class="pre">-y</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--yes</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-launch-y" title="Permalink to this definition">¶</a></dt>
 <dd><p>Assume yes to all questions.</p>
 </dd></dl>
 
 <p class="rubric">Arguments</p>
-<dl class="option">
-<dt id="cmdoption-sceptre-launch-arg-path">
-<code class="descname">PATH</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sceptre-launch-arg-path" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-launch-arg-PATH">
+<span id="cmdoption-sceptre-launch-arg-path"></span><span class="sig-name descname"><span class="pre">PATH</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-launch-arg-PATH" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required argument</p>
 </dd></dl>
 
@@ -535,9 +542,9 @@ browser with the returned URI.</p>
 </pre></div>
 </div>
 <p class="rubric">Arguments</p>
-<dl class="option">
-<dt id="cmdoption-sceptre-list-change-sets-arg-path">
-<code class="descname">PATH</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sceptre-list-change-sets-arg-path" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-list-change-sets-arg-PATH">
+<span id="cmdoption-sceptre-list-change-sets-arg-path"></span><span class="sig-name descname"><span class="pre">PATH</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-list-change-sets-arg-PATH" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required argument</p>
 </dd></dl>
 
@@ -549,24 +556,21 @@ browser with the returned URI.</p>
 </pre></div>
 </div>
 <p class="rubric">Options</p>
-<dl class="option">
-<dt id="cmdoption-sceptre-list-outputs-e">
-<code class="descname">-e</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--export</code><code class="descclassname"> &lt;export&gt;</code><a class="headerlink" href="#cmdoption-sceptre-list-outputs-e" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-list-outputs-e">
+<span id="cmdoption-sceptre-list-outputs-export"></span><span class="sig-name descname"><span class="pre">-e</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--export</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;export&gt;</span></span><a class="headerlink" href="#cmdoption-sceptre-list-outputs-e" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specify the export formatting.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Options:</th><td class="field-body">envvar</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Options</dt>
+<dd class="field-odd"><p>envvar</p>
+</dd>
+</dl>
 </dd></dl>
 
 <p class="rubric">Arguments</p>
-<dl class="option">
-<dt id="cmdoption-sceptre-list-outputs-arg-path">
-<code class="descname">PATH</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sceptre-list-outputs-arg-path" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-list-outputs-arg-PATH">
+<span id="cmdoption-sceptre-list-outputs-arg-path"></span><span class="sig-name descname"><span class="pre">PATH</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-list-outputs-arg-PATH" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required argument</p>
 </dd></dl>
 
@@ -578,9 +582,9 @@ browser with the returned URI.</p>
 </pre></div>
 </div>
 <p class="rubric">Arguments</p>
-<dl class="option">
-<dt id="cmdoption-sceptre-list-resources-arg-path">
-<code class="descname">PATH</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sceptre-list-resources-arg-path" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-list-resources-arg-PATH">
+<span id="cmdoption-sceptre-list-resources-arg-path"></span><span class="sig-name descname"><span class="pre">PATH</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-list-resources-arg-PATH" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required argument</p>
 </dd></dl>
 
@@ -600,9 +604,9 @@ required properties.</p>
 </pre></div>
 </div>
 <p class="rubric">Arguments</p>
-<dl class="option">
-<dt id="cmdoption-sceptre-new-group-arg-stack-group">
-<code class="descname">STACK_GROUP</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sceptre-new-group-arg-stack-group" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-new-group-arg-STACK_GROUP">
+<span id="cmdoption-sceptre-new-group-arg-stack-group"></span><span class="sig-name descname"><span class="pre">STACK_GROUP</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-new-group-arg-STACK_GROUP" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required argument</p>
 </dd></dl>
 
@@ -615,9 +619,9 @@ required properties.</p>
 </pre></div>
 </div>
 <p class="rubric">Arguments</p>
-<dl class="option">
-<dt id="cmdoption-sceptre-new-project-arg-project-name">
-<code class="descname">PROJECT_NAME</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sceptre-new-project-arg-project-name" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-new-project-arg-PROJECT_NAME">
+<span id="cmdoption-sceptre-new-project-arg-project-name"></span><span class="sig-name descname"><span class="pre">PROJECT_NAME</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-new-project-arg-PROJECT_NAME" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required argument</p>
 </dd></dl>
 
@@ -630,30 +634,27 @@ required properties.</p>
 </pre></div>
 </div>
 <p class="rubric">Options</p>
-<dl class="option">
-<dt id="cmdoption-sceptre-set-policy-b">
-<code class="descname">-b</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--built-in</code><code class="descclassname"> &lt;built_in&gt;</code><a class="headerlink" href="#cmdoption-sceptre-set-policy-b" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-set-policy-b">
+<span id="cmdoption-sceptre-set-policy-built-in"></span><span class="sig-name descname"><span class="pre">-b</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--built-in</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;built_in&gt;</span></span><a class="headerlink" href="#cmdoption-sceptre-set-policy-b" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specify a built in stack policy.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Options:</th><td class="field-body">deny-all | allow-all</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Options</dt>
+<dd class="field-odd"><p>deny-all | allow-all</p>
+</dd>
+</dl>
 </dd></dl>
 
 <p class="rubric">Arguments</p>
-<dl class="option">
-<dt id="cmdoption-sceptre-set-policy-arg-path">
-<code class="descname">PATH</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sceptre-set-policy-arg-path" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-set-policy-arg-PATH">
+<span id="cmdoption-sceptre-set-policy-arg-path"></span><span class="sig-name descname"><span class="pre">PATH</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-set-policy-arg-PATH" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required argument</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-sceptre-set-policy-arg-policy-file">
-<code class="descname">POLICY_FILE</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sceptre-set-policy-arg-policy-file" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-set-policy-arg-POLICY_FILE">
+<span id="cmdoption-sceptre-set-policy-arg-policy-file"></span><span class="sig-name descname"><span class="pre">POLICY_FILE</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-set-policy-arg-POLICY_FILE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Optional argument</p>
 </dd></dl>
 
@@ -666,9 +667,9 @@ stack_group for a given config PATH.</p>
 </pre></div>
 </div>
 <p class="rubric">Arguments</p>
-<dl class="option">
-<dt id="cmdoption-sceptre-status-arg-path">
-<code class="descname">PATH</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sceptre-status-arg-path" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-status-arg-PATH">
+<span id="cmdoption-sceptre-status-arg-path"></span><span class="sig-name descname"><span class="pre">PATH</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-status-arg-PATH" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required argument</p>
 </dd></dl>
 
@@ -681,28 +682,28 @@ change-set when the change-set flag is set.</p>
 </pre></div>
 </div>
 <p class="rubric">Options</p>
-<dl class="option">
-<dt id="cmdoption-sceptre-update-c">
-<code class="descname">-c</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--change-set</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sceptre-update-c" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-update-c">
+<span id="cmdoption-sceptre-update-change-set"></span><span class="sig-name descname"><span class="pre">-c</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--change-set</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-update-c" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a change set before updating.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-sceptre-update-v">
-<code class="descname">-v</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--verbose</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sceptre-update-v" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-update-v">
+<span id="cmdoption-sceptre-update-verbose"></span><span class="sig-name descname"><span class="pre">-v</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--verbose</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-update-v" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display verbose output.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-sceptre-update-y">
-<code class="descname">-y</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--yes</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sceptre-update-y" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-update-y">
+<span id="cmdoption-sceptre-update-yes"></span><span class="sig-name descname"><span class="pre">-y</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--yes</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-update-y" title="Permalink to this definition">¶</a></dt>
 <dd><p>Assume yes to all questions.</p>
 </dd></dl>
 
 <p class="rubric">Arguments</p>
-<dl class="option">
-<dt id="cmdoption-sceptre-update-arg-path">
-<code class="descname">PATH</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sceptre-update-arg-path" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-update-arg-PATH">
+<span id="cmdoption-sceptre-update-arg-path"></span><span class="sig-name descname"><span class="pre">PATH</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-update-arg-PATH" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required argument</p>
 </dd></dl>
 
@@ -714,9 +715,9 @@ change-set when the change-set flag is set.</p>
 </pre></div>
 </div>
 <p class="rubric">Arguments</p>
-<dl class="option">
-<dt id="cmdoption-sceptre-validate-arg-path">
-<code class="descname">PATH</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sceptre-validate-arg-path" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-validate-arg-PATH">
+<span id="cmdoption-sceptre-validate-arg-path"></span><span class="sig-name descname"><span class="pre">PATH</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-validate-arg-PATH" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required argument</p>
 </dd></dl>
 
@@ -730,29 +731,29 @@ change-set when the change-set flag is set.</p>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="stack_group_config.html" class="btn btn-neutral float-right" title="StackGroup Config" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="terminology.html" class="btn btn-neutral float-left" title="Terminology" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="stack_group_config.html" class="btn btn-neutral float-right" title="StackGroup Config" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="terminology.html" class="btn btn-neutral float-left" title="Terminology" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, Cloudreach
+        &#169; Copyright 2018, Cloudreach.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
