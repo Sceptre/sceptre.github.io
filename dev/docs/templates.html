@@ -383,7 +383,7 @@ to generate CloudFormation Template as a <cite>json</cite> string.</p>
 <span class="k">def</span> <span class="nf">sceptre_handler</span><span class="p">(</span><span class="n">sceptre_user_data</span><span class="p">):</span>
     <span class="n">app</span> <span class="o">=</span> <span class="n">cdk</span><span class="o">.</span><span class="n">App</span><span class="p">()</span>
     <span class="n">S3CdkStack</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="s2">&quot;S3CdkStack&quot;</span><span class="p">,</span> <span class="n">sceptre_user_data</span><span class="p">)</span>
-    <span class="n">template</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">synth</span><span class="p">()</span><span class="o">.</span><span class="n">get_stack</span><span class="p">(</span><span class="s2">&quot;S3CdkStack&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">template</span>
+    <span class="n">template</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">synth</span><span class="p">()</span><span class="o">.</span><span class="n">get_stack_by_name</span><span class="p">(</span><span class="s2">&quot;S3CdkStack&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">template</span>
     <span class="k">return</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_dump</span><span class="p">(</span><span class="n">template</span><span class="p">)</span>
 </pre></div>
 </div>
