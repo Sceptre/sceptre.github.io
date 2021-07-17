@@ -90,13 +90,13 @@
               
             
             
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../docs/install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../docs/get_started.html">Get Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../docs/terminology.html">Terminology</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Documentation</span></p>
+<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../docs/cli.html">Command Line Interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../docs/stack_group_config.html">StackGroup Config</a></li>
@@ -106,11 +106,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../docs/resolvers.html">Resolvers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../docs/architecture.html">Architecting Sceptre</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Support</span></p>
+<p class="caption" role="heading"><span class="caption-text">Support</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../docs/faq.html">FAQ</a></li>
 </ul>
-<p class="caption"><span class="caption-text">API</span></p>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../apidoc/modules.html">sceptre</a></li>
 </ul>
@@ -199,6 +199,7 @@
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">environ</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">walk</span>
 <span class="kn">from</span> <span class="nn">pkg_resources</span> <span class="kn">import</span> <span class="n">iter_entry_points</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">import</span> <span class="nn">yaml</span>
 
 <span class="kn">from</span> <span class="nn">jinja2</span> <span class="kn">import</span> <span class="n">Environment</span>
@@ -411,7 +412,7 @@
 
             <span class="n">stack</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_construct_stack</span><span class="p">(</span><span class="n">rel_path</span><span class="p">,</span> <span class="n">stack_group_config</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">dep</span> <span class="ow">in</span> <span class="n">stack</span><span class="o">.</span><span class="n">dependencies</span><span class="p">:</span>
-                <span class="n">full_dep</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">full_config_path</span><span class="p">(),</span> <span class="n">dep</span><span class="p">)</span>
+                <span class="n">full_dep</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">full_config_path</span><span class="p">(),</span> <span class="n">dep</span><span class="p">))</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">full_dep</span><span class="p">):</span>
                     <span class="k">raise</span> <span class="n">DependencyDoesNotExistError</span><span class="p">(</span>
                             <span class="s2">&quot;</span><span class="si">{stackname}</span><span class="s2">: Dependency </span><span class="si">{dep}</span><span class="s2"> not found. &quot;</span>
