@@ -234,25 +234,17 @@ on <a class="reference external" href="#custom-resolvers">Custom Resolvers</a>.<
 </div>
 <div class="section" id="file">
 <h3>file<a class="headerlink" href="#file" title="Permalink to this headline">¶</a></h3>
+<p>A Sceptre resolver to get file contents. The returned value can be passed into a parameter as
+a string, json, or yaml object.</p>
 <p>Refer to <a class="reference external" href="https://github.com/Sceptre/sceptre-file-resolver/">sceptre-file-resolver</a> for documentation.</p>
 </div>
 <div class="section" id="file-contents">
 <h3>file_contents<a class="headerlink" href="#file-contents" title="Permalink to this headline">¶</a></h3>
 <p><strong>deprecated</strong>: Consider using the <a class="reference internal" href="#file">file</a> resolver instead.</p>
-<p>Reads in the contents of a file.</p>
-<p>Syntax:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters|sceptre_user_data</span><span class="p">:</span>
-  <span class="nt">&lt;name&gt;</span><span class="p">:</span> <span class="kt">!file_contents</span> <span class="l l-Scalar l-Scalar-Plain">/path/to/file.txt</span>
-</pre></div>
-</div>
-<p>Example:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sceptre_user_data</span><span class="p">:</span>
-  <span class="nt">iam_policy</span><span class="p">:</span> <span class="kt">!file_contents</span> <span class="l l-Scalar l-Scalar-Plain">/path/to/policy.json</span>
-</pre></div>
-</div>
 </div>
 <div class="section" id="rcmd">
 <h3>rcmd<a class="headerlink" href="#rcmd" title="Permalink to this headline">¶</a></h3>
+<p>A resolver to execute any shell command.</p>
 <p>Refer to <a class="reference external" href="https://github.com/Sceptre/sceptre-resolver-cmd/">sceptre-resolver-cmd</a> for documentation.</p>
 </div>
 <div class="section" id="stack-output">
