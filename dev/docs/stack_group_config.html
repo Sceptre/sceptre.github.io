@@ -108,6 +108,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#region">region</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#template-bucket-name">template_bucket_name</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#template-key-prefix">template_key_prefix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#j2-environment">j2_environment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#require-version">require_version</a></li>
 </ul>
 </li>
@@ -220,6 +221,7 @@ Sceptre. The available keys are listed below.</p>
 <li><p><a class="reference external" href="#required_version">required_version</a> <em>(optional)</em></p></li>
 <li><p><a class="reference external" href="#template_bucket_name">template_bucket_name</a> <em>(optional)</em></p></li>
 <li><p><a class="reference external" href="#template_key_prefix">template_key_prefix</a> <em>(optional)</em></p></li>
+<li><p><a class="reference internal" href="#j2-environment">j2_environment</a> <em>(optional)</em></p></li>
 </ul>
 <p>Sceptre will only check for and uses the above keys in StackGroup config files
 and are directly accessible from Stack(). Any other keys added by the user are
@@ -262,6 +264,21 @@ directories in the S3 console.</p>
 <p>Extension can be <code class="docutils literal notranslate"><span class="pre">json</span></code> or <code class="docutils literal notranslate"><span class="pre">yaml</span></code>.</p>
 <p>Note that if <code class="docutils literal notranslate"><span class="pre">template_bucket_name</span></code> is not supplied, this parameter is
 ignored.</p>
+</div>
+<div class="section" id="j2-environment">
+<h3>j2_environment<a class="headerlink" href="#j2-environment" title="Permalink to this headline">¶</a></h3>
+<p>A dictionary that is combined with the default jinja2 environment.
+It’s converted to keyword arguments then passed to [jinja2.Environment](<a class="reference external" href="https://jinja.palletsprojects.com/en/2.11.x/api/#jinja2.Environment">https://jinja.palletsprojects.com/en/2.11.x/api/#jinja2.Environment</a>).
+This will impact <span class="xref std std-ref">Templating</span> of stacks by modifying the behavior of jinja.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">j2_environment</span><span class="p">:</span>
+   <span class="nt">extensions</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">jinja2.ext.i18n</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">jinja2.ext.do</span>
+   <span class="nt">lstrip_blocks</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
+   <span class="nt">trim_blocks</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
+   <span class="nt">newline_sequence</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">\n</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="require-version">
 <h3>require_version<a class="headerlink" href="#require-version" title="Permalink to this headline">¶</a></h3>

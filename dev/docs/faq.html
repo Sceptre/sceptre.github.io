@@ -267,48 +267,30 @@ be found in these projects:</p>
 <p>Another approach is to use the Sceptre <cite>before_launch</cite> hook to run either the
 SAM or CFN “package” command to generate the packaged version of the template.</p>
 <p>CloudFormation Example:</p>
-<p><a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>yaml
-template_path: generated/lambda-packaged.json
-stack_name: cfn-lambda-example
-hooks:</p>
-<blockquote>
-<div><dl class="simple">
-<dt>before_launch:</dt><dd><ul class="simple">
-<li><dl class="simple">
-<dt>!cmd &gt;</dt><dd><p>aws –profile {{ stack_group_config.profile }} cloudformation package
-–template-file templates/cfn-lambda.yaml
-–s3-bucket {{ stack_group_config.template_bucket_name }}
-–output json
-–output-template-file templates/generated/lambda-packaged.json</p>
-</dd>
-</dl>
-</li>
-</ul>
-</dd>
-</dl>
-</div></blockquote>
-<p><a href="#id5"><span class="problematic" id="id6">``</span></a><a href="#id7"><span class="problematic" id="id8">`</span></a></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template_path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">generated/lambda-packaged.json</span>
+<span class="nt">stack_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">cfn-lambda-example</span>
+<span class="nt">hooks</span><span class="p">:</span>
+  <span class="nt">before_launch</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="kt">!cmd</span> <span class="p p-Indicator">&gt;</span>
+        <span class="no">aws --profile {{ stack_group_config.profile }} cloudformation package</span>
+        <span class="no">--template-file templates/cfn-lambda.yaml</span>
+        <span class="no">--s3-bucket {{ stack_group_config.template_bucket_name }}</span>
+        <span class="no">--output json</span>
+        <span class="no">--output-template-file templates/generated/lambda-packaged.json</span>
+</pre></div>
+</div>
 <p>SAM Example:</p>
-<p><a href="#id9"><span class="problematic" id="id10">``</span></a><a href="#id11"><span class="problematic" id="id12">`</span></a>yaml
-template_path: generated/sam-packaged.yaml
-stack_name: sam-example
-hooks:</p>
-<blockquote>
-<div><dl class="simple">
-<dt>before_launch:</dt><dd><ul class="simple">
-<li><dl class="simple">
-<dt>!cmd &gt;</dt><dd><p>sam package –profile {{ stack_group_config.profile }}
-–s3-bucket {{ stack_group_config.template_bucket_name }}
-–template-file templates/sam-app.yaml
-–output-template-file templates/generated/sam-packaged.yaml</p>
-</dd>
-</dl>
-</li>
-</ul>
-</dd>
-</dl>
-</div></blockquote>
-<p><a href="#id13"><span class="problematic" id="id14">``</span></a><a href="#id15"><span class="problematic" id="id16">`</span></a></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template_path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">generated/sam-packaged.yaml</span>
+<span class="nt">stack_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sam-example</span>
+<span class="nt">hooks</span><span class="p">:</span>
+  <span class="nt">before_launch</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="kt">!cmd</span> <span class="p p-Indicator">&gt;</span>
+        <span class="no">sam package --profile {{ stack_group_config.profile }}</span>
+        <span class="no">--s3-bucket {{ stack_group_config.template_bucket_name }}</span>
+        <span class="no">--template-file templates/sam-app.yaml</span>
+        <span class="no">--output-template-file templates/generated/sam-packaged.yaml</span>
+</pre></div>
+</div>
 </div>
 </div>
 

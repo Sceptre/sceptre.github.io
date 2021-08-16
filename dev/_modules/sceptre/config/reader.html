@@ -251,7 +251,8 @@
     <span class="p">{</span>
         <span class="s2">&quot;template_bucket_name&quot;</span><span class="p">,</span>
         <span class="s2">&quot;template_key_prefix&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;required_version&quot;</span>
+        <span class="s2">&quot;required_version&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;j2_environment&quot;</span>
     <span class="p">}</span>
 <span class="p">)</span>
 
@@ -419,10 +420,10 @@
                 <span class="n">full_dep</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">full_config_path</span><span class="p">(),</span> <span class="n">dep</span><span class="p">))</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">full_dep</span><span class="p">):</span>
                     <span class="k">raise</span> <span class="n">DependencyDoesNotExistError</span><span class="p">(</span>
-                            <span class="s2">&quot;</span><span class="si">{stackname}</span><span class="s2">: Dependency </span><span class="si">{dep}</span><span class="s2"> not found. &quot;</span>
-                            <span class="s2">&quot;Please make sure that your dependencies stack_outputs &quot;</span>
-                            <span class="s2">&quot;have their full path from `config` defined.&quot;</span>
-                            <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stackname</span><span class="o">=</span><span class="n">stack</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">dep</span><span class="o">=</span><span class="n">dep</span><span class="p">))</span>
+                        <span class="s2">&quot;</span><span class="si">{stackname}</span><span class="s2">: Dependency </span><span class="si">{dep}</span><span class="s2"> not found. &quot;</span>
+                        <span class="s2">&quot;Please make sure that your dependencies stack_outputs &quot;</span>
+                        <span class="s2">&quot;have their full path from `config` defined.&quot;</span>
+                        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stackname</span><span class="o">=</span><span class="n">stack</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">dep</span><span class="o">=</span><span class="n">dep</span><span class="p">))</span>
 
                 <span class="k">if</span> <span class="n">full_dep</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">full_todo</span> <span class="ow">and</span> <span class="n">full_dep</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">deps_todo</span><span class="p">:</span>
                     <span class="n">todo</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">full_dep</span><span class="p">)</span>
@@ -577,15 +578,19 @@
         <span class="n">config</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">abs_directory_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">full_config_path</span><span class="p">,</span> <span class="n">directory_path</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">abs_directory_path</span><span class="p">,</span> <span class="n">basename</span><span class="p">)):</span>
-            <span class="n">jinja_env</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">(</span>
-                <span class="n">autoescape</span><span class="o">=</span><span class="n">select_autoescape</span><span class="p">(</span>
+            <span class="n">default_j2_environment_config</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;autoescape&quot;</span><span class="p">:</span> <span class="n">select_autoescape</span><span class="p">(</span>
                     <span class="n">disabled_extensions</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;yaml&#39;</span><span class="p">,),</span>
                     <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="p">),</span>
-                <span class="n">loader</span><span class="o">=</span><span class="n">FileSystemLoader</span><span class="p">(</span><span class="n">abs_directory_path</span><span class="p">),</span>
-                <span class="n">undefined</span><span class="o">=</span><span class="n">StrictUndefined</span>
-            <span class="p">)</span>
-            <span class="n">template</span> <span class="o">=</span> <span class="n">jinja_env</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="n">basename</span><span class="p">)</span>
+                <span class="s2">&quot;loader&quot;</span><span class="p">:</span> <span class="n">FileSystemLoader</span><span class="p">(</span><span class="n">abs_directory_path</span><span class="p">),</span>
+                <span class="s2">&quot;undefined&quot;</span><span class="p">:</span> <span class="n">StrictUndefined</span>
+            <span class="p">}</span>
+            <span class="n">j2_environment_config</span> <span class="o">=</span> <span class="n">strategies</span><span class="o">.</span><span class="n">dict_merge</span><span class="p">(</span>
+                <span class="n">default_j2_environment_config</span><span class="p">,</span>
+                <span class="n">stack_group_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;j2_environment&quot;</span><span class="p">,</span> <span class="p">{}))</span>
+            <span class="n">j2_environment</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">(</span><span class="o">**</span><span class="n">j2_environment_config</span><span class="p">)</span>
+            <span class="n">template</span> <span class="o">=</span> <span class="n">j2_environment</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="n">basename</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">templating_vars</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">stack_group_config</span><span class="p">)</span>
             <span class="n">rendered_template</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">templating_vars</span><span class="p">,</span>
