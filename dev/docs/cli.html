@@ -277,6 +277,28 @@ provided to them - even if they are not in your <code class="docutils literal no
 a dependency. Using a –var-file with all variables set can help meet this
 requirement.</p>
 </div>
+<p>It is also possible to have keys merged according to a deep merge
+algorithm from successive var files, by specifying <code class="docutils literal notranslate"><span class="pre">--merge-vars</span></code>. So, if we
+had a second variable file “vars2.yaml”:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># other_vars.yaml</span>
+<span class="nn">---</span>
+<span class="nt">top</span><span class="p">:</span>
+  <span class="nt">middle3</span><span class="p">:</span>
+    <span class="nt">nested</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">more world</span>
+</pre></div>
+</div>
+<p>We could merge all of this together using:</p>
+<p><code class="docutils literal notranslate"><span class="pre">sceptre</span> <span class="pre">--merge-vars</span> <span class="pre">--var-file</span> <span class="pre">vars.yaml</span> <span class="pre">--var-file</span> <span class="pre">other_vars.yaml</span> <span class="pre">launch</span> <span class="pre">stack</span></code></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">top</span></code> dictionary would then be expected to contain:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;top&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;middle&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;nested&quot;</span><span class="p">:</span> <span class="s2">&quot;hello&quot;</span><span class="p">},</span>
+    <span class="s2">&quot;middle2&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;nested&quot;</span><span class="p">:</span> <span class="s2">&quot;world&quot;</span><span class="p">},</span>
+    <span class="s2">&quot;middle3&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;nested&quot;</span><span class="p">:</span> <span class="s2">&quot;more world&quot;</span><span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="command-reference">
 <h2>Command reference<a class="headerlink" href="#command-reference" title="Permalink to this headline">¶</a></h2>
@@ -331,19 +353,25 @@ sceptre COMMAND --help
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-sceptre-var">
 <span class="sig-name descname"><span class="pre">--var</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;var&gt;</span></span><a class="headerlink" href="#cmdoption-sceptre-var" title="Permalink to this definition">¶</a></dt>
-<dd><p>A variable to template into config files.</p>
+<dd><p>A variable to replace the value of an item in config file.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-sceptre-var-file">
 <span class="sig-name descname"><span class="pre">--var-file</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;var_file&gt;</span></span><a class="headerlink" href="#cmdoption-sceptre-var-file" title="Permalink to this definition">¶</a></dt>
-<dd><p>A YAML file of variables to template into config files.</p>
+<dd><p>A YAML file of variables to replace the values of items in config files.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-sceptre-ignore-dependencies">
 <span class="sig-name descname"><span class="pre">--ignore-dependencies</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-ignore-dependencies" title="Permalink to this definition">¶</a></dt>
 <dd><p>Ignore dependencies when executing command.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-merge-vars">
+<span class="sig-name descname"><span class="pre">--merge-vars</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-merge-vars" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merge variables from successive –vars and var files</p>
 </dd></dl>
 
 <div class="section" id="sceptre-create">
