@@ -546,8 +546,12 @@
         <span class="k">if</span> <span class="n">directory_path</span><span class="p">:</span>
             <span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_recursive_read</span><span class="p">(</span><span class="n">parent_directory</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">stack_group_config</span><span class="p">)</span>
 
+        <span class="c1"># Combine the stack_group_config with the nested config dict</span>
+        <span class="n">config_group</span> <span class="o">=</span> <span class="n">stack_group_config</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">config_group</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+
         <span class="c1"># Read config file and overwrite inherited properties</span>
-        <span class="n">child_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_render</span><span class="p">(</span><span class="n">directory_path</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">stack_group_config</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="n">child_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_render</span><span class="p">(</span><span class="n">directory_path</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">config_group</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
 
         <span class="k">for</span> <span class="n">config_key</span><span class="p">,</span> <span class="n">strategy</span> <span class="ow">in</span> <span class="n">CONFIG_MERGE_STRATEGIES</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">value</span> <span class="o">=</span> <span class="n">strategy</span><span class="p">(</span>

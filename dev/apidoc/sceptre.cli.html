@@ -344,32 +344,6 @@ as long as their level is at least INFO. The log format is set to
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="sceptre.cli.helpers.setup_vars">
-<span class="sig-prename descclassname"><span class="pre">sceptre.cli.helpers.</span></span><span class="sig-name descname"><span class="pre">setup_vars</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">merge_vars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_colour</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/cli/helpers.html#setup_vars"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.cli.helpers.setup_vars" title="Permalink to this definition">¶</a></dt>
-<dd><p>Handle –var-file and –var arguments before
-returning data for the user_variables as required
-by the ConfigReader and SceptreContext.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>var_file</strong> (<em>List</em><em>[</em><em>Dict</em><em>]</em>) – the var_file list.</p></li>
-<li><p><strong>var</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>]</em>) – the var list.</p></li>
-<li><p><strong>merge_vars</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Merge instead of
-overwrite duplicate keys.</p></li>
-<li><p><strong>debug</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – debug mode.</p></li>
-<li><p><strong>no_colour</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – no_colour mode.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>data for the user_variables.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Dict</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="sceptre.cli.helpers.simplify_change_set_description">
 <span class="sig-prename descclassname"><span class="pre">sceptre.cli.helpers.</span></span><span class="sig-name descname"><span class="pre">simplify_change_set_description</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/cli/helpers.html#simplify_change_set_description"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.cli.helpers.simplify_change_set_description" title="Permalink to this definition">¶</a></dt>
 <dd><p>Simplies the response from the AWS describe change set API.</p>

@@ -365,7 +365,7 @@ will overwrite any value defined in the variable files.</p>
 <span class="nt">project_code</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">api</span>
 </pre></div>
 </div>
-<p>Note that by default, dictionaries are not merged. If the variable appearing in
+<p>Note that there is no merging of dictionaries. If the variable appearing in
 the last variable file is a dictionary, and the same variable is defined in an
 earlier variable file, that whole dictionary will be overwritten. For example,
 this would not work as intended:</p>
@@ -378,14 +378,6 @@ this would not work as intended:</p>
 </pre></div>
 </div>
 <p>Rather, the final dictionary would only contain the <code class="docutils literal notranslate"><span class="pre">Env</span></code> key.</p>
-<p>By using the <code class="docutils literal notranslate"><span class="pre">--merge-vars</span></code> option, these tags can be merged as intended:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sceptre --merge-vars --var-file=default.yaml --var-file=prod.yaml --var region=us-east-1 &lt;COMMAND&gt;
-</pre></div>
-</div>
-<p>This will result in the following:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">tags</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="s">&quot;Env&quot;</span><span class="p p-Indicator">:</span> <span class="s">&quot;prod&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;Project&quot;</span><span class="p p-Indicator">:</span> <span class="s">&quot;Widget&quot;</span><span class="p p-Indicator">}</span>
-</pre></div>
-</div>
 <p>For command line flags, Sceptre splits the string on the first equals sign “=”,
 and sets the key to be the first substring, and the value to be the second. Due
 to the large number of possible user inputs, no error checking is performed on
