@@ -347,6 +347,90 @@
     <span class="k">return</span> <span class="n">stream</span>
 
 
+<div class="viewcode-block" id="setup_vars"><a class="viewcode-back" href="../../../apidoc/sceptre.cli.html#sceptre.cli.helpers.setup_vars">[docs]</a><span class="k">def</span> <span class="nf">setup_vars</span><span class="p">(</span><span class="n">var_file</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">merge_vars</span><span class="p">,</span> <span class="n">debug</span><span class="p">,</span> <span class="n">no_colour</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Handle --var-file and --var arguments before</span>
+<span class="sd">    returning data for the user_variables as required</span>
+<span class="sd">    by the ConfigReader and SceptreContext.</span>
+
+<span class="sd">    :param var_file: the var_file list.</span>
+<span class="sd">    :type var_file: List[Dict]</span>
+<span class="sd">    :param var: the var list.</span>
+<span class="sd">    :type var: List[str]</span>
+<span class="sd">    :param merge_vars: Merge instead of</span>
+<span class="sd">        overwrite duplicate keys.</span>
+<span class="sd">    :type merge_vars: bool</span>
+<span class="sd">    :param debug: debug mode.</span>
+<span class="sd">    :type debug: bool</span>
+<span class="sd">    :param no_colour: no_colour mode.</span>
+<span class="sd">    :type no_colour: bool</span>
+
+<span class="sd">    :returns: data for the user_variables.</span>
+<span class="sd">    :rtype: Dict</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logger</span> <span class="o">=</span> <span class="n">setup_logging</span><span class="p">(</span><span class="n">debug</span><span class="p">,</span> <span class="n">no_colour</span><span class="p">)</span>
+
+    <span class="n">return_value</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">_update_dict</span><span class="p">(</span><span class="n">variable</span><span class="p">):</span>
+        <span class="n">variable_key</span><span class="p">,</span> <span class="n">variable_value</span> <span class="o">=</span> <span class="n">variable</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">)</span>
+        <span class="n">keys</span> <span class="o">=</span> <span class="n">variable_key</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">_nested_set</span><span class="p">(</span><span class="n">dic</span><span class="p">,</span> <span class="n">keys</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="n">dic</span> <span class="o">=</span> <span class="n">dic</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="p">{})</span>
+            <span class="n">dic</span><span class="p">[</span><span class="n">keys</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">value</span>
+
+        <span class="n">_nested_set</span><span class="p">(</span><span class="n">return_value</span><span class="p">,</span> <span class="n">keys</span><span class="p">,</span> <span class="n">variable_value</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">var_file</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">fh</span> <span class="ow">in</span> <span class="n">var_file</span><span class="p">:</span>
+            <span class="n">parsed</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">fh</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+
+            <span class="k">if</span> <span class="n">merge_vars</span><span class="p">:</span>
+                <span class="n">return_value</span> <span class="o">=</span> <span class="n">_deep_merge</span><span class="p">(</span><span class="n">parsed</span><span class="p">,</span> <span class="n">return_value</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">return_value</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">parsed</span><span class="p">)</span>
+
+            <span class="c1"># the rest of this block is for debug purposes only</span>
+            <span class="n">existing_keys</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">return_value</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="n">new_keys</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">parsed</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="n">overloaded_keys</span> <span class="o">=</span> <span class="n">existing_keys</span> <span class="o">&amp;</span> <span class="n">new_keys</span>  <span class="c1"># intersection</span>
+
+            <span class="k">if</span> <span class="n">overloaded_keys</span><span class="p">:</span>
+                <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Duplicate variables encountered: &quot;</span>
+
+                <span class="k">if</span> <span class="n">merge_vars</span><span class="p">:</span>
+                    <span class="n">message</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">. Using values from: </span><span class="si">{1}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">overloaded_keys</span><span class="p">),</span> <span class="n">fh</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">message</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">. Performing deep merge, </span><span class="si">{1}</span><span class="s2"> wins.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">overloaded_keys</span><span class="p">),</span> <span class="n">fh</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">var</span><span class="p">:</span>
+        <span class="c1"># --var options overwrite --var-file options, unless a dict and --merge-vars.</span>
+        <span class="k">for</span> <span class="n">variable</span> <span class="ow">in</span> <span class="n">var</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="n">merge_vars</span><span class="p">:</span>
+                <span class="n">return_value</span> <span class="o">=</span> <span class="n">_deep_merge</span><span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="n">return_value</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">_update_dict</span><span class="p">(</span><span class="n">variable</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">return_value</span></div>
+
+
+<span class="k">def</span> <span class="nf">_deep_merge</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">destination</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">source</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="n">destination</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="p">{})</span>
+            <span class="n">_deep_merge</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">destination</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="k">return</span> <span class="n">destination</span>
+
+
 <div class="viewcode-block" id="stack_status_exit_code"><a class="viewcode-back" href="../../../apidoc/sceptre.cli.html#sceptre.cli.helpers.stack_status_exit_code">[docs]</a><span class="k">def</span> <span class="nf">stack_status_exit_code</span><span class="p">(</span><span class="n">statuses</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span>
             <span class="n">status</span> <span class="o">==</span> <span class="n">StackStatus</span><span class="o">.</span><span class="n">COMPLETE</span>
