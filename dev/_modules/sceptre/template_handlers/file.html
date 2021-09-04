@@ -270,7 +270,7 @@
             <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s2">&quot;No such file or directory: &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
 
         <span class="kn">import</span> <span class="nn">imp</span>
-        <span class="n">module</span> <span class="o">=</span> <span class="n">imp</span><span class="o">.</span><span class="n">load_source</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+        <span class="n">module</span> <span class="o">=</span> <span class="n">imp</span><span class="o">.</span><span class="n">load_source</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="n">body</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">sceptre_handler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sceptre_user_data</span><span class="p">)</span>
