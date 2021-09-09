@@ -213,6 +213,8 @@
 <span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">StackDoesNotExistError</span>
 <span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">ProtectedStackError</span>
 
+<span class="kn">import</span> <span class="nn">urllib</span>
+
 
 <div class="viewcode-block" id="StackActions"><a class="viewcode-back" href="../../../apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions">[docs]</a><span class="k">class</span> <span class="nc">StackActions</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -738,9 +740,12 @@
         <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wait_for_completion</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">status</span></div>
 
-<div class="viewcode-block" id="StackActions.list_change_sets"><a class="viewcode-back" href="../../../apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.list_change_sets">[docs]</a>    <span class="k">def</span> <span class="nf">list_change_sets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="StackActions.list_change_sets"><a class="viewcode-back" href="../../../apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.list_change_sets">[docs]</a>    <span class="k">def</span> <span class="nf">list_change_sets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Lists the Stack&#39;s Change Sets.</span>
+
+<span class="sd">        :param url: Write out a console URL instead.</span>
+<span class="sd">        :type url: bool</span>
 
 <span class="sd">        :returns: The Stack&#39;s Change Sets.</span>
 <span class="sd">        :rtype: dict or list</span>
@@ -754,9 +759,36 @@
                     <span class="s2">&quot;StackName&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">external_name</span>
                 <span class="p">}</span>
             <span class="p">)</span>
-            <span class="k">return</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Summaries&quot;</span><span class="p">,</span> <span class="p">[])}</span>
+
+            <span class="n">summaries</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Summaries&quot;</span><span class="p">,</span> <span class="p">[])</span>
+            <span class="k">if</span> <span class="n">url</span><span class="p">:</span>
+                <span class="n">summaries</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert_to_url</span><span class="p">(</span><span class="n">summaries</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">summaries</span><span class="p">}</span>
+
         <span class="k">except</span> <span class="n">botocore</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ClientError</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">[]</span></div>
+
+    <span class="k">def</span> <span class="nf">_convert_to_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">summaries</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert the list_change_sets response from</span>
+<span class="sd">        CloudFormation to a URL in the AWS Console.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ref</span> <span class="o">=</span> <span class="n">summaries</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="n">stack_id</span> <span class="o">=</span> <span class="n">ref</span><span class="p">[</span><span class="s2">&quot;StackId&quot;</span><span class="p">]</span>
+        <span class="n">change_set_id</span> <span class="o">=</span> <span class="n">ref</span><span class="p">[</span><span class="s2">&quot;ChangeSetId&quot;</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="s2">&quot;https://</span><span class="si">{0}</span><span class="s2">.console.aws.amazon.com/cloudformation/home?&quot;</span>
+            <span class="s2">&quot;region=</span><span class="si">{0}</span><span class="s2">#/stacks/changesets/changes?</span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">region</span><span class="p">,</span>
+                <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">urlencode</span><span class="p">({</span>
+                    <span class="s2">&quot;stackId&quot;</span><span class="p">:</span> <span class="n">stack_id</span><span class="p">,</span>
+                    <span class="s2">&quot;changeSetId&quot;</span><span class="p">:</span> <span class="n">change_set_id</span>
+                <span class="p">})</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
 
 <div class="viewcode-block" id="StackActions.generate"><a class="viewcode-back" href="../../../apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.generate">[docs]</a>    <span class="nd">@add_stack_hooks</span>
     <span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
