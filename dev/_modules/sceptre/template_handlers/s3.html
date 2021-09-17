@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sceptre.plan.executor &mdash; Sceptre 2.6.3 documentation</title>
+  <title>sceptre.template_handlers.s3 &mdash; Sceptre 2.6.3 documentation</title>
   
 
   
@@ -166,9 +166,9 @@
         
           <li><a href="../../sceptre.html">sceptre</a> &raquo;</li>
         
-          <li><a href="../plan.html">sceptre.plan</a> &raquo;</li>
+          <li><a href="../template_handlers.html">sceptre.template_handlers</a> &raquo;</li>
         
-      <li>sceptre.plan.executor</li>
+      <li>sceptre.template_handlers.s3</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -183,70 +183,50 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <h1>Source code for sceptre.plan.executor</h1><div class="highlight"><pre>
-<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+  <h1>Source code for sceptre.template_handlers.s3</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">logging</span>
 
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">sceptre.plan.executor</span>
-
-<span class="sd">This module implements a SceptrePlanExecutor, which is responsible for</span>
-<span class="sd">executing the command specified in a SceptrePlan.</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">logging</span>
-
-<span class="kn">from</span> <span class="nn">concurrent.futures</span> <span class="kn">import</span> <span class="n">ThreadPoolExecutor</span><span class="p">,</span> <span class="n">as_completed</span>
-<span class="kn">from</span> <span class="nn">sceptre.plan.actions</span> <span class="kn">import</span> <span class="n">StackActions</span>
-<span class="kn">from</span> <span class="nn">sceptre.stack_status</span> <span class="kn">import</span> <span class="n">StackStatus</span>
+<span class="kn">from</span> <span class="nn">sceptre.template_handlers</span> <span class="kn">import</span> <span class="n">TemplateHandler</span>
 
 
-<div class="viewcode-block" id="SceptrePlanExecutor"><a class="viewcode-back" href="../../../apidoc/sceptre.plan.html#sceptre.plan.executor.SceptrePlanExecutor">[docs]</a><span class="k">class</span> <span class="nc">SceptrePlanExecutor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="S3"><a class="viewcode-back" href="../../../apidoc/sceptre.template_handlers.html#sceptre.template_handlers.s3.S3">[docs]</a><span class="k">class</span> <span class="nc">S3</span><span class="p">(</span><span class="n">TemplateHandler</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Template handler that can resolve templates from S3.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="n">launch_order</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initalises a SceptrePlanExecutor, generates the launch order, threads</span>
-<span class="sd">        and intial Stack Statuses.</span>
-
-<span class="sd">        :param command: The command to execute on the Stack.</span>
-<span class="sd">        :type command: str</span>
-
-<span class="sd">        :param launch_order: A list containing sets of Stacks that can be\</span>
-<span class="sd">                executed concurrently.</span>
-<span class="sd">        :type launch_order: list</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">command</span> <span class="o">=</span> <span class="n">command</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">launch_order</span> <span class="o">=</span> <span class="n">launch_order</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">S3</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">num_threads</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">launch_order</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">stack_statuses</span> <span class="o">=</span> <span class="p">{</span><span class="n">stack</span><span class="p">:</span> <span class="n">StackStatus</span><span class="o">.</span><span class="n">PENDING</span>
-                               <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">launch_order</span> <span class="k">for</span> <span class="n">stack</span> <span class="ow">in</span> <span class="n">batch</span><span class="p">}</span>
+<div class="viewcode-block" id="S3.schema"><a class="viewcode-back" href="../../../apidoc/sceptre.template_handlers.html#sceptre.template_handlers.s3.S3.schema">[docs]</a>    <span class="k">def</span> <span class="nf">schema</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">}</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">]</span>
+        <span class="p">}</span></div>
 
-<div class="viewcode-block" id="SceptrePlanExecutor.execute"><a class="viewcode-back" href="../../../apidoc/sceptre.plan.html#sceptre.plan.executor.SceptrePlanExecutor.execute">[docs]</a>    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Execute is responsible executing the sets of Stacks in `launch_order`</span>
-<span class="sd">        concurrently, in the correct order.</span>
+<div class="viewcode-block" id="S3.handle"><a class="viewcode-back" href="../../../apidoc/sceptre.template_handlers.html#sceptre.template_handlers.s3.S3.handle">[docs]</a>    <span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Downloading file from S3: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">])</span>
 
-<span class="sd">        :param *args: Any arguments that should be passed through to the\</span>
-<span class="sd">                StackAction being called.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">responses</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">segments</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+        <span class="n">bucket</span> <span class="o">=</span> <span class="n">segments</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">segments</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
 
-        <span class="k">with</span> <span class="n">ThreadPoolExecutor</span><span class="p">(</span><span class="n">max_workers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">num_threads</span><span class="p">)</span> <span class="k">as</span> <span class="n">executor</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">launch_order</span><span class="p">:</span>
-                <span class="n">futures</span> <span class="o">=</span> <span class="p">[</span><span class="n">executor</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">,</span> <span class="n">stack</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
-                           <span class="k">for</span> <span class="n">stack</span> <span class="ow">in</span> <span class="n">batch</span><span class="p">]</span>
-
-                <span class="k">for</span> <span class="n">future</span> <span class="ow">in</span> <span class="n">as_completed</span><span class="p">(</span><span class="n">futures</span><span class="p">):</span>
-                    <span class="n">stack</span><span class="p">,</span> <span class="n">status</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
-                    <span class="n">responses</span><span class="p">[</span><span class="n">stack</span><span class="p">]</span> <span class="o">=</span> <span class="n">status</span>
-
-        <span class="k">return</span> <span class="n">responses</span></div>
-
-    <span class="k">def</span> <span class="nf">_execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
-        <span class="n">actions</span> <span class="o">=</span> <span class="n">StackActions</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">actions</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">command</span><span class="p">)(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">stack</span><span class="p">,</span> <span class="n">result</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection_manager</span><span class="o">.</span><span class="n">call</span><span class="p">(</span>
+                <span class="n">service</span><span class="o">=</span><span class="s2">&quot;s3&quot;</span><span class="p">,</span>
+                <span class="n">command</span><span class="o">=</span><span class="s2">&quot;get_object&quot;</span><span class="p">,</span>
+                <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span>
+                    <span class="s2">&quot;Bucket&quot;</span><span class="p">:</span> <span class="n">bucket</span><span class="p">,</span>
+                    <span class="s2">&quot;Key&quot;</span><span class="p">:</span> <span class="n">key</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="n">response</span><span class="p">[</span><span class="s2">&quot;Body&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">e</span></div></div>
 </pre></div>
 
            </div>

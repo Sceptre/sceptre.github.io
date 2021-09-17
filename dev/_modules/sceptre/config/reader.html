@@ -102,6 +102,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../docs/stack_group_config.html">StackGroup Config</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../docs/stack_config.html">Stack Config</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../docs/templates.html">Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/template_handlers.html">Template Handlers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../docs/hooks.html">Hooks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../docs/resolvers.html">Resolvers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../docs/architecture.html">Architecting Sceptre</a></li>
@@ -240,7 +241,8 @@
     <span class="s2">&quot;stack_timeout&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
     <span class="s2">&quot;template_bucket_name&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
     <span class="s2">&quot;template_key_value&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
-    <span class="s2">&quot;template_path&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span>
+    <span class="s2">&quot;template_path&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
+    <span class="s2">&quot;template&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span>
 <span class="p">}</span>
 
 <span class="n">STACK_GROUP_CONFIG_ATTRIBUTES</span> <span class="o">=</span> <span class="n">ConfigAttributes</span><span class="p">(</span>
@@ -257,10 +259,10 @@
 <span class="p">)</span>
 
 <span class="n">STACK_CONFIG_ATTRIBUTES</span> <span class="o">=</span> <span class="n">ConfigAttributes</span><span class="p">(</span>
+    <span class="p">{},</span>
     <span class="p">{</span>
-        <span class="s2">&quot;template_path&quot;</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
+        <span class="s2">&quot;template_path&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;template&quot;</span><span class="p">,</span>
         <span class="s2">&quot;dependencies&quot;</span><span class="p">,</span>
         <span class="s2">&quot;hooks&quot;</span><span class="p">,</span>
         <span class="s2">&quot;iam_role&quot;</span><span class="p">,</span>
@@ -706,18 +708,14 @@
                     <span class="p">)</span>
                 <span class="p">)</span>
 
-        <span class="n">abs_template_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">project_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">templates_path</span><span class="p">,</span>
-            <span class="n">sceptreise_path</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;template_path&quot;</span><span class="p">])</span>
-        <span class="p">)</span>
-
         <span class="n">s3_details</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collect_s3_details</span><span class="p">(</span>
             <span class="n">stack_name</span><span class="p">,</span> <span class="n">config</span>
         <span class="p">)</span>
         <span class="n">stack</span> <span class="o">=</span> <span class="n">Stack</span><span class="p">(</span>
             <span class="n">name</span><span class="o">=</span><span class="n">stack_name</span><span class="p">,</span>
             <span class="n">project_code</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;project_code&quot;</span><span class="p">],</span>
-            <span class="n">template_path</span><span class="o">=</span><span class="n">abs_template_path</span><span class="p">,</span>
+            <span class="n">template_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_absolute_template_path</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;template_path&quot;</span><span class="p">)),</span>
+            <span class="n">template_handler_config</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;template&quot;</span><span class="p">),</span>
             <span class="n">region</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;region&quot;</span><span class="p">],</span>
             <span class="n">template_bucket_name</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;template_bucket_name&quot;</span><span class="p">),</span>
             <span class="n">template_key_prefix</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;template_key_prefix&quot;</span><span class="p">),</span>
@@ -755,7 +753,16 @@
         <span class="p">}</span>
         <span class="n">parsed_config</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;project_path&quot;</span><span class="p">)</span>
         <span class="n">parsed_config</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;stack_group_path&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">parsed_config</span></div>
+        <span class="k">return</span> <span class="n">parsed_config</span>
+
+    <span class="k">def</span> <span class="nf">_get_absolute_template_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">template_path</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">template_path</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">return</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">project_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">templates_path</span><span class="p">,</span>
+            <span class="n">sceptreise_path</span><span class="p">(</span><span class="n">template_path</span><span class="p">)</span>
+        <span class="p">)</span></div>
 </pre></div>
 
            </div>
