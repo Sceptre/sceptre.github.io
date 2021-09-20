@@ -316,9 +316,6 @@ In case you are not familiar with python packaging, <a class="reference external
 <span class="sd">        argument defined in the Sceptre config file (see below)</span>
 <span class="sd">    stack: sceptre.stack.Stack</span>
 <span class="sd">         The associated stack of the hook.</span>
-<span class="sd">    connection_manager: sceptre.connection_manager.ConnectionManager</span>
-<span class="sd">        Boto3 Connection Manager - can be used to call boto3 api.</span>
-
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">CustomHook</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
