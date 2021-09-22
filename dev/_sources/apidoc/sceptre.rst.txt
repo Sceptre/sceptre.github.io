@@ -17,6 +17,7 @@ Subpackages
    sceptre.hooks
    sceptre.plan
    sceptre.resolvers
+   sceptre.template_handlers
 
 Submodules
 ----------

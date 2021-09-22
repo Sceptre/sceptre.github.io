@@ -102,6 +102,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../docs/stack_group_config.html">StackGroup Config</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../docs/stack_config.html">Stack Config</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../docs/templates.html">Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/template_handlers.html">Template Handlers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../docs/hooks.html">Hooks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../docs/resolvers.html">Resolvers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../docs/architecture.html">Architecting Sceptre</a></li>
@@ -717,7 +718,7 @@
         <span class="n">change_set</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">describe_change_set</span><span class="p">(</span><span class="n">change_set_name</span><span class="p">)</span>
         <span class="n">status</span> <span class="o">=</span> <span class="n">change_set</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Status&quot;</span><span class="p">)</span>
         <span class="n">reason</span> <span class="o">=</span> <span class="n">change_set</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;StatusReason&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="s2">&quot;FAILED&quot;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">change_set_creation_failed_due_to_no_changes</span><span class="p">(</span><span class="n">reason</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="s2">&quot;FAILED&quot;</span> <span class="ow">and</span> <span class="s2">&quot;submitted information didn&#39;t contain changes&quot;</span> <span class="ow">in</span> <span class="n">reason</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
                     <span class="s2">&quot;Skipping ChangeSet on Stack: </span><span class="si">{}</span><span class="s2"> - there are no changes&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                         <span class="n">change_set</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;StackName&quot;</span><span class="p">)</span>
@@ -739,23 +740,6 @@
 
         <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wait_for_completion</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">status</span></div>
-
-<div class="viewcode-block" id="StackActions.change_set_creation_failed_due_to_no_changes"><a class="viewcode-back" href="../../../apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.change_set_creation_failed_due_to_no_changes">[docs]</a>    <span class="k">def</span> <span class="nf">change_set_creation_failed_due_to_no_changes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reason</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Indicates the change set failed when it was created because there were actually</span>
-<span class="sd">        no changes introduced from the change set.</span>
-
-<span class="sd">        :param reason: The reason reported by CloudFormation for the Change Set failure</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">reason</span> <span class="o">=</span> <span class="n">reason</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-        <span class="n">no_change_substrings</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="s2">&quot;submitted information didn&#39;t contain changes&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;no updates are to be performed&quot;</span>  <span class="c1"># The reason returned for SAM templates</span>
-        <span class="p">)</span>
-
-        <span class="k">for</span> <span class="n">substring</span> <span class="ow">in</span> <span class="n">no_change_substrings</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">substring</span> <span class="ow">in</span> <span class="n">reason</span><span class="p">:</span>
-                <span class="k">return</span> <span class="kc">True</span>
-        <span class="k">return</span> <span class="kc">False</span></div>
 
 <div class="viewcode-block" id="StackActions.list_change_sets"><a class="viewcode-back" href="../../../apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.list_change_sets">[docs]</a>    <span class="k">def</span> <span class="nf">list_change_sets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>

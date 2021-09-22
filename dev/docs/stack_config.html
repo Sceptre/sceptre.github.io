@@ -104,7 +104,8 @@
 <li class="toctree-l1"><a class="reference internal" href="stack_group_config.html">StackGroup Config</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Stack Config</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#structure">Structure</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#template-path-required">template_path - required</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#template-path">template_path</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#template">template</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#dependencies">dependencies</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#hooks">hooks</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#notifications">notifications</a></li>
@@ -129,6 +130,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="templates.html">Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="template_handlers.html">Template Handlers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hooks.html">Hooks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="resolvers.html">Resolvers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecting Sceptre</a></li>
@@ -216,7 +218,7 @@ that Stack’s Template, and any parameters that Stack may require.</p>
 <p>A Stack config file is a <code class="docutils literal notranslate"><span class="pre">yaml</span></code> object of key-value pairs configuring a
 particular Stack. The available keys are listed below.</p>
 <ul class="simple">
-<li><p><a class="reference external" href="#template_path">template_path</a> <em>(required)</em></p></li>
+<li><p><a class="reference external" href="#template_path">template_path</a> or <a class="reference external" href="#template">template</a> <em>(required)</em></p></li>
 <li><p><a class="reference external" href="#dependencies">dependencies</a> <em>(optional)</em></p></li>
 <li><p><a class="reference external" href="#hooks">hooks</a> <em>(optional)</em></p></li>
 <li><p><a class="reference external" href="#notifications">notifications</a> <em>(optional)</em></p></li>
@@ -229,13 +231,33 @@ particular Stack. The available keys are listed below.</p>
 <li><p><a class="reference external" href="#stack_tags">stack_tags</a> <em>(optional)</em></p></li>
 <li><p><a class="reference external" href="#stack_timeout">stack_timeout</a> <em>(optional)</em></p></li>
 </ul>
-<div class="section" id="template-path-required">
-<h3>template_path - required<a class="headerlink" href="#template-path-required" title="Permalink to this headline">¶</a></h3>
+<p>It is not possible to define both <a class="reference external" href="#template_path">template_path</a> and <a class="reference external" href="#template">template</a>. If you do so,
+you will receive an error when deploying the stack.</p>
+<div class="section" id="template-path">
+<h3>template_path<a class="headerlink" href="#template-path" title="Permalink to this headline">¶</a></h3>
 <p>The path to the CloudFormation, Jinja2 or Python template to build the Stack
 from. The path can either be absolute or relative to the Sceptre Directory.
 Sceptre treats the template as CloudFormation, Jinja2 or Python depending on
 the template’s file extension. Note that the template filename may be different
 from the Stack config filename.</p>
+</div>
+<div class="section" id="template">
+<h3>template<a class="headerlink" href="#template" title="Permalink to this headline">¶</a></h3>
+<p>Configuration for a template handler. Template handlers can take in parameters
+and resolve that to a CloudFormation template. This enables you to not only
+load templates from disk, but also from third-party storage or AWS services.</p>
+<p>Example for loading from S3 bucket:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span>
+  <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">s3</span>
+  <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">infra-templates/s3/v1/bucket.yaml</span>
+<span class="nt">parameters</span><span class="p">:</span>
+  <span class="nt">&lt;parameter1_name&gt;</span><span class="p">:</span> <span class="s">&quot;value&quot;</span>
+<span class="nt">sceptre_user_data</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>It is possible to write your own template handlers should you need to. You
+can find a list of currently supported template handlers and guidance for
+developing your own in the <a class="reference internal" href="template_handlers.html"><span class="doc">Template Handlers</span></a> section.</p>
 </div>
 <div class="section" id="dependencies">
 <h3>dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h3>
