@@ -104,7 +104,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../docs/stack_group_config.html">StackGroup Config</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../docs/stack_config.html">Stack Config</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../docs/templates.html">Templates</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../docs/template_handlers.html">Template Handlers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../docs/hooks.html">Hooks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../docs/resolvers.html">Resolvers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../docs/architecture.html">Architecting Sceptre</a></li>
@@ -123,7 +122,6 @@
 <li class="toctree-l4"><a class="reference internal" href="sceptre.hooks.html">sceptre.hooks package</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">sceptre.plan package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sceptre.resolvers.html">sceptre.resolvers package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sceptre.template_handlers.html">sceptre.template_handlers package</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="sceptre.html#submodules">Submodules</a></li>
@@ -255,6 +253,18 @@ deleting the Stack.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="sceptre.html#sceptre.stack_status.StackStatus" title="sceptre.stack_status.StackStatus">sceptre.stack_status.StackStatus</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sceptre.plan.actions.StackActions.change_set_creation_failed_due_to_no_changes">
+<span class="sig-name descname"><span class="pre">change_set_creation_failed_due_to_no_changes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reason</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/sceptre/plan/actions.html#StackActions.change_set_creation_failed_due_to_no_changes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.plan.actions.StackActions.change_set_creation_failed_due_to_no_changes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Indicates the change set failed when it was created because there were actually
+no changes introduced from the change set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>reason</strong> – The reason reported by CloudFormation for the Change Set failure</p>
 </dd>
 </dl>
 </dd></dl>
