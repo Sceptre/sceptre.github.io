@@ -339,7 +339,7 @@ contain a mixture of values and resolvers.</p>
     <span class="p p-Indicator">-</span> <span class="s">&quot;subnet-87654321&quot;</span>
   <span class="nt">security_group_ids</span><span class="p">:</span>
     <span class="p p-Indicator">-</span> <span class="s">&quot;sg-12345678&quot;</span>
-    <span class="p p-Indicator">-</span> <span class="kt">!stack_output</span> <span class="l l-Scalar l-Scalar-Plain">security-groups::BaseSecurityGroupId</span>
+    <span class="p p-Indicator">-</span> <span class="kt">!stack_output</span> <span class="l l-Scalar l-Scalar-Plain">security-groups.yaml::BaseSecurityGroupId</span>
     <span class="p p-Indicator">-</span> <span class="kt">!file_contents</span> <span class="l l-Scalar l-Scalar-Plain">/file/with/security_group_id.txt</span>
 </pre></div>
 </div>
@@ -380,7 +380,7 @@ order.</p>
 </div>
 <p>e.g:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span>
-  <span class="nt">VpcID</span><span class="p">:</span> <span class="kt">!stack_output_external</span> <span class="l l-Scalar l-Scalar-Plain">&lt;custom-named-vpc-stack&gt;.yaml::VpcID</span>
+  <span class="nt">VpcID</span><span class="p">:</span> <span class="kt">!stack_output_external</span> <span class="l l-Scalar l-Scalar-Plain">&lt;custom-named-vpc-stack&gt;::VpcID</span>
 <span class="nt">dependencies</span><span class="p">:</span>
   <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">&lt;environment&gt;/&lt;Stack&gt;</span>
 </pre></div>
@@ -389,7 +389,7 @@ order.</p>
 the profile you want to use. This is especially useful if the Template you’re
 referring to is in a different AWS account or region.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span>
-  <span class="nt">VpcID</span><span class="p">:</span> <span class="kt">!stack_output_external</span> <span class="l l-Scalar l-Scalar-Plain">&lt;custom-named-vpc-stack&gt;.yaml::VpcID my-aws-prod-profile</span>
+  <span class="nt">VpcID</span><span class="p">:</span> <span class="kt">!stack_output_external</span> <span class="l l-Scalar l-Scalar-Plain">&lt;custom-named-vpc-stack&gt;::VpcID my-aws-prod-profile</span>
 <span class="nt">dependencies</span><span class="p">:</span>
   <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">&lt;environment&gt;/&lt;Stack&gt;</span>
 </pre></div>
@@ -472,8 +472,8 @@ the <code class="docutils literal notranslate"><span class="pre">sceptre_handler
         <span class="p p-Indicator">-</span> <span class="kt">!cmd</span> <span class="s">&quot;mkdir</span><span class="nv"> </span><span class="s">example&quot;</span>
         <span class="p p-Indicator">-</span> <span class="kt">!cmd</span> <span class="s">&quot;touch</span><span class="nv"> </span><span class="s">example.txt&quot;</span>
 <span class="nt">parameters</span><span class="p">:</span>
-    <span class="nt">param_1</span><span class="p">:</span> <span class="kt">!stack_output</span> <span class="l l-Scalar l-Scalar-Plain">stack_name::output_name</span>
-    <span class="nt">param_2</span><span class="p">:</span> <span class="kt">!stack_output_external</span> <span class="l l-Scalar l-Scalar-Plain">full_stack_name.yaml::output_name</span>
+    <span class="nt">param_1</span><span class="p">:</span> <span class="kt">!stack_output</span> <span class="l l-Scalar l-Scalar-Plain">stack_name.yaml::output_name</span>
+    <span class="nt">param_2</span><span class="p">:</span> <span class="kt">!stack_output_external</span> <span class="l l-Scalar l-Scalar-Plain">full_stack_name::output_name</span>
     <span class="nt">param_3</span><span class="p">:</span> <span class="kt">!environment_variable</span> <span class="l l-Scalar l-Scalar-Plain">VALUE_3</span>
     <span class="nt">param_4</span><span class="p">:</span>
         <span class="p p-Indicator">{{</span> <span class="nv">var.value4</span> <span class="p p-Indicator">}}</span>
