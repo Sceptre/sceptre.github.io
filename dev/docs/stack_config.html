@@ -113,7 +113,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#parameters">parameters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#protected">protected</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#role-arn">role_arn</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#iam-role">iam_role</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#sceptre-user-data">sceptre_user_data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stack-name">stack_name</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stack-tags">stack_tags</a></li>
@@ -227,7 +226,6 @@ particular Stack. The available keys are listed below.</p>
 <li><p><a class="reference external" href="#parameters">parameters</a> <em>(optional)</em></p></li>
 <li><p><a class="reference external" href="#protected">protected</a> <em>(optional)</em></p></li>
 <li><p><a class="reference external" href="#role_arn">role_arn</a> <em>(optional)</em></p></li>
-<li><p><a class="reference internal" href="#iam-role">iam_role</a> <em>(optional)</em></p></li>
 <li><p><a class="reference external" href="#sceptre_user_data">sceptre_user_data</a> <em>(optional)</em></p></li>
 <li><p><a class="reference external" href="#stack_name">stack_name</a> <em>(optional)</em></p></li>
 <li><p><a class="reference external" href="#stack_tags">stack_tags</a> <em>(optional)</em></p></li>
@@ -341,7 +339,7 @@ contain a mixture of values and resolvers.</p>
     <span class="p p-Indicator">-</span> <span class="s">&quot;subnet-87654321&quot;</span>
   <span class="nt">security_group_ids</span><span class="p">:</span>
     <span class="p p-Indicator">-</span> <span class="s">&quot;sg-12345678&quot;</span>
-    <span class="p p-Indicator">-</span> <span class="kt">!stack_output</span> <span class="l l-Scalar l-Scalar-Plain">security-groups.yaml::BaseSecurityGroupId</span>
+    <span class="p p-Indicator">-</span> <span class="kt">!stack_output</span> <span class="l l-Scalar l-Scalar-Plain">security-groups::BaseSecurityGroupId</span>
     <span class="p p-Indicator">-</span> <span class="kt">!file_contents</span> <span class="l l-Scalar l-Scalar-Plain">/file/with/security_group_id.txt</span>
 </pre></div>
 </div>
@@ -364,23 +362,6 @@ throw an error.</p>
 <p>The ARN of a <a class="reference external" href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-servicerole.html">CloudFormation Service Role</a> that is assumed by CloudFormation
 to create, update or delete resources.</p>
 </div>
-<div class="section" id="iam-role">
-<h3>iam_role<a class="headerlink" href="#iam-role" title="Permalink to this headline">¶</a></h3>
-<p>This is the IAM Role ARN that <strong>Sceptre</strong> should <em>assume</em> using AWS STS when executing any actions
-on the Stack.</p>
-<p>This is different from the <code class="docutils literal notranslate"><span class="pre">role_arn</span></code> option, which sets a CloudFormation service role for the
-stack. The <code class="docutils literal notranslate"><span class="pre">iam_role</span></code> configuration does not configure anything on the stack itself.</p>
-<p>This is also different from the <code class="docutils literal notranslate"><span class="pre">profile</span></code> StackGroup configuration, though there are similarities.
-<code class="docutils literal notranslate"><span class="pre">profile</span></code> references the name of a locally-defined profile configured using the AWS CLI. This is
-the <em>“user”</em> that Sceptre is operating as. However, <cite>iam_role</cite> is a defined role ARN (typically one
-with elevated permissions the user doesn’t otherwise have access to) that the user will assume in
-order to execute the actions on a specific stack group.</p>
-<p>Using <code class="docutils literal notranslate"><span class="pre">iam_role</span></code> can be useful if the user or system executing Sceptre needs an alternative
-permissions set to perform the required actions on that stack, such as might be the case with a
-CI/CD system like Jenkins.</p>
-<p>In order to use this argument, however, the role needs to have an AssumeRolePolicyDocument that
-permits the user to assume that role.</p>
-</div>
 <div class="section" id="sceptre-user-data">
 <h3>sceptre_user_data<a class="headerlink" href="#sceptre-user-data" title="Permalink to this headline">¶</a></h3>
 <p>Represents data to be passed to the <code class="docutils literal notranslate"><span class="pre">sceptre_handler(sceptre_user_data)</span></code>
@@ -399,7 +380,7 @@ order.</p>
 </div>
 <p>e.g:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span>
-  <span class="nt">VpcID</span><span class="p">:</span> <span class="kt">!stack_output_external</span> <span class="l l-Scalar l-Scalar-Plain">&lt;custom-named-vpc-stack&gt;::VpcID</span>
+  <span class="nt">VpcID</span><span class="p">:</span> <span class="kt">!stack_output_external</span> <span class="l l-Scalar l-Scalar-Plain">&lt;custom-named-vpc-stack&gt;.yaml::VpcID</span>
 <span class="nt">dependencies</span><span class="p">:</span>
   <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">&lt;environment&gt;/&lt;Stack&gt;</span>
 </pre></div>
@@ -408,7 +389,7 @@ order.</p>
 the profile you want to use. This is especially useful if the Template you’re
 referring to is in a different AWS account or region.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span>
-  <span class="nt">VpcID</span><span class="p">:</span> <span class="kt">!stack_output_external</span> <span class="l l-Scalar l-Scalar-Plain">&lt;custom-named-vpc-stack&gt;::VpcID my-aws-prod-profile</span>
+  <span class="nt">VpcID</span><span class="p">:</span> <span class="kt">!stack_output_external</span> <span class="l l-Scalar l-Scalar-Plain">&lt;custom-named-vpc-stack&gt;.yaml::VpcID my-aws-prod-profile</span>
 <span class="nt">dependencies</span><span class="p">:</span>
   <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">&lt;environment&gt;/&lt;Stack&gt;</span>
 </pre></div>
@@ -491,8 +472,8 @@ the <code class="docutils literal notranslate"><span class="pre">sceptre_handler
         <span class="p p-Indicator">-</span> <span class="kt">!cmd</span> <span class="s">&quot;mkdir</span><span class="nv"> </span><span class="s">example&quot;</span>
         <span class="p p-Indicator">-</span> <span class="kt">!cmd</span> <span class="s">&quot;touch</span><span class="nv"> </span><span class="s">example.txt&quot;</span>
 <span class="nt">parameters</span><span class="p">:</span>
-    <span class="nt">param_1</span><span class="p">:</span> <span class="kt">!stack_output</span> <span class="l l-Scalar l-Scalar-Plain">stack_name.yaml::output_name</span>
-    <span class="nt">param_2</span><span class="p">:</span> <span class="kt">!stack_output_external</span> <span class="l l-Scalar l-Scalar-Plain">full_stack_name::output_name</span>
+    <span class="nt">param_1</span><span class="p">:</span> <span class="kt">!stack_output</span> <span class="l l-Scalar l-Scalar-Plain">stack_name::output_name</span>
+    <span class="nt">param_2</span><span class="p">:</span> <span class="kt">!stack_output_external</span> <span class="l l-Scalar l-Scalar-Plain">full_stack_name.yaml::output_name</span>
     <span class="nt">param_3</span><span class="p">:</span> <span class="kt">!environment_variable</span> <span class="l l-Scalar l-Scalar-Plain">VALUE_3</span>
     <span class="nt">param_4</span><span class="p">:</span>
         <span class="p p-Indicator">{{</span> <span class="nv">var.value4</span> <span class="p p-Indicator">}}</span>
