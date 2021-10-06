@@ -215,26 +215,26 @@
 <dl class="py exception">
 <dt class="sig sig-object py" id="sceptre.resolvers.RecursiveGet">
 <em class="property"><span class="pre">exception</span> </em><span class="sig-prename descclassname"><span class="pre">sceptre.resolvers.</span></span><span class="sig-name descname"><span class="pre">RecursiveGet</span></span><a class="reference internal" href="../_modules/sceptre/resolvers.html#RecursiveGet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.resolvers.RecursiveGet" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="sceptre.resolvers.ResolvableProperty">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sceptre.resolvers.</span></span><span class="sig-name descname"><span class="pre">ResolvableProperty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/resolvers.html#ResolvableProperty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.resolvers.ResolvableProperty" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>This is a descriptor class used to store an attribute that may contain
 Resolver objects. When retrieving the dictionary or list, any Resolver
 objects contains are a value or within a list are resolved to a primitive
 type. Supports nested dictionary and lists.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Attribute suffix used to store the property in the instance.</p>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Attribute suffix used to store the property in the instance.</p>
 </dd>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="sceptre.resolvers.ResolvableProperty.ResolveLater">
 <em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">ResolveLater</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolution_function</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/resolvers.html#ResolvableProperty.ResolveLater"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.resolvers.ResolvableProperty.ResolveLater" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Represents a value that could not yet be resolved but can be resolved in the future.</p>
 </dd></dl>
 
@@ -243,13 +243,13 @@ type. Supports nested dictionary and lists.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="sceptre.resolvers.Resolver">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sceptre.resolvers.</span></span><span class="sig-name descname"><span class="pre">Resolver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">argument</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/resolvers.html#Resolver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.resolvers.Resolver" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Resolver is an abstract base class that should be inherited by all
 Resolvers.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>argument</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The argument of the resolver.</p></li>
+<li><p><strong>argument</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The argument of the resolver.</p></li>
 <li><p><strong>stack</strong> (<a class="reference internal" href="sceptre.html#sceptre.stack.Stack" title="sceptre.stack.Stack"><em>sceptre.stack.Stack</em></a>) – The associated stack of the resolver.</p></li>
 </ul>
 </dd>
@@ -285,7 +285,7 @@ initial setup of the object.</p>
 <p>Resolver for shell environment variables.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>argument</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Name of the environment variable to return.</p>
+<dd class="field-odd"><p><strong>argument</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the environment variable to return.</p>
 </dd>
 </dl>
 <dl class="py method">
@@ -297,7 +297,7 @@ initial setup of the object.</p>
 <dd class="field-odd"><p>Value of the environment variable.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -314,7 +314,7 @@ initial setup of the object.</p>
 <p>Resolver for the contents of a file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>argument</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Absolute path to file.</p>
+<dd class="field-odd"><p><strong>argument</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Absolute path to file.</p>
 </dd>
 </dl>
 <dl class="py method">
@@ -326,7 +326,7 @@ initial setup of the object.</p>
 <dd class="field-odd"><p>Contents of file.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -357,7 +357,7 @@ Stack using the Resolver.</p>
 <dd class="field-odd"><p>The value of the Stack output.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -397,7 +397,7 @@ current Sceptre stack_group’s account and region.</p>
 <dd class="field-odd"><p>The value of the Stack output.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
