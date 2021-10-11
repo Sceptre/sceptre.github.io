@@ -194,11 +194,11 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span><span class="p">,</span> <span class="n">walk</span>
 
+<span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">ConfigFileNotFoundError</span>
 <span class="kn">from</span> <span class="nn">sceptre.config.graph</span> <span class="kn">import</span> <span class="n">StackGraph</span>
 <span class="kn">from</span> <span class="nn">sceptre.config.reader</span> <span class="kn">import</span> <span class="n">ConfigReader</span>
-<span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">ConfigFileNotFoundError</span>
-<span class="kn">from</span> <span class="nn">sceptre.helpers</span> <span class="kn">import</span> <span class="n">sceptreise_path</span>
 <span class="kn">from</span> <span class="nn">sceptre.plan.executor</span> <span class="kn">import</span> <span class="n">SceptrePlanExecutor</span>
+<span class="kn">from</span> <span class="nn">sceptre.helpers</span> <span class="kn">import</span> <span class="n">sceptreise_path</span>
 
 
 <div class="viewcode-block" id="SceptrePlan"><a class="viewcode-back" href="../../../apidoc/sceptre.plan.html#sceptre.plan.plan.SceptrePlan">[docs]</a><span class="k">class</span> <span class="nc">SceptrePlan</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -539,17 +539,7 @@
             <span class="k">for</span> <span class="n">dirpath</span><span class="p">,</span> <span class="n">dirnames</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">walk</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">config_path</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">config_file</span><span class="p">)</span>
-        <span class="p">]</span>
-
-<div class="viewcode-block" id="SceptrePlan.fetch_remote_template"><a class="viewcode-back" href="../../../apidoc/sceptre.plan.html#sceptre.plan.plan.SceptrePlan.fetch_remote_template">[docs]</a>    <span class="k">def</span> <span class="nf">fetch_remote_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns a generated Template for a given Stack</span>
-
-<span class="sd">        :returns: A list of Stacks and their template body.</span>
-<span class="sd">        :rtype: List[str]</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fetch_remote_template</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span></div></div>
+        <span class="p">]</span></div>
 </pre></div>
 
            </div>
