@@ -193,28 +193,26 @@
 <span class="sd">available to a Stack.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
+<span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">time</span>
-
-<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
+<span class="kn">import</span> <span class="nn">urllib</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Optional</span>
 
 <span class="kn">import</span> <span class="nn">botocore</span>
-<span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">from</span> <span class="nn">dateutil.tz</span> <span class="kn">import</span> <span class="n">tzutc</span>
 
 <span class="kn">from</span> <span class="nn">sceptre.connection_manager</span> <span class="kn">import</span> <span class="n">ConnectionManager</span>
-<span class="kn">from</span> <span class="nn">sceptre.hooks</span> <span class="kn">import</span> <span class="n">add_stack_hooks</span>
-<span class="kn">from</span> <span class="nn">sceptre.stack_status</span> <span class="kn">import</span> <span class="n">StackStatus</span>
-<span class="kn">from</span> <span class="nn">sceptre.stack_status</span> <span class="kn">import</span> <span class="n">StackChangeSetStatus</span>
-
 <span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">CannotUpdateFailedStackError</span>
-<span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">UnknownStackStatusError</span>
-<span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">UnknownStackChangeSetStatusError</span>
-<span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">StackDoesNotExistError</span>
 <span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">ProtectedStackError</span>
-
-<span class="kn">import</span> <span class="nn">urllib</span>
+<span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">StackDoesNotExistError</span>
+<span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">UnknownStackChangeSetStatusError</span>
+<span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">UnknownStackStatusError</span>
+<span class="kn">from</span> <span class="nn">sceptre.hooks</span> <span class="kn">import</span> <span class="n">add_stack_hooks</span>
+<span class="kn">from</span> <span class="nn">sceptre.stack_status</span> <span class="kn">import</span> <span class="n">StackChangeSetStatus</span>
+<span class="kn">from</span> <span class="nn">sceptre.stack_status</span> <span class="kn">import</span> <span class="n">StackStatus</span>
 
 
 <div class="viewcode-block" id="StackActions"><a class="viewcode-back" href="../../../apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions">[docs]</a><span class="k">class</span> <span class="nc">StackActions</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -1112,7 +1110,44 @@
         <span class="p">):</span>
             <span class="k">return</span> <span class="n">StackChangeSetStatus</span><span class="o">.</span><span class="n">DEFUNCT</span>
         <span class="k">else</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;This else should not be reachable.&quot;</span><span class="p">)</span></div>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;This else should not be reachable.&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="StackActions.fetch_remote_template"><a class="viewcode-back" href="../../../apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.fetch_remote_template">[docs]</a>    <span class="k">def</span> <span class="nf">fetch_remote_template</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the Template for the remote Stack</span>
+
+<span class="sd">        :returns: the template body.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> - Fetching remote template&quot;</span><span class="p">)</span>
+
+        <span class="n">original_template</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fetch_original_template_stage</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">original_template</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="c1"># While not documented behavior, boto3 will attempt to deserialize the TemplateBody</span>
+            <span class="c1"># with json.loads and return the template as a dict if it is successful; otherwise (such</span>
+            <span class="c1"># as in when the template is in yaml, it will return the string. Therefore, we need to</span>
+            <span class="c1"># dump the template to json if we get a dict.</span>
+            <span class="n">original_template</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">original_template</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">original_template</span></div>
+
+    <span class="k">def</span> <span class="nf">_fetch_original_template_stage</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]]:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection_manager</span><span class="o">.</span><span class="n">call</span><span class="p">(</span>
+                <span class="n">service</span><span class="o">=</span><span class="s2">&quot;cloudformation&quot;</span><span class="p">,</span>
+                <span class="n">command</span><span class="o">=</span><span class="s2">&quot;get_template&quot;</span><span class="p">,</span>
+                <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span>
+                    <span class="s2">&quot;StackName&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">external_name</span><span class="p">,</span>
+                    <span class="s2">&quot;TemplateStage&quot;</span><span class="p">:</span> <span class="s1">&#39;Original&#39;</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;TemplateBody&#39;</span><span class="p">]</span>
+            <span class="c1"># Sometimes boto returns a string, sometimes a dictionary</span>
+        <span class="k">except</span> <span class="n">botocore</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ClientError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="c1"># AWS returns a ValidationError if the stack doesn&#39;t exist</span>
+            <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">response</span><span class="p">[</span><span class="s1">&#39;Error&#39;</span><span class="p">][</span><span class="s1">&#39;Code&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;ValidationError&#39;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">None</span>
+            <span class="k">raise</span></div>
 </pre></div>
 
            </div>
