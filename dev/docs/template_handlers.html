@@ -108,6 +108,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#available-template-handlers">Available Template Handlers</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#file">file</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#s3">s3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#http">http</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#custom-template-handlers">Custom Template Handlers</a><ul>
@@ -245,7 +246,24 @@ config property is set, for backwards compatibility reasons.</p>
 <p>Example:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span>
   <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">s3</span>
-  <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">infra-templates/s3/v1/bucket.yaml</span>
+  <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">infra-templates/v1/storage/bucket.yaml</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="http">
+<h3>http<a class="headerlink" href="#http" title="Permalink to this headline">¶</a></h3>
+<p>Downloads a template from a url on the web.  This handler supports templates with .json, .yaml,
+.template, .j2 and .py extensions.</p>
+<p>Syntax:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span>
+  <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">http</span>
+  <span class="nt">url</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;url&gt;</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span>
+  <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">http</span>
+  <span class="nt">url</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">https://raw.githubusercontent.com/acme/infra-templates/v1/storage/bucket.yaml</span>
 </pre></div>
 </div>
 </div>

@@ -193,6 +193,7 @@
  | <a href="#G"><strong>G</strong></a>
  | <a href="#H"><strong>H</strong></a>
  | <a href="#I"><strong>I</strong></a>
+ | <a href="#J"><strong>J</strong></a>
  | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
  | <a href="#N"><strong>N</strong></a>
@@ -591,20 +592,14 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="apidoc/sceptre.html#sceptre.stack_status.StackStatus.FAILED">FAILED (sceptre.stack_status.StackStatus attribute)</a>
 </li>
-      <li><a href="apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.fetch_remote_template">fetch_remote_template() (sceptre.plan.actions.StackActions method)</a>
-
-      <ul>
-        <li><a href="apidoc/sceptre.plan.html#sceptre.plan.plan.SceptrePlan.fetch_remote_template">(sceptre.plan.plan.SceptrePlan method)</a>
-</li>
-      </ul></li>
       <li><a href="apidoc/sceptre.template_handlers.html#sceptre.template_handlers.file.File">File (class in sceptre.template_handlers.file)</a>
 </li>
       <li><a href="apidoc/sceptre.resolvers.html#sceptre.resolvers.file_contents.FileContents">FileContents (class in sceptre.resolvers.file_contents)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="apidoc/sceptre.config.html#sceptre.config.graph.StackGraph.filtered">filtered() (sceptre.config.graph.StackGraph method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="apidoc/sceptre.cli.html#sceptre.cli.helpers.ColouredFormatter.format">format() (sceptre.cli.helpers.ColouredFormatter method)</a>
 </li>
       <li><a href="apidoc/sceptre.html#sceptre.context.SceptreContext.full_command_path">full_command_path() (sceptre.context.SceptreContext method)</a>
@@ -652,6 +647,8 @@
       <li><a href="apidoc/sceptre.template_handlers.html#sceptre.template_handlers.file.File.handle">handle() (sceptre.template_handlers.file.File method)</a>
 
       <ul>
+        <li><a href="apidoc/sceptre.template_handlers.html#sceptre.template_handlers.http.Http.handle">(sceptre.template_handlers.http.Http method)</a>
+</li>
         <li><a href="apidoc/sceptre.template_handlers.html#sceptre.template_handlers.s3.S3.handle">(sceptre.template_handlers.s3.S3 method)</a>
 </li>
         <li><a href="apidoc/sceptre.template_handlers.html#sceptre.template_handlers.TemplateHandler.handle">(sceptre.template_handlers.TemplateHandler method)</a>
@@ -664,6 +661,8 @@
       <li><a href="apidoc/sceptre.hooks.html#sceptre.hooks.HookProperty">HookProperty (class in sceptre.hooks)</a>
 </li>
       <li><a href="apidoc/sceptre.html#sceptre.stack.Stack.hooks">hooks (sceptre.stack.Stack attribute)</a>
+</li>
+      <li><a href="apidoc/sceptre.template_handlers.html#sceptre.template_handlers.http.Http">Http (class in sceptre.template_handlers.http)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -686,6 +685,14 @@
       <li><a href="apidoc/sceptre.html#sceptre.exceptions.InvalidHookArgumentValueError">InvalidHookArgumentValueError</a>
 </li>
       <li><a href="apidoc/sceptre.html#sceptre.exceptions.InvalidSceptreDirectoryError">InvalidSceptreDirectoryError</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="J">J</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="apidoc/sceptre.template_handlers.html#sceptre.template_handlers.TemplateHandler.jinja_template_extensions">jinja_template_extensions (sceptre.template_handlers.TemplateHandler attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -809,6 +816,8 @@
 </li>
         <li><a href="apidoc/sceptre.template_handlers.html#module-sceptre.template_handlers.helper">sceptre.template_handlers.helper</a>
 </li>
+        <li><a href="apidoc/sceptre.template_handlers.html#module-sceptre.template_handlers.http">sceptre.template_handlers.http</a>
+</li>
         <li><a href="apidoc/sceptre.template_handlers.html#module-sceptre.template_handlers.s3">sceptre.template_handlers.s3</a>
 </li>
       </ul></li>
@@ -855,8 +864,6 @@
         <li><a href="docs/cli.html#cmdoption-sceptre-estimate-cost-arg-PATH">sceptre-estimate-cost command line option</a>
 </li>
         <li><a href="docs/cli.html#cmdoption-sceptre-execute-arg-PATH">sceptre-execute command line option</a>
-</li>
-        <li><a href="docs/cli.html#cmdoption-sceptre-fetch-remote-template-arg-PATH">sceptre-fetch-remote-template command line option</a>
 </li>
         <li><a href="docs/cli.html#cmdoption-sceptre-generate-arg-PATH">sceptre-generate command line option</a>
 </li>
@@ -906,6 +913,8 @@
       <li><a href="apidoc/sceptre.html#sceptre.exceptions.ProjectAlreadyExistsError">ProjectAlreadyExistsError</a>
 </li>
       <li><a href="apidoc/sceptre.html#sceptre.exceptions.ProtectedStackError">ProtectedStackError</a>
+</li>
+      <li><a href="apidoc/sceptre.template_handlers.html#sceptre.template_handlers.TemplateHandler.python_template_extensions">python_template_extensions (sceptre.template_handlers.TemplateHandler attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -1061,13 +1070,6 @@
         <li><a href="docs/cli.html#cmdoption-sceptre-execute-arg-CHANGE_SET_NAME">CHANGE_SET_NAME</a>
 </li>
         <li><a href="docs/cli.html#cmdoption-sceptre-execute-arg-PATH">PATH</a>
-</li>
-      </ul></li>
-      <li>
-    sceptre-fetch-remote-template command line option
-
-      <ul>
-        <li><a href="docs/cli.html#cmdoption-sceptre-fetch-remote-template-arg-PATH">PATH</a>
 </li>
       </ul></li>
       <li>
@@ -1240,8 +1242,6 @@
         <li><a href="apidoc/sceptre.cli.html#module-sceptre.cli.new">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     sceptre.cli.policy
 
@@ -1256,6 +1256,8 @@
         <li><a href="apidoc/sceptre.cli.html#module-sceptre.cli.status">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     sceptre.cli.template
 
@@ -1453,6 +1455,13 @@
 </li>
       </ul></li>
       <li>
+    sceptre.template_handlers.http
+
+      <ul>
+        <li><a href="apidoc/sceptre.template_handlers.html#module-sceptre.template_handlers.http">module</a>
+</li>
+      </ul></li>
+      <li>
     sceptre.template_handlers.s3
 
       <ul>
@@ -1474,6 +1483,8 @@
       <li><a href="apidoc/sceptre.template_handlers.html#sceptre.template_handlers.file.File.schema">schema() (sceptre.template_handlers.file.File method)</a>
 
       <ul>
+        <li><a href="apidoc/sceptre.template_handlers.html#sceptre.template_handlers.http.Http.schema">(sceptre.template_handlers.http.Http method)</a>
+</li>
         <li><a href="apidoc/sceptre.template_handlers.html#sceptre.template_handlers.s3.S3.schema">(sceptre.template_handlers.s3.S3 method)</a>
 </li>
         <li><a href="apidoc/sceptre.template_handlers.html#sceptre.template_handlers.TemplateHandler.schema">(sceptre.template_handlers.TemplateHandler method)</a>
@@ -1533,6 +1544,10 @@
       <li><a href="apidoc/sceptre.html#sceptre.stack_status.StackStatus">StackStatus (class in sceptre.stack_status)</a>
 </li>
       <li><a href="apidoc/sceptre.html#sceptre.stack_status_colourer.StackStatusColourer">StackStatusColourer (class in sceptre.stack_status_colourer)</a>
+</li>
+      <li><a href="apidoc/sceptre.template_handlers.html#sceptre.template_handlers.TemplateHandler.standard_template_extensions">standard_template_extensions (sceptre.template_handlers.TemplateHandler attribute)</a>
+</li>
+      <li><a href="apidoc/sceptre.template_handlers.html#sceptre.template_handlers.TemplateHandler.supported_template_extensions">supported_template_extensions (sceptre.template_handlers.TemplateHandler attribute)</a>
 </li>
   </ul></td>
 </tr></table>

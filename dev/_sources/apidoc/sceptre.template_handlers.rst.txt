@@ -25,6 +25,14 @@ sceptre.template\_handlers.helper module
    :undoc-members:
    :show-inheritance:
 
+sceptre.template\_handlers.http module
+--------------------------------------
+
+.. automodule:: sceptre.template_handlers.http
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 sceptre.template\_handlers.s3 module
 ------------------------------------
 

@@ -236,6 +236,16 @@ Implementation of this method in subclasses must return a string that
 can be interpreted by Sceptre (CloudFormation YAML / JSON, Jinja or Python)</p>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sceptre.template_handlers.TemplateHandler.jinja_template_extensions">
+<span class="sig-name descname"><span class="pre">jinja_template_extensions</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['.j2']</span></em><a class="headerlink" href="#sceptre.template_handlers.TemplateHandler.jinja_template_extensions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sceptre.template_handlers.TemplateHandler.python_template_extensions">
+<span class="sig-name descname"><span class="pre">python_template_extensions</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['.py']</span></em><a class="headerlink" href="#sceptre.template_handlers.TemplateHandler.python_template_extensions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="sceptre.template_handlers.TemplateHandler.schema">
 <em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">schema</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/template_handlers.html#TemplateHandler.schema"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.template_handlers.TemplateHandler.schema" title="Permalink to this definition">¶</a></dt>
@@ -245,6 +255,16 @@ the Template Handler expects.
 :return: JSON schema that can be validated
 :rtype: object</p>
 </dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sceptre.template_handlers.TemplateHandler.standard_template_extensions">
+<span class="sig-name descname"><span class="pre">standard_template_extensions</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['.json',</span> <span class="pre">'.yaml',</span> <span class="pre">'.template']</span></em><a class="headerlink" href="#sceptre.template_handlers.TemplateHandler.standard_template_extensions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sceptre.template_handlers.TemplateHandler.supported_template_extensions">
+<span class="sig-name descname"><span class="pre">supported_template_extensions</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['.json',</span> <span class="pre">'.yaml',</span> <span class="pre">'.template',</span> <span class="pre">'.j2',</span> <span class="pre">'.py']</span></em><a class="headerlink" href="#sceptre.template_handlers.TemplateHandler.supported_template_extensions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sceptre.template_handlers.TemplateHandler.validate">
@@ -359,6 +379,35 @@ CloudFormation templates using Jinja2 templating.</p>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
 </dd>
 </dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-sceptre.template_handlers.http">
+<span id="sceptre-template-handlers-http-module"></span><h2>sceptre.template_handlers.http module<a class="headerlink" href="#module-sceptre.template_handlers.http" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="sceptre.template_handlers.http.Http">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sceptre.template_handlers.http.</span></span><span class="sig-name descname"><span class="pre">Http</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/template_handlers/http.html#Http"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.template_handlers.http.Http" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.template_handlers.TemplateHandler" title="sceptre.template_handlers.TemplateHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">sceptre.template_handlers.TemplateHandler</span></code></a></p>
+<p>Template handler that can resolve templates from the web.  Standard CFN templates
+with extension (.json, .yaml, .template) are deployed directly from memory
+while references to jinja (.j2) and python (.py) templates are downloaded,
+transformed into CFN templates then deployed to AWS.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="sceptre.template_handlers.http.Http.handle">
+<span class="sig-name descname"><span class="pre">handle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/template_handlers/http.html#Http.handle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.template_handlers.http.Http.handle" title="Permalink to this definition">¶</a></dt>
+<dd><p>handle template from web</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sceptre.template_handlers.http.Http.schema">
+<span class="sig-name descname"><span class="pre">schema</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/template_handlers/http.html#Http.schema"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.template_handlers.http.Http.schema" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the schema for the arguments of this Template Resolver. This will
+be used to validate that the arguments passed in the stack config are what
+the Template Handler expects.
+:return: JSON schema that can be validated
+:rtype: object</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
