@@ -240,6 +240,8 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">handler_config</span> <span class="o">=</span> <span class="n">handler_config</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">handler_config</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;file&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sceptre_user_data</span> <span class="o">=</span> <span class="n">sceptre_user_data</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stack_group_config</span> <span class="o">=</span> <span class="n">stack_group_config</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">connection_manager</span> <span class="o">=</span> <span class="n">connection_manager</span>
