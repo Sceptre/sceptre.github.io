@@ -9,6 +9,14 @@ sceptre.diffing package
 Submodules
 ----------
 
+sceptre.diffing.diff\_writer module
+-----------------------------------
+
+.. automodule:: sceptre.diffing.diff_writer
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 sceptre.diffing.stack\_differ module
 ------------------------------------
 
