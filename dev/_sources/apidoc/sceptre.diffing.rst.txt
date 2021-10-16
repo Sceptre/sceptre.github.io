@@ -1,0 +1,18 @@
+sceptre.diffing package
+=======================
+
+.. automodule:: sceptre.diffing
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+sceptre.diffing.stack\_differ module
+------------------------------------
+
+.. automodule:: sceptre.diffing.stack_differ
+   :members:
+   :undoc-members:
+   :show-inheritance:
