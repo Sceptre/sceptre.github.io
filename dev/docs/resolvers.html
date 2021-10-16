@@ -369,7 +369,9 @@ In case you are not familiar with python packaging, <a class="reference external
 </div>
 <p>Then install using <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></code> or <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">.</span></code> commands.</p>
 <p>This resolver can be used in a Stack config file with the following syntax:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template_path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;...&gt;</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span>
+  <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;...&gt;</span>
+  <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;...&gt;</span>
 <span class="nt">parameters</span><span class="p">:</span>
   <span class="nt">param1</span><span class="p">:</span> <span class="kt">!&lt;custom_resolver_command_name&gt;</span> <span class="l l-Scalar l-Scalar-Plain">&lt;value&gt; &lt;optional-aws-profile&gt;</span>
 </pre></div>
@@ -378,12 +380,14 @@ In case you are not familiar with python packaging, <a class="reference external
 <div class="section" id="resolver-arguments">
 <h4>resolver arguments<a class="headerlink" href="#resolver-arguments" title="Permalink to this headline">¶</a></h4>
 <p>Resolver arguments can be a simple string or a complex data structure.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template_path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;...&gt;</span>
-<span class="nt">parameters</span><span class="p">:</span>
-  <span class="nt">Param1</span><span class="p">:</span> <span class="kt">!ssm</span> <span class="s">&quot;/dev/DbPassword&quot;</span>
-  <span class="nt">Param2</span><span class="p">:</span> <span class="kt">!ssm</span> <span class="p p-Indicator">{</span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span> <span class="s">&quot;/dev/DbPassword&quot;</span><span class="p p-Indicator">}</span>
-  <span class="nt">Param3</span><span class="p">:</span> <span class="kt">!ssm</span>
-    <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;/dev/DbPassword&quot;</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span>
+  <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;...&gt;</span>
+  <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;...&gt;</span>
+<span class=" -Error"> </span><span class="nt">parameters</span><span class="p">:</span>
+   <span class="nt">Param1</span><span class="p">:</span> <span class="kt">!ssm</span> <span class="s">&quot;/dev/DbPassword&quot;</span>
+   <span class="nt">Param2</span><span class="p">:</span> <span class="kt">!ssm</span> <span class="p p-Indicator">{</span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span> <span class="s">&quot;/dev/DbPassword&quot;</span><span class="p p-Indicator">}</span>
+   <span class="nt">Param3</span><span class="p">:</span> <span class="kt">!ssm</span>
+     <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;/dev/DbPassword&quot;</span>
 </pre></div>
 </div>
 </div>

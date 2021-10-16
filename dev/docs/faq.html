@@ -268,7 +268,9 @@ be found in these projects:</p>
 <p>Another approach is to use the Sceptre <cite>before_launch</cite> hook to run either the
 SAM or CFN “package” command to generate the packaged version of the template.</p>
 <p>CloudFormation Example:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template_path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">generated/lambda-packaged.json</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span>
+  <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">generated/lambda-packaged.json</span>
+  <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">file</span>
 <span class="nt">stack_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">cfn-lambda-example</span>
 <span class="nt">hooks</span><span class="p">:</span>
   <span class="nt">before_launch</span><span class="p">:</span>
@@ -281,7 +283,9 @@ SAM or CFN “package” command to generate the packaged version of the templat
 </pre></div>
 </div>
 <p>SAM Example:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template_path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">generated/sam-packaged.yaml</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span>
+  <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">generated/sam-packaged.yaml</span>
+  <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">file</span>
 <span class="nt">stack_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sam-example</span>
 <span class="nt">hooks</span><span class="p">:</span>
   <span class="nt">before_launch</span><span class="p">:</span>

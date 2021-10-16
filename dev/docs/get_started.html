@@ -283,14 +283,16 @@ StackGroup will be built in the AWS region <code class="docutils literal notrans
 <div class="section" id="our-first-stack-config-vpc-yaml">
 <h3>Our First Stack config - vpc.yaml<a class="headerlink" href="#our-first-stack-config-vpc-yaml" title="Permalink to this headline">¶</a></h3>
 <p>Add the following configuration to <code class="docutils literal notranslate"><span class="pre">config/dev/vpc.yaml</span></code>:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template_path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">vpc.yaml</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span>
+  <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">templates/vpc.yaml</span>
+  <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">file</span>
 <span class="nt">parameters</span><span class="p">:</span>
   <span class="nt">CidrBlock</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10.0.0.0/16</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">template_path</span></code> specifies the relative path to the CloudFormation, Python or
+<p><code class="docutils literal notranslate"><span class="pre">template</span></code> specifies the relative path to the CloudFormation, Python or
 Jinja2 template to use to launch the Stack. Sceptre will use the <code class="docutils literal notranslate"><span class="pre">templates</span></code>
-directory as the root templates directory to base your <code class="docutils literal notranslate"><span class="pre">template_path</span></code> from.</p>
+directory as the root templates directory to base your <code class="docutils literal notranslate"><span class="pre">path</span></code> from.</p>
 <p><code class="docutils literal notranslate"><span class="pre">parameters</span></code> lists the parameters which are supplied to the template
 <code class="docutils literal notranslate"><span class="pre">vpc.yaml</span></code>.</p>
 <p>You should now have a Sceptre project that looks a bit like:</p>
@@ -307,7 +309,7 @@ directory as the root templates directory to base your <code class="docutils lit
 </div>
 <blockquote>
 <div><p>Note: You do not need to make sure the Template and Stack config names
-match, since you define the <code class="docutils literal notranslate"><span class="pre">template_path</span></code> in your Stack config, but it
+match, since you define the <code class="docutils literal notranslate"><span class="pre">template</span></code> in your Stack config, but it
 can be useful to keep track of what is going on.</p>
 </div></blockquote>
 <p>You will also notice that we have two <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> files, one in <code class="docutils literal notranslate"><span class="pre">config/</span></code>

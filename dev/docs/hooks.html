@@ -264,7 +264,9 @@ occur.</p>
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <p>A Stack’s <code class="docutils literal notranslate"><span class="pre">config.yml</span></code> where multiple hooks with multiple commands are
 specified:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template_path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">templates/example.py</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span>
+  <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">templates/example.py</span>
+  <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">file</span>
 <span class="nt">parameters</span><span class="p">:</span>
   <span class="nt">ExampleParameter</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">example_value</span>
 <span class="nt">hooks</span><span class="p">:</span>
@@ -355,7 +357,9 @@ In case you are not familiar with python packaging, <a class="reference external
 </div>
 <p>Then install using <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></code> or <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">.</span></code> commands.</p>
 <p>This hook can be used in a Stack config file with the following syntax:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template_path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;...&gt;</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span>
+  <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;...&gt;</span>
+  <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;...&gt;</span>
 <span class="nt">hooks</span><span class="p">:</span>
   <span class="nt">before_create</span><span class="p">:</span>
     <span class="p p-Indicator">-</span> <span class="kt">!custom_hook_command_name</span> <span class="l l-Scalar l-Scalar-Plain">&lt;argument&gt;</span> <span class="c1"># The argument is accessible via self.argument</span>
@@ -366,7 +370,9 @@ In case you are not familiar with python packaging, <a class="reference external
 <h4>hook arguments<a class="headerlink" href="#hook-arguments" title="Permalink to this headline">¶</a></h4>
 <p>Hook arguments can be a simple string or a complex data structure.
 Assume a Sceptre <cite>copy</cite> hook that calls the <a class="reference external" href="http://man7.org/linux/man-pages/man1/cp.1.html">cp command</a>:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template_path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;...&gt;</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span>
+  <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;...&gt;</span>
+  <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;...&gt;</span>
 <span class="nt">hooks</span><span class="p">:</span>
   <span class="nt">before_create</span><span class="p">:</span>
     <span class="p p-Indicator">-</span> <span class="kt">!copy</span> <span class="s">&quot;-r</span><span class="nv"> </span><span class="s">from_dir</span><span class="nv"> </span><span class="s">to_dir&quot;</span>
