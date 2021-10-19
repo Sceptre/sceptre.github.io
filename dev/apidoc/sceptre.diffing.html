@@ -216,12 +216,113 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
+<div class="section" id="module-sceptre.diffing.diff_writer">
+<span id="sceptre-diffing-diff-writer-module"></span><h2>sceptre.diffing.diff_writer module<a class="headerlink" href="#module-sceptre.diffing.diff_writer" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="sceptre.diffing.diff_writer.DeepDiffWriter">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sceptre.diffing.diff_writer.</span></span><span class="sig-name descname"><span class="pre">DeepDiffWriter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stack_diff</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#sceptre.diffing.stack_differ.StackDiff" title="sceptre.diffing.stack_differ.StackDiff"><span class="pre">sceptre.diffing.stack_differ.StackDiff</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_stream</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">TextIO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_format</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/diffing/diff_writer.html#DeepDiffWriter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.diffing.diff_writer.DeepDiffWriter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.diffing.diff_writer.DiffWriter" title="sceptre.diffing.diff_writer.DiffWriter"><code class="xref py py-class docutils literal notranslate"><span class="pre">sceptre.diffing.diff_writer.DiffWriter</span></code></a>[<a class="reference external" href="https://zepworks.com/deepdiff/current/diff.html#deepdiff.diff.DeepDiff" title="(in DeepDiff v5.6.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">deepdiff.diff.DeepDiff</span></code></a>]</p>
+<p>A DiffWriter for StackDiffs where the DiffType is a DeepDiff object.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="sceptre.diffing.diff_writer.DeepDiffWriter.dump_diff">
+<span class="sig-name descname"><span class="pre">dump_diff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">diff</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://zepworks.com/deepdiff/current/diff.html#deepdiff.diff.DeepDiff" title="(in DeepDiff v5.6.0)"><span class="pre">deepdiff.diff.DeepDiff</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/sceptre/diffing/diff_writer.html#DeepDiffWriter.dump_diff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.diffing.diff_writer.DeepDiffWriter.dump_diff" title="Permalink to this definition">¶</a></dt>
+<dd><p>“Implement this method to write the DiffType to string</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="sceptre.diffing.diff_writer.DeepDiffWriter.has_config_difference">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">has_config_difference</span></span><em class="property"><span class="pre">:</span> <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#sceptre.diffing.diff_writer.DeepDiffWriter.has_config_difference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implement this to indicate whether or not there is a config difference</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="sceptre.diffing.diff_writer.DeepDiffWriter.has_template_difference">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">has_template_difference</span></span><em class="property"><span class="pre">:</span> <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#sceptre.diffing.diff_writer.DeepDiffWriter.has_template_difference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implement this to indicate whether or not there is a template difference</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="sceptre.diffing.diff_writer.DiffLibWriter">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sceptre.diffing.diff_writer.</span></span><span class="sig-name descname"><span class="pre">DiffLibWriter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stack_diff</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#sceptre.diffing.stack_differ.StackDiff" title="sceptre.diffing.stack_differ.StackDiff"><span class="pre">sceptre.diffing.stack_differ.StackDiff</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_stream</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">TextIO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_format</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/diffing/diff_writer.html#DiffLibWriter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.diffing.diff_writer.DiffLibWriter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.diffing.diff_writer.DiffWriter" title="sceptre.diffing.diff_writer.DiffWriter"><code class="xref py py-class docutils literal notranslate"><span class="pre">sceptre.diffing.diff_writer.DiffWriter</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]</p>
+<p>A DiffWriter for StackDiffs where the DiffType is a a list of strings.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="sceptre.diffing.diff_writer.DiffLibWriter.dump_diff">
+<span class="sig-name descname"><span class="pre">dump_diff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">diff</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/sceptre/diffing/diff_writer.html#DiffLibWriter.dump_diff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.diffing.diff_writer.DiffLibWriter.dump_diff" title="Permalink to this definition">¶</a></dt>
+<dd><p>“Implement this method to write the DiffType to string</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="sceptre.diffing.diff_writer.DiffLibWriter.has_config_difference">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">has_config_difference</span></span><em class="property"><span class="pre">:</span> <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#sceptre.diffing.diff_writer.DiffLibWriter.has_config_difference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implement this to indicate whether or not there is a config difference</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="sceptre.diffing.diff_writer.DiffLibWriter.has_template_difference">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">has_template_difference</span></span><em class="property"><span class="pre">:</span> <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#sceptre.diffing.diff_writer.DiffLibWriter.has_template_difference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implement this to indicate whether or not there is a template difference</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="sceptre.diffing.diff_writer.DiffWriter">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sceptre.diffing.diff_writer.</span></span><span class="sig-name descname"><span class="pre">DiffWriter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stack_diff</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#sceptre.diffing.stack_differ.StackDiff" title="sceptre.diffing.stack_differ.StackDiff"><span class="pre">sceptre.diffing.stack_differ.StackDiff</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_stream</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">TextIO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_format</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/diffing/diff_writer.html#DiffWriter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.diffing.diff_writer.DiffWriter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Generic" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">sceptre.diffing.stack_differ.DiffType</span></code>]</p>
+<p>A component responsible for taking a StackDiff and writing it in a way that is useful and
+readable. This is an abstract base class, so the abstract methods need to be implemented to
+create a DiffWriter for a given DiffType.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sceptre.diffing.diff_writer.DiffWriter.LINE_BAR">
+<span class="sig-name descname"><span class="pre">LINE_BAR</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'--------------------------------------------------------------------------------'</span></em><a class="headerlink" href="#sceptre.diffing.diff_writer.DiffWriter.LINE_BAR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sceptre.diffing.diff_writer.DiffWriter.STAR_BAR">
+<span class="sig-name descname"><span class="pre">STAR_BAR</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'********************************************************************************'</span></em><a class="headerlink" href="#sceptre.diffing.diff_writer.DiffWriter.STAR_BAR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sceptre.diffing.diff_writer.DiffWriter.dump_diff">
+<em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">dump_diff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">diff</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">sceptre.diffing.stack_differ.DiffType</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/sceptre/diffing/diff_writer.html#DiffWriter.dump_diff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.diffing.diff_writer.DiffWriter.dump_diff" title="Permalink to this definition">¶</a></dt>
+<dd><p>“Implement this method to write the DiffType to string</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="sceptre.diffing.diff_writer.DiffWriter.has_config_difference">
+<em class="property"><span class="pre">abstract</span> <span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">has_config_difference</span></span><em class="property"><span class="pre">:</span> <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#sceptre.diffing.diff_writer.DiffWriter.has_config_difference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implement this to indicate whether or not there is a config difference</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="sceptre.diffing.diff_writer.DiffWriter.has_difference">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">has_difference</span></span><em class="property"><span class="pre">:</span> <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#sceptre.diffing.diff_writer.DiffWriter.has_difference" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="sceptre.diffing.diff_writer.DiffWriter.has_template_difference">
+<em class="property"><span class="pre">abstract</span> <span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">has_template_difference</span></span><em class="property"><span class="pre">:</span> <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#sceptre.diffing.diff_writer.DiffWriter.has_template_difference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implement this to indicate whether or not there is a template difference</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sceptre.diffing.diff_writer.DiffWriter.write">
+<span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/diffing/diff_writer.html#DiffWriter.write"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.diffing.diff_writer.DiffWriter.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes the diff to the output stream.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-sceptre.diffing.stack_differ">
 <span id="sceptre-diffing-stack-differ-module"></span><h2>sceptre.diffing.stack_differ module<a class="headerlink" href="#module-sceptre.diffing.stack_differ" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="sceptre.diffing.stack_differ.DeepDiffStackDiffer">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sceptre.diffing.stack_differ.</span></span><span class="sig-name descname"><span class="pre">DeepDiffStackDiffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*,</span> <span class="pre">universal_template_loader:</span> <span class="pre">Callable[[str],</span> <span class="pre">Tuple[dict,</span> <span class="pre">str]]</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">load&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/diffing/stack_differ.html#DeepDiffStackDiffer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.diffing.stack_differ.DeepDiffStackDiffer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#sceptre.diffing.stack_differ.StackDiffer" title="sceptre.diffing.stack_differ.StackDiffer"><code class="xref py py-class docutils literal notranslate"><span class="pre">sceptre.diffing.stack_differ.StackDiffer</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">deepdiff.diff.DeepDiff</span></code>]</p>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.diffing.stack_differ.StackDiffer" title="sceptre.diffing.stack_differ.StackDiffer"><code class="xref py py-class docutils literal notranslate"><span class="pre">sceptre.diffing.stack_differ.StackDiffer</span></code></a>[<a class="reference external" href="https://zepworks.com/deepdiff/current/diff.html#deepdiff.diff.DeepDiff" title="(in DeepDiff v5.6.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">deepdiff.diff.DeepDiff</span></code></a>]</p>
 <p>A StackDiffer that relies upon the DeepDiff library to produce the difference between the
 stack as it has been deployed onto CloudFormation and as it exists locally within Sceptre.</p>
 <p>This differ relies upon a recursive key/value comparison of Python data structures, indicating
@@ -235,7 +336,7 @@ be reflected, only changes in value.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sceptre.diffing.stack_differ.DeepDiffStackDiffer.compare_stack_configurations">
-<span class="sig-name descname"><span class="pre">compare_stack_configurations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deployed</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#sceptre.diffing.stack_differ.StackConfiguration" title="sceptre.diffing.stack_differ.StackConfiguration"><span class="pre">sceptre.diffing.stack_differ.StackConfiguration</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generated</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#sceptre.diffing.stack_differ.StackConfiguration" title="sceptre.diffing.stack_differ.StackConfiguration"><span class="pre">sceptre.diffing.stack_differ.StackConfiguration</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">deepdiff.diff.DeepDiff</span></span></span><a class="reference internal" href="../_modules/sceptre/diffing/stack_differ.html#DeepDiffStackDiffer.compare_stack_configurations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.diffing.stack_differ.DeepDiffStackDiffer.compare_stack_configurations" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">compare_stack_configurations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deployed</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#sceptre.diffing.stack_differ.StackConfiguration" title="sceptre.diffing.stack_differ.StackConfiguration"><span class="pre">sceptre.diffing.stack_differ.StackConfiguration</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generated</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#sceptre.diffing.stack_differ.StackConfiguration" title="sceptre.diffing.stack_differ.StackConfiguration"><span class="pre">sceptre.diffing.stack_differ.StackConfiguration</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://zepworks.com/deepdiff/current/diff.html#deepdiff.diff.DeepDiff" title="(in DeepDiff v5.6.0)"><span class="pre">deepdiff.diff.DeepDiff</span></a></span></span><a class="reference internal" href="../_modules/sceptre/diffing/stack_differ.html#DeepDiffStackDiffer.compare_stack_configurations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.diffing.stack_differ.DeepDiffStackDiffer.compare_stack_configurations" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implement this method to return the diff for the stack configurations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -253,7 +354,7 @@ stack has not been deployed.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sceptre.diffing.stack_differ.DeepDiffStackDiffer.compare_templates">
-<span class="sig-name descname"><span class="pre">compare_templates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deployed</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">generated</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">deepdiff.diff.DeepDiff</span></span></span><a class="reference internal" href="../_modules/sceptre/diffing/stack_differ.html#DeepDiffStackDiffer.compare_templates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.diffing.stack_differ.DeepDiffStackDiffer.compare_templates" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">compare_templates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deployed</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">generated</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://zepworks.com/deepdiff/current/diff.html#deepdiff.diff.DeepDiff" title="(in DeepDiff v5.6.0)"><span class="pre">deepdiff.diff.DeepDiff</span></a></span></span><a class="reference internal" href="../_modules/sceptre/diffing/stack_differ.html#DeepDiffStackDiffer.compare_templates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.diffing.stack_differ.DeepDiffStackDiffer.compare_templates" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implement this method to return the diff for the templates</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

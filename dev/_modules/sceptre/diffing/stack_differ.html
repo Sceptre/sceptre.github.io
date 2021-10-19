@@ -247,6 +247,9 @@
         <span class="n">deployed_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_deployed_stack_config</span><span class="p">(</span><span class="n">stack_actions</span><span class="p">)</span>
         <span class="n">is_stack_deployed</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">deployed_config</span><span class="p">)</span>
 
+        <span class="k">if</span> <span class="n">is_stack_deployed</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_remove_default_parameters_that_arent_passed</span><span class="p">(</span><span class="n">stack_actions</span><span class="p">,</span> <span class="n">generated_config</span><span class="p">,</span> <span class="n">deployed_config</span><span class="p">)</span>
+
         <span class="n">generated_template</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_template</span><span class="p">(</span><span class="n">stack_actions</span><span class="p">)</span>
         <span class="n">deployed_template</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_deployed_template</span><span class="p">(</span><span class="n">stack_actions</span><span class="p">,</span> <span class="n">is_stack_deployed</span><span class="p">)</span>
 
@@ -296,7 +299,7 @@
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Resolver</span><span class="p">):</span>
                 <span class="c1"># There might be some resolvers that we can still resolve values for.</span>
                 <span class="k">try</span><span class="p">:</span>
-                    <span class="n">value_to_use</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+                    <span class="n">value_to_use</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">resolve</span><span class="p">())</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
                 <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
                     <span class="c1"># We catch any errors out of the resolver, since that usually indicates the stack</span>
                     <span class="c1"># doesn&#39;t exist yet. In the end, this value likely won&#39;t matter, because if the</span>
@@ -327,7 +330,7 @@
                 <span class="k">return</span> <span class="kc">None</span>
             <span class="k">return</span> <span class="n">StackConfiguration</span><span class="p">(</span>
                 <span class="n">parameters</span><span class="o">=</span><span class="p">{</span>
-                    <span class="n">param</span><span class="p">[</span><span class="s1">&#39;ParameterKey&#39;</span><span class="p">]:</span> <span class="n">param</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ResolvedValue&#39;</span><span class="p">,</span> <span class="n">param</span><span class="p">[</span><span class="s1">&#39;ParameterValue&#39;</span><span class="p">])</span>
+                    <span class="n">param</span><span class="p">[</span><span class="s1">&#39;ParameterKey&#39;</span><span class="p">]:</span> <span class="n">param</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ResolvedValue&#39;</span><span class="p">,</span> <span class="n">param</span><span class="p">[</span><span class="s1">&#39;ParameterValue&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
                     <span class="k">for</span> <span class="n">param</span>
                     <span class="ow">in</span> <span class="n">stack</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Parameters&#39;</span><span class="p">,</span> <span class="p">[])</span>
                 <span class="p">},</span>
@@ -339,6 +342,38 @@
                 <span class="n">notifications</span><span class="o">=</span><span class="n">stack</span><span class="p">[</span><span class="s1">&#39;NotificationARNs&#39;</span><span class="p">],</span>
                 <span class="n">role_arn</span><span class="o">=</span><span class="n">stack</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;RoleARN&#39;</span><span class="p">)</span>
             <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_remove_default_parameters_that_arent_passed</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">stack_actions</span><span class="p">:</span> <span class="n">StackActions</span><span class="p">,</span>
+        <span class="n">generated_config</span><span class="p">:</span> <span class="n">StackConfiguration</span><span class="p">,</span>
+        <span class="n">deployed_config</span><span class="p">:</span> <span class="n">StackConfiguration</span>
+    <span class="p">):</span>
+        <span class="n">deployed_config_default_map</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_parameter_default_map</span><span class="p">(</span><span class="n">stack_actions</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">parameter_key</span><span class="p">,</span> <span class="n">default_value</span> <span class="ow">in</span> <span class="n">deployed_config_default_map</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="c1"># If the generated config defines that parameter, leave that in the deployed config</span>
+            <span class="c1"># so we can see the diff.</span>
+            <span class="k">if</span> <span class="n">parameter_key</span> <span class="ow">in</span> <span class="n">generated_config</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># But if the stack config is relying on the template&#39;s default value for this parameter,</span>
+            <span class="c1"># remove that parameter from the deployed config... but only if its value is set to the</span>
+            <span class="c1"># default value. If we don&#39;t do this, it will show up as a difference when it isn&#39;t.</span>
+            <span class="k">if</span> <span class="n">deployed_config</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">parameter_key</span><span class="p">]</span> <span class="o">==</span> <span class="n">default_value</span><span class="p">:</span>
+                <span class="k">del</span> <span class="n">deployed_config</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">parameter_key</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_get_parameter_default_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack_actions</span><span class="p">:</span> <span class="n">StackActions</span><span class="p">):</span>
+        <span class="n">template_summary</span> <span class="o">=</span> <span class="n">stack_actions</span><span class="o">.</span><span class="n">fetch_remote_template_summary</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">template_summary</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{}</span>
+
+        <span class="n">parameters</span> <span class="o">=</span> <span class="n">template_summary</span><span class="p">[</span><span class="s1">&#39;Parameters&#39;</span><span class="p">]</span>
+        <span class="n">default_map</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">parameter</span><span class="p">[</span><span class="s1">&#39;ParameterKey&#39;</span><span class="p">]:</span> <span class="s1">&#39;****&#39;</span> <span class="k">if</span> <span class="n">parameter</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;NoEcho&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="n">parameter</span><span class="p">[</span><span class="s1">&#39;DefaultValue&#39;</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="n">parameters</span>
+            <span class="k">if</span> <span class="s1">&#39;DefaultValue&#39;</span> <span class="ow">in</span> <span class="n">parameter</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">default_map</span>
 
     <span class="k">def</span> <span class="nf">_get_deployed_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack_actions</span><span class="p">:</span> <span class="n">StackActions</span><span class="p">,</span> <span class="n">is_deployed</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">is_deployed</span><span class="p">:</span>
