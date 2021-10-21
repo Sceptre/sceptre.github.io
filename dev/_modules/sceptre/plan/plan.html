@@ -193,12 +193,15 @@
 <span class="sd">nessessary information for a command to execute.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span><span class="p">,</span> <span class="n">walk</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
 
+<span class="kn">from</span> <span class="nn">sceptre.diffing.stack_differ</span> <span class="kn">import</span> <span class="n">StackDiff</span>
+<span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">ConfigFileNotFoundError</span>
 <span class="kn">from</span> <span class="nn">sceptre.config.graph</span> <span class="kn">import</span> <span class="n">StackGraph</span>
 <span class="kn">from</span> <span class="nn">sceptre.config.reader</span> <span class="kn">import</span> <span class="n">ConfigReader</span>
-<span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">ConfigFileNotFoundError</span>
-<span class="kn">from</span> <span class="nn">sceptre.helpers</span> <span class="kn">import</span> <span class="n">sceptreise_path</span>
 <span class="kn">from</span> <span class="nn">sceptre.plan.executor</span> <span class="kn">import</span> <span class="n">SceptrePlanExecutor</span>
+<span class="kn">from</span> <span class="nn">sceptre.helpers</span> <span class="kn">import</span> <span class="n">sceptreise_path</span>
+<span class="kn">from</span> <span class="nn">sceptre.stack</span> <span class="kn">import</span> <span class="n">Stack</span>
 
 
 <div class="viewcode-block" id="SceptrePlan"><a class="viewcode-back" href="../../../apidoc/sceptre.plan.html#sceptre.plan.plan.SceptrePlan">[docs]</a><span class="k">class</span> <span class="nc">SceptrePlan</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -549,6 +552,15 @@
 <span class="sd">        :rtype: List[str]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fetch_remote_template</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SceptrePlan.diff"><a class="viewcode-back" href="../../../apidoc/sceptre.plan.html#sceptre.plan.plan.SceptrePlan.diff">[docs]</a>    <span class="k">def</span> <span class="nf">diff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Stack</span><span class="p">,</span> <span class="n">StackDiff</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Show diffs between the running and generated stack.</span>
+
+<span class="sd">        :returns: A dict where the keys are Stack objects and the values are StackDiffs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">diff</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span></div></div>
 </pre></div>
 
