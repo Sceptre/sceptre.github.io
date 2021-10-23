@@ -119,7 +119,6 @@
 <li class="toctree-l3 current"><a class="reference internal" href="sceptre.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="sceptre.cli.html">sceptre.cli package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sceptre.config.html">sceptre.config package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sceptre.diffing.html">sceptre.diffing package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sceptre.hooks.html">sceptre.hooks package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sceptre.plan.html">sceptre.plan package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sceptre.resolvers.html">sceptre.resolvers package</a></li>
@@ -214,7 +213,7 @@
 <span id="sceptre-template-handlers-package"></span><h1>sceptre.template_handlers package<a class="headerlink" href="#module-sceptre.template_handlers" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="sceptre.template_handlers.TemplateHandler">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sceptre.template_handlers.</span></span><span class="sig-name descname"><span class="pre">TemplateHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sceptre_user_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connection_manager</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/template_handlers.html#TemplateHandler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.template_handlers.TemplateHandler" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sceptre.template_handlers.</span></span><span class="sig-name descname"><span class="pre">TemplateHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sceptre_user_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connection_manager</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack_group_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/template_handlers.html#TemplateHandler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.template_handlers.TemplateHandler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>TemplateHandler is an abstract base class that should be inherited
 by all Template Handlers.</p>
@@ -225,6 +224,7 @@ by all Template Handlers.</p>
 <li><p><strong>arguments</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – The arguments of the template handler</p></li>
 <li><p><strong>sceptre_user_data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Sceptre user data in stack config</p></li>
 <li><p><strong>connection_manager</strong> (<a class="reference internal" href="sceptre.html#sceptre.connection_manager.ConnectionManager" title="sceptre.connection_manager.ConnectionManager"><em>sceptre.connection_manager.ConnectionManager</em></a>) – Connection manager used to call AWS</p></li>
+<li><p><strong>stack_group_config</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – The Stack group config to use as defaults.</p></li>
 </ul>
 </dd>
 </dl>
@@ -361,7 +361,7 @@ instant feedback about why their templates are failing to compile.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="sceptre.template_handlers.helper.render_jinja_template">
-<span class="sig-prename descclassname"><span class="pre">sceptre.template_handlers.helper.</span></span><span class="sig-name descname"><span class="pre">render_jinja_template</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">template_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jinja_vars</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/template_handlers/helper.html#render_jinja_template"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.template_handlers.helper.render_jinja_template" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">sceptre.template_handlers.helper.</span></span><span class="sig-name descname"><span class="pre">render_jinja_template</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">template_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jinja_vars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j2_environment</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/template_handlers/helper.html#render_jinja_template"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.template_handlers.helper.render_jinja_template" title="Permalink to this definition">¶</a></dt>
 <dd><p>Renders a jinja template.</p>
 <p>Sceptre supports passing sceptre_user_data to JSON and YAML
 CloudFormation templates using Jinja2 templating.</p>
@@ -371,6 +371,7 @@ CloudFormation templates using Jinja2 templating.</p>
 <li><p><strong>template_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The directory containing the template.</p></li>
 <li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The name of the template file.</p></li>
 <li><p><strong>jinja_vars</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Dict of variables to render into the template.</p></li>
+<li><p><strong>j2_environment</strong> – The jinja2 environment.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

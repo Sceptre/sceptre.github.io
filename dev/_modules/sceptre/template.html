@@ -195,12 +195,7 @@
 <span class="kn">import</span> <span class="nn">threading</span>
 <span class="kn">import</span> <span class="nn">botocore</span>
 
-<span class="kn">from</span> <span class="nn">jinja2</span> <span class="kn">import</span> <span class="n">Environment</span>
-<span class="kn">from</span> <span class="nn">jinja2</span> <span class="kn">import</span> <span class="n">FileSystemLoader</span>
-<span class="kn">from</span> <span class="nn">jinja2</span> <span class="kn">import</span> <span class="n">StrictUndefined</span>
-<span class="kn">from</span> <span class="nn">jinja2</span> <span class="kn">import</span> <span class="n">select_autoescape</span>
 <span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">TemplateHandlerNotFoundError</span>
-<span class="kn">from</span> <span class="nn">sceptre.config</span> <span class="kn">import</span> <span class="n">strategies</span>
 <span class="kn">from</span> <span class="nn">pkg_resources</span> <span class="kn">import</span> <span class="n">iter_entry_points</span>
 
 
@@ -272,7 +267,8 @@
                 <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
                 <span class="n">arguments</span><span class="o">=</span><span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler_config</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="s2">&quot;type&quot;</span><span class="p">},</span>
                 <span class="n">sceptre_user_data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sceptre_user_data</span><span class="p">,</span>
-                <span class="n">connection_manager</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">connection_manager</span>
+                <span class="n">connection_manager</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">connection_manager</span><span class="p">,</span>
+                <span class="n">stack_group_config</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">stack_group_config</span>
             <span class="p">)</span>
             <span class="n">handler</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
             <span class="n">body</span> <span class="o">=</span> <span class="n">handler</span><span class="o">.</span><span class="n">handle</span><span class="p">()</span>
@@ -420,38 +416,6 @@
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_domain_from_region</span><span class="p">(</span><span class="n">region</span><span class="p">):</span>
         <span class="k">return</span> <span class="s2">&quot;com.cn&quot;</span> <span class="k">if</span> <span class="n">region</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;cn-&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;com&quot;</span>
-
-    <span class="k">def</span> <span class="nf">_render_jinja_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">template_dir</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">jinja_vars</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Renders a jinja template.</span>
-<span class="sd">        Sceptre supports passing sceptre_user_data to JSON and YAML</span>
-<span class="sd">        CloudFormation templates using Jinja2 templating.</span>
-<span class="sd">        :param template_dir: The directory containing the template.</span>
-<span class="sd">        :type template_dir: str</span>
-<span class="sd">        :param filename: The name of the template file.</span>
-<span class="sd">        :type filename: str</span>
-<span class="sd">        :param jinja_vars: Dict of variables to render into the template.</span>
-<span class="sd">        :type jinja_vars: dict</span>
-<span class="sd">        :returns: The body of the CloudFormation template.</span>
-<span class="sd">        :rtype: str</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> Rendering CloudFormation template&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
-        <span class="n">default_j2_environment_config</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s2">&quot;autoescape&quot;</span><span class="p">:</span> <span class="n">select_autoescape</span><span class="p">(</span>
-                    <span class="n">disabled_extensions</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;j2&#39;</span><span class="p">,),</span>
-                    <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="p">),</span>
-                <span class="s2">&quot;loader&quot;</span><span class="p">:</span> <span class="n">FileSystemLoader</span><span class="p">(</span><span class="n">template_dir</span><span class="p">),</span>
-                <span class="s2">&quot;undefined&quot;</span><span class="p">:</span> <span class="n">StrictUndefined</span><span class="p">,</span>
-            <span class="p">}</span>
-        <span class="n">j2_environment_config</span> <span class="o">=</span> <span class="n">strategies</span><span class="o">.</span><span class="n">dict_merge</span><span class="p">(</span>
-            <span class="n">default_j2_environment_config</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">stack_group_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;j2_environment&quot;</span><span class="p">,</span> <span class="p">{}))</span>
-        <span class="n">j2_environment</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">(</span><span class="o">**</span><span class="n">j2_environment_config</span><span class="p">)</span>
-        <span class="n">template</span> <span class="o">=</span> <span class="n">j2_environment</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-        <span class="n">body</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="o">**</span><span class="n">jinja_vars</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">body</span>
 
     <span class="k">def</span> <span class="nf">_get_handler_of_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>

@@ -33,14 +33,6 @@ sceptre.cli.describe module
    :undoc-members:
    :show-inheritance:
 
-sceptre.cli.diff module
------------------------
-
-.. automodule:: sceptre.cli.diff
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 sceptre.cli.execute module
 --------------------------
 

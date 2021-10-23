@@ -221,7 +221,8 @@
                 <span class="k">return</span> <span class="n">helper</span><span class="o">.</span><span class="n">render_jinja_template</span><span class="p">(</span>
                     <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">path</span><span class="p">),</span>
                     <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">path</span><span class="p">),</span>
-                    <span class="p">{</span><span class="s2">&quot;sceptre_user_data&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">sceptre_user_data</span><span class="p">}</span>
+                    <span class="p">{</span><span class="s2">&quot;sceptre_user_data&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">sceptre_user_data</span><span class="p">},</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">stack_group_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;j2_environment&quot;</span><span class="p">,</span> <span class="p">{})</span>
                 <span class="p">)</span>
             <span class="k">elif</span> <span class="n">file_extension</span> <span class="o">==</span> <span class="s2">&quot;.py&quot;</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">helper</span><span class="o">.</span><span class="n">call_sceptre_handler</span><span class="p">(</span><span class="n">path</span><span class="p">,</span>
