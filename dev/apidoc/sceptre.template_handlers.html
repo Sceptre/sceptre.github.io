@@ -361,15 +361,14 @@ instant feedback about why their templates are failing to compile.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="sceptre.template_handlers.helper.render_jinja_template">
-<span class="sig-prename descclassname"><span class="pre">sceptre.template_handlers.helper.</span></span><span class="sig-name descname"><span class="pre">render_jinja_template</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">template_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jinja_vars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j2_environment</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/template_handlers/helper.html#render_jinja_template"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.template_handlers.helper.render_jinja_template" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">sceptre.template_handlers.helper.</span></span><span class="sig-name descname"><span class="pre">render_jinja_template</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jinja_vars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j2_environment</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/template_handlers/helper.html#render_jinja_template"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.template_handlers.helper.render_jinja_template" title="Permalink to this definition">¶</a></dt>
 <dd><p>Renders a jinja template.</p>
 <p>Sceptre supports passing sceptre_user_data to JSON and YAML
 CloudFormation templates using Jinja2 templating.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>template_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The directory containing the template.</p></li>
-<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The name of the template file.</p></li>
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The path to the template file.</p></li>
 <li><p><strong>jinja_vars</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Dict of variables to render into the template.</p></li>
 <li><p><strong>j2_environment</strong> – The jinja2 environment.</p></li>
 </ul>

@@ -184,7 +184,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for sceptre.template_handlers.file</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="kn">import</span> <span class="nn">sceptre.template_handlers.helper</span> <span class="k">as</span> <span class="nn">helper</span>
 
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
@@ -228,12 +228,9 @@
                 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">as</span> <span class="n">template_file</span><span class="p">:</span>
                     <span class="k">return</span> <span class="n">template_file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
             <span class="k">elif</span> <span class="n">input_path</span><span class="o">.</span><span class="n">suffix</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">jinja_template_extensions</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">helper</span><span class="o">.</span><span class="n">render_jinja_template</span><span class="p">(</span>
-                    <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">path</span><span class="p">),</span>
-                    <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">path</span><span class="p">),</span>
-                    <span class="p">{</span><span class="s2">&quot;sceptre_user_data&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">sceptre_user_data</span><span class="p">},</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">stack_group_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;j2_environment&quot;</span><span class="p">,</span> <span class="p">{})</span>
-                <span class="p">)</span>
+                <span class="k">return</span> <span class="n">helper</span><span class="o">.</span><span class="n">render_jinja_template</span><span class="p">(</span><span class="n">path</span><span class="p">,</span>
+                                                    <span class="p">{</span><span class="s2">&quot;sceptre_user_data&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">sceptre_user_data</span><span class="p">},</span>
+                                                    <span class="bp">self</span><span class="o">.</span><span class="n">stack_group_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;j2_environment&quot;</span><span class="p">,</span> <span class="p">{}))</span>
             <span class="k">elif</span> <span class="n">input_path</span><span class="o">.</span><span class="n">suffix</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">python_template_extensions</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">helper</span><span class="o">.</span><span class="n">call_sceptre_handler</span><span class="p">(</span><span class="n">path</span><span class="p">,</span>
                                                    <span class="bp">self</span><span class="o">.</span><span class="n">sceptre_user_data</span><span class="p">)</span>
