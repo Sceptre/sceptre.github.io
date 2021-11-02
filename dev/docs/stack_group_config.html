@@ -109,6 +109,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#template-bucket-name">template_bucket_name</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#template-key-prefix">template_key_prefix</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#j2-environment">j2_environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#http-template-handler">http_template_handler</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#require-version">require_version</a></li>
 </ul>
 </li>
@@ -223,6 +224,7 @@ Sceptre. The available keys are listed below.</p>
 <li><p><a class="reference external" href="#template_bucket_name">template_bucket_name</a> <em>(optional)</em></p></li>
 <li><p><a class="reference external" href="#template_key_prefix">template_key_prefix</a> <em>(optional)</em></p></li>
 <li><p><a class="reference internal" href="#j2-environment">j2_environment</a> <em>(optional)</em></p></li>
+<li><p><a class="reference internal" href="#http-template-handler">http_template_handler</a> <em>(optional)</em></p></li>
 </ul>
 <p>Sceptre will only check for and uses the above keys in StackGroup config files
 and are directly accessible from Stack(). Any other keys added by the user are
@@ -278,6 +280,21 @@ This will impact <span class="xref std std-ref">Templating</span> of stacks by m
    <span class="nt">lstrip_blocks</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
    <span class="nt">trim_blocks</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
    <span class="nt">newline_sequence</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">\n</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="http-template-handler">
+<h3>http_template_handler<a class="headerlink" href="#http-template-handler" title="Permalink to this headline">¶</a></h3>
+<dl class="simple">
+<dt>Options passed to the <a class="reference external" href="template_handlers.html#http">http template handler</a>.</dt><dd><ul class="simple">
+<li><p>retries - The number of retry attempts (default is 5)</p></li>
+<li><p>timeout - The timeout for the session in seconds (default is 5)</p></li>
+</ul>
+</dd>
+</dl>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">http_template_handler</span><span class="p">:</span>
+   <span class="nt">retries</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10</span>
+   <span class="nt">timeout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">20</span>
 </pre></div>
 </div>
 </div>

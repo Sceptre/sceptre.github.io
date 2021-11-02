@@ -252,8 +252,10 @@ This handler supports templates with .json, .yaml, .template, .j2 and .py extens
 </div>
 <div class="section" id="http">
 <h3>http<a class="headerlink" href="#http" title="Permalink to this headline">¶</a></h3>
-<p>Downloads a template from a url on the web.  This handler supports templates with .json, .yaml,
-.template, .j2 and .py extensions.</p>
+<p>Downloads a template from a url on the web.  By default, this handler will attempt to download
+templates with 5 retries and a download timeout of 5 seconds.  The default retry and timeout
+options can be overridden by setting the <a class="reference external" href="stack_group_config.html#http-template-handler">http_template_handler key</a> in the stack group config
+file.</p>
 <p>Syntax:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span>
   <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">http</span>

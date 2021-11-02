@@ -190,9 +190,18 @@
 <span class="kn">import</span> <span class="nn">tempfile</span>
 <span class="kn">import</span> <span class="nn">sceptre.template_handlers.helper</span> <span class="k">as</span> <span class="nn">helper</span>
 
+<span class="kn">from</span> <span class="nn">requests.adapters</span> <span class="kn">import</span> <span class="n">HTTPAdapter</span>
+<span class="kn">from</span> <span class="nn">requests.exceptions</span> <span class="kn">import</span> <span class="n">InvalidURL</span><span class="p">,</span> <span class="n">ConnectTimeout</span>
+<span class="kn">from</span> <span class="nn">requests.packages.urllib3.util.retry</span> <span class="kn">import</span> <span class="n">Retry</span>
 <span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">UnsupportedTemplateFileTypeError</span>
 <span class="kn">from</span> <span class="nn">sceptre.template_handlers</span> <span class="kn">import</span> <span class="n">TemplateHandler</span>
 <span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">urlparse</span>
+
+<span class="n">HANDLER_OPTION_KEY</span> <span class="o">=</span> <span class="s2">&quot;http_template_handler&quot;</span>
+<span class="n">HANDLER_RETRIES_OPTION_PARAM</span> <span class="o">=</span> <span class="s2">&quot;retries&quot;</span>
+<span class="n">DEFAULT_RETRIES_OPTION</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">HANDLER_TIMEOUT_OPTION_PARAM</span> <span class="o">=</span> <span class="s2">&quot;timeout&quot;</span>
+<span class="n">DEFAULT_TIMEOUT_OPTION</span> <span class="o">=</span> <span class="mi">5</span>
 
 
 <div class="viewcode-block" id="Http"><a class="viewcode-back" href="../../../apidoc/sceptre.template_handlers.html#sceptre.template_handlers.http.Http">[docs]</a><span class="k">class</span> <span class="nc">Http</span><span class="p">(</span><span class="n">TemplateHandler</span><span class="p">):</span>
@@ -227,8 +236,10 @@
                 <span class="n">path</span><span class="o">.</span><span class="n">suffix</span><span class="p">,</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">supported_template_extensions</span><span class="p">)</span>
             <span class="p">)</span>
 
+        <span class="n">retries</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_handler_option</span><span class="p">(</span><span class="n">HANDLER_RETRIES_OPTION_PARAM</span><span class="p">,</span> <span class="n">DEFAULT_RETRIES_OPTION</span><span class="p">)</span>
+        <span class="n">timeout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_handler_option</span><span class="p">(</span><span class="n">HANDLER_TIMEOUT_OPTION_PARAM</span><span class="p">,</span> <span class="n">DEFAULT_TIMEOUT_OPTION</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">template</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_template</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="n">template</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_template</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">retries</span><span class="o">=</span><span class="n">retries</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">suffix</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">jinja_template_extensions</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">python_template_extensions</span><span class="p">:</span>
                 <span class="n">file</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="n">path</span><span class="o">.</span><span class="n">stem</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Template file saved to: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
@@ -252,21 +263,60 @@
 
         <span class="k">return</span> <span class="n">template</span></div>
 
-    <span class="k">def</span> <span class="nf">_get_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_get_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">retries</span><span class="p">,</span> <span class="n">timeout</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get template from the web</span>
 <span class="sd">        :param url: The url to the template</span>
 <span class="sd">        :type: str</span>
-<span class="sd">        :returns: The body of the CloudFormation template.</span>
-<span class="sd">        :rtype: str</span>
+<span class="sd">        :param retries: The number of retry attempts.</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        :param timeout: The timeout for the session in seconds.</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Downloading file from: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_retry_session</span><span class="p">(</span><span class="n">retries</span><span class="o">=</span><span class="n">retries</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">content</span>
-        <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">RequestException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-            <span class="k">raise</span> <span class="n">e</span></div>
+        <span class="k">except</span> <span class="p">(</span><span class="n">InvalidURL</span><span class="p">,</span> <span class="n">ConnectTimeout</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">e</span>
+
+    <span class="k">def</span> <span class="nf">_get_retry_session</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                           <span class="n">retries</span><span class="p">,</span>
+                           <span class="n">backoff_factor</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+                           <span class="n">status_forcelist</span><span class="o">=</span><span class="p">(</span><span class="mi">429</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">502</span><span class="p">,</span> <span class="mi">503</span><span class="p">,</span> <span class="mi">504</span><span class="p">),</span>
+                           <span class="n">session</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get a request session with retries.  Retry options are explained in the request libraries</span>
+<span class="sd">        https://urllib3.readthedocs.io/en/latest/reference/urllib3.util.html#module-urllib3.util.retry</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="n">session</span> <span class="ow">or</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+        <span class="n">retry</span> <span class="o">=</span> <span class="n">Retry</span><span class="p">(</span>
+            <span class="n">total</span><span class="o">=</span><span class="n">retries</span><span class="p">,</span>
+            <span class="n">read</span><span class="o">=</span><span class="n">retries</span><span class="p">,</span>
+            <span class="n">connect</span><span class="o">=</span><span class="n">retries</span><span class="p">,</span>
+            <span class="n">backoff_factor</span><span class="o">=</span><span class="n">backoff_factor</span><span class="p">,</span>
+            <span class="n">status_forcelist</span><span class="o">=</span><span class="n">status_forcelist</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">adapter</span> <span class="o">=</span> <span class="n">HTTPAdapter</span><span class="p">(</span><span class="n">max_retries</span><span class="o">=</span><span class="n">retry</span><span class="p">)</span>
+        <span class="n">session</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s1">&#39;http://&#39;</span><span class="p">,</span> <span class="n">adapter</span><span class="p">)</span>
+        <span class="n">session</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s1">&#39;https://&#39;</span><span class="p">,</span> <span class="n">adapter</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">session</span>
+
+    <span class="k">def</span> <span class="nf">_get_handler_option</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">default</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the template handler options</span>
+<span class="sd">        :param url: The option name</span>
+<span class="sd">        :type: str</span>
+<span class="sd">        :param default: The default value if option is not set.</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">HANDLER_OPTION_KEY</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack_group_config</span><span class="p">:</span>
+            <span class="n">option</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack_group_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">HANDLER_OPTION_KEY</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">option</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">option</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">default</span></div>
 </pre></div>
 
            </div>
