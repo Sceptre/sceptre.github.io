@@ -274,6 +274,13 @@
 </li>
       </ul></li>
       <li>
+    --type &lt;differ&gt;
+
+      <ul>
+        <li><a href="docs/cli.html#cmdoption-sceptre-diff-t">sceptre-diff command line option</a>
+</li>
+      </ul></li>
+      <li>
     --url
 
       <ul>
@@ -346,6 +353,13 @@
 
       <ul>
         <li><a href="docs/cli.html#cmdoption-sceptre-list-outputs-e">sceptre-list-outputs command line option</a>
+</li>
+      </ul></li>
+      <li>
+    -t
+
+      <ul>
+        <li><a href="docs/cli.html#cmdoption-sceptre-diff-t">sceptre-diff command line option</a>
 </li>
       </ul></li>
       <li>
@@ -444,13 +458,31 @@
 </li>
       <li><a href="apidoc/sceptre.html#sceptre.stack_status_colourer.StackStatusColourer.colour">colour() (sceptre.stack_status_colourer.StackStatusColourer method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="apidoc/sceptre.cli.html#sceptre.cli.helpers.ColouredFormatter">ColouredFormatter (class in sceptre.cli.helpers)</a>
 </li>
       <li><a href="apidoc/sceptre.html#sceptre.context.SceptreContext.command_path_is_stack">command_path_is_stack() (sceptre.context.SceptreContext method)</a>
 </li>
+      <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.DeepDiffStackDiffer.compare_stack_configurations">compare_stack_configurations() (sceptre.diffing.stack_differ.DeepDiffStackDiffer method)</a>
+
+      <ul>
+        <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.DifflibStackDiffer.compare_stack_configurations">(sceptre.diffing.stack_differ.DifflibStackDiffer method)</a>
+</li>
+        <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.StackDiffer.compare_stack_configurations">(sceptre.diffing.stack_differ.StackDiffer method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.DeepDiffStackDiffer.compare_templates">compare_templates() (sceptre.diffing.stack_differ.DeepDiffStackDiffer method)</a>
+
+      <ul>
+        <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.DifflibStackDiffer.compare_templates">(sceptre.diffing.stack_differ.DifflibStackDiffer method)</a>
+</li>
+        <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.StackDiffer.compare_templates">(sceptre.diffing.stack_differ.StackDiffer method)</a>
+</li>
+      </ul></li>
       <li><a href="apidoc/sceptre.html#sceptre.stack_status.StackStatus.COMPLETE">COMPLETE (sceptre.stack_status.StackStatus attribute)</a>
+</li>
+      <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.StackDiff.config_diff">config_diff (sceptre.diffing.stack_differ.StackDiff attribute)</a>
 </li>
       <li><a href="apidoc/sceptre.config.html#sceptre.config.reader.ConfigAttributes">ConfigAttributes (in module sceptre.config.reader)</a>
 </li>
@@ -494,6 +526,10 @@
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.DeepDiffStackDiffer">DeepDiffStackDiffer (class in sceptre.diffing.stack_differ)</a>
+</li>
+      <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.diff_writer.DeepDiffWriter">DeepDiffWriter (class in sceptre.diffing.diff_writer)</a>
+</li>
       <li><a href="apidoc/sceptre.cli.html#sceptre.cli.helpers.CustomJsonEncoder.default">default() (sceptre.cli.helpers.CustomJsonEncoder method)</a>
 </li>
       <li><a href="apidoc/sceptre.html#sceptre.stack_status.StackChangeSetStatus.DEFUNCT">DEFUNCT (sceptre.stack_status.StackChangeSetStatus attribute)</a>
@@ -522,14 +558,14 @@
         <li><a href="apidoc/sceptre.plan.html#sceptre.plan.plan.SceptrePlan.describe">(sceptre.plan.plan.SceptrePlan method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.describe_change_set">describe_change_set() (sceptre.plan.actions.StackActions method)</a>
 
       <ul>
         <li><a href="apidoc/sceptre.plan.html#sceptre.plan.plan.SceptrePlan.describe_change_set">(sceptre.plan.plan.SceptrePlan method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.describe_events">describe_events() (sceptre.plan.actions.StackActions method)</a>
 
       <ul>
@@ -550,6 +586,28 @@
       </ul></li>
       <li><a href="apidoc/sceptre.config.html#sceptre.config.strategies.dict_merge">dict_merge() (in module sceptre.config.strategies)</a>
 </li>
+      <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.StackDiffer.diff">diff() (sceptre.diffing.stack_differ.StackDiffer method)</a>
+
+      <ul>
+        <li><a href="apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.diff">(sceptre.plan.actions.StackActions method)</a>
+</li>
+        <li><a href="apidoc/sceptre.plan.html#sceptre.plan.plan.SceptrePlan.diff">(sceptre.plan.plan.SceptrePlan method)</a>
+</li>
+      </ul></li>
+      <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.DifflibStackDiffer">DifflibStackDiffer (class in sceptre.diffing.stack_differ)</a>
+</li>
+      <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.diff_writer.DiffLibWriter">DiffLibWriter (class in sceptre.diffing.diff_writer)</a>
+</li>
+      <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.diff_writer.DiffWriter">DiffWriter (class in sceptre.diffing.diff_writer)</a>
+</li>
+      <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.diff_writer.DeepDiffWriter.dump_diff">dump_diff() (sceptre.diffing.diff_writer.DeepDiffWriter method)</a>
+
+      <ul>
+        <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.diff_writer.DiffLibWriter.dump_diff">(sceptre.diffing.diff_writer.DiffLibWriter method)</a>
+</li>
+        <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.diff_writer.DiffWriter.dump_diff">(sceptre.diffing.diff_writer.DiffWriter method)</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -592,14 +650,22 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="apidoc/sceptre.html#sceptre.stack_status.StackStatus.FAILED">FAILED (sceptre.stack_status.StackStatus attribute)</a>
 </li>
+      <li><a href="apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.fetch_remote_template">fetch_remote_template() (sceptre.plan.actions.StackActions method)</a>
+
+      <ul>
+        <li><a href="apidoc/sceptre.plan.html#sceptre.plan.plan.SceptrePlan.fetch_remote_template">(sceptre.plan.plan.SceptrePlan method)</a>
+</li>
+      </ul></li>
+      <li><a href="apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.fetch_remote_template_summary">fetch_remote_template_summary() (sceptre.plan.actions.StackActions method)</a>
+</li>
       <li><a href="apidoc/sceptre.template_handlers.html#sceptre.template_handlers.file.File">File (class in sceptre.template_handlers.file)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="apidoc/sceptre.resolvers.html#sceptre.resolvers.file_contents.FileContents">FileContents (class in sceptre.resolvers.file_contents)</a>
 </li>
       <li><a href="apidoc/sceptre.config.html#sceptre.config.graph.StackGraph.filtered">filtered() (sceptre.config.graph.StackGraph method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="apidoc/sceptre.cli.html#sceptre.cli.helpers.ColouredFormatter.format">format() (sceptre.cli.helpers.ColouredFormatter method)</a>
 </li>
       <li><a href="apidoc/sceptre.html#sceptre.context.SceptreContext.full_command_path">full_command_path() (sceptre.context.SceptreContext method)</a>
@@ -620,12 +686,16 @@
         <li><a href="apidoc/sceptre.plan.html#sceptre.plan.plan.SceptrePlan.generate">(sceptre.plan.plan.SceptrePlan method)</a>
 </li>
       </ul></li>
-      <li><a href="apidoc/sceptre.html#sceptre.template.Template.get_boto_call_parameter">get_boto_call_parameter() (sceptre.template.Template method)</a>
+      <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.StackDiff.generated_config">generated_config (sceptre.diffing.stack_differ.StackDiff attribute)</a>
 </li>
-      <li><a href="apidoc/sceptre.html#sceptre.helpers.get_external_stack_name">get_external_stack_name() (in module sceptre.helpers)</a>
+      <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.StackDiff.generated_template">generated_template (sceptre.diffing.stack_differ.StackDiff attribute)</a>
+</li>
+      <li><a href="apidoc/sceptre.html#sceptre.template.Template.get_boto_call_parameter">get_boto_call_parameter() (sceptre.template.Template method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="apidoc/sceptre.html#sceptre.helpers.get_external_stack_name">get_external_stack_name() (in module sceptre.helpers)</a>
+</li>
       <li><a href="apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.get_policy">get_policy() (sceptre.plan.actions.StackActions method)</a>
 
       <ul>
@@ -654,8 +724,26 @@
         <li><a href="apidoc/sceptre.template_handlers.html#sceptre.template_handlers.TemplateHandler.handle">(sceptre.template_handlers.TemplateHandler method)</a>
 </li>
       </ul></li>
+      <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.diff_writer.DeepDiffWriter.has_config_difference">has_config_difference (sceptre.diffing.diff_writer.DeepDiffWriter property)</a>
+
+      <ul>
+        <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.diff_writer.DiffLibWriter.has_config_difference">(sceptre.diffing.diff_writer.DiffLibWriter property)</a>
+</li>
+        <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.diff_writer.DiffWriter.has_config_difference">(sceptre.diffing.diff_writer.DiffWriter property)</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.diff_writer.DiffWriter.has_difference">has_difference (sceptre.diffing.diff_writer.DiffWriter property)</a>
+</li>
+      <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.diff_writer.DeepDiffWriter.has_template_difference">has_template_difference (sceptre.diffing.diff_writer.DeepDiffWriter property)</a>
+
+      <ul>
+        <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.diff_writer.DiffLibWriter.has_template_difference">(sceptre.diffing.diff_writer.DiffLibWriter property)</a>
+</li>
+        <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.diff_writer.DiffWriter.has_template_difference">(sceptre.diffing.diff_writer.DiffWriter property)</a>
+</li>
+      </ul></li>
       <li><a href="apidoc/sceptre.hooks.html#sceptre.hooks.Hook">Hook (class in sceptre.hooks)</a>
 </li>
       <li><a href="apidoc/sceptre.hooks.html#sceptre.hooks.HookProperty">HookProperty (class in sceptre.hooks)</a>
@@ -676,15 +764,17 @@
 </li>
       <li><a href="apidoc/sceptre.html#sceptre.exceptions.InvalidConfigFileError">InvalidConfigFileError</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="apidoc/sceptre.html#sceptre.exceptions.InvalidHookArgumentSyntaxError">InvalidHookArgumentSyntaxError</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="apidoc/sceptre.html#sceptre.exceptions.InvalidHookArgumentTypeError">InvalidHookArgumentTypeError</a>
 </li>
       <li><a href="apidoc/sceptre.html#sceptre.exceptions.InvalidHookArgumentValueError">InvalidHookArgumentValueError</a>
 </li>
       <li><a href="apidoc/sceptre.html#sceptre.exceptions.InvalidSceptreDirectoryError">InvalidSceptreDirectoryError</a>
+</li>
+      <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.StackDiff.is_deployed">is_deployed (sceptre.diffing.stack_differ.StackDiff attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -706,6 +796,8 @@
         <li><a href="apidoc/sceptre.plan.html#sceptre.plan.plan.SceptrePlan.launch">(sceptre.plan.plan.SceptrePlan method)</a>
 </li>
       </ul></li>
+      <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.diff_writer.DiffWriter.LINE_BAR">LINE_BAR (sceptre.diffing.diff_writer.DiffWriter attribute)</a>
+</li>
       <li><a href="apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.list_change_sets">list_change_sets() (sceptre.plan.actions.StackActions method)</a>
 
       <ul>
@@ -746,6 +838,8 @@
 </li>
         <li><a href="apidoc/sceptre.cli.html#module-sceptre.cli.describe">sceptre.cli.describe</a>
 </li>
+        <li><a href="apidoc/sceptre.cli.html#module-sceptre.cli.diff">sceptre.cli.diff</a>
+</li>
         <li><a href="apidoc/sceptre.cli.html#module-sceptre.cli.execute">sceptre.cli.execute</a>
 </li>
         <li><a href="apidoc/sceptre.cli.html#module-sceptre.cli.helpers">sceptre.cli.helpers</a>
@@ -775,6 +869,12 @@
         <li><a href="apidoc/sceptre.html#module-sceptre.connection_manager">sceptre.connection_manager</a>
 </li>
         <li><a href="apidoc/sceptre.html#module-sceptre.context">sceptre.context</a>
+</li>
+        <li><a href="apidoc/sceptre.diffing.html#module-sceptre.diffing">sceptre.diffing</a>
+</li>
+        <li><a href="apidoc/sceptre.diffing.html#module-sceptre.diffing.diff_writer">sceptre.diffing.diff_writer</a>
+</li>
+        <li><a href="apidoc/sceptre.diffing.html#module-sceptre.diffing.stack_differ">sceptre.diffing.stack_differ</a>
 </li>
         <li><a href="apidoc/sceptre.html#module-sceptre.exceptions">sceptre.exceptions</a>
 </li>
@@ -829,8 +929,12 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="apidoc/sceptre.html#sceptre.helpers.normalise_path">normalise_path() (in module sceptre.helpers)</a>
 </li>
-      <li><a href="apidoc/sceptre.html#sceptre.stack.Stack.notifications">notifications (sceptre.stack.Stack attribute)</a>
+      <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.StackConfiguration.notifications">notifications (sceptre.diffing.stack_differ.StackConfiguration attribute)</a>
+
+      <ul>
+        <li><a href="apidoc/sceptre.html#sceptre.stack.Stack.notifications">(sceptre.stack.Stack attribute)</a>
 </li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="apidoc/sceptre.html#sceptre.NullHandler">NullHandler (class in sceptre)</a>
@@ -847,8 +951,12 @@
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="apidoc/sceptre.html#sceptre.stack.Stack.parameters">parameters (sceptre.stack.Stack attribute)</a>
+      <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.StackConfiguration.parameters">parameters (sceptre.diffing.stack_differ.StackConfiguration attribute)</a>
+
+      <ul>
+        <li><a href="apidoc/sceptre.html#sceptre.stack.Stack.parameters">(sceptre.stack.Stack attribute)</a>
 </li>
+      </ul></li>
       <li>
     PATH
 
@@ -861,9 +969,13 @@
 </li>
         <li><a href="docs/cli.html#cmdoption-sceptre-describe-policy-arg-PATH">sceptre-describe-policy command line option</a>
 </li>
+        <li><a href="docs/cli.html#cmdoption-sceptre-diff-arg-PATH">sceptre-diff command line option</a>
+</li>
         <li><a href="docs/cli.html#cmdoption-sceptre-estimate-cost-arg-PATH">sceptre-estimate-cost command line option</a>
 </li>
         <li><a href="docs/cli.html#cmdoption-sceptre-execute-arg-PATH">sceptre-execute command line option</a>
+</li>
+        <li><a href="docs/cli.html#cmdoption-sceptre-fetch-remote-template-arg-PATH">sceptre-fetch-remote-template command line option</a>
 </li>
         <li><a href="docs/cli.html#cmdoption-sceptre-generate-arg-PATH">sceptre-generate command line option</a>
 </li>
@@ -960,6 +1072,8 @@
 </li>
       <li><a href="apidoc/sceptre.html#sceptre.exceptions.RetryLimitExceededError">RetryLimitExceededError</a>
 </li>
+      <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.StackConfiguration.role_arn">role_arn (sceptre.diffing.stack_differ.StackConfiguration attribute)</a>
+</li>
       <li><a href="apidoc/sceptre.hooks.html#sceptre.hooks.asg_scaling_processes.ASGScalingProcesses.run">run() (sceptre.hooks.asg_scaling_processes.ASGScalingProcesses method)</a>
 
       <ul>
@@ -1053,6 +1167,17 @@
 </li>
       </ul></li>
       <li>
+    sceptre-diff command line option
+
+      <ul>
+        <li><a href="docs/cli.html#cmdoption-sceptre-diff-t">--type &lt;differ&gt;</a>
+</li>
+        <li><a href="docs/cli.html#cmdoption-sceptre-diff-t">-t</a>
+</li>
+        <li><a href="docs/cli.html#cmdoption-sceptre-diff-arg-PATH">PATH</a>
+</li>
+      </ul></li>
+      <li>
     sceptre-estimate-cost command line option
 
       <ul>
@@ -1070,6 +1195,13 @@
         <li><a href="docs/cli.html#cmdoption-sceptre-execute-arg-CHANGE_SET_NAME">CHANGE_SET_NAME</a>
 </li>
         <li><a href="docs/cli.html#cmdoption-sceptre-execute-arg-PATH">PATH</a>
+</li>
+      </ul></li>
+      <li>
+    sceptre-fetch-remote-template command line option
+
+      <ul>
+        <li><a href="docs/cli.html#cmdoption-sceptre-fetch-remote-template-arg-PATH">PATH</a>
 </li>
       </ul></li>
       <li>
@@ -1208,6 +1340,13 @@
 </li>
       </ul></li>
       <li>
+    sceptre.cli.diff
+
+      <ul>
+        <li><a href="apidoc/sceptre.cli.html#module-sceptre.cli.diff">module</a>
+</li>
+      </ul></li>
+      <li>
     sceptre.cli.execute
 
       <ul>
@@ -1256,8 +1395,6 @@
         <li><a href="apidoc/sceptre.cli.html#module-sceptre.cli.status">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     sceptre.cli.template
 
@@ -1272,6 +1409,8 @@
         <li><a href="apidoc/sceptre.cli.html#module-sceptre.cli.update">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     sceptre.config
 
@@ -1312,6 +1451,27 @@
 
       <ul>
         <li><a href="apidoc/sceptre.html#module-sceptre.context">module</a>
+</li>
+      </ul></li>
+      <li>
+    sceptre.diffing
+
+      <ul>
+        <li><a href="apidoc/sceptre.diffing.html#module-sceptre.diffing">module</a>
+</li>
+      </ul></li>
+      <li>
+    sceptre.diffing.diff_writer
+
+      <ul>
+        <li><a href="apidoc/sceptre.diffing.html#module-sceptre.diffing.diff_writer">module</a>
+</li>
+      </ul></li>
+      <li>
+    sceptre.diffing.stack_differ
+
+      <ul>
+        <li><a href="apidoc/sceptre.diffing.html#module-sceptre.diffing.stack_differ">module</a>
 </li>
       </ul></li>
       <li>
@@ -1519,6 +1679,12 @@
         <li><a href="docs/cli.html#cmdoption-sceptre-new-group-arg-STACK_GROUP">sceptre-new-group command line option</a>
 </li>
       </ul></li>
+      <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.StackConfiguration.stack_name">stack_name (sceptre.diffing.stack_differ.StackConfiguration attribute)</a>
+
+      <ul>
+        <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.StackDiff.stack_name">(sceptre.diffing.stack_differ.StackDiff attribute)</a>
+</li>
+      </ul></li>
       <li><a href="apidoc/sceptre.html#sceptre.stack_status_colourer.StackStatusColourer.STACK_STATUS_CODES">STACK_STATUS_CODES (sceptre.stack_status_colourer.StackStatusColourer attribute)</a>
 </li>
       <li><a href="apidoc/sceptre.cli.html#sceptre.cli.helpers.ColouredFormatter.stack_status_colourer">stack_status_colourer (sceptre.cli.helpers.ColouredFormatter attribute)</a>
@@ -1527,9 +1693,19 @@
 </li>
       <li><a href="apidoc/sceptre.html#sceptre.stack_status_colourer.StackStatusColourer.STACK_STATUS_PATTERN">STACK_STATUS_PATTERN (sceptre.stack_status_colourer.StackStatusColourer attribute)</a>
 </li>
+      <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.StackDiffer.STACK_STATUSES_INDICATING_NOT_DEPLOYED">STACK_STATUSES_INDICATING_NOT_DEPLOYED (sceptre.diffing.stack_differ.StackDiffer attribute)</a>
+</li>
+      <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.StackConfiguration.stack_tags">stack_tags (sceptre.diffing.stack_differ.StackConfiguration attribute)</a>
+</li>
       <li><a href="apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions">StackActions (class in sceptre.plan.actions)</a>
 </li>
       <li><a href="apidoc/sceptre.html#sceptre.stack_status.StackChangeSetStatus">StackChangeSetStatus (class in sceptre.stack_status)</a>
+</li>
+      <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.StackConfiguration">StackConfiguration (class in sceptre.diffing.stack_differ)</a>
+</li>
+      <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.StackDiff">StackDiff (class in sceptre.diffing.stack_differ)</a>
+</li>
+      <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.StackDiffer">StackDiffer (class in sceptre.diffing.stack_differ)</a>
 </li>
       <li><a href="apidoc/sceptre.html#sceptre.exceptions.StackDoesNotExistError">StackDoesNotExistError</a>
 </li>
@@ -1547,6 +1723,8 @@
 </li>
       <li><a href="apidoc/sceptre.template_handlers.html#sceptre.template_handlers.TemplateHandler.standard_template_extensions">standard_template_extensions (sceptre.template_handlers.TemplateHandler attribute)</a>
 </li>
+      <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.diff_writer.DiffWriter.STAR_BAR">STAR_BAR (sceptre.diffing.diff_writer.DiffWriter attribute)</a>
+</li>
       <li><a href="apidoc/sceptre.template_handlers.html#sceptre.template_handlers.TemplateHandler.supported_template_extensions">supported_template_extensions (sceptre.template_handlers.TemplateHandler attribute)</a>
 </li>
   </ul></td>
@@ -1561,10 +1739,12 @@
 </li>
       <li><a href="apidoc/sceptre.plan.html#sceptre.plan.plan.SceptrePlan.template">template() (sceptre.plan.plan.SceptrePlan method)</a>
 </li>
-      <li><a href="apidoc/sceptre.template_handlers.html#sceptre.template_handlers.TemplateHandler">TemplateHandler (class in sceptre.template_handlers)</a>
+      <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.StackDiff.template_diff">template_diff (sceptre.diffing.stack_differ.StackDiff attribute)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="apidoc/sceptre.template_handlers.html#sceptre.template_handlers.TemplateHandler">TemplateHandler (class in sceptre.template_handlers)</a>
+</li>
       <li><a href="apidoc/sceptre.html#sceptre.exceptions.TemplateHandlerArgumentsInvalidError">TemplateHandlerArgumentsInvalidError</a>
 </li>
       <li><a href="apidoc/sceptre.html#sceptre.exceptions.TemplateHandlerNotFoundError">TemplateHandlerNotFoundError</a>
@@ -1619,6 +1799,8 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.DeepDiffStackDiffer.VERBOSITY_LEVEL_TO_INDICATE_CHANGED_VALUES">VERBOSITY_LEVEL_TO_INDICATE_CHANGED_VALUES (sceptre.diffing.stack_differ.DeepDiffStackDiffer attribute)</a>
+</li>
       <li><a href="apidoc/sceptre.html#sceptre.exceptions.VersionIncompatibleError">VersionIncompatibleError</a>
 </li>
   </ul></td>
@@ -1636,7 +1818,11 @@
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="apidoc/sceptre.cli.html#sceptre.cli.helpers.write">write() (in module sceptre.cli.helpers)</a>
+
+      <ul>
+        <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.diff_writer.DiffWriter.write">(sceptre.diffing.diff_writer.DiffWriter method)</a>
 </li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
