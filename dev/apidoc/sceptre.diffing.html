@@ -321,7 +321,7 @@ create a DiffWriter for a given DiffType.</p>
 <span id="sceptre-diffing-stack-differ-module"></span><h2>sceptre.diffing.stack_differ module<a class="headerlink" href="#module-sceptre.diffing.stack_differ" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="sceptre.diffing.stack_differ.DeepDiffStackDiffer">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sceptre.diffing.stack_differ.</span></span><span class="sig-name descname"><span class="pre">DeepDiffStackDiffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*,</span> <span class="pre">universal_template_loader:</span> <span class="pre">Callable[[str],</span> <span class="pre">Tuple[dict,</span> <span class="pre">str]]</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">load&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/diffing/stack_differ.html#DeepDiffStackDiffer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.diffing.stack_differ.DeepDiffStackDiffer" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sceptre.diffing.stack_differ.</span></span><span class="sig-name descname"><span class="pre">DeepDiffStackDiffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">show_no_echo=False,</span> <span class="pre">*,</span> <span class="pre">universal_template_loader:</span> <span class="pre">Callable[[str],</span> <span class="pre">Tuple[dict,</span> <span class="pre">str]]</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">load&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/diffing/stack_differ.html#DeepDiffStackDiffer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.diffing.stack_differ.DeepDiffStackDiffer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#sceptre.diffing.stack_differ.StackDiffer" title="sceptre.diffing.stack_differ.StackDiffer"><code class="xref py py-class docutils literal notranslate"><span class="pre">sceptre.diffing.stack_differ.StackDiffer</span></code></a>[<a class="reference external" href="https://zepworks.com/deepdiff/current/diff.html#deepdiff.diff.DeepDiff" title="(in DeepDiff v5.6.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">deepdiff.diff.DeepDiff</span></code></a>]</p>
 <p>A StackDiffer that relies upon the DeepDiff library to produce the difference between the
 stack as it has been deployed onto CloudFormation and as it exists locally within Sceptre.</p>
@@ -373,7 +373,7 @@ stack has not been deployed.</p></li>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="sceptre.diffing.stack_differ.DifflibStackDiffer">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sceptre.diffing.stack_differ.</span></span><span class="sig-name descname"><span class="pre">DifflibStackDiffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*,</span> <span class="pre">universal_template_loader:</span> <span class="pre">Callable[[str],</span> <span class="pre">Tuple[dict,</span> <span class="pre">str]]</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">load&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/diffing/stack_differ.html#DifflibStackDiffer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.diffing.stack_differ.DifflibStackDiffer" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sceptre.diffing.stack_differ.</span></span><span class="sig-name descname"><span class="pre">DifflibStackDiffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">show_no_echo=False,</span> <span class="pre">*,</span> <span class="pre">universal_template_loader:</span> <span class="pre">Callable[[str],</span> <span class="pre">Tuple[dict,</span> <span class="pre">str]]</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">load&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/diffing/stack_differ.html#DifflibStackDiffer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.diffing.stack_differ.DifflibStackDiffer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#sceptre.diffing.stack_differ.StackDiffer" title="sceptre.diffing.stack_differ.StackDiffer"><code class="xref py py-class docutils literal notranslate"><span class="pre">sceptre.diffing.stack_differ.StackDiffer</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]</p>
 <p>A StackDiffer that uses difflib to produce a diff between the stack as it exists on AWS and
 the stack as it exists locally within Sceptre.</p>
@@ -498,7 +498,7 @@ it exists locally within Sceptre.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="sceptre.diffing.stack_differ.StackDiffer">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sceptre.diffing.stack_differ.</span></span><span class="sig-name descname"><span class="pre">StackDiffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwds</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/diffing/stack_differ.html#StackDiffer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.diffing.stack_differ.StackDiffer" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sceptre.diffing.stack_differ.</span></span><span class="sig-name descname"><span class="pre">StackDiffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">show_no_echo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/diffing/stack_differ.html#StackDiffer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.diffing.stack_differ.StackDiffer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Generic" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">sceptre.diffing.stack_differ.DiffType</span></code>]</p>
 <p>A utility for producing a StackDiff that indicates the full difference between a given stack
 as it is currently DEPLOYED on CloudFormation and the stack as it exists in the local Sceptre
@@ -507,6 +507,11 @@ configurations.</p>
 compared) as well as the stack template.</p>
 <p>As an abstract base class, the two comparison methods need to be implemented so that the
 StackDiff can be generated.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sceptre.diffing.stack_differ.StackDiffer.NO_ECHO_REPLACEMENT">
+<span class="sig-name descname"><span class="pre">NO_ECHO_REPLACEMENT</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'***HIDDEN***'</span></em><a class="headerlink" href="#sceptre.diffing.stack_differ.StackDiffer.NO_ECHO_REPLACEMENT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py attribute">
 <dt class="sig sig-object py" id="sceptre.diffing.stack_differ.StackDiffer.STACK_STATUSES_INDICATING_NOT_DEPLOYED">
 <span class="sig-name descname"><span class="pre">STACK_STATUSES_INDICATING_NOT_DEPLOYED</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['CREATE_FAILED',</span> <span class="pre">'ROLLBACK_COMPLETE',</span> <span class="pre">'DELETE_COMPLETE']</span></em><a class="headerlink" href="#sceptre.diffing.stack_differ.StackDiffer.STACK_STATUSES_INDICATING_NOT_DEPLOYED" title="Permalink to this definition">¶</a></dt>
@@ -563,6 +568,46 @@ as well as providing other details about the stack.</p>
 </dl>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sceptre.diffing.stack_differ.repr_odict">
+<span class="sig-prename descclassname"><span class="pre">sceptre.diffing.stack_differ.</span></span><span class="sig-name descname"><span class="pre">repr_odict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dumper</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">yaml.dumper.Dumper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">cfn_tools.odict.ODict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/sceptre/diffing/stack_differ.html#repr_odict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.diffing.stack_differ.repr_odict" title="Permalink to this definition">¶</a></dt>
+<dd><p>A YAML Representer for cfn-flip’s ODict objects.</p>
+<p>ODicts are a variation on OrderedDicts for that library. Since the Diff command makes extensive
+use of ODicts, they can end up in diff output and the PyYaml library doesn’t otherwise calls the
+dicts like !!ODict, which looks weird. We can just treat them like normal dicts when we serialize
+them, though.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dumper</strong> – The Dumper that is being used to serialize this object</p></li>
+<li><p><strong>data</strong> – The ODict object to serialize</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The serialized ODict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sceptre.diffing.stack_differ.repr_str">
+<span class="sig-prename descclassname"><span class="pre">sceptre.diffing.stack_differ.</span></span><span class="sig-name descname"><span class="pre">repr_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dumper</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">yaml.dumper.Dumper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/sceptre/diffing/stack_differ.html#repr_str"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.diffing.stack_differ.repr_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>A YAML Representer that handles strings, breaking multi-line strings into something a lot
+more readable in the yaml output. This is useful for representing long, multiline strings in
+templates or in stack parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dumper</strong> – The Dumper that is being used to serialize this object</p></li>
+<li><p><strong>data</strong> – The string to serialize</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The represented string</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>

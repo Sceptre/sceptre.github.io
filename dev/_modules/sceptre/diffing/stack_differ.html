@@ -183,17 +183,24 @@
             
   <h1>Source code for sceptre.diffing.stack_differ</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">difflib</span>
+<span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">abstractmethod</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">NamedTuple</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">TypeVar</span>
 
 <span class="kn">import</span> <span class="nn">cfn_flip</span>
 <span class="kn">import</span> <span class="nn">deepdiff</span>
+<span class="kn">import</span> <span class="nn">yaml</span>
+<span class="kn">from</span> <span class="nn">cfn_tools</span> <span class="kn">import</span> <span class="n">ODict</span>
+<span class="kn">from</span> <span class="nn">yaml</span> <span class="kn">import</span> <span class="n">Dumper</span>
 
+<span class="kn">from</span> <span class="nn">sceptre.helpers</span> <span class="kn">import</span> <span class="n">_call_func_on_values</span>
 <span class="kn">from</span> <span class="nn">sceptre.plan.actions</span> <span class="kn">import</span> <span class="n">StackActions</span>
 <span class="kn">from</span> <span class="nn">sceptre.resolvers</span> <span class="kn">import</span> <span class="n">Resolver</span>
 <span class="kn">from</span> <span class="nn">sceptre.stack</span> <span class="kn">import</span> <span class="n">Stack</span>
 
 <span class="n">DiffType</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;DiffType&#39;</span><span class="p">)</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="StackConfiguration"><a class="viewcode-back" href="../../../apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.StackConfiguration">[docs]</a><span class="k">class</span> <span class="nc">StackConfiguration</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
@@ -217,6 +224,39 @@
     <span class="n">generated_template</span><span class="p">:</span> <span class="nb">str</span></div>
 
 
+<div class="viewcode-block" id="repr_str"><a class="viewcode-back" href="../../../apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.repr_str">[docs]</a><span class="k">def</span> <span class="nf">repr_str</span><span class="p">(</span><span class="n">dumper</span><span class="p">:</span> <span class="n">Dumper</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;A YAML Representer that handles strings, breaking multi-line strings into something a lot</span>
+<span class="sd">    more readable in the yaml output. This is useful for representing long, multiline strings in</span>
+<span class="sd">    templates or in stack parameters.</span>
+
+<span class="sd">    :param dumper: The Dumper that is being used to serialize this object</span>
+<span class="sd">    :param data: The string to serialize</span>
+<span class="sd">    :return: The represented string</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">dumper</span><span class="o">.</span><span class="n">represent_scalar</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;tag:yaml.org,2002:str&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;|&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">dumper</span><span class="o">.</span><span class="n">represent_str</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="repr_odict"><a class="viewcode-back" href="../../../apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.repr_odict">[docs]</a><span class="k">def</span> <span class="nf">repr_odict</span><span class="p">(</span><span class="n">dumper</span><span class="p">:</span> <span class="n">Dumper</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">ODict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;A YAML Representer for cfn-flip&#39;s ODict objects.</span>
+
+<span class="sd">    ODicts are a variation on OrderedDicts for that library. Since the Diff command makes extensive</span>
+<span class="sd">    use of ODicts, they can end up in diff output and the PyYaml library doesn&#39;t otherwise calls the</span>
+<span class="sd">    dicts like !!ODict, which looks weird. We can just treat them like normal dicts when we serialize</span>
+<span class="sd">    them, though.</span>
+
+<span class="sd">    :param dumper: The Dumper that is being used to serialize this object</span>
+<span class="sd">    :param data: The ODict object to serialize</span>
+<span class="sd">    :return: The serialized ODict</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">dumper</span><span class="o">.</span><span class="n">represent_dict</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div>
+
+
+<span class="n">yaml</span><span class="o">.</span><span class="n">add_representer</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">repr_str</span><span class="p">)</span>
+<span class="n">yaml</span><span class="o">.</span><span class="n">add_representer</span><span class="p">(</span><span class="n">ODict</span><span class="p">,</span> <span class="n">repr_odict</span><span class="p">)</span>
+
+
 <div class="viewcode-block" id="StackDiffer"><a class="viewcode-back" href="../../../apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.StackDiffer">[docs]</a><span class="k">class</span> <span class="nc">StackDiffer</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">DiffType</span><span class="p">]):</span>
     <span class="sd">&quot;&quot;&quot;A utility for producing a StackDiff that indicates the full difference between a given stack</span>
 <span class="sd">    as it is currently DEPLOYED on CloudFormation and the stack as it exists in the local Sceptre</span>
@@ -228,12 +268,21 @@
 <span class="sd">    As an abstract base class, the two comparison methods need to be implemented so that the</span>
 <span class="sd">    StackDiff can be generated.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
     <span class="n">STACK_STATUSES_INDICATING_NOT_DEPLOYED</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;CREATE_FAILED&#39;</span><span class="p">,</span>
         <span class="s1">&#39;ROLLBACK_COMPLETE&#39;</span><span class="p">,</span>
         <span class="s1">&#39;DELETE_COMPLETE&#39;</span><span class="p">,</span>
     <span class="p">]</span>
+
+    <span class="n">NO_ECHO_REPLACEMENT</span> <span class="o">=</span> <span class="s2">&quot;***HIDDEN***&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">show_no_echo</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initializes the StackDiffer.</span>
+
+<span class="sd">        :param show_no_echo: If True, local parameters passed that the template says are NoEcho</span>
+<span class="sd">            parameters will be displayed; Otherwise, they will be masked in the diff.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">show_no_echo</span> <span class="o">=</span> <span class="n">show_no_echo</span>
 
 <div class="viewcode-block" id="StackDiffer.diff"><a class="viewcode-back" href="../../../apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.StackDiffer.diff">[docs]</a>    <span class="k">def</span> <span class="nf">diff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack_actions</span><span class="p">:</span> <span class="n">StackActions</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">StackDiff</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Produces a StackDiff between the currently deployed stack (if it exists) and the stack</span>
@@ -247,11 +296,10 @@
         <span class="n">deployed_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_deployed_stack_config</span><span class="p">(</span><span class="n">stack_actions</span><span class="p">)</span>
         <span class="n">is_stack_deployed</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">deployed_config</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">is_stack_deployed</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_remove_default_parameters_that_arent_passed</span><span class="p">(</span><span class="n">stack_actions</span><span class="p">,</span> <span class="n">generated_config</span><span class="p">,</span> <span class="n">deployed_config</span><span class="p">)</span>
-
         <span class="n">generated_template</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_template</span><span class="p">(</span><span class="n">stack_actions</span><span class="p">)</span>
         <span class="n">deployed_template</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_deployed_template</span><span class="p">(</span><span class="n">stack_actions</span><span class="p">,</span> <span class="n">is_stack_deployed</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_handle_special_parameter_situations</span><span class="p">(</span><span class="n">stack_actions</span><span class="p">,</span> <span class="n">generated_config</span><span class="p">,</span> <span class="n">deployed_config</span><span class="p">)</span>
 
         <span class="n">template_diff</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compare_templates</span><span class="p">(</span><span class="n">deployed_template</span><span class="p">,</span> <span class="n">generated_template</span><span class="p">)</span>
         <span class="n">config_diff</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compare_stack_configurations</span><span class="p">(</span><span class="n">deployed_config</span><span class="p">,</span> <span class="n">generated_config</span><span class="p">)</span>
@@ -264,9 +312,6 @@
             <span class="n">generated_config</span><span class="p">,</span>
             <span class="n">generated_template</span>
         <span class="p">)</span></div>
-
-    <span class="k">def</span> <span class="nf">_generate_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack_actions</span><span class="p">:</span> <span class="n">StackActions</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">stack_actions</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_create_generated_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack</span><span class="p">:</span> <span class="n">Stack</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">StackConfiguration</span><span class="p">:</span>
         <span class="n">parameters</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_parameters_dict</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span>
@@ -291,32 +336,32 @@
 <span class="sd">        :param stack: The stack to extract the parameters from</span>
 <span class="sd">        :return: A dictionary of stack parameters to be compared.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">parameters</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">def</span> <span class="nf">resolve_or_replace</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Resolver</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">attr</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">resolve</span><span class="p">())</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="n">attr</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_represent_unresolvable_resolver</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
         <span class="c1"># parameters is a ResolvableProperty, but the underlying, pre-resolved parameters are</span>
         <span class="c1"># stored in _parameters. We might not actually be able to resolve values, such as in the</span>
         <span class="c1"># case where it attempts to get a value from a stack that doesn&#39;t exist yet.</span>
-        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">stack</span><span class="o">.</span><span class="n">_parameters</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Resolver</span><span class="p">):</span>
-                <span class="c1"># There might be some resolvers that we can still resolve values for.</span>
-                <span class="k">try</span><span class="p">:</span>
-                    <span class="n">value_to_use</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">resolve</span><span class="p">())</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-                    <span class="c1"># We catch any errors out of the resolver, since that usually indicates the stack</span>
-                    <span class="c1"># doesn&#39;t exist yet. In the end, this value likely won&#39;t matter, because if the</span>
-                    <span class="c1"># stack this one is dependent upon doesn&#39;t exist, this one most likely won&#39;t</span>
-                    <span class="c1"># exist either, so when deployed version is compared to this one, it will</span>
-                    <span class="c1"># indicate we&#39;re creating a new stack where one doesn&#39;t exist. The only place</span>
-                    <span class="c1"># this value would be shown is where the current stack DOES exist, but a new</span>
-                    <span class="c1"># dependency is added that does not exist yet. In which case, it will show the</span>
-                    <span class="c1"># most usable output we can provide right now.</span>
-                    <span class="n">value_to_use</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;!</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">&#39;</span>
-                    <span class="k">if</span> <span class="n">value</span><span class="o">.</span><span class="n">argument</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                        <span class="n">value_to_use</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;: </span><span class="si">{</span><span class="n">value</span><span class="o">.</span><span class="n">argument</span><span class="si">}</span><span class="s1">&#39;</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">value_to_use</span> <span class="o">=</span> <span class="n">value</span>
-            <span class="n">parameters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value_to_use</span>
+        <span class="n">unresolved_parameters_dict</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">_parameters</span>
+        <span class="n">_call_func_on_values</span><span class="p">(</span><span class="n">resolve_or_replace</span><span class="p">,</span> <span class="n">unresolved_parameters_dict</span><span class="p">,</span> <span class="n">Resolver</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">parameters</span>
+        <span class="n">formatted_parameters</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">stack</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+            <span class="n">formatted_parameters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+        <span class="k">return</span> <span class="n">formatted_parameters</span>
+
+    <span class="k">def</span> <span class="nf">_represent_unresolvable_resolver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resolver</span><span class="p">:</span> <span class="n">Resolver</span><span class="p">):</span>
+        <span class="n">base</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;!</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">resolver</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="n">suffix</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;(</span><span class="si">{</span><span class="n">resolver</span><span class="o">.</span><span class="n">argument</span><span class="si">}</span><span class="s1">)&#39;</span> <span class="k">if</span> <span class="n">resolver</span><span class="o">.</span><span class="n">argument</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+        <span class="c1"># double-braces in an f-string is just an escaped single brace</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="se">{{</span><span class="s1"> </span><span class="si">{</span><span class="n">base</span><span class="si">}{</span><span class="n">suffix</span><span class="si">}</span><span class="s1"> </span><span class="se">}}</span><span class="s1">&#39;</span>
 
     <span class="k">def</span> <span class="nf">_create_deployed_stack_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack_actions</span><span class="p">:</span> <span class="n">StackActions</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">StackConfiguration</span><span class="p">]:</span>
         <span class="n">description</span> <span class="o">=</span> <span class="n">stack_actions</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
@@ -330,7 +375,7 @@
                 <span class="k">return</span> <span class="kc">None</span>
             <span class="k">return</span> <span class="n">StackConfiguration</span><span class="p">(</span>
                 <span class="n">parameters</span><span class="o">=</span><span class="p">{</span>
-                    <span class="n">param</span><span class="p">[</span><span class="s1">&#39;ParameterKey&#39;</span><span class="p">]:</span> <span class="n">param</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ResolvedValue&#39;</span><span class="p">,</span> <span class="n">param</span><span class="p">[</span><span class="s1">&#39;ParameterValue&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+                    <span class="n">param</span><span class="p">[</span><span class="s1">&#39;ParameterKey&#39;</span><span class="p">]:</span> <span class="n">param</span><span class="p">[</span><span class="s1">&#39;ParameterValue&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
                     <span class="k">for</span> <span class="n">param</span>
                     <span class="ow">in</span> <span class="n">stack</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Parameters&#39;</span><span class="p">,</span> <span class="p">[])</span>
                 <span class="p">},</span>
@@ -343,13 +388,37 @@
                 <span class="n">role_arn</span><span class="o">=</span><span class="n">stack</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;RoleARN&#39;</span><span class="p">)</span>
             <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_remove_default_parameters_that_arent_passed</span><span class="p">(</span>
+    <span class="k">def</span> <span class="nf">_handle_special_parameter_situations</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">stack_actions</span><span class="p">:</span> <span class="n">StackActions</span><span class="p">,</span>
         <span class="n">generated_config</span><span class="p">:</span> <span class="n">StackConfiguration</span><span class="p">,</span>
         <span class="n">deployed_config</span><span class="p">:</span> <span class="n">StackConfiguration</span>
     <span class="p">):</span>
-        <span class="n">deployed_config_default_map</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_parameter_default_map</span><span class="p">(</span><span class="n">stack_actions</span><span class="p">)</span>
+        <span class="n">deployed_template_summary</span> <span class="o">=</span> <span class="n">stack_actions</span><span class="o">.</span><span class="n">fetch_remote_template_summary</span><span class="p">()</span>
+        <span class="n">generated_template_summary</span> <span class="o">=</span> <span class="n">stack_actions</span><span class="o">.</span><span class="n">fetch_local_template_summary</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">deployed_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># If the parameter is not passed by Sceptre and the value on the deployed parameter is</span>
+            <span class="c1"># the default value, we&#39;ll actually remove it from the deployed parameters list so it</span>
+            <span class="c1"># doesn&#39;t show up as a false positive.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_remove_deployed_default_parameters_that_arent_passed</span><span class="p">(</span>
+                <span class="n">deployed_template_summary</span><span class="p">,</span>
+                <span class="n">generated_config</span><span class="p">,</span>
+                <span class="n">deployed_config</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_no_echo</span><span class="p">:</span>
+            <span class="c1"># We don&#39;t actually want to show parameters Sceptre is passing that the local template</span>
+            <span class="c1"># marks as NoEcho parameters (unless show_no_echo is set to true). Therefore those</span>
+            <span class="c1"># parameter values will be masked.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_mask_no_echo_parameters</span><span class="p">(</span><span class="n">generated_template_summary</span><span class="p">,</span> <span class="n">generated_config</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_remove_deployed_default_parameters_that_arent_passed</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">template_summary</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+        <span class="n">generated_config</span><span class="p">:</span> <span class="n">StackConfiguration</span><span class="p">,</span>
+        <span class="n">deployed_config</span><span class="p">:</span> <span class="n">StackConfiguration</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">deployed_config_default_map</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_parameter_default_map</span><span class="p">(</span><span class="n">template_summary</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">parameter_key</span><span class="p">,</span> <span class="n">default_value</span> <span class="ow">in</span> <span class="n">deployed_config_default_map</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="c1"># If the generated config defines that parameter, leave that in the deployed config</span>
             <span class="c1"># so we can see the diff.</span>
@@ -362,18 +431,95 @@
             <span class="k">if</span> <span class="n">deployed_config</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">parameter_key</span><span class="p">]</span> <span class="o">==</span> <span class="n">default_value</span><span class="p">:</span>
                 <span class="k">del</span> <span class="n">deployed_config</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">parameter_key</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">_get_parameter_default_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack_actions</span><span class="p">:</span> <span class="n">StackActions</span><span class="p">):</span>
-        <span class="n">template_summary</span> <span class="o">=</span> <span class="n">stack_actions</span><span class="o">.</span><span class="n">fetch_remote_template_summary</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">_get_parameter_default_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">template_summary</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
         <span class="k">if</span> <span class="n">template_summary</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">{}</span>
 
         <span class="n">parameters</span> <span class="o">=</span> <span class="n">template_summary</span><span class="p">[</span><span class="s1">&#39;Parameters&#39;</span><span class="p">]</span>
-        <span class="n">default_map</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="n">parameter</span><span class="p">[</span><span class="s1">&#39;ParameterKey&#39;</span><span class="p">]:</span> <span class="s1">&#39;****&#39;</span> <span class="k">if</span> <span class="n">parameter</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;NoEcho&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="n">parameter</span><span class="p">[</span><span class="s1">&#39;DefaultValue&#39;</span><span class="p">]</span>
-            <span class="k">for</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="n">parameters</span>
-            <span class="k">if</span> <span class="s1">&#39;DefaultValue&#39;</span> <span class="ow">in</span> <span class="n">parameter</span>
-        <span class="p">}</span>
+        <span class="n">default_map</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="n">parameters</span><span class="p">:</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="n">parameter</span><span class="p">[</span><span class="s1">&#39;ParameterKey&#39;</span><span class="p">]</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_default_value</span><span class="p">(</span><span class="n">parameter</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">default_map</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
         <span class="k">return</span> <span class="n">default_map</span>
+
+    <span class="k">def</span> <span class="nf">_handle_default_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameter</span><span class="p">):</span>
+        <span class="n">default_value</span> <span class="o">=</span> <span class="n">parameter</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;DefaultValue&#39;</span><span class="p">)</span>
+        <span class="n">param_type</span> <span class="o">=</span> <span class="n">parameter</span><span class="p">[</span><span class="s1">&#39;ParameterType&#39;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">default_value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="n">parameter</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;NoEcho&#39;</span><span class="p">):</span>
+            <span class="n">default_value</span> <span class="o">=</span> <span class="s1">&#39;****&#39;</span>
+        <span class="k">elif</span> <span class="s1">&#39;List&#39;</span> <span class="ow">in</span> <span class="n">param_type</span><span class="p">:</span>
+            <span class="c1"># Eliminate whitespace around commas</span>
+            <span class="n">default_value</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">default_value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">default_value</span>
+
+    <span class="k">def</span> <span class="nf">_mask_no_echo_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">template_summary</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">generated_config</span><span class="p">:</span> <span class="n">StackConfiguration</span><span class="p">):</span>
+        <span class="n">parameters</span> <span class="o">=</span> <span class="n">template_summary</span><span class="p">[</span><span class="s1">&#39;Parameters&#39;</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="n">parameters</span><span class="p">:</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="n">parameter</span><span class="p">[</span><span class="s1">&#39;ParameterKey&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">parameter</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;NoEcho&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">generated_config</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span>
+                <span class="n">generated_config</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">NO_ECHO_REPLACEMENT</span>
+
+    <span class="k">def</span> <span class="nf">_generate_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack_actions</span><span class="p">:</span> <span class="n">StackActions</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">stack_actions</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="c1"># If we could not generate the stack, it COULD be because there are unresolvable</span>
+            <span class="c1"># resolvers in the sceptre_user_data and the template / template handler uses that</span>
+            <span class="c1"># sceptre_user_data in order to render. The most common case of this is when generating</span>
+            <span class="c1"># a diff where the template&#39;s user data uses a stack output from a stack that</span>
+            <span class="c1"># hasn&#39;t been deployed yet. We&#39;ll replace any unresolvable resolvers and then attempt the</span>
+            <span class="c1"># generation one more time. If we&#39;re successful, that will be the template we use in the</span>
+            <span class="c1"># diff.</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                <span class="s2">&quot;Error encountered attempting to render the template. Attempting to replace any &quot;</span>
+                <span class="s2">&quot;unresolved resolvers in the sceptre_user_data to see if that helps.&quot;</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_replace_unresolvable_user_data_resolvers</span><span class="p">(</span><span class="n">stack_actions</span><span class="o">.</span><span class="n">stack</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">stack_actions</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="c1"># We won&#39;t raise this exception here because it could be that the</span>
+                <span class="c1"># substituted values are invalid on the template, or some other issue. The error</span>
+                <span class="c1"># message raised from here wouldn&#39;t be understandible to the user since we&#39;ve swapped</span>
+                <span class="c1"># out the resolvers here, so we&#39;ll pass here and then reraise the original error.</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                    <span class="s2">&quot;Attempting to render the template with replaced sceptre_user_data failed. &quot;</span>
+                    <span class="s2">&quot;Reraising original error.&quot;</span><span class="p">,</span>
+                    <span class="n">exc_info</span><span class="o">=</span><span class="kc">True</span>
+                <span class="p">)</span>
+                <span class="k">pass</span>
+            <span class="k">raise</span>
+
+    <span class="k">def</span> <span class="nf">_replace_unresolvable_user_data_resolvers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack</span><span class="p">:</span> <span class="n">Stack</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Recursively traverses the sceptre_user_data and replaces unresolvable resolvers with</span>
+<span class="sd">        placeholder values so that we can continue to render the diff, even if the resolvers can&#39;t</span>
+<span class="sd">        be resolved right now.</span>
+
+<span class="sd">        :param stack: The stack whose sceptre_user_data cannot be resolved.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">def</span> <span class="nf">resolve_or_replace</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Resolver</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">attr</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="n">attr</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_represent_unresolvable_resolver</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+        <span class="c1"># Because the name is mangled, we cannot access the user data normally, so we need to access</span>
+        <span class="c1"># it directly out of the __dict__.</span>
+        <span class="n">user_data</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">&#39;__sceptre_user_data&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">user_data</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">_call_func_on_values</span><span class="p">(</span><span class="n">resolve_or_replace</span><span class="p">,</span> <span class="n">user_data</span><span class="p">,</span> <span class="n">Resolver</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_get_deployed_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack_actions</span><span class="p">:</span> <span class="n">StackActions</span><span class="p">,</span> <span class="n">is_deployed</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">is_deployed</span><span class="p">:</span>
@@ -385,7 +531,7 @@
     <span class="k">def</span> <span class="nf">compare_templates</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">deployed</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">generated</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">generated</span><span class="p">:</span> <span class="nb">str</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DiffType</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Implement this method to return the diff for the templates</span>
 
@@ -398,7 +544,7 @@
     <span class="k">def</span> <span class="nf">compare_stack_configurations</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">deployed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">StackConfiguration</span><span class="p">],</span>
-        <span class="n">generated</span><span class="p">:</span> <span class="n">StackConfiguration</span><span class="p">,</span>
+        <span class="n">generated</span><span class="p">:</span> <span class="n">StackConfiguration</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DiffType</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Implement this method to return the diff for the stack configurations.</span>
 
@@ -422,15 +568,19 @@
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
+        <span class="n">show_no_echo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">universal_template_loader</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">cfn_flip</span><span class="o">.</span><span class="n">load</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Initializes a DeepDiffStackDiffer.</span>
 
+<span class="sd">        :param show_no_echo: If True, local parameters passed that the template says are NoEcho</span>
+<span class="sd">            parameters will be displayed; Otherwise, they will be masked in the diff.</span>
 <span class="sd">        :param universal_template_loader: This should be a callable that can load either a json or</span>
 <span class="sd">            yaml string and return a tuple where the first element is the loaded template and the</span>
 <span class="sd">            second element is the template format (either &quot;json&quot; or &quot;yaml&quot;)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">show_no_echo</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">load_template</span> <span class="o">=</span> <span class="n">universal_template_loader</span>
 
 <div class="viewcode-block" id="DeepDiffStackDiffer.compare_stack_configurations"><a class="viewcode-back" href="../../../apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.DeepDiffStackDiffer.compare_stack_configurations">[docs]</a>    <span class="k">def</span> <span class="nf">compare_stack_configurations</span><span class="p">(</span>
@@ -444,7 +594,7 @@
             <span class="n">verbose_level</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">VERBOSITY_LEVEL_TO_INDICATE_CHANGED_VALUES</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="DeepDiffStackDiffer.compare_templates"><a class="viewcode-back" href="../../../apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.DeepDiffStackDiffer.compare_templates">[docs]</a>    <span class="k">def</span> <span class="nf">compare_templates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deployed</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">generated</span><span class="p">:</span> <span class="nb">str</span><span class="p">,)</span> <span class="o">-&gt;</span> <span class="n">deepdiff</span><span class="o">.</span><span class="n">DeepDiff</span><span class="p">:</span>
+<div class="viewcode-block" id="DeepDiffStackDiffer.compare_templates"><a class="viewcode-back" href="../../../apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.DeepDiffStackDiffer.compare_templates">[docs]</a>    <span class="k">def</span> <span class="nf">compare_templates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deployed</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">generated</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">deepdiff</span><span class="o">.</span><span class="n">DeepDiff</span><span class="p">:</span>
         <span class="c1"># We don&#39;t actually care about the original formats here, since we only care about the</span>
         <span class="c1"># template VALUES.</span>
         <span class="n">deployed_dict</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_template</span><span class="p">(</span><span class="n">deployed</span><span class="p">)</span>
@@ -463,18 +613,22 @@
 
 <span class="sd">    Because difflib generates diffs off of lists of strings, both StackConfigurations and</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
+        <span class="n">show_no_echo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">universal_template_loader</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">cfn_flip</span><span class="o">.</span><span class="n">load</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Initializes a DifflibStackDiffer.</span>
 
+<span class="sd">        :param show_no_echo: If True, local parameters passed that the template says are NoEcho</span>
+<span class="sd">            parameters will be displayed; Otherwise, they will be masked in the diff.</span>
 <span class="sd">        :param universal_template_loader: This should be a callable that can load either a json or</span>
 <span class="sd">            yaml string and return a tuple where the first element is the loaded template and the</span>
 <span class="sd">            second element is the template format (either &quot;json&quot; or &quot;yaml&quot;)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">show_no_echo</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">load_template</span> <span class="o">=</span> <span class="n">universal_template_loader</span>
 
 <div class="viewcode-block" id="DifflibStackDiffer.compare_stack_configurations"><a class="viewcode-back" href="../../../apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.DifflibStackDiffer.compare_stack_configurations">[docs]</a>    <span class="k">def</span> <span class="nf">compare_stack_configurations</span><span class="p">(</span>
@@ -482,13 +636,27 @@
         <span class="n">deployed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">StackConfiguration</span><span class="p">],</span>
         <span class="n">generated</span><span class="p">:</span> <span class="n">StackConfiguration</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-        <span class="n">deployed_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">deployed</span><span class="o">.</span><span class="n">_asdict</span><span class="p">())</span> <span class="k">if</span> <span class="n">deployed</span> <span class="k">else</span> <span class="p">{}</span>
-        <span class="n">deployed_string</span> <span class="o">=</span> <span class="n">cfn_flip</span><span class="o">.</span><span class="n">dump_yaml</span><span class="p">(</span><span class="n">deployed_dict</span><span class="p">)</span>
-        <span class="n">generated_string</span> <span class="o">=</span> <span class="n">cfn_flip</span><span class="o">.</span><span class="n">dump_yaml</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">generated</span><span class="o">.</span><span class="n">_asdict</span><span class="p">()))</span>
+        <span class="k">if</span> <span class="n">deployed</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">comparable_deployed</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">comparable_deployed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_stack_configuration_comparable</span><span class="p">(</span><span class="n">deployed</span><span class="p">)</span>
+
+        <span class="n">comparable_generated</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_stack_configuration_comparable</span><span class="p">(</span><span class="n">generated</span><span class="p">)</span>
+        <span class="n">deployed_string</span> <span class="o">=</span> <span class="n">cfn_flip</span><span class="o">.</span><span class="n">dump_yaml</span><span class="p">(</span><span class="n">comparable_deployed</span><span class="p">)</span>
+        <span class="n">generated_string</span> <span class="o">=</span> <span class="n">cfn_flip</span><span class="o">.</span><span class="n">dump_yaml</span><span class="p">(</span><span class="n">comparable_generated</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_string_diff</span><span class="p">(</span>
             <span class="n">deployed_string</span><span class="p">,</span>
             <span class="n">generated_string</span>
         <span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_make_stack_configuration_comparable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">StackConfiguration</span><span class="p">]):</span>
+        <span class="n">as_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">_asdict</span><span class="p">())</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="n">key</span><span class="p">:</span> <span class="n">value</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">as_dict</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="c1"># stack_name isn&#39;t always going to be the same, otherwise we wouldn&#39;t be comparing them.</span>
+            <span class="c1"># It&#39;s more confusing to have it in the diff output than to just remove it.</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="p">[],</span> <span class="p">{})</span> <span class="ow">and</span> <span class="n">key</span> <span class="o">!=</span> <span class="s1">&#39;stack_name&#39;</span>
+        <span class="p">}</span>
 
 <div class="viewcode-block" id="DifflibStackDiffer.compare_templates"><a class="viewcode-back" href="../../../apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.DifflibStackDiffer.compare_templates">[docs]</a>    <span class="k">def</span> <span class="nf">compare_templates</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>

@@ -229,6 +229,40 @@
 </div>
 <div class="section" id="module-sceptre.cli.diff">
 <span id="sceptre-cli-diff-module"></span><h2>sceptre.cli.diff module<a class="headerlink" href="#module-sceptre.cli.diff" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="sceptre.cli.diff.output_buffer_with_normalized_bar_lengths">
+<span class="sig-prename descclassname"><span class="pre">sceptre.cli.diff.</span></span><span class="sig-name descname"><span class="pre">output_buffer_with_normalized_bar_lengths</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">buffer</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">_io.StringIO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_stream</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">TextIO</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/cli/diff.html#output_buffer_with_normalized_bar_lengths"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.cli.diff.output_buffer_with_normalized_bar_lengths" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes the output from a buffer and ensures that the star and line bars are the same length
+across the entire buffer and that their length is the full width of longest line.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>buffer</strong> – The input stream to normalize bar lengths for</p></li>
+<li><p><strong>output_stream</strong> – The stream to output the normalized buffer into</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sceptre.cli.diff.output_diffs">
+<span class="sig-prename descclassname"><span class="pre">sceptre.cli.diff.</span></span><span class="sig-name descname"><span class="pre">output_diffs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">diffs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="sceptre.diffing.html#sceptre.diffing.stack_differ.StackDiff" title="sceptre.diffing.stack_differ.StackDiff"><span class="pre">sceptre.diffing.stack_differ.StackDiff</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">writer_class</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="sceptre.diffing.html#sceptre.diffing.diff_writer.DiffWriter" title="sceptre.diffing.diff_writer.DiffWriter"><span class="pre">sceptre.diffing.diff_writer.DiffWriter</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_buffer</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">TextIO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_format</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></span><a class="reference internal" href="../_modules/sceptre/cli/diff.html#output_diffs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.cli.diff.output_diffs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Outputs the diff results to the output_buffer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>diffs</strong> – The differences computed</p></li>
+<li><p><strong>writer_class</strong> – The DiffWriter class to be instantiated for each StackDiff</p></li>
+<li><p><strong>output_buffer</strong> – The buffer to write the diff results to</p></li>
+<li><p><strong>output_format</strong> – The format to output the results in</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The number of stacks that had a difference</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 <div class="section" id="module-sceptre.cli.execute">
 <span id="sceptre-cli-execute-module"></span><h2>sceptre.cli.execute module<a class="headerlink" href="#module-sceptre.cli.execute" title="Permalink to this headline">¶</a></h2>

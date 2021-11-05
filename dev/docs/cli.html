@@ -487,7 +487,7 @@ deletes a change set for stack in PATH.</p>
 <p>Indicates the difference between the currently DEPLOYED stacks in the command path and
 the stacks configured in Sceptre right now. This command will compare both the templates as well
 as the subset of stack configurations that can be compared.</p>
-<p>Note: Some settings (such as sceptre_user_data) are not available in a CloudFormation stack
+<p>Some settings (such as sceptre_user_data) are not available in a CloudFormation stack
 description, so the diff will not be indicated. Currently compared stack configurations are:</p>
 <div class="line-block">
 <div class="line">* parameters</div>
@@ -495,6 +495,19 @@ description, so the diff will not be indicated. Currently compared stack configu
 <div class="line">* role_arn</div>
 <div class="line">* stack_tags</div>
 </div>
+<p>Important: There are resolvers (notably !stack_output, among others) that rely on other stacks
+to be already deployed when they are resolved. When producing a diff on Stack Configs that have
+such resolvers that point to non-deployed stacks, this presents a challenge, since this means
+those resolvers cannot be resolved. This particularly applies to stack parameters and when a
+stack’s template uses sceptre_user_data with resolvers in it. In order to continue to be useful
+when producing a diff in these conditions, this command will do the following:</p>
+<p>1. If the resolver CAN be resolved, it will be resolved and the resolved value will be in the
+diff results.
+2. If the resolver CANNOT be resolved, it will be replaced with a string that represents the
+resolver and its arguments. For example: !stack_output my_stack.yaml::MyOutput will resolve in
+the parameters to “{ !StackOutput(my_stack.yaml::MyOutput) }”.</p>
+<p>Particularly in cases where the replaced value doesn’t work in the template as the template logic
+requires and causes an error, there is nothing further Sceptre can do and diffing will fail.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sceptre diff <span class="o">[</span>OPTIONS<span class="o">]</span> PATH
 </pre></div>
 </div>
@@ -508,6 +521,12 @@ description, so the diff will not be indicated. Currently compared stack configu
 <dd class="field-odd"><p>deepdiff | difflib</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-diff-s">
+<span id="cmdoption-sceptre-diff-show-no-echo"></span><span class="sig-name descname"><span class="pre">-s</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--show-no-echo</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-diff-s" title="Permalink to this definition">¶</a></dt>
+<dd><p>If set, will display the unmasked values of NoEcho parameters generated LOCALLY (NoEcho parameters for deployed stacks will always be masked when retrieved from CloudFormation.). If not set (the default), parameters identified as NoEcho on the local template will be masked when presented in the diff.</p>
 </dd></dl>
 
 <p class="rubric">Arguments</p>
