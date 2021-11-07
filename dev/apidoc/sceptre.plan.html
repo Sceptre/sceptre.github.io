@@ -120,7 +120,6 @@
 <li class="toctree-l3 current"><a class="reference internal" href="sceptre.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="sceptre.cli.html">sceptre.cli package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sceptre.config.html">sceptre.config package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sceptre.diffing.html">sceptre.diffing package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sceptre.hooks.html">sceptre.hooks package</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">sceptre.plan package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sceptre.resolvers.html">sceptre.resolvers package</a></li>
@@ -403,27 +402,6 @@ UPDATE_ROLLBACK_COMPLETE.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="sceptre.plan.actions.StackActions.diff">
-<span class="sig-name descname"><span class="pre">diff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stack_differ</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/actions.html#StackActions.diff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.plan.actions.StackActions.diff" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a diff of Template and Remote Template
-using a specific diff library.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>stack_differ</strong> – The diff lib to use, default difflib.</p>
-</dd>
-<dt class="field-even">Type</dt>
-<dd class="field-even"><p><a class="reference internal" href="sceptre.diffing.html#sceptre.diffing.stack_differ.StackDiffer" title="sceptre.diffing.stack_differ.StackDiffer">sceptre.diffing.stack_differ.StackDiffer</a></p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A StackDiff object.</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference internal" href="sceptre.diffing.html#sceptre.diffing.stack_differ.StackDiff" title="sceptre.diffing.stack_differ.StackDiff">sceptre.diffing.stack_differ.StackDiff</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="sceptre.plan.actions.StackActions.estimate_cost">
 <span class="sig-name descname"><span class="pre">estimate_cost</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/actions.html#StackActions.estimate_cost"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.plan.actions.StackActions.estimate_cost" title="Permalink to this definition">¶</a></dt>
 <dd><p>Estimates a Stack’s cost.</p>
@@ -456,27 +434,6 @@ using a specific diff library.</p>
 </dd>
 </dl>
 </dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="sceptre.plan.actions.StackActions.fetch_local_template_summary">
-<span class="sig-name descname"><span class="pre">fetch_local_template_summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/actions.html#StackActions.fetch_local_template_summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.plan.actions.StackActions.fetch_local_template_summary" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="sceptre.plan.actions.StackActions.fetch_remote_template">
-<span class="sig-name descname"><span class="pre">fetch_remote_template</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/sceptre/plan/actions.html#StackActions.fetch_remote_template"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.plan.actions.StackActions.fetch_remote_template" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the Template for the remote Stack</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>the template body.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="sceptre.plan.actions.StackActions.fetch_remote_template_summary">
-<span class="sig-name descname"><span class="pre">fetch_remote_template_summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/actions.html#StackActions.fetch_remote_template_summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.plan.actions.StackActions.fetch_remote_template_summary" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sceptre.plan.actions.StackActions.generate">
@@ -821,17 +778,6 @@ UPDATE_ROLLBACK_COMPLETE.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="sceptre.plan.plan.SceptrePlan.diff">
-<span class="sig-name descname"><span class="pre">diff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="sceptre.html#sceptre.stack.Stack" title="sceptre.stack.Stack"><span class="pre">sceptre.stack.Stack</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="sceptre.diffing.html#sceptre.diffing.stack_differ.StackDiff" title="sceptre.diffing.stack_differ.StackDiff"><span class="pre">sceptre.diffing.stack_differ.StackDiff</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/sceptre/plan/plan.html#SceptrePlan.diff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.plan.plan.SceptrePlan.diff" title="Permalink to this definition">¶</a></dt>
-<dd><p>Show diffs between the running and generated stack.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A dict where the keys are Stack objects and the values are StackDiffs.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="sceptre.plan.plan.SceptrePlan.estimate_cost">
 <span class="sig-name descname"><span class="pre">estimate_cost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/plan.html#SceptrePlan.estimate_cost"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.plan.plan.SceptrePlan.estimate_cost" title="Permalink to this definition">¶</a></dt>
 <dd><p>Estimates a Stack’s cost.</p>
@@ -861,20 +807,6 @@ UPDATE_ROLLBACK_COMPLETE.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="sceptre.plan.plan.SceptrePlan.fetch_remote_template">
-<span class="sig-name descname"><span class="pre">fetch_remote_template</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/plan.html#SceptrePlan.fetch_remote_template"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.plan.plan.SceptrePlan.fetch_remote_template" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a generated Template for a given Stack</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A list of Stacks and their template body.</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>List[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>]</p>
 </dd>
 </dl>
 </dd></dl>
