@@ -713,18 +713,11 @@ the type of template handler to load. Conflicts with <cite>template_path</cite>.
 </dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="sceptre.stack.Stack.connection_manager">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">connection_manager</span></span><a class="headerlink" href="#sceptre.stack.Stack.connection_manager" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="simple">
-<dt>Returns ConnectionManager.</dt><dd><dl class="field-list simple">
-<dt class="field-odd">returns</dt>
-<dd class="field-odd"><p>ConnectionManager.</p>
-</dd>
-</dl>
-</dd>
-</dl>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">connection_manager</span></span><em class="property"><span class="pre">:</span> <a class="reference internal" href="#sceptre.connection_manager.ConnectionManager" title="sceptre.connection_manager.ConnectionManager"><span class="pre">sceptre.connection_manager.ConnectionManager</span></a></em><a class="headerlink" href="#sceptre.stack.Stack.connection_manager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the ConnectionManager for the stack, creating it if it has not yet been created.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="#sceptre.connection_manager.ConnectionManager" title="sceptre.connection_manager.ConnectionManager">ConnectionManager</a></p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>ConnectionManager.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -735,6 +728,20 @@ the type of template handler to load. Conflicts with <cite>template_path</cite>.
 <dd><p>This is a descriptor class used to store an attribute that may contain
 Hook objects. Used to setup Hooks when added as a attribute. Supports
 nested dictionary and lists.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Attribute suffix used to store the property in the instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sceptre.stack.Stack.iam_role">
+<span class="sig-name descname"><span class="pre">iam_role</span></span><a class="headerlink" href="#sceptre.stack.Stack.iam_role" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a descriptor class used to store an attribute that may BE a single
+Resolver object. If it is a resolver, it will be resolved upon access of this property.
+When resolved, the resolved value will replace the resolver on the stack in order to avoid
+redundant resolutions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Attribute suffix used to store the property in the instance.</p>
