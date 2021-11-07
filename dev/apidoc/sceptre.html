@@ -773,6 +773,35 @@ resolved value, in order to avoid redundant resolutions.</p>
 </dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="sceptre.stack.Stack.role_arn">
+<span class="sig-name descname"><span class="pre">role_arn</span></span><a class="headerlink" href="#sceptre.stack.Stack.role_arn" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a descriptor class used to store an attribute that may BE a single
+Resolver object. If it is a resolver, it will be resolved upon access of this property.
+When resolved, the resolved value will replace the resolver on the stack in order to avoid
+redundant resolutions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Attribute suffix used to store the property in the instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sceptre.stack.Stack.s3_details">
+<span class="sig-name descname"><span class="pre">s3_details</span></span><a class="headerlink" href="#sceptre.stack.Stack.s3_details" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a descriptor class used to store an attribute that may CONTAIN
+Resolver objects. Resolvers will be resolved upon access of this property.
+When resolvers are resolved, they will be replaced in the container with their
+resolved value, in order to avoid redundant resolutions.</p>
+<p>Supports nested dictionary and lists.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Attribute suffix used to store the property in the instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="sceptre.stack.Stack.sceptre_user_data">
 <span class="sig-name descname"><span class="pre">sceptre_user_data</span></span><a class="headerlink" href="#sceptre.stack.Stack.sceptre_user_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is a descriptor class used to store an attribute that may CONTAIN
@@ -812,6 +841,34 @@ resolved value, in order to avoid redundant resolutions.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sceptre.stack.Stack.template_bucket_name">
+<span class="sig-name descname"><span class="pre">template_bucket_name</span></span><a class="headerlink" href="#sceptre.stack.Stack.template_bucket_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a descriptor class used to store an attribute that may BE a single
+Resolver object. If it is a resolver, it will be resolved upon access of this property.
+When resolved, the resolved value will replace the resolver on the stack in order to avoid
+redundant resolutions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Attribute suffix used to store the property in the instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sceptre.stack.Stack.template_key_prefix">
+<span class="sig-name descname"><span class="pre">template_key_prefix</span></span><a class="headerlink" href="#sceptre.stack.Stack.template_key_prefix" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a descriptor class used to store an attribute that may BE a single
+Resolver object. If it is a resolver, it will be resolved upon access of this property.
+When resolved, the resolved value will replace the resolver on the stack in order to avoid
+redundant resolutions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Attribute suffix used to store the property in the instance.</p>
 </dd>
 </dl>
 </dd></dl>
