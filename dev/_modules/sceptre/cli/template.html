@@ -1,0 +1,421 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>sceptre.cli.template &mdash; Sceptre 2.6.3 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Sceptre
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                dev
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/get_started.html">Get Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/terminology.html">Terminology</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/cli.html">Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/stack_group_config.html">StackGroup Config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/stack_config.html">Stack Config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/templates.html">Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/template_handlers.html">Template Handlers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/hooks.html">Hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/resolvers.html">Resolvers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/architecture.html">Architecting Sceptre</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Support</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../apidoc/modules.html">sceptre</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Sceptre</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../sceptre.html">sceptre</a> &raquo;</li>
+        
+      <li>sceptre.cli.template</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for sceptre.cli.template</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
+
+<span class="kn">import</span> <span class="nn">click</span>
+<span class="kn">import</span> <span class="nn">webbrowser</span>
+
+<span class="kn">from</span> <span class="nn">sceptre.context</span> <span class="kn">import</span> <span class="n">SceptreContext</span>
+<span class="kn">from</span> <span class="nn">sceptre.cli.helpers</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">catch_exceptions</span><span class="p">,</span>
+    <span class="n">write</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">sceptre.plan.plan</span> <span class="kn">import</span> <span class="n">SceptrePlan</span>
+<span class="kn">from</span> <span class="nn">sceptre.resolvers.placeholders</span> <span class="kn">import</span> <span class="n">use_resolver_placeholders_on_error</span><span class="p">,</span> <span class="n">PlaceholderType</span>
+
+
+<div class="viewcode-block" id="null_context"><a class="viewcode-back" href="../../../apidoc/sceptre.cli.html#sceptre.cli.template.null_context">[docs]</a><span class="nd">@contextmanager</span>
+<span class="k">def</span> <span class="nf">null_context</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;A context manager that does nothing. This is identical to the nullcontext in py3.7+, but isn&#39;t</span>
+<span class="sd">    available in py3.6, so providing it here instead.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">yield</span></div>
+
+
+<span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;validate&quot;</span><span class="p">,</span> <span class="n">short_help</span><span class="o">=</span><span class="s2">&quot;Validates the template.&quot;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
+    <span class="s1">&#39;-n&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;--no-placeholders&#39;</span><span class="p">,</span>
+    <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;If True, placeholder values will be supplied for resolvers that cannot be resolved.&quot;</span>
+<span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s2">&quot;path&quot;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">pass_context</span>
+<span class="nd">@catch_exceptions</span>
+<span class="k">def</span> <span class="nf">validate_command</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">no_placeholders</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Validates the template used for stack in PATH.</span>
+<span class="sd">    \f</span>
+
+<span class="sd">    :param path: Path to execute the command on.</span>
+<span class="sd">    :type path: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="n">SceptreContext</span><span class="p">(</span>
+        <span class="n">command_path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
+        <span class="n">project_path</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;project_path&quot;</span><span class="p">),</span>
+        <span class="n">user_variables</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;user_variables&quot;</span><span class="p">),</span>
+        <span class="n">options</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;options&quot;</span><span class="p">),</span>
+        <span class="n">output_format</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;output_format&quot;</span><span class="p">),</span>
+        <span class="n">ignore_dependencies</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ignore_dependencies&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="n">plan</span> <span class="o">=</span> <span class="n">SceptrePlan</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">no_placeholders</span><span class="p">:</span>
+        <span class="n">execution_context</span> <span class="o">=</span> <span class="n">null_context</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">execution_context</span> <span class="o">=</span> <span class="n">use_resolver_placeholders_on_error</span><span class="p">(</span><span class="n">PlaceholderType</span><span class="o">.</span><span class="n">alphanum</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">execution_context</span><span class="p">:</span>
+        <span class="n">responses</span> <span class="o">=</span> <span class="n">plan</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">stack</span><span class="p">,</span> <span class="n">response</span> <span class="ow">in</span> <span class="n">responses</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;ResponseMetadata&#39;</span><span class="p">][</span><span class="s1">&#39;HTTPStatusCode&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;ResponseMetadata&#39;</span><span class="p">]</span>
+            <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="s2">&quot;Template </span><span class="si">{}</span><span class="s2"> is valid. Template details:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stack</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+        <span class="n">write</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">context</span><span class="o">.</span><span class="n">output_format</span><span class="p">)</span>
+
+
+<span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;generate&quot;</span><span class="p">,</span> <span class="n">short_help</span><span class="o">=</span><span class="s2">&quot;Prints the template.&quot;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
+    <span class="s1">&#39;-n&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;--no-placeholders&#39;</span><span class="p">,</span>
+    <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;If True, placeholder values will be supplied for resolvers that cannot be resolved.&quot;</span>
+<span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s2">&quot;path&quot;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">pass_context</span>
+<span class="nd">@catch_exceptions</span>
+<span class="k">def</span> <span class="nf">generate_command</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">no_placeholders</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Prints the template used for stack in PATH.</span>
+<span class="sd">    \f</span>
+
+<span class="sd">    :param path: Path to execute the command on.</span>
+<span class="sd">    :type path: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="n">SceptreContext</span><span class="p">(</span>
+        <span class="n">command_path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
+        <span class="n">project_path</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;project_path&quot;</span><span class="p">),</span>
+        <span class="n">user_variables</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;user_variables&quot;</span><span class="p">),</span>
+        <span class="n">options</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;options&quot;</span><span class="p">),</span>
+        <span class="n">output_format</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;output_format&quot;</span><span class="p">),</span>
+        <span class="n">ignore_dependencies</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ignore_dependencies&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="n">plan</span> <span class="o">=</span> <span class="n">SceptrePlan</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+
+    <span class="n">execution_context</span> <span class="o">=</span> <span class="n">null_context</span><span class="p">()</span> <span class="k">if</span> <span class="n">no_placeholders</span> <span class="k">else</span> <span class="n">use_resolver_placeholders_on_error</span><span class="p">()</span>
+    <span class="k">with</span> <span class="n">execution_context</span><span class="p">:</span>
+        <span class="n">responses</span> <span class="o">=</span> <span class="n">plan</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
+
+    <span class="n">output</span> <span class="o">=</span> <span class="p">[</span><span class="n">template</span> <span class="k">for</span> <span class="n">template</span> <span class="ow">in</span> <span class="n">responses</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+    <span class="n">write</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">context</span><span class="o">.</span><span class="n">output_format</span><span class="p">)</span>
+
+
+<span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;estimate-cost&quot;</span><span class="p">,</span> <span class="n">short_help</span><span class="o">=</span><span class="s2">&quot;Estimates the cost of the template.&quot;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
+    <span class="s1">&#39;-n&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;--no-placeholders&#39;</span><span class="p">,</span>
+    <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;If True, placeholder values will be supplied for resolvers that cannot be resolved.&quot;</span>
+<span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s2">&quot;path&quot;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">pass_context</span>
+<span class="nd">@catch_exceptions</span>
+<span class="k">def</span> <span class="nf">estimate_cost_command</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">no_placeholders</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Prints a URI to STOUT that provides an estimated cost based on the</span>
+<span class="sd">    resources in the stack. This command will also attempt to open a web</span>
+<span class="sd">    browser with the returned URI.</span>
+<span class="sd">    \f</span>
+
+<span class="sd">    :param path: Path to execute the command on.</span>
+<span class="sd">    :type path: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="n">SceptreContext</span><span class="p">(</span>
+        <span class="n">command_path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
+        <span class="n">project_path</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;project_path&quot;</span><span class="p">),</span>
+        <span class="n">user_variables</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;user_variables&quot;</span><span class="p">),</span>
+        <span class="n">options</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;options&quot;</span><span class="p">),</span>
+        <span class="n">output_format</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;output_format&quot;</span><span class="p">),</span>
+        <span class="n">ignore_dependencies</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ignore_dependencies&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="n">plan</span> <span class="o">=</span> <span class="n">SceptrePlan</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">no_placeholders</span><span class="p">:</span>
+        <span class="n">execution_context</span> <span class="o">=</span> <span class="n">null_context</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">execution_context</span> <span class="o">=</span> <span class="n">use_resolver_placeholders_on_error</span><span class="p">(</span><span class="n">PlaceholderType</span><span class="o">.</span><span class="n">alphanum</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">execution_context</span><span class="p">:</span>
+        <span class="n">responses</span> <span class="o">=</span> <span class="n">plan</span><span class="o">.</span><span class="n">estimate_cost</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">stack</span><span class="p">,</span> <span class="n">response</span> <span class="ow">in</span> <span class="n">responses</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;ResponseMetadata&#39;</span><span class="p">][</span><span class="s1">&#39;HTTPStatusCode&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;ResponseMetadata&#39;</span><span class="p">]</span>
+            <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="s2">&quot;View the estimated cost for </span><span class="si">{}</span><span class="s2"> at:&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stack</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="s2">&quot;Url&quot;</span><span class="p">]</span>
+            <span class="n">webbrowser</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">new</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">write</span><span class="p">(</span><span class="n">response</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s1">&#39;text&#39;</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2018, Cloudreach.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+    <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: dev
+      <span class="fa fa-caret-down"></span>
+    </span>
+
+        <div class="rst-other-versions">
+            <dl id="other-versions">
+                <dt>Versions</dt>
+            </dl>
+            <dl>
+                
+                <dt>Other Links</dt>
+                
+
+                    <dd>
+                        <a href="https://www.cloudreach.com">Cloudreach</a>
+                    </dd>
+                
+
+                    <dd>
+                        <a href="https://www.sceptre.cloudreach.com">Sceptre Home</a>
+                    </dd>
+                
+            </dl>
+            <hr/>
+            Original template provided by <a href="http://www.readthedocs.org">Read the Docs</a>.
+        </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                $.getScript("../../../../version-helper.js").done(
+                    function () {
+                        versions.forEach(function (item, index) {
+                            if (item !== "dev") {
+                                $('#other-versions').append('<dd><a href="'+ window.location.origin + '/' + item +'">' + item + "<a/></dd>");
+                            }
+                        })
+                    });
+            });
+        </script>
+    </div>
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

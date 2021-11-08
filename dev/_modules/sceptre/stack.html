@@ -305,13 +305,19 @@
     <span class="n">parameters</span> <span class="o">=</span> <span class="n">ResolvableContainerProperty</span><span class="p">(</span><span class="s2">&quot;parameters&quot;</span><span class="p">)</span>
     <span class="n">sceptre_user_data</span> <span class="o">=</span> <span class="n">ResolvableContainerProperty</span><span class="p">(</span><span class="s2">&quot;sceptre_user_data&quot;</span><span class="p">)</span>
     <span class="n">notifications</span> <span class="o">=</span> <span class="n">ResolvableContainerProperty</span><span class="p">(</span><span class="s2">&quot;notifications&quot;</span><span class="p">)</span>
-    <span class="n">tags</span> <span class="o">=</span> <span class="n">ResolvableContainerProperty</span><span class="p">(</span><span class="s2">&quot;tags&quot;</span><span class="p">)</span>
-
-    <span class="n">s3_details</span> <span class="o">=</span> <span class="n">ResolvableContainerProperty</span><span class="p">(</span><span class="s2">&quot;s3_details&quot;</span><span class="p">)</span>
-    <span class="n">template_bucket_name</span> <span class="o">=</span> <span class="n">ResolvableValueProperty</span><span class="p">(</span><span class="s2">&quot;template_bucket_name&quot;</span><span class="p">)</span>
-    <span class="n">template_key_prefix</span> <span class="o">=</span> <span class="n">ResolvableValueProperty</span><span class="p">(</span><span class="s2">&quot;template_key_prefix&quot;</span><span class="p">)</span>
-    <span class="n">role_arn</span> <span class="o">=</span> <span class="n">ResolvableValueProperty</span><span class="p">(</span><span class="s2">&quot;role_arn&quot;</span><span class="p">)</span>
-    <span class="n">iam_role</span> <span class="o">=</span> <span class="n">ResolvableValueProperty</span><span class="p">(</span><span class="s1">&#39;iam_role&#39;</span><span class="p">)</span>
+    <span class="n">tags</span> <span class="o">=</span> <span class="n">ResolvableContainerProperty</span><span class="p">(</span><span class="s1">&#39;tags&#39;</span><span class="p">)</span>
+    <span class="c1"># placeholder_override=None here means that if the template_bucket_name is a resolver,</span>
+    <span class="c1"># placeholders have been enabled, and that stack hasn&#39;t been deployed yet, commands that would</span>
+    <span class="c1"># otherwise attempt to upload the template (like validate) won&#39;t actually use the template bucket</span>
+    <span class="c1"># and will act as if there was no template bucket set.</span>
+    <span class="n">s3_details</span> <span class="o">=</span> <span class="n">ResolvableContainerProperty</span><span class="p">(</span><span class="s2">&quot;s3_details&quot;</span><span class="p">,</span> <span class="n">placeholder_override</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">template_bucket_name</span> <span class="o">=</span> <span class="n">ResolvableValueProperty</span><span class="p">(</span><span class="s2">&quot;template_bucket_name&quot;</span><span class="p">,</span> <span class="n">placeholder_override</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">template_key_prefix</span> <span class="o">=</span> <span class="n">ResolvableValueProperty</span><span class="p">(</span><span class="s2">&quot;template_key_prefix&quot;</span><span class="p">,</span> <span class="n">placeholder_override</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="c1"># Similarly, the placeholder_override=None for iam_role means that actions that would otherwise</span>
+    <span class="c1"># use the iam_role will act as if there was no iam role when the iam_role stack has not been</span>
+    <span class="c1"># deployed for commands that allow placeholders (like validate).</span>
+    <span class="n">iam_role</span> <span class="o">=</span> <span class="n">ResolvableValueProperty</span><span class="p">(</span><span class="s1">&#39;iam_role&#39;</span><span class="p">,</span> <span class="n">placeholder_override</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">role_arn</span> <span class="o">=</span> <span class="n">ResolvableValueProperty</span><span class="p">(</span><span class="s1">&#39;role_arn&#39;</span><span class="p">)</span>
 
     <span class="n">hooks</span> <span class="o">=</span> <span class="n">HookProperty</span><span class="p">(</span><span class="s2">&quot;hooks&quot;</span><span class="p">)</span>
 
