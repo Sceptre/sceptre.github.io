@@ -268,7 +268,6 @@ raises a NotImplementedError.</p>
 <li class="toctree-l2"><a class="reference internal" href="sceptre.resolvers.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sceptre.resolvers.html#module-sceptre.resolvers.environment_variable">sceptre.resolvers.environment_variable module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sceptre.resolvers.html#module-sceptre.resolvers.file_contents">sceptre.resolvers.file_contents module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sceptre.resolvers.html#module-sceptre.resolvers.placeholders">sceptre.resolvers.placeholders module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sceptre.resolvers.html#module-sceptre.resolvers.stack_output">sceptre.resolvers.stack_output module</a></li>
 </ul>
 </li>
@@ -677,7 +676,7 @@ trailing slash.
 <p>This module implements a Stack class, which stores a Stack’s data.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="sceptre.stack.Stack">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sceptre.stack.</span></span><span class="sig-name descname"><span class="pre">Stack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template_handler_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template_bucket_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template_key_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">required_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sceptre_user_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hooks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s3_details</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iam_role</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dependencies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role_arn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">protected</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">external_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">notifications</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_failure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_project_dependency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack_group_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/stack.html#Stack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.stack.Stack" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sceptre.stack.</span></span><span class="sig-name descname"><span class="pre">Stack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template_handler_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template_bucket_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template_key_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">required_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sceptre_user_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hooks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s3_details</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iam_role</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dependencies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role_arn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">protected</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">external_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">notifications</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_failure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack_group_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/stack.html#Stack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.stack.Stack" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Stack stores information about a particular CloudFormation Stack.</p>
 <dl class="field-list simple">
@@ -708,18 +707,24 @@ the type of template handler to load. Conflicts with <cite>template_path</cite>.
 <li><p><strong>iam_role</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The ARN of a role for Sceptre to assume before interacting            with the environment. If not supplied, Sceptre uses the user’s AWS CLI            credentials.</p></li>
 <li><p><strong>profile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The name of the profile as defined in ~/.aws/config and            ~/.aws/credentials.</p></li>
 <li><p><strong>stack_timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – A timeout in minutes before considering the Stack            deployment as failed. After the specified timeout, the Stack will            be rolled back. Specifiyng zero, as well as ommiting the field,            will result in no timeout. Supports only positive integer value.</p></li>
-<li><p><strong>is_project_dependency</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Indicates whether or not the the stack is a            special dependency of the stack. If True, disables all dependencies            on the the current stack.</p></li>
 <li><p><strong>stack_group_config</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – The StackGroup config for the Stack</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="sceptre.stack.Stack.connection_manager">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">connection_manager</span></span><em class="property"><span class="pre">:</span> <a class="reference internal" href="#sceptre.connection_manager.ConnectionManager" title="sceptre.connection_manager.ConnectionManager"><span class="pre">sceptre.connection_manager.ConnectionManager</span></a></em><a class="headerlink" href="#sceptre.stack.Stack.connection_manager" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the ConnectionManager for the stack, creating it if it has not yet been created.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">connection_manager</span></span><a class="headerlink" href="#sceptre.stack.Stack.connection_manager" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Returns ConnectionManager.</dt><dd><dl class="field-list simple">
+<dt class="field-odd">returns</dt>
 <dd class="field-odd"><p>ConnectionManager.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#sceptre.connection_manager.ConnectionManager" title="sceptre.connection_manager.ConnectionManager">ConnectionManager</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -738,104 +743,22 @@ nested dictionary and lists.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="sceptre.stack.Stack.iam_role">
-<span class="sig-name descname"><span class="pre">iam_role</span></span><a class="headerlink" href="#sceptre.stack.Stack.iam_role" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is a descriptor class used to store an attribute that may BE a single
-Resolver object. If it is a resolver, it will be resolved upon access of this property.
-When resolved, the resolved value will replace the resolver on the stack in order to avoid
-redundant resolutions.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Attribute suffix used to store the property in the instance.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="sceptre.stack.Stack.notifications">
-<span class="sig-name descname"><span class="pre">notifications</span></span><a class="headerlink" href="#sceptre.stack.Stack.notifications" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is a descriptor class used to store an attribute that may CONTAIN
-Resolver objects. Resolvers will be resolved upon access of this property.
-When resolvers are resolved, they will be replaced in the container with their
-resolved value, in order to avoid redundant resolutions.</p>
-<p>Supports nested dictionary and lists.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Attribute suffix used to store the property in the instance.</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">notifications</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#sceptre.stack.Stack.notifications" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="sceptre.stack.Stack.parameters">
-<span class="sig-name descname"><span class="pre">parameters</span></span><a class="headerlink" href="#sceptre.stack.Stack.parameters" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is a descriptor class used to store an attribute that may CONTAIN
-Resolver objects. Resolvers will be resolved upon access of this property.
-When resolvers are resolved, they will be replaced in the container with their
-resolved value, in order to avoid redundant resolutions.</p>
-<p>Supports nested dictionary and lists.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Attribute suffix used to store the property in the instance.</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">parameters</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#sceptre.stack.Stack.parameters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="sceptre.stack.Stack.role_arn">
-<span class="sig-name descname"><span class="pre">role_arn</span></span><a class="headerlink" href="#sceptre.stack.Stack.role_arn" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is a descriptor class used to store an attribute that may BE a single
-Resolver object. If it is a resolver, it will be resolved upon access of this property.
-When resolved, the resolved value will replace the resolver on the stack in order to avoid
-redundant resolutions.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Attribute suffix used to store the property in the instance.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="sceptre.stack.Stack.s3_details">
-<span class="sig-name descname"><span class="pre">s3_details</span></span><a class="headerlink" href="#sceptre.stack.Stack.s3_details" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is a descriptor class used to store an attribute that may CONTAIN
-Resolver objects. Resolvers will be resolved upon access of this property.
-When resolvers are resolved, they will be replaced in the container with their
-resolved value, in order to avoid redundant resolutions.</p>
-<p>Supports nested dictionary and lists.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Attribute suffix used to store the property in the instance.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
+<dl class="py property">
 <dt class="sig sig-object py" id="sceptre.stack.Stack.sceptre_user_data">
-<span class="sig-name descname"><span class="pre">sceptre_user_data</span></span><a class="headerlink" href="#sceptre.stack.Stack.sceptre_user_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is a descriptor class used to store an attribute that may CONTAIN
-Resolver objects. Resolvers will be resolved upon access of this property.
-When resolvers are resolved, they will be replaced in the container with their
-resolved value, in order to avoid redundant resolutions.</p>
-<p>Supports nested dictionary and lists.</p>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">sceptre_user_data</span></span><a class="headerlink" href="#sceptre.stack.Stack.sceptre_user_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns sceptre_user_data after ensuring that it is fully resolved.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Attribute suffix used to store the property in the instance.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="sceptre.stack.Stack.tags">
-<span class="sig-name descname"><span class="pre">tags</span></span><a class="headerlink" href="#sceptre.stack.Stack.tags" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is a descriptor class used to store an attribute that may CONTAIN
-Resolver objects. Resolvers will be resolved upon access of this property.
-When resolvers are resolved, they will be replaced in the container with their
-resolved value, in order to avoid redundant resolutions.</p>
-<p>Supports nested dictionary and lists.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Attribute suffix used to store the property in the instance.</p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a> or <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a> or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)">None</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -850,34 +773,6 @@ resolved value, in order to avoid redundant resolutions.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="sceptre.stack.Stack.template_bucket_name">
-<span class="sig-name descname"><span class="pre">template_bucket_name</span></span><a class="headerlink" href="#sceptre.stack.Stack.template_bucket_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is a descriptor class used to store an attribute that may BE a single
-Resolver object. If it is a resolver, it will be resolved upon access of this property.
-When resolved, the resolved value will replace the resolver on the stack in order to avoid
-redundant resolutions.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Attribute suffix used to store the property in the instance.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="sceptre.stack.Stack.template_key_prefix">
-<span class="sig-name descname"><span class="pre">template_key_prefix</span></span><a class="headerlink" href="#sceptre.stack.Stack.template_key_prefix" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is a descriptor class used to store an attribute that may BE a single
-Resolver object. If it is a resolver, it will be resolved upon access of this property.
-When resolved, the resolved value will replace the resolver on the stack in order to avoid
-redundant resolutions.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Attribute suffix used to store the property in the instance.</p>
 </dd>
 </dl>
 </dd></dl>
