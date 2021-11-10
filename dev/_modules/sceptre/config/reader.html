@@ -242,7 +242,8 @@
     <span class="s2">&quot;template_bucket_name&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
     <span class="s2">&quot;template_key_value&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
     <span class="s2">&quot;template_path&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
-    <span class="s2">&quot;template&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span>
+    <span class="s2">&quot;template&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
+    <span class="s2">&quot;is_project_dependency&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span>
 <span class="p">}</span>
 
 <span class="n">STACK_GROUP_CONFIG_ATTRIBUTES</span> <span class="o">=</span> <span class="n">ConfigAttributes</span><span class="p">(</span>
@@ -455,7 +456,9 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">stacks</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">stack</span> <span class="ow">in</span> <span class="n">stack_map</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">ignore_dependencies</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">ignore_dependencies</span> <span class="ow">or</span> <span class="n">stack</span><span class="o">.</span><span class="n">is_project_dependency</span><span class="p">:</span>
+                <span class="n">stack</span><span class="o">.</span><span class="n">dependencies</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">else</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">dep</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">stack</span><span class="o">.</span><span class="n">dependencies</span><span class="p">):</span>
                     <span class="k">try</span><span class="p">:</span>
                         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dep</span><span class="p">,</span> <span class="n">Stack</span><span class="p">):</span>
@@ -471,9 +474,6 @@
                             <span class="s2">&quot;have their full path from `config` defined.&quot;</span>
                             <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stackname</span><span class="o">=</span><span class="n">stack</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">dep</span><span class="o">=</span><span class="n">dep</span><span class="p">,</span>
                                     <span class="n">stackkeys</span><span class="o">=</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">stack_map</span><span class="o">.</span><span class="n">keys</span><span class="p">())))</span>
-
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">stack</span><span class="o">.</span><span class="n">dependencies</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="n">stacks</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">stacks</span></div>
 
@@ -661,7 +661,9 @@
 <span class="sd">        :rtype: dict</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">s3_details</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">if</span> <span class="s2">&quot;template_bucket_name&quot;</span> <span class="ow">in</span> <span class="n">config</span><span class="p">:</span>
+        <span class="c1"># If the config explicitly sets the template_bucket_name to None, we don&#39;t want to enter</span>
+        <span class="c1"># this conditional block.</span>
+        <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;template_bucket_name&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">template_key</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span>
                 <span class="n">sceptreise_path</span><span class="p">(</span><span class="n">stack_name</span><span class="p">),</span> <span class="s2">&quot;</span><span class="si">{time_stamp}</span><span class="s2">.json&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="n">time_stamp</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span>
@@ -714,6 +716,12 @@
         <span class="n">s3_details</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collect_s3_details</span><span class="p">(</span>
             <span class="n">stack_name</span><span class="p">,</span> <span class="n">config</span>
         <span class="p">)</span>
+        <span class="n">is_project_dependency</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;is_project_dependency&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">is_project_dependency</span><span class="p">:</span>
+            <span class="n">dependencies</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">dependencies</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;dependencies&quot;</span><span class="p">,</span> <span class="p">[])</span>
+
         <span class="n">stack</span> <span class="o">=</span> <span class="n">Stack</span><span class="p">(</span>
             <span class="n">name</span><span class="o">=</span><span class="n">stack_name</span><span class="p">,</span>
             <span class="n">project_code</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;project_code&quot;</span><span class="p">],</span>
@@ -729,7 +737,7 @@
             <span class="n">sceptre_user_data</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;sceptre_user_data&quot;</span><span class="p">,</span> <span class="p">{}),</span>
             <span class="n">hooks</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;hooks&quot;</span><span class="p">,</span> <span class="p">{}),</span>
             <span class="n">s3_details</span><span class="o">=</span><span class="n">s3_details</span><span class="p">,</span>
-            <span class="n">dependencies</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;dependencies&quot;</span><span class="p">,</span> <span class="p">[]),</span>
+            <span class="n">dependencies</span><span class="o">=</span><span class="n">dependencies</span><span class="p">,</span>
             <span class="n">role_arn</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;role_arn&quot;</span><span class="p">),</span>
             <span class="n">protected</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;protect&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
             <span class="n">tags</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;stack_tags&quot;</span><span class="p">,</span> <span class="p">{}),</span>
@@ -737,7 +745,8 @@
             <span class="n">notifications</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;notifications&quot;</span><span class="p">),</span>
             <span class="n">on_failure</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;on_failure&quot;</span><span class="p">),</span>
             <span class="n">stack_timeout</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;stack_timeout&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
-            <span class="n">stack_group_config</span><span class="o">=</span><span class="n">parsed_stack_group_config</span>
+            <span class="n">stack_group_config</span><span class="o">=</span><span class="n">parsed_stack_group_config</span><span class="p">,</span>
+            <span class="n">is_project_dependency</span><span class="o">=</span><span class="n">is_project_dependency</span>
         <span class="p">)</span>
 
         <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">templating_vars</span><span class="p">[</span><span class="s2">&quot;stack_group_config&quot;</span><span class="p">]</span>
