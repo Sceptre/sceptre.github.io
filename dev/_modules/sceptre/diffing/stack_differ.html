@@ -511,7 +511,9 @@
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">attr</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
             <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-                <span class="n">attr</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_represent_unresolvable_resolver</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                <span class="n">explicit_resolver_repr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_represent_unresolvable_resolver</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                <span class="n">only_alphanumeric</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">explicit_resolver_repr</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">isalnum</span><span class="p">())</span>
+                <span class="n">attr</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">only_alphanumeric</span>
 
         <span class="c1"># Because the name is mangled, we cannot access the user data normally, so we need to access</span>
         <span class="c1"># it directly out of the __dict__.</span>
