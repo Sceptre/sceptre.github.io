@@ -191,6 +191,7 @@
 
 <span class="kn">from</span> <span class="nn">sceptre.helpers</span> <span class="kn">import</span> <span class="n">_call_func_on_values</span>
 
+
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">sceptre</span> <span class="kn">import</span> <span class="n">stack</span>
 
@@ -359,18 +360,31 @@
         <span class="k">return</span> <span class="n">container</span>
 
 <div class="viewcode-block" id="ResolvableContainerProperty.get_resolved_value"><a class="viewcode-back" href="../../apidoc/sceptre.resolvers.html#sceptre.resolvers.ResolvableContainerProperty.get_resolved_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_resolved_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack</span><span class="p">:</span> <span class="s1">&#39;stack.Stack&#39;</span><span class="p">,</span> <span class="n">stack_class</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="s1">&#39;stack.Stack&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">T_Container</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Obtains the resolved value for this property.</span>
+        <span class="sd">&quot;&quot;&quot;Obtains the resolved value for this property. Any resolvers that resolve to None will have</span>
+<span class="sd">        their key/index removed from their dict/list where they are. Other resolvers will have their</span>
+<span class="sd">        key/index&#39;s value replace with the resolved value to avoid redundant resolutions.</span>
 
 <span class="sd">        :param stack: The Stack instance to obtain the value for</span>
 <span class="sd">        :param stack_class: The class of the Stack instance.</span>
 <span class="sd">        :return: The fully resolved container.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">keys_to_delete</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="k">def</span> <span class="nf">resolve</span><span class="p">(</span><span class="n">attr</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">list</span><span class="p">],</span> <span class="n">key</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">value</span><span class="p">:</span> <span class="n">Resolver</span><span class="p">):</span>
             <span class="c1"># Update the container key&#39;s value with the resolved value, if possible...</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">resolve_resolver_value</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-                <span class="n">attr</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span>
+                <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Removing item </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2"> because resolver returned None.&quot;</span><span class="p">)</span>
+                    <span class="c1"># We gather up resolvers (and their immediate containers) that resolve to None,</span>
+                    <span class="c1"># since that really means the resolver resolves to nothing. This is not common,</span>
+                    <span class="c1"># but will be the case when a StackOutput resolver is on a project dependency</span>
+                    <span class="c1"># stack. We gather these rather than immediately remove them because this</span>
+                    <span class="c1"># function is called in the context of looping over that attr, so we cannot</span>
+                    <span class="c1"># alter its size until after the loop is complete.</span>
+                    <span class="n">keys_to_delete</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">attr</span><span class="p">,</span> <span class="n">key</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">attr</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span>
             <span class="k">except</span> <span class="n">RecursiveResolve</span><span class="p">:</span>
                 <span class="c1"># It&#39;s possible that resolving the resolver might attempt to access another</span>
                 <span class="c1"># resolvable property&#39;s value in this same container. In this case, we&#39;ll delay</span>
@@ -387,6 +401,9 @@
         <span class="n">_call_func_on_values</span><span class="p">(</span>
             <span class="n">resolve</span><span class="p">,</span> <span class="n">container</span><span class="p">,</span> <span class="n">Resolver</span>
         <span class="p">)</span>
+        <span class="c1"># Remove keys and indexes from their containers that had resolvers resolve to None.</span>
+        <span class="k">for</span> <span class="n">attr</span><span class="p">,</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys_to_delete</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">attr</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
 
         <span class="k">return</span> <span class="n">container</span></div>
 
@@ -469,7 +486,12 @@
         <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
             <span class="sd">&quot;&quot;&quot;Resolve the value.&quot;&quot;&quot;</span>
             <span class="n">attr</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_instance</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">)</span>
-            <span class="n">attr</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_key</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolution_function</span><span class="p">()</span></div></div>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolution_function</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Removing item </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_key</span><span class="si">}</span><span class="s2"> because resolver returned None.&quot;</span><span class="p">)</span>
+                <span class="k">del</span> <span class="n">attr</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_key</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">attr</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span></div></div>
 
 
 <div class="viewcode-block" id="ResolvableValueProperty"><a class="viewcode-back" href="../../apidoc/sceptre.resolvers.html#sceptre.resolvers.ResolvableValueProperty">[docs]</a><span class="k">class</span> <span class="nc">ResolvableValueProperty</span><span class="p">(</span><span class="n">ResolvableProperty</span><span class="p">):</span>
