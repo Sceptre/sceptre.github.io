@@ -267,11 +267,12 @@ a string, json, or yaml object.</p>
 and builds that Stack before the current one.</p>
 <p>This resolver will add a dependency for the Stack in which needs the output
 from.</p>
-<p><strong>Important</strong>: You cannot use the stack_output resolver on stacks where <code class="docutils literal notranslate"><span class="pre">is_project_dependency</span></code> is
-<code class="docutils literal notranslate"><span class="pre">True</span></code>. If the stack_output resolver is used on a project dependency stack, it will resolve to
-<code class="docutils literal notranslate"><span class="pre">None</span></code> and that key/value pair will be removed from the dict or list it was defined in. This is
-to avoid unresolvable tangles of dependencies, since project dependencies are supposed to be the
-highest level dependency in the project, depending on no other stacks.</p>
+<p><strong>Important</strong>: You cannot use the stack_output resolver on stacks where
+<a class="reference internal" href="stack_config.html#project-dependency-config"><span class="std std-ref">is_project_dependency</span></a> is <code class="docutils literal notranslate"><span class="pre">True</span></code>. If the stack_output resolver is used
+on a project dependency stack, it will resolve to <code class="docutils literal notranslate"><span class="pre">None</span></code> and that key/value pair will be removed
+from the dict or list it was defined in. This is to avoid unresolvable tangles of dependencies, since
+project dependencies are supposed to be the highest level dependency in the project, depending on no
+other stacks.</p>
 </div>
 <div class="section" id="stack-output-external">
 <h3>stack_output_external<a class="headerlink" href="#stack-output-external" title="Permalink to this headline">¶</a></h3>
@@ -435,7 +436,8 @@ used them in <code class="docutils literal notranslate"><span class="pre">sceptr
 resolver cannot be resolved), a <strong>best-attempt placeholder value</strong> will be supplied in to allow the
 command to proceed. Depending on how your template or Stack Config is configured, the command may or
 may not actually succeed using that placeholder value.</p>
-<p>Any command that allows these placeholders can have them disabled with a ClI option.</p>
+<p>Any command that allows these placeholders can have them disabled with the <code class="docutils literal notranslate"><span class="pre">--no-placeholders</span></code> ClI
+option.</p>
 </div>
 </div>
 </div>

@@ -368,13 +368,13 @@ actions (i.e. the <code class="docutils literal notranslate"><span class="pre">r
 <p>These sorts of dependencies CAN be defined in Sceptre and added at the StackGroup level, referenced
 using <code class="docutils literal notranslate"><span class="pre">!stack_output</span></code>. They can even can be set in the highest-level config.yaml, right next to
 <code class="docutils literal notranslate"><span class="pre">project_code</span></code> and <code class="docutils literal notranslate"><span class="pre">region</span></code>. Doing so will make it so that every stack in the StackGroup (or
-even in the entire project) will be have those dependencies and get those values from Sceptre-managed
+even in the entire project) will have those dependencies and get those values from Sceptre-managed
 stacks.</p>
 <p>Beyond the above mentioned config keys, it is possible to set the <code class="docutils literal notranslate"><span class="pre">dependencies</span></code> config key in a
 StackGroup config to be inherited by all Stack configs in that group. All dependencies in child
 stacks will be added to their inherited StackGroup dependencies, so be careful how you structure
 dependencies.</p>
-<p><strong>Important</strong>: You might have already considered this might cause a circular dependency for those
+<p><strong>Important</strong>: You might have already considered that this might cause a circular dependency for those
 dependency stacks, the ones that output the template bucket name, role arn, or topic arns. In order
 to break the circular dependency, you can set <code class="docutils literal notranslate"><span class="pre">is_project_dependency:</span> <span class="pre">True</span></code> on those dependency
 stacks. As described in the documentation for <a class="reference internal" href="stack_config.html#project-dependency-config"><span class="std std-ref">is_project_dependency</span></a>,

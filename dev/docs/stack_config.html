@@ -435,10 +435,10 @@ permissions set to perform the required actions on that stack, such as might be 
 CI/CD system like Jenkins.</p>
 <p>In order to use this argument, however, the role needs to have an AssumeRolePolicyDocument that
 permits the user to assume that role.</p>
-<p><strong>Important</strong>: If you use set the value of the <code class="docutils literal notranslate"><span class="pre">iam_role</span></code> with <code class="docutils literal notranslate"><span class="pre">!stack_output</span></code>, that <cite>iam_role</cite>
-will not actually be used to obtain the stack_output, but it WILL be used for all subsequent stack
-actions. Therefore, it is important that the user executing the stack have permissions to get stack
-outputs for the stack outputting the <code class="docutils literal notranslate"><span class="pre">iam_role</span></code>.</p>
+<p><strong>Important</strong>: If you use set the value of <code class="docutils literal notranslate"><span class="pre">iam_role</span></code> with <code class="docutils literal notranslate"><span class="pre">!stack_output</span></code>, that <code class="docutils literal notranslate"><span class="pre">iam_role</span></code>
+will not actually be used to obtain the stack_output, but it <em>WILL</em> be used for all subsequent stack
+actions. Therefore, it is important that the user executing the stack action have permissions to get
+stack outputs for the stack outputting the <code class="docutils literal notranslate"><span class="pre">iam_role</span></code>.</p>
 </div>
 <div class="section" id="sceptre-user-data">
 <h3>sceptre_user_data<a class="headerlink" href="#sceptre-user-data" title="Permalink to this headline">¶</a></h3>
