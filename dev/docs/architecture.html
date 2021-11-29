@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Architecting Sceptre &mdash; Sceptre 2.6.3 documentation</title>
+  <title>Architecting Sceptre &mdash; Sceptre 2.7.0 documentation</title>
   
 
   
@@ -112,19 +112,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#directory-layout">Directory layout</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stackgroup-structure">StackGroup structure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#example-architectures">Example architectures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#a-complete-sceptre-project-example-explained">A complete Sceptre project example, explained</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#project-structure">Project Structure</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#example-configs">Example Configs</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#top-level-project-configuration">Top-level project configuration</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#the-deployment-stack">The Deployment Stack</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#the-stackgroup-config">The StackGroup Config</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#the-application-stack-config">The Application Stack Config</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#per-environment-var-files">Per-Environment Var-Files</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#ci-cd-pipeline">CI/CD Pipeline</a></li>
-</ul>
-</li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -212,7 +199,7 @@ it can be use-case specific. However, the following patterns have emerged from
 our use of Sceptre at Cloudreach.</p>
 <div class="section" id="project-layout">
 <h2>Project layout<a class="headerlink" href="#project-layout" title="Permalink to this headline">¶</a></h2>
-<p>Sceptre’s nested stack groups means that it is possible to store an entire
+<p>Sceptre’s nested StackGroups means that it is possible to store an entire
 company or department’s infrastructure in a single Sceptre project. While this
 is possible, it isn’t recommended. Having a large number of developers interact
 with a single repository can be difficult from a version control point of view,
@@ -261,288 +248,60 @@ projects. Only configuration layout is shown, and the examples are merely meant
 to demonstrate ways of organising different projects.</p>
 <ul>
 <li><p>Application development within an externally defined VPC</p>
-<blockquote>
-<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>config/
-    config.yaml
-    prod/
-        application/
-            asg.yaml
-            security-group.yaml
-    database/
-        rds.yaml
-        security-group.yaml
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">config</span>
+    <span class="l l-Scalar l-Scalar-Plain">- prod</span>
+        <span class="l l-Scalar l-Scalar-Plain">- application</span>
+            <span class="l l-Scalar l-Scalar-Plain">- asg.yaml</span>
+            <span class="l l-Scalar l-Scalar-Plain">- security-group.yaml</span>
+        <span class="l l-Scalar l-Scalar-Plain">- database</span>
+            <span class="l l-Scalar l-Scalar-Plain">- rds.yaml</span>
+            <span class="l l-Scalar l-Scalar-Plain">- security-group.yaml</span>
 </pre></div>
 </div>
-</div></blockquote>
 </li>
 <li><p>DevOps team who manage all the infrastructure for their service</p>
-<blockquote>
-<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>config/
-    config.yaml
-    prod/
-        network
-        vpc.yaml
-        subnet.yaml
-    frontend/
-        api-gateway.yaml
-    application/
-        lambda-get-item.yaml
-        lambda-put-item.yaml
-    database/
-        dynamodb.yaml
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">config</span>
+    <span class="l l-Scalar l-Scalar-Plain">- prod</span>
+        <span class="l l-Scalar l-Scalar-Plain">- network</span>
+            <span class="l l-Scalar l-Scalar-Plain">- vpc.yaml</span>
+            <span class="l l-Scalar l-Scalar-Plain">- subnet.yaml</span>
+        <span class="l l-Scalar l-Scalar-Plain">- frontend</span>
+            <span class="l l-Scalar l-Scalar-Plain">- api-gateway.yaml</span>
+        <span class="l l-Scalar l-Scalar-Plain">- application</span>
+            <span class="l l-Scalar l-Scalar-Plain">- lambda-get-item.yaml</span>
+            <span class="l l-Scalar l-Scalar-Plain">- lambda-put-item.yaml</span>
+        <span class="l l-Scalar l-Scalar-Plain">- database</span>
+            <span class="l l-Scalar l-Scalar-Plain">- dynamodb.yaml</span>
 </pre></div>
 </div>
-</div></blockquote>
 </li>
 <li><p>Centralised, company-wide networking</p>
-<blockquote>
-<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>config/
-    config.yaml
-    prod/
-        vpc.yaml
-        public-subnet.yaml
-        application-subnet.yaml
-        database-subnet.yaml
-    dev/
-        vpc.yaml
-        public-subnet.yaml
-        application-subnet.yaml
-        database-subnet.yaml
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">config</span>
+    <span class="l l-Scalar l-Scalar-Plain">- prod</span>
+        <span class="l l-Scalar l-Scalar-Plain">- vpc.yaml</span>
+        <span class="l l-Scalar l-Scalar-Plain">- public-subnet.yaml</span>
+        <span class="l l-Scalar l-Scalar-Plain">- application-subnet.yaml</span>
+        <span class="l l-Scalar l-Scalar-Plain">- database-subnet.yaml</span>
+    <span class="l l-Scalar l-Scalar-Plain">- dev</span>
+        <span class="l l-Scalar l-Scalar-Plain">- vpc.yaml</span>
+        <span class="l l-Scalar l-Scalar-Plain">- public-subnet.yaml</span>
+        <span class="l l-Scalar l-Scalar-Plain">- application-subnet.yaml</span>
+        <span class="l l-Scalar l-Scalar-Plain">- database-subnet.yaml</span>
 </pre></div>
 </div>
-</div></blockquote>
 </li>
 <li><p>IAM management</p>
-<blockquote>
-<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>config/
-    config.yaml
-    account-1/
-        iam-role-admin.yaml
-        iam-role-developer.yaml
-    account-2/
-        iam-role-admin.yaml
-        iam-role-developer.yaml
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">config</span>
+    <span class="l l-Scalar l-Scalar-Plain">- account-1</span>
+        <span class="l l-Scalar l-Scalar-Plain">- iam-role-admin.yaml</span>
+        <span class="l l-Scalar l-Scalar-Plain">- iam-role-developer.yaml</span>
+    <span class="l l-Scalar l-Scalar-Plain">- account-2</span>
+        <span class="l l-Scalar l-Scalar-Plain">- iam-role-admin.yaml</span>
+        <span class="l l-Scalar l-Scalar-Plain">- iam-role-developer.yaml</span>
 </pre></div>
 </div>
-</div></blockquote>
-</li>
-<li><p>Replicated environments with only config differences</p>
-<blockquote>
-<div><p>In this architecture, there is a var-file with each environment’s configurations. Each var-file
-has the same keys, but values specific to that environment. The Stack configs and StackGroup
-configs reference keys from from those files. This way the environment could be tested in
-non-production environments, then deployed to production by simply referencing a different
-var-file.</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>config/
-    config.yaml
-    project/
-        vpc.yaml
-        network.yaml
-        database.yaml
-vars/
-    production.yaml
-    staging.yaml
-    development.yaml
-</pre></div>
-</div>
-</div></blockquote>
 </li>
 </ul>
-</div>
-<div class="section" id="a-complete-sceptre-project-example-explained">
-<h2>A complete Sceptre project example, explained<a class="headerlink" href="#a-complete-sceptre-project-example-explained" title="Permalink to this headline">¶</a></h2>
-<p>This is a detailed example project setup for all infrastructure needs for a given application called
-“Indigo.” Here are a few basic assumptions of this example:</p>
-<ul class="simple">
-<li><p>Indigo’s infrastructure will be deployed automatically using a CI/CD system (such as Jenkins).</p></li>
-<li><p>The AWS role held by the CI/CD system cannot have sweeping, admin-level IAM permissions. It is
-used by other teams in the company and cannot have its permissions modified for the Indigo
-project.</p></li>
-<li><p>Not all infrastructure in the organization is deployed/maintained by Sceptre and Indigo will need
-to interact with that infrastructure.</p></li>
-<li><p>All infrastructure for Indigo should be managed by Sceptre, including any required deployment
-resources.</p></li>
-<li><p>Developers will need to be able to stand up their own, isolated environments of Indigo that do not
-conflict with production. These environments will have some different configurations to make them
-cheaper for the company, but otherwise be identical to production.</p></li>
-</ul>
-<div class="section" id="project-structure">
-<h3>Project Structure<a class="headerlink" href="#project-structure" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>config/
-    config.yaml             # top-level project configuration
-    indigo/                 # StackGroup for all Indigo&#39;s resources
-        config.yaml         # StackGroup Config for Indigo
-        application.yaml    # Stack Config for Indigo&#39;s application stack
-    project/                # StackGroup for resources needed to deploy Indigo
-        deployment.yaml     # Stack Config for Indigo&#39;s deployment resources
-templates/
-    indigo/
-        application.yaml
-    project/
-        deployment.yaml
-vars/
-    production.yaml         # var-file with the production environment&#39;s configurations
-    development.yaml        # var-file with configurations for development environments
-</pre></div>
-</div>
-</div>
-<div class="section" id="example-configs">
-<h3>Example Configs<a class="headerlink" href="#example-configs" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="top-level-project-configuration">
-<h4>Top-level project configuration<a class="headerlink" href="#top-level-project-configuration" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># config/config.yaml</span>
-
-<span class="c1"># This is the top-level config file for the whole project. Every stack in the project will</span>
-<span class="c1"># inherit these settings unless they explicitly override them. At minimum, you need the</span>
-<span class="c1"># project_code and region, but you can set whatever StackGroup and Stack configurations you</span>
-<span class="c1"># want inherited by the rest of the project.</span>
-
-<span class="c1"># By making the project-code parameterized by environment name, it guarantees that one</span>
-<span class="c1"># environment&#39;s stacks do not conflict with another environment&#39;s stacks.</span>
-<span class="nt">project_code</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">indigo-{{ var.environment }}</span>
-<span class="nt">region</span><span class="p">:</span> <span class="p p-Indicator">{{</span> <span class="nv">var.region</span> <span class="p p-Indicator">}}</span>
-
-<span class="c1"># Setting the template_bucket_name with a !stack_output means that every stack in the project</span>
-<span class="c1"># (except the deployment stack) will have its template uploaded to that bucket. It ALSO means</span>
-<span class="c1"># that every stack in the project will inherit a dependency on the deployment stack (except the</span>
-<span class="c1"># deployment stack... see its comments below)</span>
-<span class="nt">template_bucket_name</span><span class="p">:</span> <span class="kt">!stack_output</span> <span class="l l-Scalar l-Scalar-Plain">project/deployment.yaml::BucketName</span>
-
-<span class="c1"># By making the template_key_prefix parameterized by environment, it means that every</span>
-<span class="c1"># environment&#39;s templates will be uploaded to its own directory structure within the template</span>
-<span class="c1"># bucket, preventing conflicts.</span>
-<span class="nt">template_key_prefix</span><span class="p">:</span> <span class="p p-Indicator">{{</span> <span class="nv">var.environment</span> <span class="p p-Indicator">}}</span>
-
-<span class="c1"># Setting the iam_role on the project like this means that all Sceptre actions on all stacks in</span>
-<span class="c1"># the project will be done by assuming the deployment role whose ARN is output by the deployment</span>
-<span class="c1"># stack (except for actions on the deployment stack... see its comments below).</span>
-<span class="nt">iam_role</span><span class="p">:</span> <span class="kt">!stack_output</span> <span class="l l-Scalar l-Scalar-Plain">project/deployment.yaml::DeploymentRoleArn</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="the-deployment-stack">
-<h4>The Deployment Stack<a class="headerlink" href="#the-deployment-stack" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># config/project/deployment.yaml</span>
-
-<span class="c1"># This is a StackConfig for a stack that defines the project&#39;s basic requirements, that all</span>
-<span class="c1"># stacks and all environments will depend on for deployment to work. Because the project config</span>
-<span class="c1"># references this stack using !stack_output, all OTHER stacks in the project will depend upon</span>
-<span class="c1"># this one.</span>
-
-<span class="c1"># We override the project_code here so that there will only be ONE stack for deployment that is</span>
-<span class="c1"># shared across all environments.</span>
-<span class="nt">project_code</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">indigo-deployment</span>
-
-<span class="c1"># Setting is_project_dependency has a few important effects for this stack</span>
-<span class="c1">#   1. It disables dependencies. In other words, this stack cannot depend on any other stack.</span>
-<span class="c1">#       This is how it bypasses the circular dependency that it would otherwise inherit from</span>
-<span class="c1">#       the project&#39;s config (config/config.yaml)</span>
-<span class="c1">#   2. It disables the !stack_output resolver, making it resolve to nothing. In other words, it</span>
-<span class="c1">#       cannot inherit the template_bucket_name or iam_role from the project config. This is</span>
-<span class="c1">#       good because this stack DEFINES the template bucket and iam_role.</span>
-<span class="nt">is_project_dependency</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
-
-<span class="c1"># This template defines an S3 Bucket, outputting the created bucket as &quot;BucketName&quot; and an IAM</span>
-<span class="c1"># role that can be assumed by the CI/CD system&#39;s role/user, outputting the ARN as</span>
-<span class="c1"># &quot;DeploymentRoleArn&quot;. This &quot;Deployment role&quot; will need permissions to execute actions on</span>
-<span class="c1"># CloudFormation as well as any perform any actions required by the stack&#39;s permissions.</span>
-<span class="nt">template</span><span class="p">:</span>
-    <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">project/deployment.yaml</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="the-stackgroup-config">
-<h4>The StackGroup Config<a class="headerlink" href="#the-stackgroup-config" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># config/indigo/config.yaml</span>
-
-<span class="c1"># This is the StackGroup config for the indigo StackGroup. Any settings set here will be shared</span>
-<span class="c1"># by all stacks in it.</span>
-
-<span class="c1"># By defining tags at the StackGroup level, all stacks will inherit those tags and</span>
-<span class="c1"># CloudFormation will then propagate those tags to all resources within those stacks that</span>
-<span class="c1"># support tags.</span>
-<span class="nt">stack_tags</span><span class="p">:</span>
-    <span class="nt">Environment</span><span class="p">:</span> <span class="p p-Indicator">{{</span> <span class="nv">var.environment</span> <span class="p p-Indicator">}}</span>
-    <span class="nt">DeployedVia</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Sceptre</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="the-application-stack-config">
-<h4>The Application Stack Config<a class="headerlink" href="#the-application-stack-config" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># config/indigo/application.yaml</span>
-
-<span class="c1"># This is the Stack config for the application stack. It inherits all configurations from all</span>
-<span class="c1"># StackGroup configs for StackGroups in which it resides (in this case, the</span>
-<span class="c1"># config/indigo/config.yaml and config/config.yaml). These inherited configurations include the</span>
-<span class="c1"># inherited template_bucket_name and iam_role configurations and their dependency on the</span>
-<span class="c1"># deployment stack.</span>
-
-<span class="nt">template</span><span class="p">:</span>
-    <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">indigo/application.yaml</span>
-
-<span class="nt">parameters</span><span class="p">:</span>
-    <span class="c1"># It&#39;s good practice to namespace all resources that you apply a name to in your stacks. Doing</span>
-    <span class="c1"># so with an environment name is very useful to avoid name collisions.</span>
-    <span class="nt">EnvironmentName</span><span class="p">:</span> <span class="p p-Indicator">{{</span> <span class="nv">var.environment</span> <span class="p p-Indicator">}}</span>
-    <span class="nt">VpcId</span><span class="p">:</span> <span class="p p-Indicator">{{</span> <span class="nv">var.indigo.vpc.vpc_id</span> <span class="p p-Indicator">}}</span>
-    <span class="nt">InstanceType</span><span class="p">:</span> <span class="p p-Indicator">{{</span> <span class="nv">var.indigo.rds.instance_type</span> <span class="p p-Indicator">}}</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="per-environment-var-files">
-<h4>Per-Environment Var-Files<a class="headerlink" href="#per-environment-var-files" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># vars/production.yaml</span>
-
-<span class="c1"># This var-file contains the configurations for the &quot;production&quot; environment. Every {{ var }}</span>
-<span class="c1"># reference in stack configs or stack group configs must be supplied when using sceptre, either</span>
-<span class="c1"># via var-files (using the `--var-file` argument) or by explicitly passing them</span>
-<span class="c1"># (using the `--var` argument). This var-file contains every variable referenced in all the</span>
-<span class="c1"># configs.</span>
-
-<span class="nt">environment</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">production</span>
-<span class="nt">region</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">us-west-2</span>
-
-<span class="nt">indigo</span><span class="p">:</span>
-    <span class="nt">vpc</span><span class="p">:</span>
-        <span class="nt">vpc_id</span><span class="p">:</span> <span class="s">&quot;vpc-abc1234&quot;</span>  <span class="c1"># Production vpc</span>
-    <span class="nt">rds</span><span class="p">:</span>
-        <span class="c1"># Production uses a very large instance</span>
-        <span class="nt">instance_type</span><span class="p">:</span> <span class="s">&quot;db.m5.8xlarge&quot;</span>
-</pre></div>
-</div>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># vars/development.yaml</span>
-
-<span class="c1"># This var-file DOESN&#39;T have the environment variable name specified, requiring the user of this</span>
-<span class="c1"># var-file to specify the environment name. This allows for easily launching isolated,</span>
-<span class="c1"># development environments for testing purposes. The environment name can be supplied when</span>
-<span class="c1"># performing stack actions like:</span>
-<span class="c1">#   sceptre --var-file vars/development.yaml --var environment=dev-johnny launch indigo</span>
-
-<span class="nt">region</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">us-west-2</span>
-
-<span class="nt">indigo</span><span class="p">:</span>
-    <span class="nt">vpc</span><span class="p">:</span>
-        <span class="nt">vpc_id</span><span class="p">:</span> <span class="s">&quot;vpc-def5678&quot;</span>  <span class="c1"># Dev VPC</span>
-    <span class="nt">rds</span><span class="p">:</span>
-        <span class="c1"># Dev uses very small instances</span>
-        <span class="nt">instance_type</span><span class="p">:</span> <span class="s">&quot;db.t2.small&quot;</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="ci-cd-pipeline">
-<h4>CI/CD Pipeline<a class="headerlink" href="#ci-cd-pipeline" title="Permalink to this headline">¶</a></h4>
-<p>No matter the service you intend to use for deployment (whether it’s Jenkins, CircleCI, or some
-other), the flow for deployment likely will look the same.</p>
-<p>Before you deploy, however, you need to have an admin user launch your deployment stack manually
-using Sceptre. This stack is the stack that provides the permissions for your pipeline to execute
-changes on the other stacks in the project.</p>
-<p>Once launched, the CI/CD pipeline can launch the “indigo” StackGroup when it runs using
-<code class="docutils literal notranslate"><span class="pre">sceptre</span> <span class="pre">--var-file</span> <span class="pre">vars/production.yaml</span> <span class="pre">launch</span> <span class="pre">indigo</span></code>.</p>
-<p>Depending on requirements for your application or company policies, you might want to generate a
-document for review prior to launching using the <cite>sceptre diff</cite> command, which will indicate all
-changes are currently present in the files from what has been deployed.</p>
-</div>
-</div>
 </div>
 </div>
 
@@ -603,7 +362,7 @@ changes are currently present in the files from what has been deployed.</p>
                 
 
                     <dd>
-                        <a href="https://www.sceptre.cloudreach.com">Sceptre Home</a>
+                        <a href="https://docs.sceptre-project.org">Sceptre Home</a>
                     </dd>
                 
             </dl>

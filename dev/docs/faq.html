@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>FAQ &mdash; Sceptre 2.6.3 documentation</title>
+  <title>FAQ &mdash; Sceptre 2.7.0 documentation</title>
   
 
   
@@ -256,46 +256,9 @@ used.</p>
 </div>
 <div class="section" id="how-do-i-build-a-serverless-application-using-sceptre-and-sam">
 <h2>How do I build a Serverless application using Sceptre and SAM?<a class="headerlink" href="#how-do-i-build-a-serverless-application-using-sceptre-and-sam" title="Permalink to this headline">¶</a></h2>
-<p>There are a few different ways that Sceptre can help create serverless
-applications or lambdas.  One approach is to use the <a class="reference external" href="https://github.com/aws/aws-sam-cli">SAM CLI</a> to build
-and deploy your SAM templates to an S3 bucket then have Sceptre deploy the
-generated SAM template to your AWS account. Examples of this approach can
-be found in these projects:</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://github.com/Sage-Bionetworks-IT/lambda-template">Sage-Bionetworks Sceptre lambda github template</a></p></li>
-<li><p><a class="reference external" href="https://github.com/Versent/sam-sceptre">Versant SAM Sceptre skeleton example</a></p></li>
-</ul>
-<p>Another approach is to use the Sceptre <cite>before_launch</cite> hook to run either the
-SAM or CFN “package” command to generate the packaged version of the template.</p>
-<p>CloudFormation Example:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span>
-  <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">generated/lambda-packaged.json</span>
-  <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">file</span>
-<span class="nt">stack_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">cfn-lambda-example</span>
-<span class="nt">hooks</span><span class="p">:</span>
-  <span class="nt">before_launch</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="kt">!cmd</span> <span class="p p-Indicator">&gt;</span>
-        <span class="no">aws --profile {{ stack_group_config.profile }} cloudformation package</span>
-        <span class="no">--template-file templates/cfn-lambda.yaml</span>
-        <span class="no">--s3-bucket {{ stack_group_config.template_bucket_name }}</span>
-        <span class="no">--output json</span>
-        <span class="no">--output-template-file templates/generated/lambda-packaged.json</span>
-</pre></div>
-</div>
-<p>SAM Example:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span>
-  <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">generated/sam-packaged.yaml</span>
-  <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">file</span>
-<span class="nt">stack_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sam-example</span>
-<span class="nt">hooks</span><span class="p">:</span>
-  <span class="nt">before_launch</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="kt">!cmd</span> <span class="p p-Indicator">&gt;</span>
-        <span class="no">sam package --profile {{ stack_group_config.profile }}</span>
-        <span class="no">--s3-bucket {{ stack_group_config.template_bucket_name }}</span>
-        <span class="no">--template-file templates/sam-app.yaml</span>
-        <span class="no">--output-template-file templates/generated/sam-packaged.yaml</span>
-</pre></div>
-</div>
+<p>There is now a SAM Template Handler that lets you incorporate SAM applications into environments that
+are managed and deployed using Sceptre. For more information on how to install and use SAM in your
+Sceptre project, see the <a class="reference external" href="https://pypi.org/project/sceptre-sam-handler/">sceptre-sam-handler</a> page on PyPI.</p>
 </div>
 </div>
 
@@ -356,7 +319,7 @@ SAM or CFN “package” command to generate the packaged version of the templat
                 
 
                     <dd>
-                        <a href="https://www.sceptre.cloudreach.com">Sceptre Home</a>
+                        <a href="https://docs.sceptre-project.org">Sceptre Home</a>
                     </dd>
                 
             </dl>

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sceptre.plan package &mdash; Sceptre 2.6.3 documentation</title>
+  <title>sceptre.plan package &mdash; Sceptre 2.7.0 documentation</title>
   
 
   
@@ -262,15 +262,12 @@ deleting the Stack.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sceptre.plan.actions.StackActions.change_set_creation_failed_due_to_no_changes">
-<span class="sig-name descname"><span class="pre">change_set_creation_failed_due_to_no_changes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reason</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/actions.html#StackActions.change_set_creation_failed_due_to_no_changes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.plan.actions.StackActions.change_set_creation_failed_due_to_no_changes" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">change_set_creation_failed_due_to_no_changes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reason</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/sceptre/plan/actions.html#StackActions.change_set_creation_failed_due_to_no_changes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.plan.actions.StackActions.change_set_creation_failed_due_to_no_changes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Indicates the change set failed when it was created because there were actually
 no changes introduced from the change set.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>reason</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The reason reported by CloudFormation for the Change Set failure</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></p>
+<dd class="field-odd"><p><strong>reason</strong> – The reason reported by CloudFormation for the Change Set failure</p>
 </dd>
 </dl>
 </dd></dl>
@@ -467,14 +464,11 @@ using a specific diff library.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sceptre.plan.actions.StackActions.fetch_remote_template">
-<span class="sig-name descname"><span class="pre">fetch_remote_template</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/actions.html#StackActions.fetch_remote_template"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.plan.actions.StackActions.fetch_remote_template" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">fetch_remote_template</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/sceptre/plan/actions.html#StackActions.fetch_remote_template"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.plan.actions.StackActions.fetch_remote_template" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the Template for the remote Stack</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>the template body.</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the template body.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -644,7 +638,8 @@ executing the command specified in a SceptrePlan.</p>
 concurrently, in the correct order.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>args</strong> – Any arguments that should be passed through to the                StackAction being called.</p>
+<dd class="field-odd"><p><strong>*args</strong> – <p>Any arguments that should be passed through to the                StackAction being called.</p>
+</p>
 </dd>
 </dl>
 </dd></dl>
@@ -827,14 +822,11 @@ UPDATE_ROLLBACK_COMPLETE.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sceptre.plan.plan.SceptrePlan.diff">
-<span class="sig-name descname"><span class="pre">diff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/plan.html#SceptrePlan.diff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.plan.plan.SceptrePlan.diff" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">diff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="sceptre.html#sceptre.stack.Stack" title="sceptre.stack.Stack"><span class="pre">sceptre.stack.Stack</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="sceptre.diffing.html#sceptre.diffing.stack_differ.StackDiff" title="sceptre.diffing.stack_differ.StackDiff"><span class="pre">sceptre.diffing.stack_differ.StackDiff</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/sceptre/plan/plan.html#SceptrePlan.diff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.plan.plan.SceptrePlan.diff" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show diffs between the running and generated stack.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference internal" href="sceptre.html#sceptre.stack.Stack" title="sceptre.stack.Stack"><code class="xref py py-class docutils literal notranslate"><span class="pre">Stack</span></code></a>, <a class="reference internal" href="sceptre.diffing.html#sceptre.diffing.stack_differ.StackDiff" title="sceptre.diffing.stack_differ.StackDiff"><code class="xref py py-class docutils literal notranslate"><span class="pre">StackDiff</span></code></a>]</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A dict where the keys are Stack objects and the values are StackDiffs.</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A dict where the keys are Stack objects and the values are StackDiffs.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1139,7 +1131,7 @@ performed, launch exits gracefully.</p>
                 
 
                     <dd>
-                        <a href="https://www.sceptre.cloudreach.com">Sceptre Home</a>
+                        <a href="https://docs.sceptre-project.org">Sceptre Home</a>
                     </dd>
                 
             </dl>

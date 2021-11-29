@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>StackGroup Config &mdash; Sceptre 2.6.3 documentation</title>
+  <title>StackGroup Config &mdash; Sceptre 2.7.0 documentation</title>
   
 
   
@@ -114,7 +114,6 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#cascading-config">Cascading Config</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#setting-dependencies-for-stackgroups">Setting Dependencies for StackGroups</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#templating">Templating</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#var">Var</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#environment-variables">Environment Variables</a></li>
@@ -232,10 +231,6 @@ and are directly accessible from Stack(). Any other keys added by the user are
 made available via <code class="docutils literal notranslate"><span class="pre">stack_group_confg</span></code> attribute on <code class="docutils literal notranslate"><span class="pre">Stack()</span></code>.</p>
 <div class="section" id="profile">
 <h3>profile<a class="headerlink" href="#profile" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>Resolvable: No</p></li>
-<li><p>Inheritance strategy: Overrides parent if set by child</p></li>
-</ul>
 <p>The name of the profile as defined in <code class="docutils literal notranslate"><span class="pre">~/.aws/config</span></code> and
 <code class="docutils literal notranslate"><span class="pre">~/.aws/credentials</span></code>. Use the <cite>aws configure –profile &lt;profile_id&gt;</cite> command
 form the AWS CLI to add profiles to these files.</p>
@@ -243,27 +238,15 @@ form the AWS CLI to add profiles to these files.</p>
 </div>
 <div class="section" id="project-code">
 <h3>project_code<a class="headerlink" href="#project-code" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>Resolvable: No</p></li>
-<li><p>Inheritance strategy: Overrides parent if set by child</p></li>
-</ul>
 <p>A string which is prepended to the Stack names of all Stacks built by Sceptre.</p>
 </div>
 <div class="section" id="region">
 <h3>region<a class="headerlink" href="#region" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>Resolvable: No</p></li>
-<li><p>Inheritance strategy: Overrides parent if set by child</p></li>
-</ul>
 <p>The AWS region to build Stacks in. Sceptre should work in any <a class="reference external" href="http://docs.aws.amazon.com/general/latest/gr/rande.html#cfn_region">region which
 supports CloudFormation</a>.</p>
 </div>
 <div class="section" id="template-bucket-name">
 <h3>template_bucket_name<a class="headerlink" href="#template-bucket-name" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>Resolvable: Yes</p></li>
-<li><p>Inheritance strategy: Overrides parent if set by child</p></li>
-</ul>
 <p>The name of an S3 bucket to upload CloudFormation Templates to. Note that S3
 bucket names must be globally unique. If the bucket does not exist, Sceptre
 creates one using the given name, in the AWS region specified by <code class="docutils literal notranslate"><span class="pre">region</span></code>.</p>
@@ -274,10 +257,6 @@ supplied in this way have a lower maximum length, so using the
 </div>
 <div class="section" id="template-key-prefix">
 <h3>template_key_prefix<a class="headerlink" href="#template-key-prefix" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>Resolvable: Yes</p></li>
-<li><p>Inheritance strategy: Overrides parent if set by child</p></li>
-</ul>
 <p>A string which is prefixed onto the key used to store templates uploaded to S3.
 Templates are stored using the key:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&lt;template_key_prefix&gt;/&lt;region&gt;/&lt;stack_group&gt;/&lt;stack_name&gt;-&lt;timestamp&gt;.&lt;extension&gt;
@@ -291,10 +270,6 @@ ignored.</p>
 </div>
 <div class="section" id="j2-environment">
 <h3>j2_environment<a class="headerlink" href="#j2-environment" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>Resolvable: No</p></li>
-<li><p>Inheritance strategy: Child configs will be merged with parent configs</p></li>
-</ul>
 <p>A dictionary that is combined with the default jinja2 environment.
 It’s converted to keyword arguments then passed to [jinja2.Environment](<a class="reference external" href="https://jinja.palletsprojects.com/en/2.11.x/api/#jinja2.Environment">https://jinja.palletsprojects.com/en/2.11.x/api/#jinja2.Environment</a>).
 This will impact <span class="xref std std-ref">Templating</span> of stacks by modifying the behavior of jinja.</p>
@@ -345,41 +320,13 @@ structure:</p>
 <p>General configurations should be defined at a high level, and more specific
 configurations should be defined at a lower directory level.</p>
 <p>YAML files that define configuration settings with conflicting keys, the child
-configuration file will usually take precedence (see the specific config keys as documented
-for the inheritance strategy employed).</p>
+configuration file will take precedence.</p>
 <p>In the above directory structure, <code class="docutils literal notranslate"><span class="pre">config/config.yaml</span></code> will be read in first,
 followed by <code class="docutils literal notranslate"><span class="pre">config/account-1/config.yaml</span></code>, followed by
 <code class="docutils literal notranslate"><span class="pre">config/account-1/dev/config.yaml</span></code>.</p>
 <p>For example, if you wanted the <code class="docutils literal notranslate"><span class="pre">dev</span></code> StackGroup to build to a different
 region, this setting could be specified in the <code class="docutils literal notranslate"><span class="pre">config/dev/config.yaml</span></code> file,
 and would only be applied to builds in the <code class="docutils literal notranslate"><span class="pre">dev</span></code> StackGroup.</p>
-</div>
-<div class="section" id="setting-dependencies-for-stackgroups">
-<span id="setting-dependencies-for-stack-groups"></span><h2>Setting Dependencies for StackGroups<a class="headerlink" href="#setting-dependencies-for-stackgroups" title="Permalink to this headline">¶</a></h2>
-<p>There are a few types of AWS infrastructure that Sceptre and/or your CloudFormation stacks can
-utilise and can be a part of a normal sceptre project. These include:
-* The S3 bucket where templates are uploaded to and then referenced from for stack actions (i.e. the
-<cite>template_bucket_name`</cite> config key).
-* The CloudFormation service role added to the stack(s) that CloudFormation uses to execute stack
-actions (i.e. the <code class="docutils literal notranslate"><span class="pre">role_arn</span></code> config key).
-* The role that Sceptre will assume to execute stack actions (i.e. the <code class="docutils literal notranslate"><span class="pre">iam_role</span></code> config key).
-* SNS topics that cloudformation will notify with the results of stack actions (i.e. the
-<code class="docutils literal notranslate"><span class="pre">notifications</span></code> config key).</p>
-<p>These sorts of dependencies CAN be defined in Sceptre and added at the StackGroup level, referenced
-using <code class="docutils literal notranslate"><span class="pre">!stack_output</span></code>. They can even can be set in the highest-level config.yaml, right next to
-<code class="docutils literal notranslate"><span class="pre">project_code</span></code> and <code class="docutils literal notranslate"><span class="pre">region</span></code>. Doing so will make it so that every stack in the StackGroup (or
-even in the entire project) will have those dependencies and get those values from Sceptre-managed
-stacks.</p>
-<p>Beyond the above mentioned config keys, it is possible to set the <code class="docutils literal notranslate"><span class="pre">dependencies</span></code> config key in a
-StackGroup config to be inherited by all Stack configs in that group. All dependencies in child
-stacks will be added to their inherited StackGroup dependencies, so be careful how you structure
-dependencies.</p>
-<p><strong>Important</strong>: You might have already considered that this might cause a circular dependency for those
-dependency stacks, the ones that output the template bucket name, role arn, or topic arns. In order
-to break the circular dependency, you can set <code class="docutils literal notranslate"><span class="pre">is_project_dependency:</span> <span class="pre">True</span></code> on those dependency
-stacks. As described in the documentation for <a class="reference internal" href="stack_config.html#project-dependency-config"><span class="std std-ref">is_project_dependency</span></a>,
-stacks marked with <code class="docutils literal notranslate"><span class="pre">is_project_dependency:</span> <span class="pre">True</span></code> will ignore dependencies and any !stack_output
-resolvers will resolve to nothing.</p>
 </div>
 <div class="section" id="templating">
 <span id="stack-group-config-templating"></span><h2>Templating<a class="headerlink" href="#templating" title="Permalink to this headline">¶</a></h2>
@@ -570,7 +517,7 @@ invoking sceptre command:</p>
                 
 
                     <dd>
-                        <a href="https://www.sceptre.cloudreach.com">Sceptre Home</a>
+                        <a href="https://docs.sceptre-project.org">Sceptre Home</a>
                     </dd>
                 
             </dl>

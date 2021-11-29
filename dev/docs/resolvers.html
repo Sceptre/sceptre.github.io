@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Resolvers &mdash; Sceptre 2.6.3 documentation</title>
+  <title>Resolvers &mdash; Sceptre 2.7.0 documentation</title>
   
 
   
@@ -120,9 +120,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#example">Example</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#custom-resolver-py">custom_resolver.py</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#setup-py">setup.py</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#resolver-arguments">Resolver arguments</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#resolving-to-nothing">Resolving to nothing</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#resolver-placeholders">Resolver placeholders</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#resolver-arguments">resolver arguments</a></li>
 </ul>
 </li>
 </ul>
@@ -267,12 +265,6 @@ a string, json, or yaml object.</p>
 and builds that Stack before the current one.</p>
 <p>This resolver will add a dependency for the Stack in which needs the output
 from.</p>
-<p><strong>Important</strong>: You cannot use the stack_output resolver on stacks where
-<a class="reference internal" href="stack_config.html#project-dependency-config"><span class="std std-ref">is_project_dependency</span></a> is <code class="docutils literal notranslate"><span class="pre">True</span></code>. If the stack_output resolver is used
-on a project dependency stack, it will resolve to <code class="docutils literal notranslate"><span class="pre">None</span></code> and that key/value pair will be removed
-from the dict or list it was defined in. This is to avoid unresolvable tangles of dependencies, since
-project dependencies are supposed to be the highest level dependency in the project, depending on no
-other stacks.</p>
 </div>
 <div class="section" id="stack-output-external">
 <h3>stack_output_external<a class="headerlink" href="#stack-output-external" title="Permalink to this headline">¶</a></h3>
@@ -328,23 +320,15 @@ In case you are not familiar with python packaging, <a class="reference external
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    argument: Any</span>
-<span class="sd">        The argument of the resolver. This can be any value able to be defined in yaml.</span>
+<span class="sd">    argument: str</span>
+<span class="sd">        The argument of the resolver.</span>
 <span class="sd">    stack: sceptre.stack.Stack</span>
-<span class="sd">        The associated stack of the resolver. This will normally be None when the resolver is</span>
-<span class="sd">        instantiated, but will be set before the resolver is resolved.</span>
+<span class="sd">        The associated stack of the resolver.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argument</span><span class="p">,</span> <span class="n">stack</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">CustomResolver</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">argument</span><span class="p">,</span> <span class="n">stack</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Setup is invoked after the stack has been set on the resolver, whether or not the</span>
-<span class="sd">        resolver is ever resolved.</span>
-
-<span class="sd">        Implement this method for any setup behavior you want (such as adding to stack dependencies).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CustomResolver</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">resolve</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -394,7 +378,7 @@ In case you are not familiar with python packaging, <a class="reference external
 </div>
 </div>
 <div class="section" id="resolver-arguments">
-<h4>Resolver arguments<a class="headerlink" href="#resolver-arguments" title="Permalink to this headline">¶</a></h4>
+<h4>resolver arguments<a class="headerlink" href="#resolver-arguments" title="Permalink to this headline">¶</a></h4>
 <p>Resolver arguments can be a simple string or a complex data structure.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span>
   <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;...&gt;</span>
@@ -406,38 +390,6 @@ In case you are not familiar with python packaging, <a class="reference external
      <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;/dev/DbPassword&quot;</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="resolving-to-nothing">
-<h4>Resolving to nothing<a class="headerlink" href="#resolving-to-nothing" title="Permalink to this headline">¶</a></h4>
-<p>When a resolver returns <code class="docutils literal notranslate"><span class="pre">None</span></code>, this means that it resolves to “nothing”. For resolvers set for
-single values (such as for <code class="docutils literal notranslate"><span class="pre">template_bucket_name</span></code> or <code class="docutils literal notranslate"><span class="pre">role_arn</span></code>), this just means the value is
-<code class="docutils literal notranslate"><span class="pre">None</span></code> and treated like those values aren’t actually set. But for resolvers inside of containers
-like lists or dicts, when they resolve to “nothing”, that item gets completely removed from their
-containing list or dict.</p>
-<p>This feature would be useful if you wanted to define a resolver that sometimes would resolve to be a
-given stack parameter and sometimes would be not defined at all and use the template’s default value
-for that parameter. The resolver could just return <cite>None</cite> in those cases it wants to resolve to
-nothing, similar to the AWS::NoValue pseudo-parameter that can be referenced in a CloudFormation
-template.</p>
-</div>
-<div class="section" id="resolver-placeholders">
-<h4>Resolver placeholders<a class="headerlink" href="#resolver-placeholders" title="Permalink to this headline">¶</a></h4>
-<p>Resolvers (especially the !stack_output resolver) often express dependencies on other stacks and
-their outputs. However, there are times when those stacks or outputs will not exist yet because they
-have not yet been deployed. During normal deployment operations (using the <cite>launch</cite>, <cite>create</cite>,
-<cite>update</cite>, and <cite>delete</cite> commands), Sceptre knows the correct order to resolve dependencies in and will
-ensure that order is followed, so everything works as expected.</p>
-<p>But there are other commands that will not actually deploy dependencies of a stack config before
-operating on that Stack Config. These commands include <code class="docutils literal notranslate"><span class="pre">generate</span></code> and <code class="docutils literal notranslate"><span class="pre">validate</span></code>. If you have
-used resolvers on those stacks, it is possible that a resolver might not be able to be resolved when
-performing that command’s operations and will trigger an error. This is not likely to happen when
-you have only used resolvers in a stack’s <code class="docutils literal notranslate"><span class="pre">parameters</span></code>, but it is much more likely if you have
-used them in <code class="docutils literal notranslate"><span class="pre">sceptre_user_data</span></code> with a Jinja or Python template. At those times (and only when a
-resolver cannot be resolved), a <strong>best-attempt placeholder value</strong> will be supplied in to allow the
-command to proceed. Depending on how your template or Stack Config is configured, the command may or
-may not actually succeed using that placeholder value.</p>
-<p>Any command that allows these placeholders can have them disabled with the <code class="docutils literal notranslate"><span class="pre">--no-placeholders</span></code> ClI
-option.</p>
 </div>
 </div>
 </div>
@@ -500,7 +452,7 @@ option.</p>
                 
 
                     <dd>
-                        <a href="https://www.sceptre.cloudreach.com">Sceptre Home</a>
+                        <a href="https://docs.sceptre-project.org">Sceptre Home</a>
                     </dd>
                 
             </dl>

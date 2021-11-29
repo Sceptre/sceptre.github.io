@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sceptre.diffing.stack_differ &mdash; Sceptre 2.6.3 documentation</title>
+  <title>sceptre.diffing.stack_differ &mdash; Sceptre 2.7.0 documentation</title>
   
 
   
@@ -193,7 +193,9 @@
 <span class="kn">from</span> <span class="nn">cfn_tools</span> <span class="kn">import</span> <span class="n">ODict</span>
 <span class="kn">from</span> <span class="nn">yaml</span> <span class="kn">import</span> <span class="n">Dumper</span>
 
+<span class="kn">from</span> <span class="nn">sceptre.helpers</span> <span class="kn">import</span> <span class="n">_call_func_on_values</span>
 <span class="kn">from</span> <span class="nn">sceptre.plan.actions</span> <span class="kn">import</span> <span class="n">StackActions</span>
+<span class="kn">from</span> <span class="nn">sceptre.resolvers</span> <span class="kn">import</span> <span class="n">Resolver</span>
 <span class="kn">from</span> <span class="nn">sceptre.stack</span> <span class="kn">import</span> <span class="n">Stack</span>
 
 <span class="n">DiffType</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;DiffType&#39;</span><span class="p">)</span>
@@ -334,6 +336,19 @@
 <span class="sd">        :param stack: The stack to extract the parameters from</span>
 <span class="sd">        :return: A dictionary of stack parameters to be compared.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">resolve_or_replace</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Resolver</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">attr</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">resolve</span><span class="p">())</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="n">attr</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_represent_unresolvable_resolver</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+        <span class="c1"># parameters is a ResolvableProperty, but the underlying, pre-resolved parameters are</span>
+        <span class="c1"># stored in _parameters. We might not actually be able to resolve values, such as in the</span>
+        <span class="c1"># case where it attempts to get a value from a stack that doesn&#39;t exist yet.</span>
+        <span class="n">unresolved_parameters_dict</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">_parameters</span>
+        <span class="n">_call_func_on_values</span><span class="p">(</span><span class="n">resolve_or_replace</span><span class="p">,</span> <span class="n">unresolved_parameters_dict</span><span class="p">,</span> <span class="n">Resolver</span><span class="p">)</span>
+
         <span class="n">formatted_parameters</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">stack</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
@@ -341,6 +356,12 @@
             <span class="n">formatted_parameters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 
         <span class="k">return</span> <span class="n">formatted_parameters</span>
+
+    <span class="k">def</span> <span class="nf">_represent_unresolvable_resolver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resolver</span><span class="p">:</span> <span class="n">Resolver</span><span class="p">):</span>
+        <span class="n">base</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;!</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">resolver</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="n">suffix</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;(</span><span class="si">{</span><span class="n">resolver</span><span class="o">.</span><span class="n">argument</span><span class="si">}</span><span class="s1">)&#39;</span> <span class="k">if</span> <span class="n">resolver</span><span class="o">.</span><span class="n">argument</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+        <span class="c1"># double-braces in an f-string is just an escaped single brace</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="se">{{</span><span class="s1"> </span><span class="si">{</span><span class="n">base</span><span class="si">}{</span><span class="n">suffix</span><span class="si">}</span><span class="s1"> </span><span class="se">}}</span><span class="s1">&#39;</span>
 
     <span class="k">def</span> <span class="nf">_create_deployed_stack_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack_actions</span><span class="p">:</span> <span class="n">StackActions</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">StackConfiguration</span><span class="p">]:</span>
         <span class="n">description</span> <span class="o">=</span> <span class="n">stack_actions</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
@@ -449,7 +470,58 @@
                 <span class="n">generated_config</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">NO_ECHO_REPLACEMENT</span>
 
     <span class="k">def</span> <span class="nf">_generate_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack_actions</span><span class="p">:</span> <span class="n">StackActions</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">stack_actions</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">stack_actions</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="c1"># If we could not generate the stack, it COULD be because there are unresolvable</span>
+            <span class="c1"># resolvers in the sceptre_user_data and the template / template handler uses that</span>
+            <span class="c1"># sceptre_user_data in order to render. The most common case of this is when generating</span>
+            <span class="c1"># a diff where the template&#39;s user data uses a stack output from a stack that</span>
+            <span class="c1"># hasn&#39;t been deployed yet. We&#39;ll replace any unresolvable resolvers and then attempt the</span>
+            <span class="c1"># generation one more time. If we&#39;re successful, that will be the template we use in the</span>
+            <span class="c1"># diff.</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                <span class="s2">&quot;Error encountered attempting to render the template. Attempting to replace any &quot;</span>
+                <span class="s2">&quot;unresolved resolvers in the sceptre_user_data to see if that helps.&quot;</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_replace_unresolvable_user_data_resolvers</span><span class="p">(</span><span class="n">stack_actions</span><span class="o">.</span><span class="n">stack</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">stack_actions</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="c1"># We won&#39;t raise this exception here because it could be that the</span>
+                <span class="c1"># substituted values are invalid on the template, or some other issue. The error</span>
+                <span class="c1"># message raised from here wouldn&#39;t be understandible to the user since we&#39;ve swapped</span>
+                <span class="c1"># out the resolvers here, so we&#39;ll pass here and then reraise the original error.</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                    <span class="s2">&quot;Attempting to render the template with replaced sceptre_user_data failed. &quot;</span>
+                    <span class="s2">&quot;Reraising original error.&quot;</span><span class="p">,</span>
+                    <span class="n">exc_info</span><span class="o">=</span><span class="kc">True</span>
+                <span class="p">)</span>
+                <span class="k">pass</span>
+            <span class="k">raise</span>
+
+    <span class="k">def</span> <span class="nf">_replace_unresolvable_user_data_resolvers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack</span><span class="p">:</span> <span class="n">Stack</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Recursively traverses the sceptre_user_data and replaces unresolvable resolvers with</span>
+<span class="sd">        placeholder values so that we can continue to render the diff, even if the resolvers can&#39;t</span>
+<span class="sd">        be resolved right now.</span>
+
+<span class="sd">        :param stack: The stack whose sceptre_user_data cannot be resolved.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">def</span> <span class="nf">resolve_or_replace</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Resolver</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">attr</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="n">explicit_resolver_repr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_represent_unresolvable_resolver</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                <span class="n">only_alphanumeric</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">explicit_resolver_repr</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">isalnum</span><span class="p">())</span>
+                <span class="n">attr</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">only_alphanumeric</span>
+
+        <span class="c1"># Because the name is mangled, we cannot access the user data normally, so we need to access</span>
+        <span class="c1"># it directly out of the __dict__.</span>
+        <span class="n">user_data</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">&#39;__sceptre_user_data&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">user_data</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">_call_func_on_values</span><span class="p">(</span><span class="n">resolve_or_replace</span><span class="p">,</span> <span class="n">user_data</span><span class="p">,</span> <span class="n">Resolver</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_get_deployed_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack_actions</span><span class="p">:</span> <span class="n">StackActions</span><span class="p">,</span> <span class="n">is_deployed</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">is_deployed</span><span class="p">:</span>
@@ -675,7 +747,7 @@
                 
 
                     <dd>
-                        <a href="https://www.sceptre.cloudreach.com">Sceptre Home</a>
+                        <a href="https://docs.sceptre-project.org">Sceptre Home</a>
                     </dd>
                 
             </dl>

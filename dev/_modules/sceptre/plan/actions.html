@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sceptre.plan.actions &mdash; Sceptre 2.6.3 documentation</title>
+  <title>sceptre.plan.actions &mdash; Sceptre 2.7.0 documentation</title>
   
 
   
@@ -1165,8 +1165,11 @@
             <span class="p">)</span>
             <span class="k">return</span> <span class="n">template_summary</span>
         <span class="k">except</span> <span class="n">botocore</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ClientError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="c1"># AWS returns a ValidationError if the stack doesn&#39;t exist</span>
-            <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">response</span><span class="p">[</span><span class="s1">&#39;Error&#39;</span><span class="p">][</span><span class="s1">&#39;Code&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;ValidationError&#39;</span><span class="p">:</span>
+            <span class="n">error_response</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">response</span><span class="p">[</span><span class="s1">&#39;Error&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">error_response</span><span class="p">[</span><span class="s1">&#39;Code&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;ValidationError&#39;</span>
+                <span class="ow">and</span> <span class="s1">&#39;does not exist&#39;</span> <span class="ow">in</span> <span class="n">error_response</span><span class="p">[</span><span class="s1">&#39;Message&#39;</span><span class="p">]</span>
+            <span class="p">):</span>
                 <span class="k">return</span> <span class="kc">None</span>
             <span class="k">raise</span>
 
@@ -1237,7 +1240,7 @@
                 
 
                     <dd>
-                        <a href="https://www.sceptre.cloudreach.com">Sceptre Home</a>
+                        <a href="https://docs.sceptre-project.org">Sceptre Home</a>
                     </dd>
                 
             </dl>
