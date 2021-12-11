@@ -242,14 +242,14 @@ resolved value, in order to avoid redundant resolutions.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sceptre.resolvers.ResolvableContainerProperty.assign_value_to_stack">
-<span class="sig-name descname"><span class="pre">assign_value_to_stack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stack</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">stack.Stack</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><span class="pre">list</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/resolvers.html#ResolvableContainerProperty.assign_value_to_stack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.resolvers.ResolvableContainerProperty.assign_value_to_stack" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">assign_value_to_stack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stack</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/resolvers.html#ResolvableContainerProperty.assign_value_to_stack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.resolvers.ResolvableContainerProperty.assign_value_to_stack" title="Permalink to this definition">¶</a></dt>
 <dd><p>Assigns a COPY of the specified value to the stack instance. This method copies the value
 rather than directly assigns it to avoid bugs related to shared objects in memory.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>stack</strong> – The stack to assign the value to</p></li>
-<li><p><strong>value</strong> – The value to assign</p></li>
+<li><p><strong>stack</strong> (<a class="reference internal" href="sceptre.html#sceptre.stack.Stack" title="sceptre.stack.Stack"><code class="xref py py-class docutils literal notranslate"><span class="pre">Stack</span></code></a>) – The stack to assign the value to</p></li>
+<li><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>]) – The value to assign</p></li>
 </ul>
 </dd>
 </dl>
@@ -257,17 +257,20 @@ rather than directly assigns it to avoid bugs related to shared objects in memor
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sceptre.resolvers.ResolvableContainerProperty.get_resolved_value">
-<span class="sig-name descname"><span class="pre">get_resolved_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stack</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">stack.Stack</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack_class</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">stack.Stack</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">sceptre.resolvers.T_Container</span></span></span><a class="reference internal" href="../_modules/sceptre/resolvers.html#ResolvableContainerProperty.get_resolved_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.resolvers.ResolvableContainerProperty.get_resolved_value" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_resolved_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stack</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack_class</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/resolvers.html#ResolvableContainerProperty.get_resolved_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.resolvers.ResolvableContainerProperty.get_resolved_value" title="Permalink to this definition">¶</a></dt>
 <dd><p>Obtains the resolved value for this property.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>stack</strong> – The Stack instance to obtain the value for</p></li>
-<li><p><strong>stack_class</strong> – The class of the Stack instance.</p></li>
+<li><p><strong>stack</strong> (<a class="reference internal" href="sceptre.html#sceptre.stack.Stack" title="sceptre.stack.Stack"><code class="xref py py-class docutils literal notranslate"><span class="pre">Stack</span></code></a>) – The Stack instance to obtain the value for</p></li>
+<li><p><strong>stack_class</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code></a>[<a class="reference internal" href="sceptre.html#sceptre.stack.Stack" title="sceptre.stack.Stack"><code class="xref py py-class docutils literal notranslate"><span class="pre">Stack</span></code></a>]) – The class of the Stack instance.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The fully resolved container.</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>~T_Container</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The fully resolved container.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -287,44 +290,55 @@ associated with Resolver objects.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="sceptre.resolvers.ResolvableProperty.assign_value_to_stack">
-<em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">assign_value_to_stack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stack</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">stack.Stack</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/resolvers.html#ResolvableProperty.assign_value_to_stack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.resolvers.ResolvableProperty.assign_value_to_stack" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">assign_value_to_stack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stack</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/resolvers.html#ResolvableProperty.assign_value_to_stack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.resolvers.ResolvableProperty.assign_value_to_stack" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implement this method to assign the value to the resolvable property.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sceptre.resolvers.ResolvableProperty.get_resolved_value">
-<em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">get_resolved_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stack</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">stack.Stack</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack_class</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">stack.Stack</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="../_modules/sceptre/resolvers.html#ResolvableProperty.get_resolved_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.resolvers.ResolvableProperty.get_resolved_value" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">get_resolved_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stack</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack_class</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/resolvers.html#ResolvableProperty.get_resolved_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.resolvers.ResolvableProperty.get_resolved_value" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implement this method to return the value of the resolvable_property.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.10)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sceptre.resolvers.ResolvableProperty.get_setup_resolver_for_stack">
-<span class="sig-name descname"><span class="pre">get_setup_resolver_for_stack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stack</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">stack.Stack</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolver</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#sceptre.resolvers.Resolver" title="sceptre.resolvers.Resolver"><span class="pre">sceptre.resolvers.Resolver</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#sceptre.resolvers.Resolver" title="sceptre.resolvers.Resolver"><span class="pre">sceptre.resolvers.Resolver</span></a></span></span><a class="reference internal" href="../_modules/sceptre/resolvers.html#ResolvableProperty.get_setup_resolver_for_stack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.resolvers.ResolvableProperty.get_setup_resolver_for_stack" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_setup_resolver_for_stack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stack</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolver</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/resolvers.html#ResolvableProperty.get_setup_resolver_for_stack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.resolvers.ResolvableProperty.get_setup_resolver_for_stack" title="Permalink to this definition">¶</a></dt>
 <dd><p>Obtains a clone of the resolver with the stack set on it and the setup method having
 been called on it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>stack</strong> – The stack to set on the Resolver</p></li>
-<li><p><strong>resolver</strong> – The Resolver to clone and set up</p></li>
+<li><p><strong>stack</strong> (<a class="reference internal" href="sceptre.html#sceptre.stack.Stack" title="sceptre.stack.Stack"><code class="xref py py-class docutils literal notranslate"><span class="pre">Stack</span></code></a>) – The stack to set on the Resolver</p></li>
+<li><p><strong>resolver</strong> (<a class="reference internal" href="#sceptre.resolvers.Resolver" title="sceptre.resolvers.Resolver"><code class="xref py py-class docutils literal notranslate"><span class="pre">Resolver</span></code></a>) – The Resolver to clone and set up</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The cloned resolver.</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#sceptre.resolvers.Resolver" title="sceptre.resolvers.Resolver"><code class="xref py py-class docutils literal notranslate"><span class="pre">Resolver</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The cloned resolver.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sceptre.resolvers.ResolvableProperty.resolve_resolver_value">
-<span class="sig-name descname"><span class="pre">resolve_resolver_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resolver</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#sceptre.resolvers.Resolver" title="sceptre.resolvers.Resolver"><span class="pre">sceptre.resolvers.Resolver</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="../_modules/sceptre/resolvers.html#ResolvableProperty.resolve_resolver_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.resolvers.ResolvableProperty.resolve_resolver_value" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">resolve_resolver_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resolver</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/resolvers.html#ResolvableProperty.resolve_resolver_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.resolvers.ResolvableProperty.resolve_resolver_value" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the resolved parameter value.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>resolver</strong> – The resolver to resolve.</p>
+<dd class="field-odd"><p><strong>resolver</strong> (<a class="reference internal" href="#sceptre.resolvers.Resolver" title="sceptre.resolvers.Resolver"><code class="xref py py-class docutils literal notranslate"><span class="pre">Resolver</span></code></a>) – The resolver to resolve.</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The resolved value</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.10)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The resolved value</p>
 </dd>
 </dl>
 </dd></dl>
@@ -333,25 +347,28 @@ been called on it.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="sceptre.resolvers.Resolver">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sceptre.resolvers.</span></span><span class="sig-name descname"><span class="pre">Resolver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">argument</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">stack.Stack</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/resolvers.html#Resolver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.resolvers.Resolver" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sceptre.resolvers.</span></span><span class="sig-name descname"><span class="pre">Resolver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">argument</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/resolvers.html#Resolver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.resolvers.Resolver" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.ABC" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></a></p>
 <p>Resolver is an abstract base class that should be inherited by all
 Resolvers.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>argument</strong> – The argument of the resolver.</p></li>
-<li><p><strong>stack</strong> – The associated stack of the resolver.</p></li>
+<li><p><strong>argument</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.10)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]) – The argument of the resolver.</p></li>
+<li><p><strong>stack</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference internal" href="sceptre.html#sceptre.stack.Stack" title="sceptre.stack.Stack"><code class="xref py py-class docutils literal notranslate"><span class="pre">Stack</span></code></a>]) – The associated stack of the resolver.</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="sceptre.resolvers.Resolver.clone">
-<span class="sig-name descname"><span class="pre">clone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stack</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">stack.Stack</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#sceptre.resolvers.Resolver" title="sceptre.resolvers.Resolver"><span class="pre">Resolver</span></a></span></span><a class="reference internal" href="../_modules/sceptre/resolvers.html#Resolver.clone"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.resolvers.Resolver.clone" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">clone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stack</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/resolvers.html#Resolver.clone"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.resolvers.Resolver.clone" title="Permalink to this definition">¶</a></dt>
 <dd><p>Produces a “fresh” copy of the Resolver, with the specified stack.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>stack</strong> – The stack to set on the cloned resolver</p>
+<dd class="field-odd"><p><strong>stack</strong> (<a class="reference internal" href="sceptre.html#sceptre.stack.Stack" title="sceptre.stack.Stack"><code class="xref py py-class docutils literal notranslate"><span class="pre">Stack</span></code></a>) – The stack to set on the cloned resolver</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#sceptre.resolvers.Resolver" title="sceptre.resolvers.Resolver"><code class="xref py py-class docutils literal notranslate"><span class="pre">Resolver</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>

@@ -212,31 +212,36 @@
             
   <div class="section" id="stack-config">
 <h1>Stack Config<a class="headerlink" href="#stack-config" title="Permalink to this headline">¶</a></h1>
-<p>Stack config stores config related to a particular Stack, such as the path to
-that Stack’s Template, and any parameters that Stack may require.</p>
+<p>A Stack config stores configurations related to a particular Stack, such as the path to
+that Stack’s Template, and any parameters that Stack may require. Many of these configuration keys
+support resolvers and can be inherited from parent StackGroup configs.</p>
 <div class="section" id="structure">
 <span id="stack-config-structure"></span><h2>Structure<a class="headerlink" href="#structure" title="Permalink to this headline">¶</a></h2>
 <p>A Stack config file is a <code class="docutils literal notranslate"><span class="pre">yaml</span></code> object of key-value pairs configuring a
 particular Stack. The available keys are listed below.</p>
 <ul class="simple">
-<li><p><a class="reference external" href="#template_path">template_path</a> or <a class="reference external" href="#template">template</a> <em>(required)</em></p></li>
+<li><p><a class="reference external" href="#template-path">template_path</a> or <a class="reference external" href="#template">template</a> <em>(required)</em></p></li>
 <li><p><a class="reference external" href="#dependencies">dependencies</a> <em>(optional)</em></p></li>
 <li><p><a class="reference external" href="#hooks">hooks</a> <em>(optional)</em></p></li>
 <li><p><a class="reference external" href="#notifications">notifications</a> <em>(optional)</em></p></li>
-<li><p><a class="reference external" href="#on_failure">on_failure</a> <em>(optional)</em></p></li>
+<li><p><a class="reference external" href="#on-failure">on_failure</a> <em>(optional)</em></p></li>
 <li><p><a class="reference external" href="#parameters">parameters</a> <em>(optional)</em></p></li>
 <li><p><a class="reference external" href="#protected">protected</a> <em>(optional)</em></p></li>
-<li><p><a class="reference external" href="#role_arn">role_arn</a> <em>(optional)</em></p></li>
+<li><p><a class="reference external" href="#role-arn">role_arn</a> <em>(optional)</em></p></li>
 <li><p><a class="reference internal" href="#iam-role">iam_role</a> <em>(optional)</em></p></li>
-<li><p><a class="reference external" href="#sceptre_user_data">sceptre_user_data</a> <em>(optional)</em></p></li>
-<li><p><a class="reference external" href="#stack_name">stack_name</a> <em>(optional)</em></p></li>
-<li><p><a class="reference external" href="#stack_tags">stack_tags</a> <em>(optional)</em></p></li>
-<li><p><a class="reference external" href="#stack_timeout">stack_timeout</a> <em>(optional)</em></p></li>
+<li><p><a class="reference external" href="#sceptre-user-data">sceptre_user_data</a> <em>(optional)</em></p></li>
+<li><p><a class="reference external" href="#stack-name">stack_name</a> <em>(optional)</em></p></li>
+<li><p><a class="reference external" href="#stack-tags">stack_tags</a> <em>(optional)</em></p></li>
+<li><p><a class="reference external" href="#stack-timeout">stack_timeout</a> <em>(optional)</em></p></li>
 </ul>
-<p>It is not possible to define both <a class="reference external" href="#template_path">template_path</a> and <a class="reference external" href="#template">template</a>. If you do so,
+<p>It is not possible to define both <a class="reference external" href="#template-path">template_path</a> and <a class="reference external" href="#template">template</a>. If you do so,
 you will receive an error when deploying the stack.</p>
 <div class="section" id="template-path">
 <h3>template_path<a class="headerlink" href="#template-path" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Resolvable: No</p></li>
+<li><p>Can be inherited from StackGroup: No</p></li>
+</ul>
 <p>The path to the CloudFormation, Jinja2 or Python template to build the Stack
 from. The path can either be absolute or relative to the Sceptre Directory.
 Sceptre treats the template as CloudFormation, Jinja2 or Python depending on
@@ -249,6 +254,10 @@ from the Stack config filename.</p>
 </div>
 <div class="section" id="template">
 <h3>template<a class="headerlink" href="#template" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Resolvable: No</p></li>
+<li><p>Can be inherited from StackGroup: No</p></li>
+</ul>
 <p>Configuration for a template handler. Template handlers can take in parameters
 and resolve that to a CloudFormation template. This enables you to not only
 load templates from disk, but also from third-party storage or AWS services.</p>
@@ -267,6 +276,11 @@ developing your own in the <a class="reference internal" href="template_handlers
 </div>
 <div class="section" id="dependencies">
 <h3>dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Resolvable: No</p></li>
+<li><p>Can be inherited from StackGroup: Yes</p></li>
+<li><p>Inheritance strategy: Appended to parent’s dependencies</p></li>
+</ul>
 <p>A list of other Stacks in the environment that this Stack depends on. Note that
 if a Stack fetches an output value from another Stack using the
 <code class="docutils literal notranslate"><span class="pre">stack_output</span></code> resolver, that Stack is automatically added as a dependency,
@@ -274,11 +288,21 @@ and that Stack need not be added as an explicit dependency.</p>
 </div>
 <div class="section" id="hooks">
 <h3>hooks<a class="headerlink" href="#hooks" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Resolvable: No</p></li>
+<li><p>Can be inherited from StackGroup: Yes</p></li>
+<li><p>Inheritance strategy: Overrides parent if set</p></li>
+</ul>
 <p>A list of arbitrary shell or Python commands or scripts to run. Find out more
 in the <a class="reference internal" href="hooks.html"><span class="doc">Hooks</span></a> section.</p>
 </div>
 <div class="section" id="notifications">
 <h3>notifications<a class="headerlink" href="#notifications" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Resolvable: Yes</p></li>
+<li><p>Can be inherited from StackGroup: Yes</p></li>
+<li><p>Inheritance strategy: Overrides parent if set</p></li>
+</ul>
 <p>List of SNS topic ARNs to publish Stack related events to. A maximum of 5 ARNs
 can be specified per Stack. This configuration will be used by the <code class="docutils literal notranslate"><span class="pre">create</span></code>,
 <code class="docutils literal notranslate"><span class="pre">update</span></code>, and <code class="docutils literal notranslate"><span class="pre">delete</span></code> commands. More information about Stack notifications
@@ -287,6 +311,11 @@ documentation</a>.</p>
 </div>
 <div class="section" id="on-failure">
 <h3>on_failure<a class="headerlink" href="#on-failure" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Resolvable: No</p></li>
+<li><p>Can be inherited from StackGroup: Yes</p></li>
+<li><p>Inheritance strategy: Overrides parent if set</p></li>
+</ul>
 <p>This parameter describes the action taken by CloudFormation when a Stack fails
 to create. For more information and valid values see the <a class="reference external" href="http://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateStack.html">AWS Documentation</a>.</p>
 <p>Examples include:</p>
@@ -296,6 +325,11 @@ to create. For more information and valid values see the <a class="reference ext
 </div>
 <div class="section" id="parameters">
 <h3>parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Resolvable: Yes</p></li>
+<li><p>Can be inherited from StackGroup: Yes</p></li>
+<li><p>Inheritance strategy: Overrides parent if set</p></li>
+</ul>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Sensitive data such as passwords or secret keys should not be stored in
@@ -352,6 +386,11 @@ contain a mixture of values and resolvers.</p>
 </div>
 <div class="section" id="protected">
 <h3>protected<a class="headerlink" href="#protected" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Resolvable: No</p></li>
+<li><p>Can be inherited from StackGroup: Yes</p></li>
+<li><p>Inheritance strategy: Overrides parent if set</p></li>
+</ul>
 <p>Stack protection against execution of the following commands:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">launch</span></code></p></li>
@@ -365,11 +404,21 @@ throw an error.</p>
 </div>
 <div class="section" id="role-arn">
 <h3>role_arn<a class="headerlink" href="#role-arn" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Resolvable: No</p></li>
+<li><p>Can be inherited from StackGroup: Yes</p></li>
+<li><p>Inheritance strategy: Overrides parent if set</p></li>
+</ul>
 <p>The ARN of a <a class="reference external" href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-servicerole.html">CloudFormation Service Role</a> that is assumed by CloudFormation
 to create, update or delete resources.</p>
 </div>
 <div class="section" id="iam-role">
 <h3>iam_role<a class="headerlink" href="#iam-role" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Resolvable: No</p></li>
+<li><p>Can be inherited from StackGroup: Yes</p></li>
+<li><p>Inheritance strategy: Overrides parent if set</p></li>
+</ul>
 <p>This is the IAM Role ARN that <strong>Sceptre</strong> should <em>assume</em> using AWS STS when executing any actions
 on the Stack.</p>
 <p>This is different from the <code class="docutils literal notranslate"><span class="pre">role_arn</span></code> option, which sets a CloudFormation service role for the
@@ -387,12 +436,21 @@ permits the user to assume that role.</p>
 </div>
 <div class="section" id="sceptre-user-data">
 <h3>sceptre_user_data<a class="headerlink" href="#sceptre-user-data" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Resolvable: Yes</p></li>
+<li><p>Can be inherited from StackGroup: Yes</p></li>
+<li><p>Inheritance strategy: Overrides parent if set</p></li>
+</ul>
 <p>Represents data to be passed to the <code class="docutils literal notranslate"><span class="pre">sceptre_handler(sceptre_user_data)</span></code>
 function in Python templates or accessible under <code class="docutils literal notranslate"><span class="pre">sceptre_user_data</span></code> variable
 key within Jinja2 templates.</p>
 </div>
 <div class="section" id="stack-name">
 <h3>stack_name<a class="headerlink" href="#stack-name" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Resolvable: No</p></li>
+<li><p>Can be inherited from StackGroup: No</p></li>
+</ul>
 <p>A custom name to use instead of the Sceptre default.</p>
 <div class="alert alert-warning docutils container">
 <p>Outputs from Stacks with custom names can’t be resolved using the standard
@@ -420,10 +478,20 @@ referring to is in a different AWS account or region.</p>
 </div>
 <div class="section" id="stack-tags">
 <h3>stack_tags<a class="headerlink" href="#stack-tags" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Resolvable: Yes</p></li>
+<li><p>Can be inherited from StackGroup: Yes</p></li>
+<li><p>Inheritance strategy: Overrides parent if set</p></li>
+</ul>
 <p>A dictionary of <a class="reference external" href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_Tag.html">CloudFormation Tags</a> to be applied to the Stack.</p>
 </div>
 <div class="section" id="stack-timeout">
 <h3>stack_timeout<a class="headerlink" href="#stack-timeout" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Resolvable: No</p></li>
+<li><p>Can be inherited from StackGroup: Yes</p></li>
+<li><p>Inheritance strategy: Overrides parent if set</p></li>
+</ul>
 <p>A timeout in minutes before considering the Stack deployment as failed. After
 the specified timeout, the Stack will be rolled back. Specifiyng zero, as well
 as ommiting the field, will result in no timeout. Supports only positive
