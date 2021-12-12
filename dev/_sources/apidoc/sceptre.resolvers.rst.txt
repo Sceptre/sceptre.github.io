@@ -25,22 +25,6 @@ sceptre.resolvers.file\_contents module
    :undoc-members:
    :show-inheritance:
 
-sceptre.resolvers.no\_value module
-----------------------------------
-
-.. automodule:: sceptre.resolvers.no_value
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-sceptre.resolvers.placeholders module
--------------------------------------
-
-.. automodule:: sceptre.resolvers.placeholders
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 sceptre.resolvers.stack\_output module
 --------------------------------------
 

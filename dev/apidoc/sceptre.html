@@ -276,8 +276,6 @@ raises a NotImplementedError.</p>
 <li class="toctree-l2"><a class="reference internal" href="sceptre.resolvers.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sceptre.resolvers.html#module-sceptre.resolvers.environment_variable">sceptre.resolvers.environment_variable module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sceptre.resolvers.html#module-sceptre.resolvers.file_contents">sceptre.resolvers.file_contents module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sceptre.resolvers.html#module-sceptre.resolvers.no_value">sceptre.resolvers.no_value module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sceptre.resolvers.html#module-sceptre.resolvers.placeholders">sceptre.resolvers.placeholders module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sceptre.resolvers.html#module-sceptre.resolvers.stack_output">sceptre.resolvers.stack_output module</a></li>
 </ul>
 </li>
@@ -667,13 +665,6 @@ trailing slash.
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="sceptre.helpers.null_context">
-<span class="sig-prename descclassname"><span class="pre">sceptre.helpers.</span></span><span class="sig-name descname"><span class="pre">null_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/helpers.html#null_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.helpers.null_context" title="Permalink to this definition">¶</a></dt>
-<dd><p>A context manager that does nothing. This is identical to the nullcontext in py3.7+, but isn’t
-available in py3.6, so providing it here instead.</p>
-</dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="sceptre.helpers.sceptreise_path">
 <span class="sig-prename descclassname"><span class="pre">sceptre.helpers.</span></span><span class="sig-name descname"><span class="pre">sceptreise_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/helpers.html#sceptreise_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.helpers.sceptreise_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts a path to use correct sceptre path separator.
@@ -730,14 +721,18 @@ the type of template handler to load. Conflicts with <cite>template_path</cite>.
 </dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="sceptre.stack.Stack.connection_manager">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">connection_manager</span></span><em class="property"><span class="pre">:</span> <a class="reference internal" href="#sceptre.connection_manager.ConnectionManager" title="sceptre.connection_manager.ConnectionManager"><span class="pre">sceptre.connection_manager.ConnectionManager</span></a></em><a class="headerlink" href="#sceptre.stack.Stack.connection_manager" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the ConnectionManager for the stack, creating it if it has not yet been created.</p>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">connection_manager</span></span><a class="headerlink" href="#sceptre.stack.Stack.connection_manager" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Returns ConnectionManager.</dt><dd><dl class="field-list simple">
+<dt class="field-odd">returns</dt>
+<dd class="field-odd"><p>ConnectionManager.</p>
+</dd>
+</dl>
+</dd>
+</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="#sceptre.connection_manager.ConnectionManager" title="sceptre.connection_manager.ConnectionManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConnectionManager</span></code></a></p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>ConnectionManager.</p>
+<dd class="field-odd"><p><a class="reference internal" href="#sceptre.connection_manager.ConnectionManager" title="sceptre.connection_manager.ConnectionManager">ConnectionManager</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -748,20 +743,6 @@ the type of template handler to load. Conflicts with <cite>template_path</cite>.
 <dd><p>This is a descriptor class used to store an attribute that may contain
 Hook objects. Used to setup Hooks when added as a attribute. Supports
 nested dictionary and lists.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Attribute suffix used to store the property in the instance.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="sceptre.stack.Stack.iam_role">
-<span class="sig-name descname"><span class="pre">iam_role</span></span><a class="headerlink" href="#sceptre.stack.Stack.iam_role" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is a descriptor class used to store an attribute that may BE a single
-Resolver object. If it is a resolver, it will be resolved upon access of this property.
-When resolved, the resolved value will replace the resolver on the stack in order to avoid
-redundant resolutions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Attribute suffix used to store the property in the instance.</p>

@@ -275,8 +275,8 @@ supplied in this way have a lower maximum length, so using the
 <p class="admonition-title">Warning</p>
 <p>If you resolve <code class="docutils literal notranslate"><span class="pre">template_bucket_name</span></code> using the <code class="docutils literal notranslate"><span class="pre">!stack_output</span></code>
 resolver on a StackGroup, the stack that outputs that bucket name <em>cannot</em> be
-defined in that StackGroup (or it must be set to <code class="docutils literal notranslate"><span class="pre">!no_value</span></code>) Otherwise, a circular dependency
-will exist and Sceptre will raise an error when attempting any Stack action.</p>
+defined in that StackGroup. Otherwise, a circular dependency will exist and Sceptre
+will raise an error when attempting any Stack action.</p>
 </div>
 </div>
 <div class="section" id="template-key-prefix">
@@ -386,9 +386,7 @@ dependencies.</p>
 <p>You might have already considered that this might cause a circular dependency for those
 dependency stacks, the ones that output the template bucket name, role arn, iam_role, or topic arns.
 In order to avoid the circular dependency issue, it is important that you define these items in a
-Stack that is <em>outside</em> the StackGroup you reference them in. Alternatively, you can set those
-values to <code class="docutils literal notranslate"><span class="pre">!no_value</span></code> in order to effectively cancel out the values they would otherwise inherit
-from their stack group.</p>
+Stack that is <em>outside</em> the StackGroup you reference them in.</p>
 </div>
 </div>
 <div class="section" id="templating">
