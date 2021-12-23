@@ -285,6 +285,14 @@ developing your own in the <a class="reference internal" href="template_handlers
 if a Stack fetches an output value from another Stack using the
 <code class="docutils literal notranslate"><span class="pre">stack_output</span></code> resolver, that Stack is automatically added as a dependency,
 and that Stack need not be added as an explicit dependency.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Be careful about how you structure dependencies. It is possible to create circular
+dependencies accidentally, where multiple stacks depend on each other. Sceptre
+will detect this and raise an error, blocking this sort of setup. This will <em>always</em>
+be the case when you set dependencies on a StackGroup Config referencing stacks
+inside that StackGroup.</p>
+</div>
 </div>
 <div class="section" id="hooks">
 <h3>hooks<a class="headerlink" href="#hooks" title="Permalink to this headline">¶</a></h3>
@@ -405,17 +413,17 @@ throw an error.</p>
 <div class="section" id="role-arn">
 <h3>role_arn<a class="headerlink" href="#role-arn" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>Resolvable: Yes</p></li>
+<li><p>Resolvable: No</p></li>
 <li><p>Can be inherited from StackGroup: Yes</p></li>
 <li><p>Inheritance strategy: Overrides parent if set</p></li>
 </ul>
-<p>The ARN of a <a class="reference external" href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-servicerole.html">CloudFormation Service Role</a> that is assumed by <em>CloudFormation</em> (not Sceptre)
+<p>The ARN of a <a class="reference external" href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-servicerole.html">CloudFormation Service Role</a> that is assumed by CloudFormation
 to create, update or delete resources.</p>
 </div>
 <div class="section" id="iam-role">
 <h3>iam_role<a class="headerlink" href="#iam-role" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>Resolvable: Yes</p></li>
+<li><p>Resolvable: No</p></li>
 <li><p>Can be inherited from StackGroup: Yes</p></li>
 <li><p>Inheritance strategy: Overrides parent if set</p></li>
 </ul>
@@ -433,13 +441,6 @@ permissions set to perform the required actions on that stack, such as might be 
 CI/CD system like Jenkins.</p>
 <p>In order to use this argument, however, the role needs to have an AssumeRolePolicyDocument that
 permits the user to assume that role.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>If you use set the value of <code class="docutils literal notranslate"><span class="pre">iam_role</span></code> with <code class="docutils literal notranslate"><span class="pre">!stack_output</span></code>, that <code class="docutils literal notranslate"><span class="pre">iam_role</span></code>
-will not actually be used to obtain the stack_output, but it <em>WILL</em> be used for all subsequent stack
-actions. Therefore, it is important that the user executing the stack action have permissions to get
-stack outputs for the stack outputting the <code class="docutils literal notranslate"><span class="pre">iam_role</span></code>.</p>
-</div>
 </div>
 <div class="section" id="sceptre-user-data">
 <h3>sceptre_user_data<a class="headerlink" href="#sceptre-user-data" title="Permalink to this headline">¶</a></h3>

@@ -262,9 +262,17 @@ a string, json, or yaml object.</p>
 </pre></div>
 </div>
 <p>Sceptre infers that the Stack to fetch the output value from is a dependency,
-and builds that Stack before the current one.</p>
-<p>This resolver will add a dependency for the Stack in which needs the output
-from.</p>
+adding that stack to the current stack’s list of dependencies. This instructs
+Sceptre to build that Stack before the current one.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Be careful when using the stack_output resolver that you do not create circular dependencies.
+This is especially true when using this on StackGroup Configs to create configurations
+to be inherited by all stacks in that group. Since the stack_output resolver creates dependencies
+on all stacks in the group, this can lead to circular dependencies if the resolver points to a
+stack inside the group. The correct way to work around this is to move that stack outside the
+StackGroup.</p>
+</div>
 </div>
 <div class="section" id="stack-output-external">
 <h3>stack_output_external<a class="headerlink" href="#stack-output-external" title="Permalink to this headline">¶</a></h3>

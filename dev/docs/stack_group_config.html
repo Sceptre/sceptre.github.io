@@ -114,7 +114,6 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#cascading-config">Cascading Config</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#setting-dependencies-for-stackgroups">Setting Dependencies for StackGroups</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#templating">Templating</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#var">Var</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#environment-variables">Environment Variables</a></li>
@@ -261,7 +260,7 @@ supports CloudFormation</a>.</p>
 <div class="section" id="template-bucket-name">
 <h3>template_bucket_name<a class="headerlink" href="#template-bucket-name" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>Resolvable: Yes</p></li>
+<li><p>Resolvable: No</p></li>
 <li><p>Inheritance strategy: Overrides parent if set by child</p></li>
 </ul>
 <p>The name of an S3 bucket to upload CloudFormation Templates to. Note that S3
@@ -271,13 +270,6 @@ creates one using the given name, in the AWS region specified by <code class="do
 supplies the template to Boto3 via the <code class="docutils literal notranslate"><span class="pre">TemplateBody</span></code> argument. Templates
 supplied in this way have a lower maximum length, so using the
 <code class="docutils literal notranslate"><span class="pre">template_bucket_name</span></code> parameter is recommended.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>If you resolve <code class="docutils literal notranslate"><span class="pre">template_bucket_name</span></code> using the <code class="docutils literal notranslate"><span class="pre">!stack_output</span></code>
-resolver on a StackGroup, the stack that outputs that bucket name <em>cannot</em> be
-defined in that StackGroup. Otherwise, a circular dependency will exist and Sceptre
-will raise an error when attempting any Stack action.</p>
-</div>
 </div>
 <div class="section" id="template-key-prefix">
 <h3>template_key_prefix<a class="headerlink" href="#template-key-prefix" title="Permalink to this headline">¶</a></h3>
@@ -360,34 +352,6 @@ followed by <code class="docutils literal notranslate"><span class="pre">config/
 <p>For example, if you wanted the <code class="docutils literal notranslate"><span class="pre">dev</span></code> StackGroup to build to a different
 region, this setting could be specified in the <code class="docutils literal notranslate"><span class="pre">config/dev/config.yaml</span></code> file,
 and would only be applied to builds in the <code class="docutils literal notranslate"><span class="pre">dev</span></code> StackGroup.</p>
-</div>
-<div class="section" id="setting-dependencies-for-stackgroups">
-<span id="setting-dependencies-for-stack-groups"></span><h2>Setting Dependencies for StackGroups<a class="headerlink" href="#setting-dependencies-for-stackgroups" title="Permalink to this headline">¶</a></h2>
-<p>There are a few pieces of AWS infrastructure that Sceptre can (optionally) use to support the needs
-and concerns of the project. These include:</p>
-<ul class="simple">
-<li><p>The S3 bucket where templates are uploaded to and then referenced from for stack actions (i.e. the
-<code class="docutils literal notranslate"><span class="pre">template_bucket_name</span></code> config key).</p></li>
-<li><p>The CloudFormation service role added to the stack(s) that CloudFormation uses to execute stack
-actions (i.e. the <code class="docutils literal notranslate"><span class="pre">role_arn</span></code> config key).</p></li>
-<li><p>The role that Sceptre will assume to execute stack actions (i.e. the <code class="docutils literal notranslate"><span class="pre">iam_role</span></code> config key).</p></li>
-<li><p>SNS topics that cloudformation will notify with the results of stack actions (i.e. the
-<code class="docutils literal notranslate"><span class="pre">notifications</span></code> config key).</p></li>
-</ul>
-<p>These sorts of dependencies CAN be defined in Sceptre and added at the StackGroup level, referenced
-using <code class="docutils literal notranslate"><span class="pre">!stack_output</span></code>. Doing so will make it so that every stack in the StackGroup will have those
-dependencies and get those values from Sceptre-managed stacks.</p>
-<p>Beyond the above mentioned config keys, it is possible to set the <code class="docutils literal notranslate"><span class="pre">dependencies</span></code> config key in a
-StackGroup config to be inherited by all Stack configs in that group. All dependencies in child
-stacks will be added to their inherited StackGroup dependencies, so be careful how you structure
-dependencies.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>You might have already considered that this might cause a circular dependency for those
-dependency stacks, the ones that output the template bucket name, role arn, iam_role, or topic arns.
-In order to avoid the circular dependency issue, it is important that you define these items in a
-Stack that is <em>outside</em> the StackGroup you reference them in.</p>
-</div>
 </div>
 <div class="section" id="templating">
 <span id="stack-group-config-templating"></span><h2>Templating<a class="headerlink" href="#templating" title="Permalink to this headline">¶</a></h2>
