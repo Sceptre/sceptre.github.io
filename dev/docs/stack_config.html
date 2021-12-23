@@ -285,14 +285,6 @@ developing your own in the <a class="reference internal" href="template_handlers
 if a Stack fetches an output value from another Stack using the
 <code class="docutils literal notranslate"><span class="pre">stack_output</span></code> resolver, that Stack is automatically added as a dependency,
 and that Stack need not be added as an explicit dependency.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Be careful about how you structure dependencies. It is possible to create circular
-dependencies accidentally, where multiple stacks depend on each other. Sceptre
-will detect this and raise an error, blocking this sort of setup. This will <em>always</em>
-be the case when you set dependencies on a StackGroup Config referencing stacks
-inside that StackGroup.</p>
-</div>
 </div>
 <div class="section" id="hooks">
 <h3>hooks<a class="headerlink" href="#hooks" title="Permalink to this headline">¶</a></h3>
@@ -413,11 +405,11 @@ throw an error.</p>
 <div class="section" id="role-arn">
 <h3>role_arn<a class="headerlink" href="#role-arn" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>Resolvable: No</p></li>
+<li><p>Resolvable: Yes</p></li>
 <li><p>Can be inherited from StackGroup: Yes</p></li>
 <li><p>Inheritance strategy: Overrides parent if set</p></li>
 </ul>
-<p>The ARN of a <a class="reference external" href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-servicerole.html">CloudFormation Service Role</a> that is assumed by CloudFormation
+<p>The ARN of a <a class="reference external" href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-servicerole.html">CloudFormation Service Role</a> that is assumed by <em>CloudFormation</em> (not Sceptre)
 to create, update or delete resources.</p>
 </div>
 <div class="section" id="iam-role">
