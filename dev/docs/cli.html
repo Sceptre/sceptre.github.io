@@ -529,6 +529,12 @@ requires and causes an error, there is nothing further Sceptre can do and diffin
 <dd><p>If set, will display the unmasked values of NoEcho parameters generated LOCALLY (NoEcho parameters for deployed stacks will always be masked when retrieved from CloudFormation.). If not set (the default), parameters identified as NoEcho on the local template will be masked when presented in the diff.</p>
 </dd></dl>
 
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-diff-n">
+<span id="cmdoption-sceptre-diff-no-placeholders"></span><span class="sig-name descname"><span class="pre">-n</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-placeholders</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-diff-n" title="Permalink to this definition">¶</a></dt>
+<dd><p>If True, no placeholder values will be supplied for resolvers that cannot be resolved.</p>
+</dd></dl>
+
 <p class="rubric">Arguments</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-sceptre-diff-arg-PATH">
@@ -600,6 +606,13 @@ browser with the returned URI.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sceptre generate <span class="o">[</span>OPTIONS<span class="o">]</span> PATH
 </pre></div>
 </div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-generate-n">
+<span id="cmdoption-sceptre-generate-no-placeholders"></span><span class="sig-name descname"><span class="pre">-n</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-placeholders</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-generate-n" title="Permalink to this definition">¶</a></dt>
+<dd><p>If True, no placeholder values will be supplied for resolvers that cannot be resolved.</p>
+</dd></dl>
+
 <p class="rubric">Arguments</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-sceptre-generate-arg-PATH">
@@ -821,6 +834,13 @@ change-set when the change-set flag is set.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sceptre validate <span class="o">[</span>OPTIONS<span class="o">]</span> PATH
 </pre></div>
 </div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-validate-n">
+<span id="cmdoption-sceptre-validate-no-placeholders"></span><span class="sig-name descname"><span class="pre">-n</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-placeholders</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-validate-n" title="Permalink to this definition">¶</a></dt>
+<dd><p>If True, no placeholder values will be supplied for resolvers that cannot be resolved.</p>
+</dd></dl>
+
 <p class="rubric">Arguments</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-sceptre-validate-arg-PATH">

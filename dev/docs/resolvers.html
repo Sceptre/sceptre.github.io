@@ -111,6 +111,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#environment-variable">environment_variable</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#file">file</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#file-contents">file_contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#no-value">no_value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#rcmd">rcmd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stack-output">stack_output</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stack-output-external">stack_output_external</a></li>
@@ -120,7 +121,9 @@
 <li class="toctree-l3"><a class="reference internal" href="#example">Example</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#custom-resolver-py">custom_resolver.py</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#setup-py">setup.py</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#resolver-arguments">resolver arguments</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#resolver-arguments">Resolver arguments</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#resolving-to-nothing">Resolving to nothing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#resolver-placeholders">Resolver placeholders</a></li>
 </ul>
 </li>
 </ul>
@@ -243,6 +246,22 @@ a string, json, or yaml object.</p>
 <h3>file_contents<a class="headerlink" href="#file-contents" title="Permalink to this headline">¶</a></h3>
 <p><strong>deprecated</strong>: Consider using the <a class="reference internal" href="#file">file</a> resolver instead.</p>
 </div>
+<div class="section" id="no-value">
+<h3>no_value<a class="headerlink" href="#no-value" title="Permalink to this headline">¶</a></h3>
+<p>This resolver “resolves to nothing”, functioning just as if it was not set at all. This works just
+like the “AWS::NoValue” special variable that you can reference on a CloudFormation template. It
+can help simplify Stack and StackGroup config Jinja logic in cases where, if a condition is met, a
+value is passed, otherwise no value is passed.</p>
+<p>For example, you could use this resolver like this:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span>
+ <span class="nt">my_parameter</span><span class="p">:</span> <span class="p p-Indicator">{{</span> <span class="nv">var.some_value_that_might_not_be_set | default(&#39;!no_value&#39;)</span> <span class="p p-Indicator">}}</span>
+</pre></div>
+</div>
+<p>In this example, if <code class="docutils literal notranslate"><span class="pre">var.some_value_that_might_not_be_set</span></code> is set, <code class="docutils literal notranslate"><span class="pre">my_parameter</span></code> will be set to
+that value. But if <code class="docutils literal notranslate"><span class="pre">var.some_value_that_might_not_be_set</span></code> is not actually set, <code class="docutils literal notranslate"><span class="pre">my_parameter</span></code>
+won’t even be passed to CloudFormation at all. This might be desired if there is a default value on
+the CloudFormation template for <code class="docutils literal notranslate"><span class="pre">my_parameter</span></code> and we’d want to fall back to that default.</p>
+</div>
 <div class="section" id="rcmd">
 <h3>rcmd<a class="headerlink" href="#rcmd" title="Permalink to this headline">¶</a></h3>
 <p>A resolver to execute any shell command.</p>
@@ -262,17 +281,9 @@ a string, json, or yaml object.</p>
 </pre></div>
 </div>
 <p>Sceptre infers that the Stack to fetch the output value from is a dependency,
-adding that stack to the current stack’s list of dependencies. This instructs
-Sceptre to build that Stack before the current one.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Be careful when using the stack_output resolver that you do not create circular dependencies.
-This is especially true when using this on StackGroup Configs to create configurations
-to be inherited by all stacks in that group. If the <cite>!stack_output</cite> resolver would be “inherited”
-from a StackGroup Config by the stack it references, this will lead to a circular dependency.
-The correct way to work around this is to move that stack outside that StackGroup so that it
-doesn’t “inherit” that resolver.</p>
-</div>
+and builds that Stack before the current one.</p>
+<p>This resolver will add a dependency for the Stack in which needs the output
+from.</p>
 </div>
 <div class="section" id="stack-output-external">
 <h3>stack_output_external<a class="headerlink" href="#stack-output-external" title="Permalink to this headline">¶</a></h3>
@@ -328,15 +339,23 @@ In case you are not familiar with python packaging, <a class="reference external
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    argument: str</span>
-<span class="sd">        The argument of the resolver.</span>
+<span class="sd">    argument: Any</span>
+<span class="sd">        The argument of the resolver. This can be any value able to be defined in yaml.</span>
 <span class="sd">    stack: sceptre.stack.Stack</span>
-<span class="sd">        The associated stack of the resolver.</span>
-
+<span class="sd">        The associated stack of the resolver. This will normally be None when the resolver is</span>
+<span class="sd">        instantiated, but will be set before the resolver is resolved.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">CustomResolver</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argument</span><span class="p">,</span> <span class="n">stack</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CustomResolver</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">argument</span><span class="p">,</span> <span class="n">stack</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setup is invoked after the stack has been set on the resolver, whether or not the</span>
+<span class="sd">        resolver is ever resolved.</span>
+
+<span class="sd">        Implement this method for any setup behavior you want (such as adding to stack dependencies).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">resolve</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -386,7 +405,7 @@ In case you are not familiar with python packaging, <a class="reference external
 </div>
 </div>
 <div class="section" id="resolver-arguments">
-<h4>resolver arguments<a class="headerlink" href="#resolver-arguments" title="Permalink to this headline">¶</a></h4>
+<h4>Resolver arguments<a class="headerlink" href="#resolver-arguments" title="Permalink to this headline">¶</a></h4>
 <p>Resolver arguments can be a simple string or a complex data structure.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span>
   <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;...&gt;</span>
@@ -398,6 +417,53 @@ In case you are not familiar with python packaging, <a class="reference external
      <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;/dev/DbPassword&quot;</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="resolving-to-nothing">
+<h4>Resolving to nothing<a class="headerlink" href="#resolving-to-nothing" title="Permalink to this headline">¶</a></h4>
+<p>When a resolver returns <code class="docutils literal notranslate"><span class="pre">None</span></code>, this means that it resolves to “nothing”. For resolvers set for
+single values (such as for <code class="docutils literal notranslate"><span class="pre">template_bucket_name</span></code> or <code class="docutils literal notranslate"><span class="pre">role_arn</span></code>), this just means the value is
+<code class="docutils literal notranslate"><span class="pre">None</span></code> and treated like those values aren’t actually set. But for resolvers inside of containers
+like lists or dicts, when they resolve to “nothing”, that item gets completely removed from their
+containing list or dict.</p>
+<p>This feature would be useful if you wanted to define a resolver that sometimes would resolve to be a
+given stack parameter and sometimes would be not defined at all and use the template’s default value
+for that parameter. The resolver could just return <cite>None</cite> in those cases it wants to resolve to
+nothing, similar to the AWS::NoValue pseudo-parameter that can be referenced in a CloudFormation
+template.</p>
+</div>
+<div class="section" id="resolver-placeholders">
+<h4>Resolver placeholders<a class="headerlink" href="#resolver-placeholders" title="Permalink to this headline">¶</a></h4>
+<p>Resolvers (especially the !stack_output resolver) often express dependencies on other stacks and
+their outputs. However, there are times when those stacks or outputs will not exist yet because they
+have not yet been deployed. During normal deployment operations (using the <code class="docutils literal notranslate"><span class="pre">launch</span></code>, <code class="docutils literal notranslate"><span class="pre">create</span></code>,
+<code class="docutils literal notranslate"><span class="pre">update</span></code>, and <code class="docutils literal notranslate"><span class="pre">delete</span></code> commands), Sceptre knows the correct order to resolve dependencies in and will
+ensure that order is followed, so everything works as expected.</p>
+<p>But there are other commands that will not actually deploy dependencies of a stack config before
+operating on that Stack Config. These commands include <code class="docutils literal notranslate"><span class="pre">generate</span></code>, <code class="docutils literal notranslate"><span class="pre">validate</span></code>, and <code class="docutils literal notranslate"><span class="pre">diff</span></code>.
+If you have used resolvers to reverence other stacks, it is possible that a resolver might not be able
+to be resolved when performing that command’s operations and will trigger an error. This is not likely
+to happen when you have only used resolvers in a stack’s <code class="docutils literal notranslate"><span class="pre">parameters</span></code>, but it is much more likely
+if you have used them in <code class="docutils literal notranslate"><span class="pre">sceptre_user_data</span></code> with a Jinja or Python template. At those times (and
+only when a resolver cannot be resolved), a <strong>best-attempt placeholder value</strong> will be supplied in to
+allow the command to proceed. Depending on how your template or Stack Config is configured, the
+command may or may not actually succeed using that placeholder value.</p>
+<p>A few examples…</p>
+<ul class="simple">
+<li><p>If you have a stack parameter referencing <code class="docutils literal notranslate"><span class="pre">!stack_output</span> <span class="pre">other_stack.yaml::OutputName</span></code>,
+and you run the <code class="docutils literal notranslate"><span class="pre">diff</span></code> command before other_stack.yaml has been deployed, the diff output will
+show the value of that parameter to be <code class="docutils literal notranslate"><span class="pre">&quot;{</span> <span class="pre">!StackOutput(other_stack.yaml::OutputName)</span> <span class="pre">}&quot;</span></code>.</p></li>
+<li><p>If you have a <code class="docutils literal notranslate"><span class="pre">sceptre_user_data</span></code> value used in a Jinja template referencing
+<code class="docutils literal notranslate"><span class="pre">!stack_output</span> <span class="pre">other_stack.yaml::OutputName</span></code> and you run the <code class="docutils literal notranslate"><span class="pre">generate</span></code> command, the generated
+template will replace that value with <code class="docutils literal notranslate"><span class="pre">&quot;StackOutputotherstackyamlOutputName&quot;</span></code>. This isn’t as
+“pretty” as the sort of placeholder used for stack parameters, but the use of sceptre_user_data is
+broader, so it placeholder values can only be alphanumeric to reduce chances of it breaking the
+template.</p></li>
+<li><p>Resolvable properties that are <em>always</em> used when performing template operations (like <code class="docutils literal notranslate"><span class="pre">iam_role</span></code>
+and <code class="docutils literal notranslate"><span class="pre">template_bucket_name</span></code>) will resolve to <code class="docutils literal notranslate"><span class="pre">None</span></code> and not be used for those operations if they
+cannot be resolved.</p></li>
+</ul>
+<p>Any command that allows these placeholders can have them disabled with the <code class="docutils literal notranslate"><span class="pre">--no-placeholders</span></code> ClI
+option.</p>
 </div>
 </div>
 </div>
