@@ -106,6 +106,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../docs/hooks.html">Hooks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../docs/resolvers.html">Resolvers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../docs/architecture.html">Architecting Sceptre</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docs/permissions.html">Sceptre and IAM</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Support</span></p>
 <ul>
@@ -337,11 +338,11 @@
 
                 <span class="k">if</span> <span class="n">iam_role</span><span class="p">:</span>
                     <span class="n">sts_client</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s2">&quot;sts&quot;</span><span class="p">)</span>
+                    <span class="c1"># maximum session name length is 64 chars. 56 + &quot;-session&quot; = 64</span>
+                    <span class="n">session_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">iam_role</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">][:</span><span class="mi">56</span><span class="p">]</span><span class="si">}</span><span class="s1">-session&#39;</span>
                     <span class="n">sts_response</span> <span class="o">=</span> <span class="n">sts_client</span><span class="o">.</span><span class="n">assume_role</span><span class="p">(</span>
                         <span class="n">RoleArn</span><span class="o">=</span><span class="n">iam_role</span><span class="p">,</span>
-                        <span class="n">RoleSessionName</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">-session&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                            <span class="n">iam_role</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-                        <span class="p">)</span>
+                        <span class="n">RoleSessionName</span><span class="o">=</span><span class="n">session_name</span>
                     <span class="p">)</span>
 
                     <span class="n">credentials</span> <span class="o">=</span> <span class="n">sts_response</span><span class="p">[</span><span class="s2">&quot;Credentials&quot;</span><span class="p">]</span>

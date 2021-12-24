@@ -131,6 +131,7 @@
 <li class="toctree-l1"><a class="reference internal" href="hooks.html">Hooks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="resolvers.html">Resolvers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecting Sceptre</a></li>
+<li class="toctree-l1"><a class="reference internal" href="permissions.html">Sceptre and IAM</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Support</span></p>
 <ul>
@@ -236,9 +237,10 @@ made available via <code class="docutils literal notranslate"><span class="pre">
 <li><p>Resolvable: No</p></li>
 <li><p>Inheritance strategy: Overrides parent if set by child</p></li>
 </ul>
-<p>The name of the profile as defined in <code class="docutils literal notranslate"><span class="pre">~/.aws/config</span></code> and
-<code class="docutils literal notranslate"><span class="pre">~/.aws/credentials</span></code>. Use the <cite>aws configure –profile &lt;profile_id&gt;</cite> command
-form the AWS CLI to add profiles to these files.</p>
+<p>The name of the profile as defined in <code class="docutils literal notranslate"><span class="pre">~/.aws/config</span></code> and <code class="docutils literal notranslate"><span class="pre">~/.aws/credentials</span></code>. Use the
+<cite>aws configure –profile &lt;profile_id&gt;</cite> command form the AWS CLI to add profiles to these files.</p>
+<p>For more information on this configuration, its implications, and its uses, see
+<a class="reference internal" href="permissions.html#profile-permissions"><span class="std std-ref">Sceptre and IAM: profile</span></a>.</p>
 <p>Reference: <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html">AWS_CLI_Configure</a></p>
 </div>
 <div class="section" id="project-code">
@@ -276,20 +278,7 @@ supplied in this way have a lower maximum length, so using the
 <p>If you resolve <code class="docutils literal notranslate"><span class="pre">template_bucket_name</span></code> using the <code class="docutils literal notranslate"><span class="pre">!stack_output</span></code>
 resolver on a StackGroup, the stack that outputs that bucket name <em>cannot</em> be
 defined in that StackGroup. Otherwise, a circular dependency will exist and Sceptre
-will raise an error when attempting any Stack action. The proper way to do this would
-be to define all your project stacks inside a StackGroup and then your template bucket
-stack <em>outside</em> that StackGroup. Here’s an example project structure for something like
-this:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">config/</span>
-    <span class="l l-Scalar l-Scalar-Plain">- config.yaml</span>           <span class="c1"># This is the StackGroup Config for your whole project.</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">template-bucket.yaml</span>  <span class="c1"># The template for this stack outputs the bucket name</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">project/</span>              <span class="c1"># You can put all your other stacks in this StackGroup</span>
-        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">config.yaml</span>       <span class="c1"># In this StackGroup Config is...</span>
-                            <span class="c1">#  template_bucket_name: !stack_output template-bucket.yaml::BucketName</span>
-        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">vpc.yaml</span>          <span class="c1"># Put all your other project stacks inside project/</span>
-        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">other-stack.yaml</span>
-</pre></div>
-</div>
+will raise an error when attempting any Stack action.</p>
 </div>
 </div>
 <div class="section" id="template-key-prefix">
@@ -399,18 +388,7 @@ dependencies.</p>
 <p>You might have already considered that this might cause a circular dependency for those
 dependency stacks, the ones that output the template bucket name, role arn, iam_role, or topic arns.
 In order to avoid the circular dependency issue, it is important that you define these items in a
-Stack that is <em>outside</em> the StackGroup you reference them in. Here’s an example project structure
-that would support doing this:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">config/</span>
-    <span class="l l-Scalar l-Scalar-Plain">- config.yaml</span>               <span class="c1"># This is the StackGroup Config for your whole project.</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sceptre-dependencies.yaml</span> <span class="c1"># This stack defines your template bucket, iam role, topics, etc...</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">project/</span>                  <span class="c1"># You can put all your other stacks in this StackGroup</span>
-        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">config.yaml</span>           <span class="c1"># In this StackGroup Config you can use !stack_output to</span>
-                                <span class="c1"># reference outputs from sceptre-dependencies.yaml.</span>
-        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">vpc.yaml</span>              <span class="c1"># Put all your other project stacks inside project/</span>
-        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">other-stack.yaml</span>
-</pre></div>
-</div>
+Stack that is <em>outside</em> the StackGroup you reference them in.</p>
 </div>
 </div>
 <div class="section" id="templating">
