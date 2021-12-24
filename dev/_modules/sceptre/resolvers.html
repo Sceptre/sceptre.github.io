@@ -106,7 +106,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../docs/hooks.html">Hooks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../docs/resolvers.html">Resolvers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../docs/architecture.html">Architecting Sceptre</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../docs/permissions.html">Sceptre and IAM</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Support</span></p>
 <ul>
@@ -469,48 +468,6 @@
             <span class="sd">&quot;&quot;&quot;Resolve the value.&quot;&quot;&quot;</span>
             <span class="n">attr</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_instance</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">)</span>
             <span class="n">attr</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_key</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolution_function</span><span class="p">()</span></div></div>
-
-
-<div class="viewcode-block" id="ResolvableValueProperty"><a class="viewcode-back" href="../../apidoc/sceptre.resolvers.html#sceptre.resolvers.ResolvableValueProperty">[docs]</a><span class="k">class</span> <span class="nc">ResolvableValueProperty</span><span class="p">(</span><span class="n">ResolvableProperty</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    This is a descriptor class used to store an attribute that may BE a single</span>
-<span class="sd">    Resolver object. If it is a resolver, it will be resolved upon access of this property.</span>
-<span class="sd">    When resolved, the resolved value will replace the resolver on the stack in order to avoid</span>
-<span class="sd">    redundant resolutions.</span>
-
-<span class="sd">    :param name: Attribute suffix used to store the property in the instance.</span>
-<span class="sd">    :type name: str</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-<div class="viewcode-block" id="ResolvableValueProperty.get_resolved_value"><a class="viewcode-back" href="../../apidoc/sceptre.resolvers.html#sceptre.resolvers.ResolvableValueProperty.get_resolved_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_resolved_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack</span><span class="p">:</span> <span class="s1">&#39;stack.Stack&#39;</span><span class="p">,</span> <span class="n">stack_class</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="s1">&#39;stack.Stack&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Gets the fully-resolved value from the property. Resolvers will be replaced on the stack</span>
-<span class="sd">        instance with their resolved value to avoid redundant resolutions.</span>
-
-<span class="sd">        :param stack: The Stack instance to obtain the value from</span>
-<span class="sd">        :param stack_class: The class of the Stack instance</span>
-<span class="sd">        :return: The fully resolved value</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">raw_value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">raw_value</span><span class="p">,</span> <span class="n">Resolver</span><span class="p">):</span>
-            <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">resolve_resolver_value</span><span class="p">(</span><span class="n">raw_value</span><span class="p">)</span>
-            <span class="c1"># Overwrite the stored resolver value with the resolved value to avoid resolving the</span>
-            <span class="c1"># same value multiple times.</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">value</span> <span class="o">=</span> <span class="n">raw_value</span>
-
-        <span class="k">return</span> <span class="n">value</span></div>
-
-<div class="viewcode-block" id="ResolvableValueProperty.assign_value_to_stack"><a class="viewcode-back" href="../../apidoc/sceptre.resolvers.html#sceptre.resolvers.ResolvableValueProperty.assign_value_to_stack">[docs]</a>    <span class="k">def</span> <span class="nf">assign_value_to_stack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack</span><span class="p">:</span> <span class="s1">&#39;stack.Stack&#39;</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Assigns the value to the Stack instance passed, setting up and cloning the value if it</span>
-<span class="sd">        is a Resolver.</span>
-
-<span class="sd">        :param stack: The Stack instance to set the value on</span>
-<span class="sd">        :param value: The value to set</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Resolver</span><span class="p">):</span>
-            <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_setup_resolver_for_stack</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-        <span class="nb">setattr</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div></div>
 </pre></div>
 
            </div>

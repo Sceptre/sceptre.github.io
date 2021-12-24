@@ -108,7 +108,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../docs/hooks.html">Hooks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../docs/resolvers.html">Resolvers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../docs/architecture.html">Architecting Sceptre</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../docs/permissions.html">Sceptre and IAM</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Support</span></p>
 <ul>
@@ -340,57 +339,6 @@ been called on it.</p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The resolved value</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="sceptre.resolvers.ResolvableValueProperty">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sceptre.resolvers.</span></span><span class="sig-name descname"><span class="pre">ResolvableValueProperty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/resolvers.html#ResolvableValueProperty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.resolvers.ResolvableValueProperty" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#sceptre.resolvers.ResolvableProperty" title="sceptre.resolvers.ResolvableProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">sceptre.resolvers.ResolvableProperty</span></code></a></p>
-<p>This is a descriptor class used to store an attribute that may BE a single
-Resolver object. If it is a resolver, it will be resolved upon access of this property.
-When resolved, the resolved value will replace the resolver on the stack in order to avoid
-redundant resolutions.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Attribute suffix used to store the property in the instance.</p>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="sceptre.resolvers.ResolvableValueProperty.assign_value_to_stack">
-<span class="sig-name descname"><span class="pre">assign_value_to_stack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stack</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/resolvers.html#ResolvableValueProperty.assign_value_to_stack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.resolvers.ResolvableValueProperty.assign_value_to_stack" title="Permalink to this definition">¶</a></dt>
-<dd><p>Assigns the value to the Stack instance passed, setting up and cloning the value if it
-is a Resolver.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>stack</strong> (<a class="reference internal" href="sceptre.html#sceptre.stack.Stack" title="sceptre.stack.Stack"><code class="xref py py-class docutils literal notranslate"><span class="pre">Stack</span></code></a>) – The Stack instance to set the value on</p></li>
-<li><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.10)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>) – The value to set</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="sceptre.resolvers.ResolvableValueProperty.get_resolved_value">
-<span class="sig-name descname"><span class="pre">get_resolved_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stack</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack_class</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/resolvers.html#ResolvableValueProperty.get_resolved_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.resolvers.ResolvableValueProperty.get_resolved_value" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the fully-resolved value from the property. Resolvers will be replaced on the stack
-instance with their resolved value to avoid redundant resolutions.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>stack</strong> (<a class="reference internal" href="sceptre.html#sceptre.stack.Stack" title="sceptre.stack.Stack"><code class="xref py py-class docutils literal notranslate"><span class="pre">Stack</span></code></a>) – The Stack instance to obtain the value from</p></li>
-<li><p><strong>stack_class</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code></a>[<a class="reference internal" href="sceptre.html#sceptre.stack.Stack" title="sceptre.stack.Stack"><code class="xref py py-class docutils literal notranslate"><span class="pre">Stack</span></code></a>]) – The class of the Stack instance</p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.10)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a></p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The fully resolved value</p>
 </dd>
 </dl>
 </dd></dl>
