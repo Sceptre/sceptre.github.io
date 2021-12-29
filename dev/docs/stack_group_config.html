@@ -278,20 +278,26 @@ supplied in this way have a lower maximum length, so using the
 <p>If you resolve <code class="docutils literal notranslate"><span class="pre">template_bucket_name</span></code> using the <code class="docutils literal notranslate"><span class="pre">!stack_output</span></code>
 resolver on a StackGroup, the stack that outputs that bucket name <em>cannot</em> be
 defined in that StackGroup. Otherwise, a circular dependency will exist and Sceptre
-will raise an error when attempting any Stack action. The proper way to do this would
-be to define all your project stacks inside a StackGroup and then your template bucket
+will raise an error when attempting any Stack action. There are two ways to avoid this situation:</p>
+<ol class="arabic">
+<li><p>Set the <code class="docutils literal notranslate"><span class="pre">template_bucket_name</span></code> to <code class="docutils literal notranslate"><span class="pre">!no_value</span></code> in on the StackConfig that creates your
+template bucket. This will override the inherited value to prevent them from having
+dependencies on themselves.</p></li>
+<li><p>Define all your project stacks inside a StackGroup and then your template bucket
 stack <em>outside</em> that StackGroup. Here’s an example project structure for something like
 this:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">config/</span>
-    <span class="l l-Scalar l-Scalar-Plain">- config.yaml</span>           <span class="c1"># This is the StackGroup Config for your whole project.</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">template-bucket.yaml</span>  <span class="c1"># The template for this stack outputs the bucket name</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">project/</span>              <span class="c1"># You can put all your other stacks in this StackGroup</span>
-        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">config.yaml</span>       <span class="c1"># In this StackGroup Config is...</span>
-                            <span class="c1">#  template_bucket_name: !stack_output template-bucket.yaml::BucketName</span>
-        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">vpc.yaml</span>          <span class="c1"># Put all your other project stacks inside project/</span>
-        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">other-stack.yaml</span>
+  <span class="l l-Scalar l-Scalar-Plain">- config.yaml</span>           <span class="c1"># This is the StackGroup Config for your whole project.</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">template-bucket.yaml</span>  <span class="c1"># The template for this stack outputs the bucket name</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">project/</span>              <span class="c1"># You can put all your other stacks in this StackGroup</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">config.yaml</span>       <span class="c1"># In this StackGroup Config is...</span>
+                          <span class="c1">#  template_bucket_name: !stack_output template-bucket.yaml::BucketName</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">vpc.yaml</span>          <span class="c1"># Put all your other project stacks inside project/</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">other-stack.yaml</span>
 </pre></div>
 </div>
+</li>
+</ol>
 </div>
 </div>
 <div class="section" id="template-key-prefix">
@@ -319,7 +325,7 @@ ignored.</p>
 </ul>
 <p>A dictionary that is combined with the default jinja2 environment.
 It’s converted to keyword arguments then passed to [jinja2.Environment](<a class="reference external" href="https://jinja.palletsprojects.com/en/2.11.x/api/#jinja2.Environment">https://jinja.palletsprojects.com/en/2.11.x/api/#jinja2.Environment</a>).
-This will impact <span class="xref std std-ref">Templating</span> of stacks by modifying the behavior of jinja.</p>
+This will impact the templating of stacks by modifying the behavior of jinja.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">j2_environment</span><span class="p">:</span>
    <span class="nt">extensions</span><span class="p">:</span>
       <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">jinja2.ext.i18n</span>
@@ -400,19 +406,24 @@ dependencies.</p>
 <p class="admonition-title">Warning</p>
 <p>You might have already considered that this might cause a circular dependency for those
 dependency stacks, the ones that output the template bucket name, role arn, iam_role, or topic arns.
-In order to avoid the circular dependency issue, it is important that you define these items in a
-Stack that is <em>outside</em> the StackGroup you reference them in. Here’s an example project structure
-that would support doing this:</p>
+In order to avoid the circular dependency issue, you can either:</p>
+<ol class="arabic">
+<li><p>Set the value of those configurations to <code class="docutils literal notranslate"><span class="pre">!no_value</span></code> in the actual stacks that define those
+items so they don’t inherit a dependency on themselves.</p></li>
+<li><p>Define those stacks <em>outside</em> the StackGroup you reference them in. Here’s an example project
+structure that would support doing this:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">config/</span>
-    <span class="l l-Scalar l-Scalar-Plain">- config.yaml</span>               <span class="c1"># This is the StackGroup Config for your whole project.</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sceptre-dependencies.yaml</span> <span class="c1"># This stack defines your template bucket, iam role, topics, etc...</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">project/</span>                  <span class="c1"># You can put all your other stacks in this StackGroup</span>
-        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">config.yaml</span>           <span class="c1"># In this StackGroup Config you can use !stack_output to</span>
-                                <span class="c1"># reference outputs from sceptre-dependencies.yaml.</span>
-        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">vpc.yaml</span>              <span class="c1"># Put all your other project stacks inside project/</span>
-        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">other-stack.yaml</span>
+  <span class="l l-Scalar l-Scalar-Plain">- config.yaml</span>               <span class="c1"># This is the StackGroup Config for your whole project.</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sceptre-dependencies.yaml</span> <span class="c1"># This stack defines your template bucket, iam role, topics, etc...</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">project/</span>                  <span class="c1"># You can put all your other stacks in this StackGroup</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">config.yaml</span>           <span class="c1"># In this StackGroup Config you can use !stack_output to</span>
+                              <span class="c1"># reference outputs from sceptre-dependencies.yaml.</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">vpc.yaml</span>              <span class="c1"># Put all your other project stacks inside project/</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">other-stack.yaml</span>
 </pre></div>
 </div>
+</li>
+</ol>
 </div>
 </div>
 <div class="section" id="templating">

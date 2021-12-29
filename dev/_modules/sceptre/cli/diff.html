@@ -195,7 +195,9 @@
 <span class="kn">from</span> <span class="nn">sceptre.context</span> <span class="kn">import</span> <span class="n">SceptreContext</span>
 <span class="kn">from</span> <span class="nn">sceptre.diffing.diff_writer</span> <span class="kn">import</span> <span class="n">DeepDiffWriter</span><span class="p">,</span> <span class="n">DiffLibWriter</span><span class="p">,</span> <span class="n">DiffWriter</span>
 <span class="kn">from</span> <span class="nn">sceptre.diffing.stack_differ</span> <span class="kn">import</span> <span class="n">DeepDiffStackDiffer</span><span class="p">,</span> <span class="n">DifflibStackDiffer</span><span class="p">,</span> <span class="n">StackDiff</span>
+<span class="kn">from</span> <span class="nn">sceptre.helpers</span> <span class="kn">import</span> <span class="n">null_context</span>
 <span class="kn">from</span> <span class="nn">sceptre.plan.plan</span> <span class="kn">import</span> <span class="n">SceptrePlan</span>
+<span class="kn">from</span> <span class="nn">sceptre.resolvers.placeholders</span> <span class="kn">import</span> <span class="n">use_resolver_placeholders_on_error</span>
 <span class="kn">from</span> <span class="nn">sceptre.stack</span> <span class="kn">import</span> <span class="n">Stack</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
@@ -220,10 +222,16 @@
          <span class="s1">&#39;If not set (the default), parameters identified as NoEcho on the local template will be &#39;</span>
          <span class="s1">&#39;masked when presented in the diff.&#39;</span>
 <span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
+    <span class="s1">&#39;-n&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;--no-placeholders&#39;</span><span class="p">,</span>
+    <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;If True, no placeholder values will be supplied for resolvers that cannot be resolved.&quot;</span>
+<span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">pass_context</span>
 <span class="nd">@catch_exceptions</span>
-<span class="k">def</span> <span class="nf">diff_command</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="n">differ</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">show_no_echo</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">diff_command</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="n">differ</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">show_no_echo</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">no_placeholders</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Indicates the difference between the currently DEPLOYED stacks in the command path and</span>
 <span class="sd">    the stacks configured in Sceptre right now. This command will compare both the templates as well</span>
 <span class="sd">    as the subset of stack configurations that can be compared.</span>
@@ -274,7 +282,10 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unexpected differ type: </span><span class="si">{</span><span class="n">differ</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    <span class="n">diffs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Stack</span><span class="p">,</span> <span class="n">StackDiff</span><span class="p">]</span> <span class="o">=</span> <span class="n">plan</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">stack_differ</span><span class="p">)</span>
+    <span class="n">execution_context</span> <span class="o">=</span> <span class="n">null_context</span><span class="p">()</span> <span class="k">if</span> <span class="n">no_placeholders</span> <span class="k">else</span> <span class="n">use_resolver_placeholders_on_error</span><span class="p">()</span>
+    <span class="k">with</span> <span class="n">execution_context</span><span class="p">:</span>
+        <span class="n">diffs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Stack</span><span class="p">,</span> <span class="n">StackDiff</span><span class="p">]</span> <span class="o">=</span> <span class="n">plan</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">stack_differ</span><span class="p">)</span>
+
     <span class="n">num_stacks_with_diff</span> <span class="o">=</span> <span class="n">output_diffs</span><span class="p">(</span><span class="n">diffs</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">writer_class</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">output_format</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">num_stacks_with_diff</span><span class="p">:</span>

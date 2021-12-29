@@ -277,6 +277,8 @@ raises a NotImplementedError.</p>
 <li class="toctree-l2"><a class="reference internal" href="sceptre.resolvers.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sceptre.resolvers.html#module-sceptre.resolvers.environment_variable">sceptre.resolvers.environment_variable module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sceptre.resolvers.html#module-sceptre.resolvers.file_contents">sceptre.resolvers.file_contents module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.resolvers.html#module-sceptre.resolvers.no_value">sceptre.resolvers.no_value module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.resolvers.html#module-sceptre.resolvers.placeholders">sceptre.resolvers.placeholders module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sceptre.resolvers.html#module-sceptre.resolvers.stack_output">sceptre.resolvers.stack_output module</a></li>
 </ul>
 </li>
@@ -663,6 +665,13 @@ trailing slash.
 :raises: sceptre.exceptions.PathConversionError
 :returns: A normalised path with forward slashes.
 :returns: string</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sceptre.helpers.null_context">
+<span class="sig-prename descclassname"><span class="pre">sceptre.helpers.</span></span><span class="sig-name descname"><span class="pre">null_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/helpers.html#null_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.helpers.null_context" title="Permalink to this definition">¶</a></dt>
+<dd><p>A context manager that does nothing. This is identical to the nullcontext in py3.7+, but isn’t
+available in py3.6, so providing it here instead.</p>
 </dd></dl>
 
 <dl class="py function">
