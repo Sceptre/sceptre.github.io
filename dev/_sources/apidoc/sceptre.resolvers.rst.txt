@@ -41,6 +41,14 @@ sceptre.resolvers.placeholders module
    :undoc-members:
    :show-inheritance:
 
+sceptre.resolvers.stack\_attr module
+------------------------------------
+
+.. automodule:: sceptre.resolvers.stack_attr
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 sceptre.resolvers.stack\_output module
 --------------------------------------
 

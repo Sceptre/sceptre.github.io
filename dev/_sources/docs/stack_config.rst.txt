@@ -47,7 +47,7 @@ from the Stack config filename.
 
 template
 ~~~~~~~~
-* Resolvable: No
+* Resolvable: Yes
 * Can be inherited from StackGroup: No
 
 Configuration for a template handler. Template handlers can take in parameters
