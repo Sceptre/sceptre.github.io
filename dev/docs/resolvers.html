@@ -290,8 +290,13 @@ nested values in dicts and lists using “.” to separate key/index segments. F
         <span class="p p-Indicator">-</span> <span class="s">&quot;some</span><span class="nv"> </span><span class="s">random</span><span class="nv"> </span><span class="s">value&quot;</span>
         <span class="p p-Indicator">-</span> <span class="s">&quot;the</span><span class="nv"> </span><span class="s">value</span><span class="nv"> </span><span class="s">we</span><span class="nv"> </span><span class="s">want</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">select&quot;</span>
 
+<span class="nt">iam_role</span><span class="p">:</span> <span class="kt">!stack_output</span> <span class="l l-Scalar l-Scalar-Plain">roles.yaml::RoleArn</span>
+
 <span class="nt">parameters</span><span class="p">:</span>
+    <span class="c1"># This will pass the value of &quot;the value we want to select&quot; for my_parameter</span>
     <span class="nt">my_parameter</span><span class="p">:</span> <span class="kt">!stack_attr</span> <span class="l l-Scalar l-Scalar-Plain">sceptre_user_data.key.1</span>
+    <span class="c1"># You can also access the value of another resolvable property like this:</span>
+    <span class="nt">use_role_arn</span><span class="p">:</span> <span class="kt">!stack_attr</span> <span class="l l-Scalar l-Scalar-Plain">iam_role</span>
 </pre></div>
 </div>
 </div>
