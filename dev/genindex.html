@@ -618,8 +618,6 @@
         <li><a href="apidoc/sceptre.plan.html#sceptre.plan.plan.SceptrePlan.describe_change_set">(sceptre.plan.plan.SceptrePlan method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.describe_events">describe_events() (sceptre.plan.actions.StackActions method)</a>
 
       <ul>
@@ -632,12 +630,16 @@
         <li><a href="apidoc/sceptre.plan.html#sceptre.plan.plan.SceptrePlan.describe_outputs">(sceptre.plan.plan.SceptrePlan method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.describe_resources">describe_resources() (sceptre.plan.actions.StackActions method)</a>
 
       <ul>
         <li><a href="apidoc/sceptre.plan.html#sceptre.plan.plan.SceptrePlan.describe_resources">(sceptre.plan.plan.SceptrePlan method)</a>
 </li>
       </ul></li>
+      <li><a href="apidoc/sceptre.cli.html#sceptre.cli.helpers.deserialize_json_properties">deserialize_json_properties() (in module sceptre.cli.helpers)</a>
+</li>
       <li><a href="apidoc/sceptre.config.html#sceptre.config.strategies.dict_merge">dict_merge() (in module sceptre.config.strategies)</a>
 </li>
       <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.StackDiffer.diff">diff() (sceptre.diffing.stack_differ.StackDiffer method)</a>
@@ -654,6 +656,18 @@
 </li>
       <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.diff_writer.DiffWriter">DiffWriter (class in sceptre.diffing.diff_writer)</a>
 </li>
+      <li><a href="apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.drift_detect">drift_detect() (sceptre.plan.actions.StackActions method)</a>
+
+      <ul>
+        <li><a href="apidoc/sceptre.plan.html#sceptre.plan.plan.SceptrePlan.drift_detect">(sceptre.plan.plan.SceptrePlan method)</a>
+</li>
+      </ul></li>
+      <li><a href="apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.drift_show">drift_show() (sceptre.plan.actions.StackActions method)</a>
+
+      <ul>
+        <li><a href="apidoc/sceptre.plan.html#sceptre.plan.plan.SceptrePlan.drift_show">(sceptre.plan.plan.SceptrePlan method)</a>
+</li>
+      </ul></li>
       <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.diff_writer.DeepDiffWriter.dump_diff">dump_diff() (sceptre.diffing.diff_writer.DeepDiffWriter method)</a>
 
       <ul>
@@ -910,6 +924,8 @@
 </li>
         <li><a href="apidoc/sceptre.cli.html#module-sceptre.cli.diff">sceptre.cli.diff</a>
 </li>
+        <li><a href="apidoc/sceptre.cli.html#module-sceptre.cli.drift">sceptre.cli.drift</a>
+</li>
         <li><a href="apidoc/sceptre.cli.html#module-sceptre.cli.execute">sceptre.cli.execute</a>
 </li>
         <li><a href="apidoc/sceptre.cli.html#module-sceptre.cli.helpers">sceptre.cli.helpers</a>
@@ -973,8 +989,6 @@
         <li><a href="apidoc/sceptre.resolvers.html#module-sceptre.resolvers.no_value">sceptre.resolvers.no_value</a>
 </li>
         <li><a href="apidoc/sceptre.resolvers.html#module-sceptre.resolvers.placeholders">sceptre.resolvers.placeholders</a>
-</li>
-        <li><a href="apidoc/sceptre.resolvers.html#module-sceptre.resolvers.stack_attr">sceptre.resolvers.stack_attr</a>
 </li>
         <li><a href="apidoc/sceptre.resolvers.html#module-sceptre.resolvers.stack_output">sceptre.resolvers.stack_output</a>
 </li>
@@ -1066,6 +1080,10 @@
         <li><a href="docs/cli.html#cmdoption-sceptre-describe-policy-arg-PATH">sceptre-describe-policy command line option</a>
 </li>
         <li><a href="docs/cli.html#cmdoption-sceptre-diff-arg-PATH">sceptre-diff command line option</a>
+</li>
+        <li><a href="docs/cli.html#cmdoption-sceptre-drift-detect-arg-PATH">sceptre-drift-detect command line option</a>
+</li>
+        <li><a href="docs/cli.html#cmdoption-sceptre-drift-show-arg-PATH">sceptre-drift-show command line option</a>
 </li>
         <li><a href="docs/cli.html#cmdoption-sceptre-estimate-cost-arg-PATH">sceptre-estimate-cost command line option</a>
 </li>
@@ -1164,8 +1182,6 @@
         <li><a href="apidoc/sceptre.resolvers.html#sceptre.resolvers.no_value.NoValue.resolve">(sceptre.resolvers.no_value.NoValue method)</a>
 </li>
         <li><a href="apidoc/sceptre.resolvers.html#sceptre.resolvers.Resolver.resolve">(sceptre.resolvers.Resolver method)</a>
-</li>
-        <li><a href="apidoc/sceptre.resolvers.html#sceptre.resolvers.stack_attr.StackAttr.resolve">(sceptre.resolvers.stack_attr.StackAttr method)</a>
 </li>
         <li><a href="apidoc/sceptre.resolvers.html#sceptre.resolvers.stack_output.StackOutput.resolve">(sceptre.resolvers.stack_output.StackOutput method)</a>
 </li>
@@ -1301,6 +1317,20 @@
         <li><a href="docs/cli.html#cmdoption-sceptre-diff-t">-t</a>
 </li>
         <li><a href="docs/cli.html#cmdoption-sceptre-diff-arg-PATH">PATH</a>
+</li>
+      </ul></li>
+      <li>
+    sceptre-drift-detect command line option
+
+      <ul>
+        <li><a href="docs/cli.html#cmdoption-sceptre-drift-detect-arg-PATH">PATH</a>
+</li>
+      </ul></li>
+      <li>
+    sceptre-drift-show command line option
+
+      <ul>
+        <li><a href="docs/cli.html#cmdoption-sceptre-drift-show-arg-PATH">PATH</a>
 </li>
       </ul></li>
       <li>
@@ -1481,6 +1511,13 @@
 </li>
       </ul></li>
       <li>
+    sceptre.cli.drift
+
+      <ul>
+        <li><a href="apidoc/sceptre.cli.html#module-sceptre.cli.drift">module</a>
+</li>
+      </ul></li>
+      <li>
     sceptre.cli.execute
 
       <ul>
@@ -1522,6 +1559,8 @@
         <li><a href="apidoc/sceptre.cli.html#module-sceptre.cli.policy">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     sceptre.cli.status
 
@@ -1536,8 +1575,6 @@
         <li><a href="apidoc/sceptre.cli.html#module-sceptre.cli.template">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     sceptre.cli.update
 
@@ -1707,13 +1744,6 @@
 </li>
       </ul></li>
       <li>
-    sceptre.resolvers.stack_attr
-
-      <ul>
-        <li><a href="apidoc/sceptre.resolvers.html#module-sceptre.resolvers.stack_attr">module</a>
-</li>
-      </ul></li>
-      <li>
     sceptre.resolvers.stack_output
 
       <ul>
@@ -1827,8 +1857,6 @@
 </li>
       <li><a href="apidoc/sceptre.html#sceptre.stack.Stack">Stack (class in sceptre.stack)</a>
 </li>
-      <li><a href="apidoc/sceptre.resolvers.html#sceptre.resolvers.stack_attr.StackAttr.STACK_ATTR_MAP">STACK_ATTR_MAP (sceptre.resolvers.stack_attr.StackAttr attribute)</a>
-</li>
       <li>
     STACK_GROUP
 
@@ -1855,8 +1883,6 @@
       <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.StackConfiguration.stack_tags">stack_tags (sceptre.diffing.stack_differ.StackConfiguration attribute)</a>
 </li>
       <li><a href="apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions">StackActions (class in sceptre.plan.actions)</a>
-</li>
-      <li><a href="apidoc/sceptre.resolvers.html#sceptre.resolvers.stack_attr.StackAttr">StackAttr (class in sceptre.resolvers.stack_attr)</a>
 </li>
       <li><a href="apidoc/sceptre.html#sceptre.stack_status.StackChangeSetStatus">StackChangeSetStatus (class in sceptre.stack_status)</a>
 </li>
@@ -1902,11 +1928,9 @@
 </li>
       <li><a href="apidoc/sceptre.html#sceptre.stack.Stack.template_bucket_name">template_bucket_name (sceptre.stack.Stack attribute)</a>
 </li>
-      <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.StackDiff.template_diff">template_diff (sceptre.diffing.stack_differ.StackDiff attribute)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="apidoc/sceptre.html#sceptre.stack.Stack.template_handler_config">template_handler_config (sceptre.stack.Stack attribute)</a>
+      <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.StackDiff.template_diff">template_diff (sceptre.diffing.stack_differ.StackDiff attribute)</a>
 </li>
       <li><a href="apidoc/sceptre.template_handlers.html#sceptre.template_handlers.TemplateHandler">TemplateHandler (class in sceptre.template_handlers)</a>
 </li>

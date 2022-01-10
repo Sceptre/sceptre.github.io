@@ -41,6 +41,14 @@ sceptre.cli.diff module
    :undoc-members:
    :show-inheritance:
 
+sceptre.cli.drift module
+------------------------
+
+.. automodule:: sceptre.cli.drift
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 sceptre.cli.execute module
 --------------------------
 
