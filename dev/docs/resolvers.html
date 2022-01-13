@@ -113,6 +113,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#file-contents">file_contents</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#no-value">no_value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#rcmd">rcmd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stack-attr">stack_attr</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stack-output">stack_output</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stack-output-external">stack_output_external</a></li>
 </ul>
@@ -267,6 +268,37 @@ the CloudFormation template for <code class="docutils literal notranslate"><span
 <h3>rcmd<a class="headerlink" href="#rcmd" title="Permalink to this headline">¶</a></h3>
 <p>A resolver to execute any shell command.</p>
 <p>Refer to <a class="reference external" href="https://github.com/Sceptre/sceptre-resolver-cmd/">sceptre-resolver-cmd</a> for documentation.</p>
+</div>
+<div class="section" id="stack-attr">
+<h3>stack_attr<a class="headerlink" href="#stack-attr" title="Permalink to this headline">¶</a></h3>
+<p>This resolver lets you reference the values of other fields on the same Stack Config or those
+inherited from StackGroups in which the Stack Config exists. It is useful for avoiding unnecessary
+configuration duplication as well as referencing attributes inherited from the StackGroup Config.</p>
+<p>For example, if you need to reference the <code class="docutils literal notranslate"><span class="pre">template_bucket_name</span></code> set in the StackGroup Config,
+you can do that with <code class="docutils literal notranslate"><span class="pre">!stack_attr</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sam</span>
+    <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">path/from/my/cwd/template.yaml</span>
+    <span class="c1"># template_bucket_name could be set by a resolver in the StackGroup.</span>
+    <span class="nt">artifact_bucket_name</span><span class="p">:</span> <span class="kt">!stack_attr</span> <span class="l l-Scalar l-Scalar-Plain">template_bucket_name</span>
+</pre></div>
+</div>
+<p>The argument to this resolver is the full attribute “path” from the Stack Config. You can access
+nested values in dicts and lists using “.” to separate key/index segments. For example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sceptre_user_data</span><span class="p">:</span>
+    <span class="nt">key</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="s">&quot;some</span><span class="nv"> </span><span class="s">random</span><span class="nv"> </span><span class="s">value&quot;</span>
+        <span class="p p-Indicator">-</span> <span class="s">&quot;the</span><span class="nv"> </span><span class="s">value</span><span class="nv"> </span><span class="s">we</span><span class="nv"> </span><span class="s">want</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">select&quot;</span>
+
+<span class="nt">iam_role</span><span class="p">:</span> <span class="kt">!stack_output</span> <span class="l l-Scalar l-Scalar-Plain">roles.yaml::RoleArn</span>
+
+<span class="nt">parameters</span><span class="p">:</span>
+    <span class="c1"># This will pass the value of &quot;the value we want to select&quot; for my_parameter</span>
+    <span class="nt">my_parameter</span><span class="p">:</span> <span class="kt">!stack_attr</span> <span class="l l-Scalar l-Scalar-Plain">sceptre_user_data.key.1</span>
+    <span class="c1"># You can also access the value of another resolvable property like this:</span>
+    <span class="nt">use_role_arn</span><span class="p">:</span> <span class="kt">!stack_attr</span> <span class="l l-Scalar l-Scalar-Plain">iam_role</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="stack-output">
 <h3>stack_output<a class="headerlink" href="#stack-output" title="Permalink to this headline">¶</a></h3>
