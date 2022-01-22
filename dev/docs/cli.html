@@ -262,13 +262,13 @@ overwrite any matching <code class="docutils literal notranslate"><span class="p
 <p><code class="docutils literal notranslate"><span class="pre">var1</span></code> will equal <code class="docutils literal notranslate"><span class="pre">three</span></code>.</p>
 <p>You can also use <code class="docutils literal notranslate"><span class="pre">--var</span></code> to overwrite nested keys in a <code class="docutils literal notranslate"><span class="pre">--var-file</span></code>. For example,
 given a variable file “vars.yaml”:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># vars.yaml</span>
-<span class="nn">---</span>
-<span class="nt">top</span><span class="p">:</span>
-  <span class="nt">middle</span><span class="p">:</span>
-    <span class="nt">nested</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">hello</span>
-  <span class="nt">middle2</span><span class="p">:</span>
-    <span class="nt">nested</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">world</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># vars.yaml</span><span class="w"></span>
+<span class="nn">---</span><span class="w"></span>
+<span class="nt">top</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">middle</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">nested</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hello</span><span class="w"></span>
+<span class="w">  </span><span class="nt">middle2</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">nested</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">world</span><span class="w"></span>
 </pre></div>
 </div>
 <p>we could overwrite <code class="docutils literal notranslate"><span class="pre">nested:</span> <span class="pre">world</span></code> to <code class="docutils literal notranslate"><span class="pre">nested:</span> <span class="pre">hi</span></code> using:</p>
@@ -284,11 +284,11 @@ requirement.</p>
 <p>It is also possible to have keys merged according to a deep merge
 algorithm from successive var files, by specifying <code class="docutils literal notranslate"><span class="pre">--merge-vars</span></code>. So, if we
 had a second variable file “vars2.yaml”:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># other_vars.yaml</span>
-<span class="nn">---</span>
-<span class="nt">top</span><span class="p">:</span>
-  <span class="nt">middle3</span><span class="p">:</span>
-    <span class="nt">nested</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">more world</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># other_vars.yaml</span><span class="w"></span>
+<span class="nn">---</span><span class="w"></span>
+<span class="nt">top</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">middle3</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">nested</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">more world</span><span class="w"></span>
 </pre></div>
 </div>
 <p>We could merge all of this together using:</p>
@@ -706,21 +706,6 @@ browser with the returned URI.</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-sceptre-list-resources-arg-PATH">
 <span id="cmdoption-sceptre-list-resources-arg-path"></span><span class="sig-name descname"><span class="pre">PATH</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-list-resources-arg-PATH" title="Permalink to this definition">¶</a></dt>
-<dd><p>Required argument</p>
-</dd></dl>
-
-</div>
-<div class="section" id="sceptre-list-stacks">
-<h5>stacks<a class="headerlink" href="#sceptre-list-stacks" title="Permalink to this headline">¶</a></h5>
-<p>List stack names and command paths for stacks in a
-stack group.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sceptre list stacks <span class="o">[</span>OPTIONS<span class="o">]</span> PATH
-</pre></div>
-</div>
-<p class="rubric">Arguments</p>
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-sceptre-list-stacks-arg-PATH">
-<span id="cmdoption-sceptre-list-stacks-arg-path"></span><span class="sig-name descname"><span class="pre">PATH</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-list-stacks-arg-PATH" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required argument</p>
 </dd></dl>
 

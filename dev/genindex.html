@@ -974,6 +974,8 @@
 </li>
         <li><a href="apidoc/sceptre.resolvers.html#module-sceptre.resolvers.placeholders">sceptre.resolvers.placeholders</a>
 </li>
+        <li><a href="apidoc/sceptre.resolvers.html#module-sceptre.resolvers.stack_attr">sceptre.resolvers.stack_attr</a>
+</li>
         <li><a href="apidoc/sceptre.resolvers.html#module-sceptre.resolvers.stack_output">sceptre.resolvers.stack_output</a>
 </li>
         <li><a href="apidoc/sceptre.html#module-sceptre.stack">sceptre.stack</a>
@@ -1081,8 +1083,6 @@
 </li>
         <li><a href="docs/cli.html#cmdoption-sceptre-list-resources-arg-PATH">sceptre-list-resources command line option</a>
 </li>
-        <li><a href="docs/cli.html#cmdoption-sceptre-list-stacks-arg-PATH">sceptre-list-stacks command line option</a>
-</li>
         <li><a href="docs/cli.html#cmdoption-sceptre-set-policy-arg-PATH">sceptre-set-policy command line option</a>
 </li>
         <li><a href="docs/cli.html#cmdoption-sceptre-status-arg-PATH">sceptre-status command line option</a>
@@ -1164,6 +1164,8 @@
         <li><a href="apidoc/sceptre.resolvers.html#sceptre.resolvers.no_value.NoValue.resolve">(sceptre.resolvers.no_value.NoValue method)</a>
 </li>
         <li><a href="apidoc/sceptre.resolvers.html#sceptre.resolvers.Resolver.resolve">(sceptre.resolvers.Resolver method)</a>
+</li>
+        <li><a href="apidoc/sceptre.resolvers.html#sceptre.resolvers.stack_attr.StackAttr.resolve">(sceptre.resolvers.stack_attr.StackAttr method)</a>
 </li>
         <li><a href="apidoc/sceptre.resolvers.html#sceptre.resolvers.stack_output.StackOutput.resolve">(sceptre.resolvers.stack_output.StackOutput method)</a>
 </li>
@@ -1380,13 +1382,6 @@
 </li>
       </ul></li>
       <li>
-    sceptre-list-stacks command line option
-
-      <ul>
-        <li><a href="docs/cli.html#cmdoption-sceptre-list-stacks-arg-PATH">PATH</a>
-</li>
-      </ul></li>
-      <li>
     sceptre-new-group command line option
 
       <ul>
@@ -1534,8 +1529,6 @@
         <li><a href="apidoc/sceptre.cli.html#module-sceptre.cli.status">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     sceptre.cli.template
 
@@ -1543,6 +1536,8 @@
         <li><a href="apidoc/sceptre.cli.html#module-sceptre.cli.template">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     sceptre.cli.update
 
@@ -1712,6 +1707,13 @@
 </li>
       </ul></li>
       <li>
+    sceptre.resolvers.stack_attr
+
+      <ul>
+        <li><a href="apidoc/sceptre.resolvers.html#module-sceptre.resolvers.stack_attr">module</a>
+</li>
+      </ul></li>
+      <li>
     sceptre.resolvers.stack_output
 
       <ul>
@@ -1825,6 +1827,8 @@
 </li>
       <li><a href="apidoc/sceptre.html#sceptre.stack.Stack">Stack (class in sceptre.stack)</a>
 </li>
+      <li><a href="apidoc/sceptre.resolvers.html#sceptre.resolvers.stack_attr.StackAttr.STACK_ATTR_MAP">STACK_ATTR_MAP (sceptre.resolvers.stack_attr.StackAttr attribute)</a>
+</li>
       <li>
     STACK_GROUP
 
@@ -1851,6 +1855,8 @@
       <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.StackConfiguration.stack_tags">stack_tags (sceptre.diffing.stack_differ.StackConfiguration attribute)</a>
 </li>
       <li><a href="apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions">StackActions (class in sceptre.plan.actions)</a>
+</li>
+      <li><a href="apidoc/sceptre.resolvers.html#sceptre.resolvers.stack_attr.StackAttr">StackAttr (class in sceptre.resolvers.stack_attr)</a>
 </li>
       <li><a href="apidoc/sceptre.html#sceptre.stack_status.StackChangeSetStatus">StackChangeSetStatus (class in sceptre.stack_status)</a>
 </li>
@@ -1896,9 +1902,11 @@
 </li>
       <li><a href="apidoc/sceptre.html#sceptre.stack.Stack.template_bucket_name">template_bucket_name (sceptre.stack.Stack attribute)</a>
 </li>
+      <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.StackDiff.template_diff">template_diff (sceptre.diffing.stack_differ.StackDiff attribute)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.StackDiff.template_diff">template_diff (sceptre.diffing.stack_differ.StackDiff attribute)</a>
+      <li><a href="apidoc/sceptre.html#sceptre.stack.Stack.template_handler_config">template_handler_config (sceptre.stack.Stack attribute)</a>
 </li>
       <li><a href="apidoc/sceptre.template_handlers.html#sceptre.template_handlers.TemplateHandler">TemplateHandler (class in sceptre.template_handlers)</a>
 </li>

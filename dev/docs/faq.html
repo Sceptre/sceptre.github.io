@@ -199,7 +199,7 @@
 syntax for replacing the other items is the same, with the word <code class="docutils literal notranslate"><span class="pre">region</span></code>
 substituted out.</p>
 <p>In config.yaml:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">region</span><span class="p">:</span> <span class="p p-Indicator">{{</span> <span class="nv">var.region</span> <span class="p p-Indicator">}}</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">region</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">var.region</span><span class="w"> </span><span class="p p-Indicator">}}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>On the CLI:</p>
@@ -237,8 +237,8 @@ variables in two ways.</p>
 <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">environment_variable.VALUE</span> <span class="pre">}}</span></code>. Any value in a
 config file may be replaced using this method.</p>
 <p>The second is by using a resolver, and the syntax:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span>
-  <span class="nt">param_1</span><span class="p">:</span> <span class="kt">!environment_variable</span> <span class="l l-Scalar l-Scalar-Plain">VALUE</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">param_1</span><span class="p">:</span><span class="w"> </span><span class="kt">!environment_variable</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VALUE</span><span class="w"></span>
 </pre></div>
 </div>
 <p>This second syntax is only able to replace parameter values.</p>

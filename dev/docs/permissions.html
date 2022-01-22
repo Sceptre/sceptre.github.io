@@ -298,10 +298,10 @@ a part of the ARN structure on roles and managed policies, you can constrain the
 permissions of the deployment role to only certain paths, preventing the deployment role from
 elevating its own permissions or modifying unrelated roles and policies.</p></li>
 <li><p>Using <code class="docutils literal notranslate"><span class="pre">aws:CalledVia</span></code> and <code class="docutils literal notranslate"><span class="pre">aws:CalledViaFirst</span></code> conditions matching against
-<code class="docutils literal notranslate"><span class="pre">&quot;cloudformation.amazonaws.com&quot;</span></code> on non-cloudformation actions to ensure that the deployment
-role can only execute changes via CloudFormation and not on its own. Note: Some actions are
-taken by Sceptre directly and not via cloudformation (see the section below on this). Those
-actions should <em>not</em> have a CalledVia condition applied.</p></li>
+<code class="docutils literal notranslate"><span class="pre">&quot;cloudformation.amazonaws.com&quot;</span></code> to ensure that the deployment role can only execute changes
+via CloudFormation and not on its own. Note: Some actions are taken by Sceptre directly and not
+via cloudformation (see the section below on this). Those actions should <em>not</em> have a CalledVia
+condition applied.</p></li>
 </ul>
 </li>
 <li><p>If you define your deployment role (and any other related resources) using Sceptre and then

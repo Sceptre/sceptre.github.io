@@ -253,19 +253,19 @@ config.</p>
 <div class="section" id="our-first-template-vpc-yaml">
 <h3>Our First Template - vpc.yaml<a class="headerlink" href="#our-first-template-vpc-yaml" title="Permalink to this headline">¶</a></h3>
 <p>Add the following CloudFormation to <code class="docutils literal notranslate"><span class="pre">templates/vpc.yaml</span></code>:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Parameters</span><span class="p">:</span>
-  <span class="nt">CidrBlock</span><span class="p">:</span>
-    <span class="nt">Type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">String</span>
-<span class="nt">Resources</span><span class="p">:</span>
-  <span class="nt">VPC</span><span class="p">:</span>
-    <span class="nt">Type</span><span class="p">:</span> <span class="s">&#39;AWS::EC2::VPC&#39;</span>
-    <span class="nt">Properties</span><span class="p">:</span>
-      <span class="nt">CidrBlock</span><span class="p">:</span>
-        <span class="nt">Ref</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">CidrBlock</span>
-<span class="nt">Outputs</span><span class="p">:</span>
-  <span class="nt">VpcId</span><span class="p">:</span>
-    <span class="nt">Value</span><span class="p">:</span>
-      <span class="nt">Ref</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">VPC</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Parameters</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">CidrBlock</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">String</span><span class="w"></span>
+<span class="nt">Resources</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">VPC</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;AWS::EC2::VPC&#39;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">Properties</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">CidrBlock</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">Ref</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CidrBlock</span><span class="w"></span>
+<span class="nt">Outputs</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">VpcId</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">Value</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">Ref</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPC</span><span class="w"></span>
 </pre></div>
 </div>
 <p>For more information on CloudFormation, see the AWS documentation on
@@ -274,8 +274,8 @@ config.</p>
 <div class="section" id="our-first-stackgroup-config-config-yaml">
 <h3>Our First StackGroup config - config.yaml<a class="headerlink" href="#our-first-stackgroup-config-config-yaml" title="Permalink to this headline">¶</a></h3>
 <p>Add the following configuration to <code class="docutils literal notranslate"><span class="pre">config/dev/config.yaml</span></code>:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">project_code</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sceptre-example</span>
-<span class="nt">region</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">eu-west-1</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">project_code</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sceptre-example</span><span class="w"></span>
+<span class="nt">region</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eu-west-1</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Sceptre prefixes stack names with the <code class="docutils literal notranslate"><span class="pre">project_code</span></code>. All resources in this
@@ -284,11 +284,11 @@ StackGroup will be built in the AWS region <code class="docutils literal notrans
 <div class="section" id="our-first-stack-config-vpc-yaml">
 <h3>Our First Stack config - vpc.yaml<a class="headerlink" href="#our-first-stack-config-vpc-yaml" title="Permalink to this headline">¶</a></h3>
 <p>Add the following configuration to <code class="docutils literal notranslate"><span class="pre">config/dev/vpc.yaml</span></code>:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span>
-  <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">templates/vpc.yaml</span>
-  <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">file</span>
-<span class="nt">parameters</span><span class="p">:</span>
-  <span class="nt">CidrBlock</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10.0.0.0/16</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">templates/vpc.yaml</span><span class="w"></span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">file</span><span class="w"></span>
+<span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">CidrBlock</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0.0.0/16</span><span class="w"></span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">template</span></code> specifies the relative path to the CloudFormation, Python or
