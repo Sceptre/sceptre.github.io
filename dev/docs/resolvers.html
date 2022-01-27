@@ -113,7 +113,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#file-contents">file_contents</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#no-value">no_value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#rcmd">rcmd</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#stack-attr">stack_attr</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stack-output">stack_output</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stack-output-external">stack_output_external</a></li>
 </ul>
@@ -268,44 +267,6 @@ the CloudFormation template for <code class="docutils literal notranslate"><span
 <h3>rcmd<a class="headerlink" href="#rcmd" title="Permalink to this headline">¶</a></h3>
 <p>A resolver to execute any shell command.</p>
 <p>Refer to <a class="reference external" href="https://github.com/Sceptre/sceptre-resolver-cmd/">sceptre-resolver-cmd</a> for documentation.</p>
-</div>
-<div class="section" id="stack-attr">
-<span id="stack-attr-resolver"></span><h3>stack_attr<a class="headerlink" href="#stack-attr" title="Permalink to this headline">¶</a></h3>
-<p>This resolver resolves to the values of other fields on the same Stack Config or those
-inherited from StackGroups in which the current Stack Config exists, even when those other fields are
-also resolvers.</p>
-<p>To understand why this is useful, consider a stack’s <code class="docutils literal notranslate"><span class="pre">template_bucket_name</span></code>. This is usually set on
-the highest level StackGroup Config. Normally, you could reference the template_bucket_name that was
-set in an outer StackGroup Config with Jinja using <code class="docutils literal notranslate"><span class="pre">{{template_bucket_name}}</span></code> or, more explicitly, with
-<code class="docutils literal notranslate"><span class="pre">{{stack_group_config.template_bucket_name}}</span></code>.</p>
-<p>However, if the value of <code class="docutils literal notranslate"><span class="pre">template_bucket_name</span></code> is set with a resolver, using Jinja won’t work.
-This is due to the <a class="reference internal" href="stack_config.html#resolution-order"><span class="std std-ref">Resolution order of values</span></a> on a Stack Config. Jinja configs are rendered <em>before</em>
-resolvers are constructed or resolved, so you can’t resolve a resolver from a StackGroup Config via
-Jinja. That’s where !stack_attr is useful. It’s a resolver that resolves to the value of another stack
-attribute (which could be another resolver).</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sam</span><span class="w"></span>
-<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">path/from/my/cwd/template.yaml</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># template_bucket_name could be set by a resolver in the StackGroup.</span><span class="w"></span>
-<span class="w">    </span><span class="nt">artifact_bucket_name</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_attr</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template_bucket_name</span><span class="w"></span>
-</pre></div>
-</div>
-<p>The argument to this resolver is the full attribute “path” from the Stack Config. You can access
-nested values in dicts and lists using “.” to separate key/index segments. For example:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sceptre_user_data</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">key</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;some</span><span class="nv"> </span><span class="s">random</span><span class="nv"> </span><span class="s">value&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;the</span><span class="nv"> </span><span class="s">value</span><span class="nv"> </span><span class="s">we</span><span class="nv"> </span><span class="s">want</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">select&quot;</span><span class="w"></span>
-
-<span class="nt">iam_role</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_output</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">roles.yaml::RoleArn</span><span class="w"></span>
-
-<span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># This will pass the value of &quot;the value we want to select&quot; for my_parameter</span><span class="w"></span>
-<span class="w">    </span><span class="nt">my_parameter</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_attr</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sceptre_user_data.key.1</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># You can also access the value of another resolvable property like this:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">use_role_arn</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_attr</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">iam_role</span><span class="w"></span>
-</pre></div>
-</div>
 </div>
 <div class="section" id="stack-output">
 <h3>stack_output<a class="headerlink" href="#stack-output" title="Permalink to this headline">¶</a></h3>

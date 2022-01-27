@@ -200,8 +200,6 @@
 <span class="kn">import</span> <span class="nn">fnmatch</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">environ</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">walk</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Set</span>
-
 <span class="kn">from</span> <span class="nn">pkg_resources</span> <span class="kn">import</span> <span class="n">iter_entry_points</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">import</span> <span class="nn">yaml</span>
@@ -375,7 +373,7 @@
         <span class="n">node</span><span class="o">.</span><span class="n">tag</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">node</span><span class="p">),</span> <span class="n">node</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">node</span></div>
 
-<div class="viewcode-block" id="ConfigReader.construct_stacks"><a class="viewcode-back" href="../../../apidoc/sceptre.config.html#sceptre.config.reader.ConfigReader.construct_stacks">[docs]</a>    <span class="k">def</span> <span class="nf">construct_stacks</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="n">Stack</span><span class="p">]:</span>
+<div class="viewcode-block" id="ConfigReader.construct_stacks"><a class="viewcode-back" href="../../../apidoc/sceptre.config.html#sceptre.config.reader.ConfigReader.construct_stacks">[docs]</a>    <span class="k">def</span> <span class="nf">construct_stacks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Traverses the files under the command path.</span>
 <span class="sd">        For each file encountered, a Stack is constructed</span>
@@ -383,6 +381,7 @@
 <span class="sd">        and a final set of Stacks is returned.</span>
 
 <span class="sd">        :returns: A set of Stacks.</span>
+<span class="sd">        :rtype: set</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">stack_map</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">command_stacks</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
@@ -528,7 +527,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Config: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">config</span></div>
 
-    <span class="k">def</span> <span class="nf">_recursive_read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">stack_group_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_recursive_read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory_path</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">stack_group_config</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Traverses the directory_path, from top to bottom, reading in all</span>
 <span class="sd">        relevant config files. If config attributes are encountered further</span>
@@ -536,9 +535,13 @@
 <span class="sd">        `CONFIG_MERGE_STRATEGIES` dict.</span>
 
 <span class="sd">        :param directory_path: Relative directory path to config to read.</span>
+<span class="sd">        :type directory_path: str</span>
 <span class="sd">        :param filename: File name for the config to read.</span>
+<span class="sd">        :type filename: dict</span>
 <span class="sd">        :param stack_group_config: The loaded config file for the StackGroup</span>
+<span class="sd">        :type stack_group_config: dict</span>
 <span class="sd">        :returns: Representation of inherited config.</span>
+<span class="sd">        :rtype: dict</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">parent_directory</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">directory_path</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>

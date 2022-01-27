@@ -317,11 +317,6 @@
         <span class="s2">&quot;s3_details&quot;</span><span class="p">,</span>
         <span class="n">PlaceholderType</span><span class="o">.</span><span class="n">none</span>
     <span class="p">)</span>
-    <span class="n">template_handler_config</span> <span class="o">=</span> <span class="n">ResolvableContainerProperty</span><span class="p">(</span>
-        <span class="s1">&#39;template_handler_config&#39;</span><span class="p">,</span>
-        <span class="n">PlaceholderType</span><span class="o">.</span><span class="n">alphanum</span>
-    <span class="p">)</span>
-
     <span class="n">template_bucket_name</span> <span class="o">=</span> <span class="n">ResolvableValueProperty</span><span class="p">(</span>
         <span class="s2">&quot;template_bucket_name&quot;</span><span class="p">,</span>
         <span class="n">PlaceholderType</span><span class="o">.</span><span class="n">none</span>
@@ -359,6 +354,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">required_version</span> <span class="o">=</span> <span class="n">required_version</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">external_name</span> <span class="o">=</span> <span class="n">external_name</span> <span class="ow">or</span> <span class="n">get_external_stack_name</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_code</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">template_path</span> <span class="o">=</span> <span class="n">template_path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">template_handler_config</span> <span class="o">=</span> <span class="n">template_handler_config</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dependencies</span> <span class="o">=</span> <span class="n">dependencies</span> <span class="ow">or</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">protected</span> <span class="o">=</span> <span class="n">protected</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">on_failure</span> <span class="o">=</span> <span class="n">on_failure</span>
@@ -376,7 +372,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">tags</span> <span class="o">=</span> <span class="n">tags</span> <span class="ow">or</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">role_arn</span> <span class="o">=</span> <span class="n">role_arn</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">template_bucket_name</span> <span class="o">=</span> <span class="n">template_bucket_name</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">template_handler_config</span> <span class="o">=</span> <span class="n">template_handler_config</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">s3_details</span> <span class="o">=</span> <span class="n">s3_details</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span> <span class="o">=</span> <span class="n">parameters</span> <span class="ow">or</span> <span class="p">{}</span>
