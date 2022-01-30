@@ -236,7 +236,6 @@ raises a NotImplementedError.</p>
 <li class="toctree-l2"><a class="reference internal" href="sceptre.cli.html#module-sceptre.cli.delete">sceptre.cli.delete module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sceptre.cli.html#module-sceptre.cli.describe">sceptre.cli.describe module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sceptre.cli.html#module-sceptre.cli.diff">sceptre.cli.diff module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sceptre.cli.html#module-sceptre.cli.drift">sceptre.cli.drift module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sceptre.cli.html#module-sceptre.cli.execute">sceptre.cli.execute module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sceptre.cli.html#module-sceptre.cli.helpers">sceptre.cli.helpers module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sceptre.cli.html#module-sceptre.cli.launch">sceptre.cli.launch module</a></li>
@@ -280,6 +279,7 @@ raises a NotImplementedError.</p>
 <li class="toctree-l2"><a class="reference internal" href="sceptre.resolvers.html#module-sceptre.resolvers.file_contents">sceptre.resolvers.file_contents module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sceptre.resolvers.html#module-sceptre.resolvers.no_value">sceptre.resolvers.no_value module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sceptre.resolvers.html#module-sceptre.resolvers.placeholders">sceptre.resolvers.placeholders module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.resolvers.html#module-sceptre.resolvers.stack_attr">sceptre.resolvers.stack_attr module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sceptre.resolvers.html#module-sceptre.resolvers.stack_output">sceptre.resolvers.stack_output module</a></li>
 </ul>
 </li>
@@ -881,6 +881,21 @@ resolved value, in order to avoid redundant resolutions.</p>
 Resolver object. If it is a resolver, it will be resolved upon access of this property.
 When resolved, the resolved value will replace the resolver on the stack in order to avoid
 redundant resolutions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Attribute suffix used to store the property in the instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sceptre.stack.Stack.template_handler_config">
+<span class="sig-name descname"><span class="pre">template_handler_config</span></span><a class="headerlink" href="#sceptre.stack.Stack.template_handler_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a descriptor class used to store an attribute that may CONTAIN
+Resolver objects. Resolvers will be resolved upon access of this property.
+When resolvers are resolved, they will be replaced in the container with their
+resolved value, in order to avoid redundant resolutions.</p>
+<p>Supports nested dictionary and lists.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Attribute suffix used to store the property in the instance.</p>

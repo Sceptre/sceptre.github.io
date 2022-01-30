@@ -596,6 +596,48 @@ resolvers, especially in the sceptre_user_data.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-sceptre.resolvers.stack_attr">
+<span id="sceptre-resolvers-stack-attr-module"></span><h2>sceptre.resolvers.stack_attr module<a class="headerlink" href="#module-sceptre.resolvers.stack_attr" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="sceptre.resolvers.stack_attr.StackAttr">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sceptre.resolvers.stack_attr.</span></span><span class="sig-name descname"><span class="pre">StackAttr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">argument</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/resolvers/stack_attr.html#StackAttr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.resolvers.stack_attr.StackAttr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.resolvers.Resolver" title="sceptre.resolvers.Resolver"><code class="xref py py-class docutils literal notranslate"><span class="pre">sceptre.resolvers.Resolver</span></code></a></p>
+<p>Resolves to the value of another field on the Stack Config, including other resolvers.</p>
+<p>The argument for this resolver should be the “key path” from the stack object, which can access
+nested keys/indexes using a “.” to separate segments.</p>
+<p>For example, given this Stack Config structure…</p>
+<blockquote>
+<div><dl class="simple">
+<dt>sceptre_user_data:</dt><dd><dl class="simple">
+<dt>nested_list:</dt><dd><ul class="simple">
+<li><p>first</p></li>
+<li><p>second</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</div></blockquote>
+<p>Using “!stack_attr sceptre_user_data.nested_list.1” on your stack would resolve to “second”.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sceptre.resolvers.stack_attr.StackAttr.STACK_ATTR_MAP">
+<span class="sig-name descname"><span class="pre">STACK_ATTR_MAP</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'protect':</span> <span class="pre">'protected',</span> <span class="pre">'stack_name':</span> <span class="pre">'external_name',</span> <span class="pre">'stack_tags':</span> <span class="pre">'tags',</span> <span class="pre">'template':</span> <span class="pre">'template_handler_config'}</span></em><a class="headerlink" href="#sceptre.resolvers.stack_attr.StackAttr.STACK_ATTR_MAP" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sceptre.resolvers.stack_attr.StackAttr.resolve">
+<span class="sig-name descname"><span class="pre">resolve</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/resolvers/stack_attr.html#StackAttr.resolve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.resolvers.stack_attr.StackAttr.resolve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the resolved value of the field referenced by the resolver’s argument.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.10)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-sceptre.resolvers.stack_output">
 <span id="sceptre-resolvers-stack-output-module"></span><h2>sceptre.resolvers.stack_output module<a class="headerlink" href="#module-sceptre.resolvers.stack_output" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">

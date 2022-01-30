@@ -200,7 +200,7 @@
 <span class="kn">import</span> <span class="nn">urllib</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
 <span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Dict</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Optional</span>
 
 <span class="kn">import</span> <span class="nn">botocore</span>
 <span class="kn">from</span> <span class="nn">dateutil.tz</span> <span class="kn">import</span> <span class="n">tzutc</span>
@@ -1186,147 +1186,7 @@
 <span class="sd">        :returns: A StackDiff object.</span>
 <span class="sd">        :rtype: sceptre.diffing.stack_differ.StackDiff</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">stack_differ</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="StackActions.drift_detect"><a class="viewcode-back" href="../../../apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.drift_detect">[docs]</a>    <span class="nd">@add_stack_hooks</span>
-    <span class="k">def</span> <span class="nf">drift_detect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Show stack drift for a running stack.</span>
-
-<span class="sd">        :returns: The stack drift detection status.</span>
-<span class="sd">        If the stack does not exist, we return a detection and</span>
-<span class="sd">        stack drift status of STACK_DOES_NOT_EXIST.</span>
-<span class="sd">        If drift detection times out after 5 minutes, we return</span>
-<span class="sd">        TIMED_OUT.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_get_status</span><span class="p">()</span>
-        <span class="k">except</span> <span class="n">StackDoesNotExistError</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> - Does not exist.&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="p">{</span>
-                <span class="s2">&quot;DetectionStatus&quot;</span><span class="p">:</span> <span class="s2">&quot;STACK_DOES_NOT_EXIST&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;StackDriftStatus&quot;</span><span class="p">:</span> <span class="s2">&quot;STACK_DOES_NOT_EXIST&quot;</span>
-            <span class="p">}</span>
-
-        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_detect_stack_drift</span><span class="p">()</span>
-        <span class="n">detection_id</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="s2">&quot;StackDriftDetectionId&quot;</span><span class="p">]</span>
-
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wait_for_drift_status</span><span class="p">(</span><span class="n">detection_id</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">TimeoutError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="n">response</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s2">&quot;DetectionStatus&quot;</span><span class="p">:</span> <span class="s2">&quot;TIMED_OUT&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;StackDriftStatus&quot;</span><span class="p">:</span> <span class="s2">&quot;TIMED_OUT&quot;</span>
-            <span class="p">}</span>
-
-        <span class="k">return</span> <span class="n">response</span></div>
-
-<div class="viewcode-block" id="StackActions.drift_show"><a class="viewcode-back" href="../../../apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.drift_show">[docs]</a>    <span class="nd">@add_stack_hooks</span>
-    <span class="k">def</span> <span class="nf">drift_show</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Detect drift status on stacks.</span>
-
-<span class="sd">        :returns: The detection status and resource drifts.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">drift_detect</span><span class="p">()</span>
-        <span class="n">detection_status</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="s2">&quot;DetectionStatus&quot;</span><span class="p">]</span>
-
-        <span class="k">if</span> <span class="n">detection_status</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;DETECTION_COMPLETE&quot;</span><span class="p">,</span> <span class="s2">&quot;DETECTION_FAILED&quot;</span><span class="p">]:</span>
-            <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_describe_stack_resource_drifts</span><span class="p">()</span>
-        <span class="k">elif</span> <span class="n">detection_status</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;TIMED_OUT&quot;</span><span class="p">,</span> <span class="s2">&quot;STACK_DOES_NOT_EXIST&quot;</span><span class="p">]:</span>
-            <span class="n">response</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;StackResourceDriftStatus&quot;</span><span class="p">:</span> <span class="n">detection_status</span><span class="p">}</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Not expected to be reachable&quot;</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="p">(</span><span class="n">detection_status</span><span class="p">,</span> <span class="n">response</span><span class="p">)</span></div>
-
-    <span class="k">def</span> <span class="nf">_wait_for_drift_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">detection_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Waits for drift detection to complete.</span>
-
-<span class="sd">        :param detection_id: The drift detection ID.</span>
-<span class="sd">        :returns: The response from describe_stack_drift_detection_status.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">timeout</span> <span class="o">=</span> <span class="mi">300</span>
-        <span class="n">sleep_interval</span> <span class="o">=</span> <span class="mi">10</span>
-        <span class="n">elapsed</span> <span class="o">=</span> <span class="mi">0</span>
-
-        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">elapsed</span> <span class="o">&gt;=</span> <span class="n">timeout</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">TimeoutError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Timed out after </span><span class="si">{</span><span class="n">elapsed</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
-
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> - Waiting for drift detection&quot;</span><span class="p">)</span>
-            <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_describe_stack_drift_detection_status</span><span class="p">(</span><span class="n">detection_id</span><span class="p">)</span>
-            <span class="n">detection_status</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="s2">&quot;DetectionStatus&quot;</span><span class="p">]</span>
-
-            <span class="bp">self</span><span class="o">.</span><span class="n">_log_drift_status</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
-
-            <span class="k">if</span> <span class="n">detection_status</span> <span class="o">==</span> <span class="s2">&quot;DETECTION_IN_PROGRESS&quot;</span><span class="p">:</span>
-                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">sleep_interval</span><span class="p">)</span>
-                <span class="n">elapsed</span> <span class="o">+=</span> <span class="n">sleep_interval</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">response</span>
-
-    <span class="k">def</span> <span class="nf">_log_drift_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Log the drift status while waiting for</span>
-<span class="sd">        drift detection to complete.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s2">&quot;StackDriftDetectionId&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;DetectionStatus&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;DetectionStatusReason&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;StackDriftStatus&quot;</span>
-        <span class="p">]</span>
-
-        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">response</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">response</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
-                <span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">_detect_stack_drift</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Run detect_stack_drift.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> - Detecting Stack Drift&quot;</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection_manager</span><span class="o">.</span><span class="n">call</span><span class="p">(</span>
-            <span class="n">service</span><span class="o">=</span><span class="s2">&quot;cloudformation&quot;</span><span class="p">,</span>
-            <span class="n">command</span><span class="o">=</span><span class="s2">&quot;detect_stack_drift&quot;</span><span class="p">,</span>
-            <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span>
-                <span class="s2">&quot;StackName&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">external_name</span>
-            <span class="p">}</span>
-        <span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">_describe_stack_drift_detection_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">detection_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Run describe_stack_drift_detection_status.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> - Describing Stack Drift Detection Status&quot;</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection_manager</span><span class="o">.</span><span class="n">call</span><span class="p">(</span>
-            <span class="n">service</span><span class="o">=</span><span class="s2">&quot;cloudformation&quot;</span><span class="p">,</span>
-            <span class="n">command</span><span class="o">=</span><span class="s2">&quot;describe_stack_drift_detection_status&quot;</span><span class="p">,</span>
-            <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span>
-                <span class="s2">&quot;StackDriftDetectionId&quot;</span><span class="p">:</span> <span class="n">detection_id</span>
-            <span class="p">}</span>
-        <span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">_describe_stack_resource_drifts</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Detects stack resource_drifts for a running stack.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> - Describing Stack Resource Drifts&quot;</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection_manager</span><span class="o">.</span><span class="n">call</span><span class="p">(</span>
-            <span class="n">service</span><span class="o">=</span><span class="s2">&quot;cloudformation&quot;</span><span class="p">,</span>
-            <span class="n">command</span><span class="o">=</span><span class="s2">&quot;describe_stack_resource_drifts&quot;</span><span class="p">,</span>
-            <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span>
-                <span class="s2">&quot;StackName&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">external_name</span>
-            <span class="p">}</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">stack_differ</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div></div>
 </pre></div>
 
            </div>

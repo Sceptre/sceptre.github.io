@@ -127,6 +127,11 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id1">Sceptre User Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#resolution-order-of-values">Resolution order of values</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#render-time-vs-resolve-time">“Render Time” vs. “Resolve Time”</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#accessing-resolved-values-in-other-fields">Accessing resolved values in other fields</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
 </ul>
 </li>
@@ -256,7 +261,7 @@ from the Stack config filename.</p>
 <div class="section" id="template">
 <h3>template<a class="headerlink" href="#template" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>Resolvable: No</p></li>
+<li><p>Resolvable: Yes</p></li>
 <li><p>Can be inherited from StackGroup: No</p></li>
 </ul>
 <p>Configuration for a template handler. Template handlers can take in parameters
@@ -554,6 +559,70 @@ the <code class="docutils literal notranslate"><span class="pre">sceptre_handler
 <p>When compiled, <code class="docutils literal notranslate"><span class="pre">sceptre_user_data</span></code> would be the dictionary
 <code class="docutils literal notranslate"><span class="pre">{&quot;iam_policy_file&quot;:</span> <span class="pre">&quot;/path/to/policy.json&quot;}</span></code>.</p>
 </div>
+<div class="section" id="resolution-order-of-values">
+<span id="resolution-order"></span><h2>Resolution order of values<a class="headerlink" href="#resolution-order-of-values" title="Permalink to this headline">¶</a></h2>
+<p>Stack Configs allow you to pull together values from a variety of sources to configure a
+CloudFormation stack. These values are retrieved and applied in phases. Understanding these phases can
+be very helpful when designing your Stack Configs.</p>
+<p>When launching a stack (or performing other stack actions), values are gathered and accessed in this
+order:</p>
+<ol class="arabic">
+<li><p>User variables (from <code class="docutils literal notranslate"><span class="pre">--var</span></code> and <code class="docutils literal notranslate"><span class="pre">--var-file</span></code> arguments) are gathered when the CLI first runs.</p></li>
+<li><p>StackGroup Configs are read from the highest level downward, rendered with Jinja and then loaded
+into yaml. The key/value pairs from these configs are layered on top of each other, with more nested
+configs overriding higher-level ones. These key/value pairs will be “inherited” by the Stack
+Config. These variables are made available when rendering a StackGroup Config:</p>
+<ul class="simple">
+<li><p>User variables (via <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">var</span> <span class="pre">}}</span></code>)</p></li>
+<li><p>Environment variables (via <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">environment_variable</span> <span class="pre">}}</span></code>)</p></li>
+<li><p>StackGroup configurations from <em>higher</em> level StackGroup Configs are available by name. Note:
+more nested configuration values will overshadow higher-level ones by the same key.</p></li>
+</ul>
+</li>
+<li><p>With the layered StackGroup Config variables, the Stack Config file will be read and then rendered
+with Jinja. These variables are made available when the Stack Config is being rendered with Jinja:</p>
+<ul class="simple">
+<li><p>User variables (via <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">var</span> <span class="pre">}}</span></code>)</p></li>
+<li><p>Environment variables (via <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">environment_variable</span> <span class="pre">}}</span></code>)</p></li>
+<li><p>All StackGroup configurations are available by name directly as well as via <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">stack_group_config</span> <span class="pre">}}</span></code></p></li>
+</ul>
+<p><strong>Important:</strong> If any StackGroup configuration values were set with resolvers, accessing them via
+Jinja will not resolve them, since resolvers require a Stack object, which has not yet been
+assembled yet. <strong>Resolvers will not be accessible until a later phase.</strong></p>
+</li>
+<li><p>Once rendered via Jinja into a string, the Stack Config will be loaded into yaml. This is when the
+resolver instances on the Stack config will be <strong>constructed</strong> (<em>not</em> resolved).</p></li>
+<li><p>The Stack instance will be constructed with the key/value pairs from the loaded yaml layered on
+top of the key/value pairs from the StackGroup configurations. This is when all resolver instances,
+both those inherited from StackGroup Configs and those from the present Stack Config, will be
+connected to the Stack instance and thus <em>ready</em> to be resolved.</p></li>
+<li><p>The first time a resolvable configuration is <em>accessed</em> is when the resolver(s) at that
+configuration will be resolved and replaced with their resolved value. This is normally done at
+the very last moment, right when it is needed (and not before).</p></li>
+</ol>
+<div class="section" id="render-time-vs-resolve-time">
+<h3>“Render Time” vs. “Resolve Time”<a class="headerlink" href="#render-time-vs-resolve-time" title="Permalink to this headline">¶</a></h3>
+<p>A common point of confusion tends to be around the distinction between <strong>“render time”</strong> (phase 3, when
+Jinja logic is applied) and <strong>“resolve time”</strong> (phase 6, when resolvers are resolved). You cannot use
+a resolver via Jinja during “render time”, since the resolver won’t exist or be ready to use yet. You can,
+however, use Jinja logic to indicate <em>whether</em>, <em>which</em>, or <em>how</em> a resolver is configured.</p>
+<p>For example, you <strong>can</strong> do something like this:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span>parameters:
+  {% if var.use_my_parameter %}
+    my_parameter: !stack_output {{ var.stack_name }}::{{ var.output_name }}
+  {% endif %}
+</pre></div>
+</div>
+</div>
+<div class="section" id="accessing-resolved-values-in-other-fields">
+<h3>Accessing resolved values in other fields<a class="headerlink" href="#accessing-resolved-values-in-other-fields" title="Permalink to this headline">¶</a></h3>
+<p>Sometimes you might want to reference the resolved value of one field in another field. Since you cannot
+use Jinja to access resolved values, there is another way to this. The <a class="reference internal" href="resolvers.html#stack-attr-resolver"><span class="std std-ref">stack_attr</span></a>
+resolver is meant for addressing just this need. It’s a resolver that will resolve to the value of
+another Stack Config field value. See the linked documentation for more details on that resolver and
+its use.</p>
+</div>
+</div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span><span class="w"></span>
@@ -564,9 +633,9 @@ the <code class="docutils literal notranslate"><span class="pre">sceptre_handler
 <span class="w">  </span><span class="nt">param_2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value_2</span><span class="w"></span>
 </pre></div>
 </div>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">template</span><span class="w"></span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">templates/example.yaml</span><span class="w"></span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">file</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">templates/example.yaml</span><span class="w"></span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">file</span><span class="w"></span>
 <span class="nt">dependencies</span><span class="p">:</span><span class="w"></span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dev/vpc.yaml</span><span class="w"></span>
 <span class="nt">hooks</span><span class="p">:</span><span class="w"></span>
