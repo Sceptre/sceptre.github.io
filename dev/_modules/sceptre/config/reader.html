@@ -229,6 +229,7 @@
     <span class="s2">&quot;dependencies&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">list_join</span><span class="p">,</span>
     <span class="s2">&quot;hooks&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
     <span class="s2">&quot;iam_role&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
+    <span class="s2">&quot;iam_role_session_duration&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
     <span class="s2">&quot;notifications&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
     <span class="s2">&quot;on_failure&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
     <span class="s2">&quot;parameters&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
@@ -269,6 +270,7 @@
         <span class="s2">&quot;dependencies&quot;</span><span class="p">,</span>
         <span class="s2">&quot;hooks&quot;</span><span class="p">,</span>
         <span class="s2">&quot;iam_role&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;iam_role_session_duration&quot;</span><span class="p">,</span>
         <span class="s2">&quot;notifications&quot;</span><span class="p">,</span>
         <span class="s2">&quot;on_failure&quot;</span><span class="p">,</span>
         <span class="s2">&quot;parameters&quot;</span><span class="p">,</span>
@@ -724,6 +726,7 @@
             <span class="n">template_key_prefix</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;template_key_prefix&quot;</span><span class="p">),</span>
             <span class="n">required_version</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;required_version&quot;</span><span class="p">),</span>
             <span class="n">iam_role</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;iam_role&quot;</span><span class="p">),</span>
+            <span class="n">iam_role_session_duration</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;iam_role_session_duration&quot;</span><span class="p">),</span>
             <span class="n">profile</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;profile&quot;</span><span class="p">),</span>
             <span class="n">parameters</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;parameters&quot;</span><span class="p">,</span> <span class="p">{}),</span>
             <span class="n">sceptre_user_data</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;sceptre_user_data&quot;</span><span class="p">,</span> <span class="p">{}),</span>
