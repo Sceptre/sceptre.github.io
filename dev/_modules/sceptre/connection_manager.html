@@ -277,18 +277,13 @@
     <span class="n">_clients</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">_stack_keys</span> <span class="o">=</span> <span class="p">{}</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">stack_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">iam_role</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">iam_role_session_duration</span><span class="o">=</span><span class="kc">None</span>
-    <span class="p">):</span>
-
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">stack_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">iam_role</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">region</span> <span class="o">=</span> <span class="n">region</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">profile</span> <span class="o">=</span> <span class="n">profile</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stack_name</span> <span class="o">=</span> <span class="n">stack_name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">iam_role</span> <span class="o">=</span> <span class="n">iam_role</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">iam_role_session_duration</span> <span class="o">=</span> <span class="n">iam_role_session_duration</span>
 
         <span class="k">if</span> <span class="n">stack_name</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_stack_keys</span><span class="p">[</span><span class="n">stack_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">profile</span><span class="p">,</span> <span class="n">iam_role</span><span class="p">)</span>
@@ -296,8 +291,8 @@
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">(</span>
             <span class="s2">&quot;sceptre.connection_manager.ConnectionManager(region=&#39;</span><span class="si">{0}</span><span class="s2">&#39;, &quot;</span>
-            <span class="s2">&quot;profile=&#39;</span><span class="si">{1}</span><span class="s2">&#39;, stack_name=&#39;</span><span class="si">{2}</span><span class="s2">&#39;, iam_role=&#39;</span><span class="si">{3}</span><span class="s2">&#39;, iam_role_session_duration=&#39;</span><span class="si">{4}</span><span class="s2">&#39;)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">region</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">profile</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iam_role</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iam_role_session_duration</span>
+            <span class="s2">&quot;profile=&#39;</span><span class="si">{1}</span><span class="s2">&#39;, stack_name=&#39;</span><span class="si">{2}</span><span class="s2">&#39;, iam_role=&#39;</span><span class="si">{3}</span><span class="s2">&#39;)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">region</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">profile</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iam_role</span>
             <span class="p">)</span>
         <span class="p">)</span>
 
@@ -345,13 +340,10 @@
                     <span class="n">sts_client</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s2">&quot;sts&quot;</span><span class="p">)</span>
                     <span class="c1"># maximum session name length is 64 chars. 56 + &quot;-session&quot; = 64</span>
                     <span class="n">session_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">iam_role</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">][:</span><span class="mi">56</span><span class="p">]</span><span class="si">}</span><span class="s1">-session&#39;</span>
-                    <span class="n">assume_role_kwargs</span> <span class="o">=</span> <span class="p">{</span>
-                        <span class="s1">&#39;RoleArn&#39;</span><span class="p">:</span> <span class="n">iam_role</span><span class="p">,</span>
-                        <span class="s1">&#39;RoleSessionName&#39;</span><span class="p">:</span> <span class="n">session_name</span><span class="p">,</span>
-                    <span class="p">}</span>
-                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">iam_role_session_duration</span><span class="p">:</span>
-                        <span class="n">assume_role_kwargs</span><span class="p">[</span><span class="s1">&#39;DurationSeconds&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iam_role_session_duration</span>
-                    <span class="n">sts_response</span> <span class="o">=</span> <span class="n">sts_client</span><span class="o">.</span><span class="n">assume_role</span><span class="p">(</span><span class="o">**</span><span class="n">assume_role_kwargs</span><span class="p">)</span>
+                    <span class="n">sts_response</span> <span class="o">=</span> <span class="n">sts_client</span><span class="o">.</span><span class="n">assume_role</span><span class="p">(</span>
+                        <span class="n">RoleArn</span><span class="o">=</span><span class="n">iam_role</span><span class="p">,</span>
+                        <span class="n">RoleSessionName</span><span class="o">=</span><span class="n">session_name</span>
+                    <span class="p">)</span>
 
                     <span class="n">credentials</span> <span class="o">=</span> <span class="n">sts_response</span><span class="p">[</span><span class="s2">&quot;Credentials&quot;</span><span class="p">]</span>
                     <span class="n">session</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span>

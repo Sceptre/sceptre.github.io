@@ -197,7 +197,7 @@
 <span class="kn">from</span> <span class="nn">sceptre.connection_manager</span> <span class="kn">import</span> <span class="n">ConnectionManager</span>
 <span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">InvalidConfigFileError</span>
 <span class="kn">from</span> <span class="nn">sceptre.helpers</span> <span class="kn">import</span> <span class="n">get_external_stack_name</span><span class="p">,</span> <span class="n">sceptreise_path</span>
-<span class="kn">from</span> <span class="nn">sceptre.hooks</span> <span class="kn">import</span> <span class="n">Hook</span><span class="p">,</span> <span class="n">HookProperty</span>
+<span class="kn">from</span> <span class="nn">sceptre.hooks</span> <span class="kn">import</span> <span class="n">HookProperty</span>
 <span class="kn">from</span> <span class="nn">sceptre.resolvers</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">ResolvableContainerProperty</span><span class="p">,</span>
     <span class="n">ResolvableValueProperty</span><span class="p">,</span>
@@ -301,10 +301,6 @@
 <span class="sd">    :param stack_group_config: The StackGroup config for the Stack</span>
 <span class="sd">    :type stack_group_config: dict</span>
 
-<span class="sd">    :param iam_role_session_duration: The session duration when Scetre assumes a role.\</span>
-<span class="sd">           If not supplied, Sceptre uses default value (3600 seconds)</span>
-<span class="sd">    :type iam_role_session_duration: int</span>
-
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">parameters</span> <span class="o">=</span> <span class="n">ResolvableContainerProperty</span><span class="p">(</span><span class="s2">&quot;parameters&quot;</span><span class="p">)</span>
     <span class="n">sceptre_user_data</span> <span class="o">=</span> <span class="n">ResolvableContainerProperty</span><span class="p">(</span>
@@ -342,12 +338,12 @@
     <span class="n">hooks</span> <span class="o">=</span> <span class="n">HookProperty</span><span class="p">(</span><span class="s2">&quot;hooks&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">project_code</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">region</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">template_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">template_handler_config</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">template_bucket_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">template_key_prefix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">required_version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">parameters</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">sceptre_user_data</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">hooks</span><span class="p">:</span> <span class="n">Hook</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">s3_details</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">iam_role</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">dependencies</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">role_arn</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">protected</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="n">tags</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">external_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">notifications</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">on_failure</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">stack_timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">iam_role_session_duration</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">stack_group_config</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">project_code</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">template_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">template_handler_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">template_bucket_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">template_key_prefix</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">required_version</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">parameters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sceptre_user_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">hooks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">s3_details</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">iam_role</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dependencies</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">role_arn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">protected</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">external_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">notifications</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">on_failure</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">stack_timeout</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">stack_group_config</span><span class="o">=</span><span class="p">{}</span>
     <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
@@ -370,7 +366,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">stack_timeout</span> <span class="o">=</span> <span class="n">stack_timeout</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">profile</span> <span class="o">=</span> <span class="n">profile</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">template_key_prefix</span> <span class="o">=</span> <span class="n">template_key_prefix</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">iam_role_session_duration</span> <span class="o">=</span> <span class="n">iam_role_session_duration</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_template</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_connection_manager</span> <span class="o">=</span> <span class="kc">None</span>
@@ -402,7 +397,6 @@
             <span class="s2">&quot;template_key_prefix=</span><span class="si">{template_key_prefix}</span><span class="s2">, &quot;</span>
             <span class="s2">&quot;required_version=</span><span class="si">{required_version}</span><span class="s2">, &quot;</span>
             <span class="s2">&quot;iam_role=</span><span class="si">{iam_role}</span><span class="s2">, &quot;</span>
-            <span class="s2">&quot;iam_role_session_duration=</span><span class="si">{iam_role_session_duration}</span><span class="s2">, &quot;</span>
             <span class="s2">&quot;profile=</span><span class="si">{profile}</span><span class="s2">, &quot;</span>
             <span class="s2">&quot;sceptre_user_data=</span><span class="si">{sceptre_user_data}</span><span class="s2">, &quot;</span>
             <span class="s2">&quot;parameters=</span><span class="si">{parameters}</span><span class="s2">, &quot;</span>
@@ -427,7 +421,6 @@
                 <span class="n">template_key_prefix</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">template_key_prefix</span><span class="p">,</span>
                 <span class="n">required_version</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">required_version</span><span class="p">,</span>
                 <span class="n">iam_role</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">iam_role</span><span class="p">,</span>
-                <span class="n">iam_role_session_duration</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">iam_role_session_duration</span><span class="p">,</span>
                 <span class="n">profile</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">profile</span><span class="p">,</span>
                 <span class="n">sceptre_user_data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sceptre_user_data</span><span class="p">,</span>
                 <span class="n">parameters</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span>
@@ -459,7 +452,6 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">template_key_prefix</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">template_key_prefix</span> <span class="ow">and</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">required_version</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">required_version</span> <span class="ow">and</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">iam_role</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">iam_role</span> <span class="ow">and</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">iam_role_session_duration</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">iam_role_session_duration</span> <span class="ow">and</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">profile</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">profile</span> <span class="ow">and</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">sceptre_user_data</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">sceptre_user_data</span> <span class="ow">and</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">parameters</span> <span class="ow">and</span>
@@ -505,7 +497,7 @@
                 <span class="n">cache_connection_manager</span> <span class="o">=</span> <span class="kc">False</span>
 
             <span class="n">connection_manager</span> <span class="o">=</span> <span class="n">ConnectionManager</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">region</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">profile</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">external_name</span><span class="p">,</span> <span class="n">iam_role</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iam_role_session_duration</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">region</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">profile</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">external_name</span><span class="p">,</span> <span class="n">iam_role</span>
             <span class="p">)</span>
             <span class="k">if</span> <span class="n">cache_connection_manager</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_connection_manager</span> <span class="o">=</span> <span class="n">connection_manager</span>
