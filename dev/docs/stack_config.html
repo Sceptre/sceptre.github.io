@@ -114,6 +114,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#protected">protected</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#role-arn">role_arn</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#iam-role">iam_role</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iam-role-session-duration">iam_role_session_duration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#sceptre-user-data">sceptre_user_data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stack-name">stack_name</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stack-tags">stack_tags</a></li>
@@ -235,6 +236,7 @@ particular Stack. The available keys are listed below.</p>
 <li><p><a class="reference external" href="#protected">protected</a> <em>(optional)</em></p></li>
 <li><p><a class="reference external" href="#role-arn">role_arn</a> <em>(optional)</em></p></li>
 <li><p><a class="reference internal" href="#iam-role">iam_role</a> <em>(optional)</em></p></li>
+<li><p><a class="reference internal" href="#iam-role-session-duration">iam_role_session_duration</a> <em>(optional)</em></p></li>
 <li><p><a class="reference external" href="#sceptre-user-data">sceptre_user_data</a> <em>(optional)</em></p></li>
 <li><p><a class="reference external" href="#stack-name">stack_name</a> <em>(optional)</em></p></li>
 <li><p><a class="reference external" href="#stack-tags">stack_tags</a> <em>(optional)</em></p></li>
@@ -450,6 +452,24 @@ stack outputs for the stack outputting the <code class="docutils literal notrans
 </div>
 <p>For more information on this configuration, its implications, and its uses, see
 <a class="reference internal" href="permissions.html#iam-role-permissions"><span class="std std-ref">Sceptre and IAM: iam_role</span></a>.</p>
+</div>
+<div class="section" id="iam-role-session-duration">
+<h3>iam_role_session_duration<a class="headerlink" href="#iam-role-session-duration" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Resolvable: No</p></li>
+<li><p>Can be inherited from StackGroup: Yes</p></li>
+<li><p>Inheritance strategy: Overrides parent if set</p></li>
+</ul>
+<p>This is the session duration when <strong>Sceptre</strong> <em>assumes</em> the <strong>iam_role</strong> IAM Role using AWS STS when
+executing any actions on the Stack.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you set the value of <code class="docutils literal notranslate"><span class="pre">iam_role_session_duration</span></code> to a number that <em>GREATER</em> than 3600, you
+will need to make sure that the <code class="docutils literal notranslate"><span class="pre">iam_role</span></code> has a configuration of <code class="docutils literal notranslate"><span class="pre">MaxSessionDuration</span></code>, and
+its value is <em>GREATER</em> than or equal to the value of <code class="docutils literal notranslate"><span class="pre">iam_role_session_duration</span></code>.</p>
+</div>
+<p>For more information on this configuration, its implications, and its uses, see
+<a class="reference internal" href="permissions.html#iam-role-permissions"><span class="std std-ref">Sceptre and IAM: iam_role_session_duration</span></a>.</p>
 </div>
 <div class="section" id="sceptre-user-data">
 <h3>sceptre_user_data<a class="headerlink" href="#sceptre-user-data" title="Permalink to this headline">¶</a></h3>
