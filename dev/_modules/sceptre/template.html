@@ -195,9 +195,9 @@
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">threading</span>
 <span class="kn">import</span> <span class="nn">botocore</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 
 <span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">TemplateHandlerNotFoundError</span>
-<span class="kn">from</span> <span class="nn">pkg_resources</span> <span class="kn">import</span> <span class="n">iter_entry_points</span>
 
 
 <div class="viewcode-block" id="Template"><a class="viewcode-back" href="../../apidoc/sceptre.html#sceptre.template.Template">[docs]</a><span class="k">class</span> <span class="nc">Template</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -419,6 +419,19 @@
     <span class="k">def</span> <span class="nf">_domain_from_region</span><span class="p">(</span><span class="n">region</span><span class="p">):</span>
         <span class="k">return</span> <span class="s2">&quot;com.cn&quot;</span> <span class="k">if</span> <span class="n">region</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;cn-&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;com&quot;</span>
 
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_iterate_entry_points</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Helper to determine whether to use pkg_resources or importlib.metadata.</span>
+<span class="sd">        https://docs.python.org/3/library/importlib.metadata.html</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+            <span class="kn">from</span> <span class="nn">pkg_resources</span> <span class="kn">import</span> <span class="n">iter_entry_points</span>
+            <span class="k">return</span> <span class="n">iter_entry_points</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">importlib.metadata</span> <span class="kn">import</span> <span class="n">entry_points</span>
+            <span class="k">return</span> <span class="n">entry_points</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">group</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+
     <span class="k">def</span> <span class="nf">_get_handler_of_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets a TemplateHandler type from the registry that can be used to get a string</span>
@@ -431,7 +444,7 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_registry</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_registry</span> <span class="o">=</span> <span class="p">{}</span>
 
-            <span class="k">for</span> <span class="n">entry_point</span> <span class="ow">in</span> <span class="n">iter_entry_points</span><span class="p">(</span><span class="s2">&quot;sceptre.template_handlers&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">entry_point</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iterate_entry_points</span><span class="p">(</span><span class="s2">&quot;sceptre.template_handlers&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_registry</span><span class="p">[</span><span class="n">entry_point</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">entry_point</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="nb">type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_registry</span><span class="p">:</span>

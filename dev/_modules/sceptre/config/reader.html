@@ -199,13 +199,12 @@
 <span class="kn">import</span> <span class="nn">datetime</span>
 <span class="kn">import</span> <span class="nn">fnmatch</span>
 <span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">environ</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">walk</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Set</span>
-
-<span class="kn">from</span> <span class="nn">pkg_resources</span> <span class="kn">import</span> <span class="n">iter_entry_points</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">yaml</span>
 
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">environ</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">walk</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Set</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">jinja2</span> <span class="kn">import</span> <span class="n">Environment</span>
 <span class="kn">from</span> <span class="nn">jinja2</span> <span class="kn">import</span> <span class="n">StrictUndefined</span>
 <span class="kn">from</span> <span class="nn">jinja2</span> <span class="kn">import</span> <span class="n">FileSystemLoader</span>
@@ -324,6 +323,19 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">templating_vars</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;var&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">user_variables</span><span class="p">}</span>
 
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_iterate_entry_points</span><span class="p">(</span><span class="n">group</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Helper to determine whether to use pkg_resources or importlib.metadata.</span>
+<span class="sd">        https://docs.python.org/3/library/importlib.metadata.html</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+            <span class="kn">from</span> <span class="nn">pkg_resources</span> <span class="kn">import</span> <span class="n">iter_entry_points</span>
+            <span class="k">return</span> <span class="n">iter_entry_points</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">importlib.metadata</span> <span class="kn">import</span> <span class="n">entry_points</span>
+            <span class="k">return</span> <span class="n">entry_points</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">group</span><span class="p">)</span>
+
     <span class="k">def</span> <span class="nf">_add_yaml_constructors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entry_point_groups</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds PyYAML constructor functions for all classes found registered at</span>
@@ -358,7 +370,8 @@
             <span class="k">return</span> <span class="n">class_constructor</span>
 
         <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">entry_point_groups</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">entry_point</span> <span class="ow">in</span> <span class="n">iter_entry_points</span><span class="p">(</span><span class="n">group</span><span class="p">):</span>
+
+            <span class="k">for</span> <span class="n">entry_point</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iterate_entry_points</span><span class="p">(</span><span class="n">group</span><span class="p">):</span>
                 <span class="c1"># Retrieve name and class from entry point</span>
                 <span class="n">node_tag</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;!&#39;</span> <span class="o">+</span> <span class="n">entry_point</span><span class="o">.</span><span class="n">name</span>
                 <span class="n">node_class</span> <span class="o">=</span> <span class="n">entry_point</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
