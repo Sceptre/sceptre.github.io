@@ -436,13 +436,13 @@ using a specific diff library.</p>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The stack drift detection status.</p>
-</dd>
-</dl>
-<p>If the stack does not exist, we return a detection and
+<dd class="field-even"><p>The stack drift detection status.
+If the stack does not exist, we return a detection and
 stack drift status of STACK_DOES_NOT_EXIST.
 If drift detection times out after 5 minutes, we return
 TIMED_OUT.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -457,12 +457,6 @@ TIMED_OUT.</p>
 <dd class="field-even"><p>The detection status and resource drifts.</p>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="sceptre.plan.actions.StackActions.dump_config">
-<span class="sig-name descname"><span class="pre">dump_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_reader</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/actions.html#StackActions.dump_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.plan.actions.StackActions.dump_config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Dump the config for a stack.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -566,11 +560,11 @@ Stack is deleted. Launch then tries to create or update the Stack,
 depending if it already exists. If there are no updates to be
 performed, launch exits gracefully.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The Stack’s status.</p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="sceptre.html#sceptre.stack_status.StackStatus" title="sceptre.stack_status.StackStatus"><code class="xref py py-class docutils literal notranslate"><span class="pre">StackStatus</span></code></a></p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference internal" href="sceptre.html#sceptre.stack_status.StackStatus" title="sceptre.stack_status.StackStatus">sceptre.stack_status.StackStatus</a></p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The Stack’s status.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -679,12 +673,12 @@ executing the command specified in a SceptrePlan.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="sceptre.plan.executor.SceptrePlanExecutor.execute">
 <span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/executor.html#SceptrePlanExecutor.execute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.plan.executor.SceptrePlanExecutor.execute" title="Permalink to this definition">¶</a></dt>
-<dd><p>Execute is responsible executing the sets of Stacks in <cite>launch_order</cite>
+<dd><p>Execute is responsible executing the sets of Stacks in <code class="docutils literal notranslate"><span class="pre">launch_order</span></code>
 concurrently, in the correct order.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>*args</strong> – <p>Any arguments that should be passed through to the                StackAction being called.</p>
-</p>
+<dd class="field-odd"><p><strong>args</strong> – Any arguments that should be passed through to the
+StackAction being called.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -905,12 +899,6 @@ UPDATE_ROLLBACK_COMPLETE.</p>
 <dd class="field-even"><p>A list of detected drift against running stacks.</p>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="sceptre.plan.plan.SceptrePlan.dump_config">
-<span class="sig-name descname"><span class="pre">dump_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/plan.html#SceptrePlan.dump_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.plan.plan.SceptrePlan.dump_config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Dump the config for a stack.</p>
 </dd></dl>
 
 <dl class="py method">

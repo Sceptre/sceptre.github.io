@@ -117,6 +117,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#should-i-use-a-parameter-or-sceptre-user-data">Should I use a Parameter or Sceptre User Data?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#why-are-there-two-ways-to-supply-environment-variables-in-stack-config-files">Why are there two ways to supply environment variables in stack config files?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-do-i-build-a-serverless-application-using-sceptre-and-sam">How do I build a Serverless application using Sceptre and SAM?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#my-ci-cd-process-uses-sceptre-launch-how-do-i-delete-stacks-that-aren-t-needed-any-more">My CI/CD process uses <code class="docutils literal notranslate"><span class="pre">sceptre</span> <span class="pre">launch</span></code>. How do I delete stacks that aren’t needed any more?</a></li>
 </ul>
 </li>
 </ul>
@@ -260,6 +261,23 @@ used.</p>
 <p>There is now a SAM Template Handler that lets you incorporate SAM applications into environments that
 are managed and deployed using Sceptre. For more information on how to install and use SAM in your
 Sceptre project, see the <a class="reference external" href="https://pypi.org/project/sceptre-sam-handler/">sceptre-sam-handler</a> page on PyPI.</p>
+</div>
+<div class="section" id="my-ci-cd-process-uses-sceptre-launch-how-do-i-delete-stacks-that-aren-t-needed-any-more">
+<h2>My CI/CD process uses <code class="docutils literal notranslate"><span class="pre">sceptre</span> <span class="pre">launch</span></code>. How do I delete stacks that aren’t needed any more?<a class="headerlink" href="#my-ci-cd-process-uses-sceptre-launch-how-do-i-delete-stacks-that-aren-t-needed-any-more" title="Permalink to this headline">¶</a></h2>
+<p>Running the <code class="docutils literal notranslate"><span class="pre">launch</span></code> command is a very useful “1-stop-shop” to apply changes from Stack Configs,
+creating stacks that don’t exist and updating stacks that do exist. This makes it a very useful
+command to configure your CI/CD system to invoke. However, sometimes you need to delete a stack that
+isn’t needed any more and you want this automatically applied by the same process.</p>
+<p>This “clean up” is complicated by the fact that Sceptre doesn’t know about anything that isn’t
+in its Stack and StackGroup Configs; If you delete a Stack Config, Sceptre won’t know to clean it up.</p>
+<p>Therefore, the way to accomplish this “clean up” operation is to perform the change in 2 stages:</p>
+<ol class="arabic simple">
+<li><p>First, add <code class="docutils literal notranslate"><span class="pre">launch_action:</span> <span class="pre">&quot;exclude&quot;</span></code> to the Stack Config(s) you want to clean up. This will
+cause that stack to be deleted (if it exists) when you run <code class="docutils literal notranslate"><span class="pre">sceptre</span> <span class="pre">launch</span></code>. For more information
+on <code class="docutils literal notranslate"><span class="pre">launch_action</span></code>, see the <a class="reference internal" href="stack_config.html#launch-action"><span class="std std-ref">Stack Config entry on it</span></a>.</p></li>
+<li><p>Once you’ve launched the Stack(s) to have them deleted this way, only <strong>then</strong> should you
+delete the Stack Configs.</p></li>
+</ol>
 </div>
 </div>
 

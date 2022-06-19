@@ -220,8 +220,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">reverse</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">launch_order</span> <span class="o">=</span> <span class="kc">None</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">config_reader</span> <span class="o">=</span> <span class="n">ConfigReader</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
-        <span class="n">all_stacks</span><span class="p">,</span> <span class="n">command_stacks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_reader</span><span class="o">.</span><span class="n">construct_stacks</span><span class="p">()</span>
+        <span class="n">config_reader</span> <span class="o">=</span> <span class="n">ConfigReader</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+        <span class="n">all_stacks</span><span class="p">,</span> <span class="n">command_stacks</span> <span class="o">=</span> <span class="n">config_reader</span><span class="o">.</span><span class="n">construct_stacks</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">graph</span> <span class="o">=</span> <span class="n">StackGraph</span><span class="p">(</span><span class="n">all_stacks</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">command_stacks</span> <span class="o">=</span> <span class="n">command_stacks</span>
 
@@ -580,14 +580,7 @@
 <span class="sd">        :returns: A list of detected drift against running stacks.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">drift_show</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="SceptrePlan.dump_config"><a class="viewcode-back" href="../../../apidoc/sceptre.plan.html#sceptre.plan.plan.SceptrePlan.dump_config">[docs]</a>    <span class="k">def</span> <span class="nf">dump_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Dump the config for a stack.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dump_config</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_reader</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span></div></div>
 </pre></div>
 
            </div>
