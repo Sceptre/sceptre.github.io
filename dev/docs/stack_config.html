@@ -108,7 +108,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#template">template</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#dependencies">dependencies</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#hooks">hooks</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#launch-action">launch_action</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#notifications">notifications</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#on-failure">on_failure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#parameters">parameters</a></li>
@@ -128,7 +127,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">Sceptre User Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Sceptre User Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#resolution-order-of-values">Resolution order of values</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#render-time-vs-resolve-time">“Render Time” vs. “Resolve Time”</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#accessing-resolved-values-in-other-fields">Accessing resolved values in other fields</a></li>
@@ -231,7 +230,6 @@ particular Stack. The available keys are listed below.</p>
 <li><p><a class="reference external" href="#template-path">template_path</a> or <a class="reference external" href="#template">template</a> <em>(required)</em></p></li>
 <li><p><a class="reference external" href="#dependencies">dependencies</a> <em>(optional)</em></p></li>
 <li><p><a class="reference external" href="#hooks">hooks</a> <em>(optional)</em></p></li>
-<li><p><a class="reference internal" href="#launch-action">launch_action</a> <em>(optional)</em></p></li>
 <li><p><a class="reference external" href="#notifications">notifications</a> <em>(optional)</em></p></li>
 <li><p><a class="reference external" href="#on-failure">on_failure</a> <em>(optional)</em></p></li>
 <li><p><a class="reference external" href="#parameters">parameters</a> <em>(optional)</em></p></li>
@@ -316,47 +314,6 @@ the StackGroup Config, or (b) moving those dependency stacks outside of the Stac
 </ul>
 <p>A list of arbitrary shell or Python commands or scripts to run. Find out more
 in the <a class="reference internal" href="hooks.html"><span class="doc">Hooks</span></a> section.</p>
-</div>
-<div class="section" id="launch-action">
-<span id="id1"></span><h3>launch_action<a class="headerlink" href="#launch-action" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>Resolvable: No</p></li>
-<li><p>Can be inherited from StackGroup: Yes</p></li>
-<li><p>Inheritance strategy: Overrides parent if set</p></li>
-</ul>
-<p>This setting determines whether or not the stack should be included or excluded when running
-<code class="docutils literal notranslate"><span class="pre">sceptre</span> <span class="pre">launch</span></code>. This must be one of two values: “include” or “exclude”. The default value for
-this (which doesn’t need to be specified) is “include”. This <strong>only</strong> applies to the <code class="docutils literal notranslate"><span class="pre">launch</span></code>
-command.</p>
-<dl class="simple">
-<dt>If the <code class="docutils literal notranslate"><span class="pre">launch_action</span></code> is set to <code class="docutils literal notranslate"><span class="pre">&quot;exclude&quot;</span></code>, it means that:</dt><dd><ul class="simple">
-<li><p>If the stack does NOT exist, the Stack will not be created and will be skipped over</p></li>
-<li><p>If the stack <em>does</em> currently exist, it will be deleted.</p></li>
-</ul>
-</dd>
-</dl>
-<p>This setting is especially useful in two situations:</p>
-<ol class="arabic simple">
-<li><p>You can use it to make conditional stacks that may or may not be included in a Stack Group based
-upon some Jinja2 logic.</p></li>
-<li><p>If your CI/CD deployment process runs <code class="docutils literal notranslate"><span class="pre">sceptre</span> <span class="pre">launch</span></code>, you can use this to have stacks deleted
-when it runs. Once the stack(s) have been deleted, you can then delete the StackConfig file.</p></li>
-</ol>
-<p>For Example:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span>template:
-    path: &quot;my/test/resources.yaml&quot;
-
-{% if not var.use_test_resources %}
-launch_action: &quot;exclude&quot;
-{% endif %}
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">launch_action</span></code> configuration only applies to the <strong>launch</strong> command. You can still run
-<code class="docutils literal notranslate"><span class="pre">create</span></code>, <code class="docutils literal notranslate"><span class="pre">update</span></code>, or <code class="docutils literal notranslate"><span class="pre">delete</span></code> commands on a stack marked with <code class="docutils literal notranslate"><span class="pre">launch_action:</span> <span class="pre">&quot;exclude&quot;</span></code>.
-If you do, the command will operate just like it normally does.</p>
-</div>
 </div>
 <div class="section" id="notifications">
 <h3>notifications<a class="headerlink" href="#notifications" title="Permalink to this headline">¶</a></h3>
@@ -605,8 +562,8 @@ when using templating.</p>
 variables in two ways. For an explanation on why this is the case, see the
 <a class="reference internal" href="faq.html#faq-stackconfig-env"><span class="std std-ref">FAQ</span></a>.</p>
 </div>
-<div class="section" id="id2">
-<h2>Sceptre User Data<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h2>Sceptre User Data<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>Python or Jinja templates can contain data which should be parameterised, but
 can’t be parameterised using CloudFormation parameters. An example of this is
 if a Python template which creates an IAM Role reads in the policy from a JSON
