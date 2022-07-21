@@ -401,7 +401,7 @@
 
     <span class="k">if</span> <span class="n">var_file</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">fh</span> <span class="ow">in</span> <span class="n">var_file</span><span class="p">:</span>
-            <span class="n">parsed</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">fh</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+            <span class="n">parsed</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">fh</span><span class="o">.</span><span class="n">read</span><span class="p">())</span> <span class="ow">or</span> <span class="p">{}</span>
 
             <span class="k">if</span> <span class="n">merge_vars</span><span class="p">:</span>
                 <span class="n">return_value</span> <span class="o">=</span> <span class="n">_deep_merge</span><span class="p">(</span><span class="n">parsed</span><span class="p">,</span> <span class="n">return_value</span><span class="p">)</span>
