@@ -205,17 +205,19 @@
 <span class="kn">import</span> <span class="nn">botocore</span>
 <span class="kn">from</span> <span class="nn">dateutil.tz</span> <span class="kn">import</span> <span class="n">tzutc</span>
 
-<span class="kn">from</span> <span class="nn">sceptre.connection_manager</span> <span class="kn">import</span> <span class="n">ConnectionManager</span>
-<span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">CannotUpdateFailedStackError</span>
-<span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">ProtectedStackError</span>
-<span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">StackDoesNotExistError</span>
-<span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">UnknownStackChangeSetStatusError</span>
-<span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">UnknownStackStatusError</span>
-<span class="kn">from</span> <span class="nn">sceptre.hooks</span> <span class="kn">import</span> <span class="n">add_stack_hooks</span>
-<span class="kn">from</span> <span class="nn">sceptre.stack_status</span> <span class="kn">import</span> <span class="n">StackChangeSetStatus</span>
-<span class="kn">from</span> <span class="nn">sceptre.stack_status</span> <span class="kn">import</span> <span class="n">StackStatus</span>
 <span class="kn">from</span> <span class="nn">sceptre.config.reader</span> <span class="kn">import</span> <span class="n">ConfigReader</span>
+<span class="kn">from</span> <span class="nn">sceptre.connection_manager</span> <span class="kn">import</span> <span class="n">ConnectionManager</span>
+<span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">CannotUpdateFailedStackError</span><span class="p">,</span>
+    <span class="n">ProtectedStackError</span><span class="p">,</span>
+    <span class="n">StackDoesNotExistError</span><span class="p">,</span>
+    <span class="n">UnknownStackChangeSetStatusError</span><span class="p">,</span>
+    <span class="n">UnknownStackStatusError</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">sceptre.helpers</span> <span class="kn">import</span> <span class="n">normalise_path</span>
+<span class="kn">from</span> <span class="nn">sceptre.hooks</span> <span class="kn">import</span> <span class="n">add_stack_hooks</span>
+<span class="kn">from</span> <span class="nn">sceptre.stack</span> <span class="kn">import</span> <span class="n">Stack</span>
+<span class="kn">from</span> <span class="nn">sceptre.stack_status</span> <span class="kn">import</span> <span class="n">StackChangeSetStatus</span><span class="p">,</span> <span class="n">StackStatus</span>
 
 
 <div class="viewcode-block" id="StackActions"><a class="viewcode-back" href="../../../apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions">[docs]</a><span class="k">class</span> <span class="nc">StackActions</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -227,7 +229,7 @@
 <span class="sd">    :type stack: sceptre.stack.Stack</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack</span><span class="p">:</span> <span class="n">Stack</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stack</span> <span class="o">=</span> <span class="n">stack</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
@@ -364,7 +366,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wait_for_completion</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="StackActions.launch"><a class="viewcode-back" href="../../../apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.launch">[docs]</a>    <span class="nd">@add_stack_hooks</span>
-    <span class="k">def</span> <span class="nf">launch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">launch</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">StackStatus</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Launches the Stack.</span>
 
@@ -374,10 +376,10 @@
 <span class="sd">        performed, launch exits gracefully.</span>
 
 <span class="sd">        :returns: The Stack&#39;s status.</span>
-<span class="sd">        :rtype: sceptre.stack_status.StackStatus</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_protect_execution</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> - Launching Stack&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> - Launching Stack&quot;</span><span class="p">)</span>
+
         <span class="k">try</span><span class="p">:</span>
             <span class="n">existing_status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_status</span><span class="p">()</span>
         <span class="k">except</span> <span class="n">StackDoesNotExistError</span><span class="p">:</span>
@@ -401,7 +403,6 @@
             <span class="p">)</span>
             <span class="n">status</span> <span class="o">=</span> <span class="n">StackStatus</span><span class="o">.</span><span class="n">IN_PROGRESS</span>
         <span class="k">elif</span> <span class="n">existing_status</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;FAILED&quot;</span><span class="p">):</span>
-            <span class="n">status</span> <span class="o">=</span> <span class="n">StackStatus</span><span class="o">.</span><span class="n">FAILED</span>
             <span class="k">raise</span> <span class="n">CannotUpdateFailedStackError</span><span class="p">(</span>
                 <span class="s2">&quot;&#39;</span><span class="si">{0}</span><span class="s2">&#39; is in a the state &#39;</span><span class="si">{1}</span><span class="s2">&#39; and cannot be updated&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">existing_status</span>
@@ -1186,6 +1187,8 @@
 <span class="sd">        :param stack_differ: The diff lib to use, default difflib.</span>
 <span class="sd">        :type: sceptre.diffing.stack_differ.StackDiffer</span>
 
+<span class="sd">        :param all_stacks: If True, will perform the diff on ALL stacks</span>
+
 <span class="sd">        :returns: A StackDiff object.</span>
 <span class="sd">        :rtype: sceptre.diffing.stack_differ.StackDiff</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1197,10 +1200,10 @@
 <span class="sd">        Show stack drift for a running stack.</span>
 
 <span class="sd">        :returns: The stack drift detection status.</span>
-<span class="sd">        If the stack does not exist, we return a detection and</span>
-<span class="sd">        stack drift status of STACK_DOES_NOT_EXIST.</span>
-<span class="sd">        If drift detection times out after 5 minutes, we return</span>
-<span class="sd">        TIMED_OUT.</span>
+<span class="sd">            If the stack does not exist, we return a detection and</span>
+<span class="sd">            stack drift status of STACK_DOES_NOT_EXIST.</span>
+<span class="sd">            If drift detection times out after 5 minutes, we return</span>
+<span class="sd">            TIMED_OUT.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_get_status</span><span class="p">()</span>

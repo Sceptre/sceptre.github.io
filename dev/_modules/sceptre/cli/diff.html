@@ -198,7 +198,7 @@
 <span class="kn">from</span> <span class="nn">sceptre.helpers</span> <span class="kn">import</span> <span class="n">null_context</span>
 <span class="kn">from</span> <span class="nn">sceptre.plan.plan</span> <span class="kn">import</span> <span class="n">SceptrePlan</span>
 <span class="kn">from</span> <span class="nn">sceptre.resolvers.placeholders</span> <span class="kn">import</span> <span class="n">use_resolver_placeholders_on_error</span>
-<span class="kn">from</span> <span class="nn">sceptre.stack</span> <span class="kn">import</span> <span class="n">Stack</span>
+<span class="kn">from</span> <span class="nn">sceptre.stack</span> <span class="kn">import</span> <span class="n">Stack</span><span class="p">,</span> <span class="n">LaunchAction</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
@@ -226,15 +226,33 @@
     <span class="s1">&#39;-n&#39;</span><span class="p">,</span>
     <span class="s1">&#39;--no-placeholders&#39;</span><span class="p">,</span>
     <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;If True, no placeholder values will be supplied for resolvers that cannot be resolved.&quot;</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;If set, no placeholder values will be supplied for resolvers that cannot be resolved.&quot;</span>
+<span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
+    <span class="s1">&#39;-l&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;--launchable&#39;</span><span class="p">,</span>
+    <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="p">(</span>
+         <span class="s2">&quot;If set, will only perform diffing on stacks that have a </span><span class="se">\&quot;</span><span class="s2">deploy</span><span class="se">\&quot;</span><span class="s2"> launch_action; &quot;</span>
+         <span class="s2">&quot;Otherwise, it will diff all stacks, no matter the launch_action&quot;</span>
+    <span class="p">)</span>
 <span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">pass_context</span>
 <span class="nd">@catch_exceptions</span>
-<span class="k">def</span> <span class="nf">diff_command</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="n">differ</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">show_no_echo</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">no_placeholders</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">diff_command</span><span class="p">(</span>
+    <span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span>
+    <span class="n">differ</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">show_no_echo</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">no_placeholders</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">launchable</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">path</span><span class="p">:</span> <span class="nb">str</span>
+<span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Indicates the difference between the currently DEPLOYED stacks in the command path and</span>
 <span class="sd">    the stacks configured in Sceptre right now. This command will compare both the templates as well</span>
-<span class="sd">    as the subset of stack configurations that can be compared.</span>
+<span class="sd">    as the subset of stack configurations that can be compared. By default, all stacks relevant to</span>
+<span class="sd">    the path will be will be diffed, but the --launchable flag will narrow the scope down to only</span>
+<span class="sd">    stacks with launch_action: deploy.</span>
 
 <span class="sd">    Some settings (such as sceptre_user_data) are not available in a CloudFormation stack</span>
 <span class="sd">    description, so the diff will not be indicated. Currently compared stack configurations are:</span>
@@ -272,6 +290,8 @@
     <span class="p">)</span>
     <span class="n">output_format</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">output_format</span>
     <span class="n">plan</span> <span class="o">=</span> <span class="n">SceptrePlan</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">launchable</span><span class="p">:</span>
+        <span class="n">filter_plan_for_launchable</span><span class="p">(</span><span class="n">plan</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">differ</span> <span class="o">==</span> <span class="s2">&quot;deepdiff&quot;</span><span class="p">:</span>
         <span class="n">stack_differ</span> <span class="o">=</span> <span class="n">DeepDiffStackDiffer</span><span class="p">(</span><span class="n">show_no_echo</span><span class="p">)</span>
@@ -341,6 +361,14 @@
         <span class="k">if</span> <span class="n">DiffWriter</span><span class="o">.</span><span class="n">LINE_BAR</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
             <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">DiffWriter</span><span class="o">.</span><span class="n">LINE_BAR</span><span class="p">,</span> <span class="n">full_length_line_bar</span><span class="p">)</span>
         <span class="n">output_stream</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="filter_plan_for_launchable"><a class="viewcode-back" href="../../../apidoc/sceptre.cli.html#sceptre.cli.diff.filter_plan_for_launchable">[docs]</a><span class="k">def</span> <span class="nf">filter_plan_for_launchable</span><span class="p">(</span><span class="n">plan</span><span class="p">:</span> <span class="n">SceptrePlan</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Filters out the stacks without launch_action:deploy from the SceptrePlan.&quot;&quot;&quot;</span>
+    <span class="n">plan</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">plan</span><span class="o">.</span><span class="n">diff</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">stack</span> <span class="ow">in</span> <span class="n">plan</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">stack</span><span class="o">.</span><span class="n">launch_action</span> <span class="o">!=</span> <span class="n">LaunchAction</span><span class="o">.</span><span class="n">deploy</span><span class="p">:</span>
+            <span class="n">plan</span><span class="o">.</span><span class="n">remove_stack_from_plan</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

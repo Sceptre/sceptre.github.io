@@ -194,8 +194,8 @@
 <span class="sd">executing the command specified in a SceptrePlan.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">logging</span>
-
 <span class="kn">from</span> <span class="nn">concurrent.futures</span> <span class="kn">import</span> <span class="n">ThreadPoolExecutor</span><span class="p">,</span> <span class="n">as_completed</span>
+
 <span class="kn">from</span> <span class="nn">sceptre.plan.actions</span> <span class="kn">import</span> <span class="n">StackActions</span>
 <span class="kn">from</span> <span class="nn">sceptre.stack_status</span> <span class="kn">import</span> <span class="n">StackStatus</span>
 
@@ -225,10 +225,10 @@
 
 <div class="viewcode-block" id="SceptrePlanExecutor.execute"><a class="viewcode-back" href="../../../apidoc/sceptre.plan.html#sceptre.plan.executor.SceptrePlanExecutor.execute">[docs]</a>    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Execute is responsible executing the sets of Stacks in `launch_order`</span>
+<span class="sd">        Execute is responsible executing the sets of Stacks in ``launch_order``</span>
 <span class="sd">        concurrently, in the correct order.</span>
 
-<span class="sd">        :param *args: Any arguments that should be passed through to the\</span>
+<span class="sd">        :param args: Any arguments that should be passed through to the</span>
 <span class="sd">                StackAction being called.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">responses</span> <span class="o">=</span> <span class="p">{}</span>

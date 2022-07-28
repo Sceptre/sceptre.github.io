@@ -203,7 +203,7 @@
 <span class="kn">import</span> <span class="nn">yaml</span>
 
 <span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">environ</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">walk</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Set</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Tuple</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">jinja2</span> <span class="kn">import</span> <span class="n">Environment</span>
 <span class="kn">from</span> <span class="nn">jinja2</span> <span class="kn">import</span> <span class="n">StrictUndefined</span>
@@ -219,7 +219,7 @@
 <span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">VersionIncompatibleError</span>
 <span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">ConfigFileNotFoundError</span>
 <span class="kn">from</span> <span class="nn">sceptre.helpers</span> <span class="kn">import</span> <span class="n">sceptreise_path</span>
-<span class="kn">from</span> <span class="nn">sceptre.stack</span> <span class="kn">import</span> <span class="n">Stack</span>
+<span class="kn">from</span> <span class="nn">sceptre.stack</span> <span class="kn">import</span> <span class="n">Stack</span><span class="p">,</span> <span class="n">LaunchAction</span><span class="p">,</span> <span class="n">DEFAULT_LAUNCH_ACTION</span>
 <span class="kn">from</span> <span class="nn">sceptre.config</span> <span class="kn">import</span> <span class="n">strategies</span>
 
 <span class="n">ConfigAttributes</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;Attributes&quot;</span><span class="p">,</span> <span class="s2">&quot;required optional&quot;</span><span class="p">)</span>
@@ -245,7 +245,8 @@
     <span class="s2">&quot;template_bucket_name&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
     <span class="s2">&quot;template_key_value&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
     <span class="s2">&quot;template_path&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
-    <span class="s2">&quot;template&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span>
+    <span class="s2">&quot;template&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
+    <span class="s2">&quot;launch_action&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span>
 <span class="p">}</span>
 
 <span class="n">STACK_GROUP_CONFIG_ATTRIBUTES</span> <span class="o">=</span> <span class="n">ConfigAttributes</span><span class="p">(</span>
@@ -390,7 +391,7 @@
         <span class="n">node</span><span class="o">.</span><span class="n">tag</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">node</span><span class="p">),</span> <span class="n">node</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">node</span></div>
 
-<div class="viewcode-block" id="ConfigReader.construct_stacks"><a class="viewcode-back" href="../../../apidoc/sceptre.config.html#sceptre.config.reader.ConfigReader.construct_stacks">[docs]</a>    <span class="k">def</span> <span class="nf">construct_stacks</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="n">Stack</span><span class="p">]:</span>
+<div class="viewcode-block" id="ConfigReader.construct_stacks"><a class="viewcode-back" href="../../../apidoc/sceptre.config.html#sceptre.config.reader.ConfigReader.construct_stacks">[docs]</a>    <span class="k">def</span> <span class="nf">construct_stacks</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Set</span><span class="p">[</span><span class="n">Stack</span><span class="p">],</span> <span class="n">Set</span><span class="p">[</span><span class="n">Stack</span><span class="p">]]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Traverses the files under the command path.</span>
 <span class="sd">        For each file encountered, a Stack is constructed</span>
@@ -459,7 +460,7 @@
 
         <span class="k">return</span> <span class="n">stacks</span><span class="p">,</span> <span class="n">command_stacks</span></div>
 
-<div class="viewcode-block" id="ConfigReader.resolve_stacks"><a class="viewcode-back" href="../../../apidoc/sceptre.config.html#sceptre.config.reader.ConfigReader.resolve_stacks">[docs]</a>    <span class="k">def</span> <span class="nf">resolve_stacks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack_map</span><span class="p">):</span>
+<div class="viewcode-block" id="ConfigReader.resolve_stacks"><a class="viewcode-back" href="../../../apidoc/sceptre.config.html#sceptre.config.reader.ConfigReader.resolve_stacks">[docs]</a>    <span class="k">def</span> <span class="nf">resolve_stacks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack_map</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="n">Stack</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Transforms map of Stacks into a set of Stacks, transforms dependencies</span>
 <span class="sd">        from a list of Strings (stack names) to a list of Stacks.</span>
@@ -753,6 +754,7 @@
             <span class="n">notifications</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;notifications&quot;</span><span class="p">),</span>
             <span class="n">on_failure</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;on_failure&quot;</span><span class="p">),</span>
             <span class="n">stack_timeout</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;stack_timeout&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="n">launch_action</span><span class="o">=</span><span class="n">LaunchAction</span><span class="p">[</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;launch_action&#39;</span><span class="p">,</span> <span class="n">DEFAULT_LAUNCH_ACTION</span><span class="o">.</span><span class="n">name</span><span class="p">)],</span>
             <span class="n">stack_group_config</span><span class="o">=</span><span class="n">parsed_stack_group_config</span>
         <span class="p">)</span>
 

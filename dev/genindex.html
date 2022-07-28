@@ -262,6 +262,13 @@
 </li>
       </ul></li>
       <li>
+    --launchable
+
+      <ul>
+        <li><a href="docs/cli.html#cmdoption-sceptre-diff-l">sceptre-diff command line option</a>
+</li>
+      </ul></li>
+      <li>
     --merge-vars
 
       <ul>
@@ -387,6 +394,13 @@
 
       <ul>
         <li><a href="docs/cli.html#cmdoption-sceptre-list-outputs-e">sceptre-list-outputs command line option</a>
+</li>
+      </ul></li>
+      <li>
+    -l
+
+      <ul>
+        <li><a href="docs/cli.html#cmdoption-sceptre-diff-l">sceptre-diff command line option</a>
 </li>
       </ul></li>
       <li>
@@ -518,8 +532,12 @@
 </li>
       <li><a href="apidoc/sceptre.html#sceptre.exceptions.CircularDependenciesError">CircularDependenciesError</a>
 </li>
-      <li><a href="apidoc/sceptre.resolvers.html#sceptre.resolvers.Resolver.clone">clone() (sceptre.resolvers.Resolver method)</a>
+      <li><a href="apidoc/sceptre.html#sceptre.context.SceptreContext.clone">clone() (sceptre.context.SceptreContext method)</a>
+
+      <ul>
+        <li><a href="apidoc/sceptre.resolvers.html#sceptre.resolvers.Resolver.clone">(sceptre.resolvers.Resolver method)</a>
 </li>
+      </ul></li>
       <li><a href="apidoc/sceptre.hooks.html#sceptre.hooks.cmd.Cmd">Cmd (class in sceptre.hooks.cmd)</a>
 </li>
       <li><a href="apidoc/sceptre.html#sceptre.stack_status_colourer.StackStatusColourer.colour">colour() (sceptre.stack_status_colourer.StackStatusColourer method)</a>
@@ -602,6 +620,8 @@
 </li>
       <li><a href="apidoc/sceptre.html#sceptre.stack_status.StackChangeSetStatus.DEFUNCT">DEFUNCT (sceptre.stack_status.StackChangeSetStatus attribute)</a>
 </li>
+      <li><a href="apidoc/sceptre.html#sceptre.stack.LaunchAction.delete">delete (sceptre.stack.LaunchAction attribute)</a>
+</li>
       <li><a href="apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.delete">delete() (sceptre.plan.actions.StackActions method)</a>
 
       <ul>
@@ -619,6 +639,8 @@
       <li><a href="apidoc/sceptre.html#sceptre.exceptions.DependencyStackMissingOutputError">DependencyStackMissingOutputError</a>
 </li>
       <li><a href="apidoc/sceptre.html#sceptre.exceptions.DependencyStackNotLaunchedError">DependencyStackNotLaunchedError</a>
+</li>
+      <li><a href="apidoc/sceptre.html#sceptre.stack.LaunchAction.deploy">deploy (sceptre.stack.LaunchAction attribute)</a>
 </li>
       <li><a href="apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.describe">describe() (sceptre.plan.actions.StackActions method)</a>
 
@@ -755,6 +777,8 @@
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="apidoc/sceptre.resolvers.html#sceptre.resolvers.file_contents.FileContents">FileContents (class in sceptre.resolvers.file_contents)</a>
+</li>
+      <li><a href="apidoc/sceptre.cli.html#sceptre.cli.diff.filter_plan_for_launchable">filter_plan_for_launchable() (in module sceptre.cli.diff)</a>
 </li>
       <li><a href="apidoc/sceptre.config.html#sceptre.config.graph.StackGraph.filtered">filtered() (sceptre.config.graph.StackGraph method)</a>
 </li>
@@ -894,22 +918,28 @@
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.launch">launch() (sceptre.plan.actions.StackActions method)</a>
+      <li><a href="apidoc/sceptre.cli.html#sceptre.cli.launch.Launcher.launch">launch() (sceptre.cli.launch.Launcher method)</a>
 
       <ul>
+        <li><a href="apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.launch">(sceptre.plan.actions.StackActions method)</a>
+</li>
         <li><a href="apidoc/sceptre.plan.html#sceptre.plan.plan.SceptrePlan.launch">(sceptre.plan.plan.SceptrePlan method)</a>
 </li>
       </ul></li>
+      <li><a href="apidoc/sceptre.html#sceptre.stack.LaunchAction">LaunchAction (class in sceptre.stack)</a>
+</li>
+      <li><a href="apidoc/sceptre.cli.html#sceptre.cli.launch.Launcher">Launcher (class in sceptre.cli.launch)</a>
+</li>
       <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.diff_writer.DiffWriter.LINE_BAR">LINE_BAR (sceptre.diffing.diff_writer.DiffWriter attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.list_change_sets">list_change_sets() (sceptre.plan.actions.StackActions method)</a>
 
       <ul>
         <li><a href="apidoc/sceptre.plan.html#sceptre.plan.plan.SceptrePlan.list_change_sets">(sceptre.plan.plan.SceptrePlan method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="apidoc/sceptre.config.html#sceptre.config.strategies.list_join">list_join() (in module sceptre.config.strategies)</a>
 </li>
       <li><a href="apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.lock">lock() (sceptre.plan.actions.StackActions method)</a>
@@ -1186,11 +1216,15 @@
 </li>
       <li><a href="apidoc/sceptre.config.html#sceptre.config.graph.StackGraph.remove_stack">remove_stack() (sceptre.config.graph.StackGraph method)</a>
 </li>
+      <li><a href="apidoc/sceptre.plan.html#sceptre.plan.plan.SceptrePlan.remove_stack_from_plan">remove_stack_from_plan() (sceptre.plan.plan.SceptrePlan method)</a>
+</li>
       <li><a href="apidoc/sceptre.template_handlers.html#sceptre.template_handlers.helper.render_jinja_template">render_jinja_template() (in module sceptre.template_handlers.helper)</a>
 </li>
       <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.repr_odict">repr_odict() (in module sceptre.diffing.stack_differ)</a>
 </li>
       <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.repr_str">repr_str() (in module sceptre.diffing.stack_differ)</a>
+</li>
+      <li><a href="apidoc/sceptre.plan.html#sceptre.plan.plan.require_resolved">require_resolved() (in module sceptre.plan.plan)</a>
 </li>
       <li><a href="apidoc/sceptre.resolvers.html#sceptre.resolvers.ResolvableContainerProperty">ResolvableContainerProperty (class in sceptre.resolvers)</a>
 </li>
@@ -1334,11 +1368,15 @@
     sceptre-diff command line option
 
       <ul>
+        <li><a href="docs/cli.html#cmdoption-sceptre-diff-l">--launchable</a>
+</li>
         <li><a href="docs/cli.html#cmdoption-sceptre-diff-n">--no-placeholders</a>
 </li>
         <li><a href="docs/cli.html#cmdoption-sceptre-diff-s">--show-no-echo</a>
 </li>
         <li><a href="docs/cli.html#cmdoption-sceptre-diff-t">--type &lt;differ&gt;</a>
+</li>
+        <li><a href="docs/cli.html#cmdoption-sceptre-diff-l">-l</a>
 </li>
         <li><a href="docs/cli.html#cmdoption-sceptre-diff-n">-n</a>
 </li>
@@ -1916,6 +1954,8 @@
       <li><a href="apidoc/sceptre.cli.html#sceptre.cli.helpers.setup_vars">setup_vars() (in module sceptre.cli.helpers)</a>
 </li>
       <li><a href="apidoc/sceptre.cli.html#sceptre.cli.helpers.simplify_change_set_description">simplify_change_set_description() (in module sceptre.cli.helpers)</a>
+</li>
+      <li><a href="apidoc/sceptre.html#sceptre.stack.LaunchAction.skip">skip (sceptre.stack.LaunchAction attribute)</a>
 </li>
       <li><a href="apidoc/sceptre.html#sceptre.stack.Stack">Stack (class in sceptre.stack)</a>
 </li>

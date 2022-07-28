@@ -193,6 +193,7 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
 
 <span class="kn">from</span> <span class="nn">sceptre.connection_manager</span> <span class="kn">import</span> <span class="n">ConnectionManager</span>
 <span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">InvalidConfigFileError</span>
@@ -207,103 +208,92 @@
 <span class="kn">from</span> <span class="nn">sceptre.template</span> <span class="kn">import</span> <span class="n">Template</span>
 
 
+<div class="viewcode-block" id="LaunchAction"><a class="viewcode-back" href="../../apidoc/sceptre.html#sceptre.stack.LaunchAction">[docs]</a><span class="k">class</span> <span class="nc">LaunchAction</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">deploy</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># This is the default value for all stacks. It means launch runs create/update.</span>
+    <span class="n">delete</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># This means launch won&#39;t create and will delete it if it exists.</span>
+    <span class="n">skip</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># This means launch will ignore it and perform no actions at all on it.</span></div>
+
+
+<span class="n">DEFAULT_LAUNCH_ACTION</span> <span class="o">=</span> <span class="n">LaunchAction</span><span class="o">.</span><span class="n">deploy</span>
+
+
 <div class="viewcode-block" id="Stack"><a class="viewcode-back" href="../../apidoc/sceptre.html#sceptre.stack.Stack">[docs]</a><span class="k">class</span> <span class="nc">Stack</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Stack stores information about a particular CloudFormation Stack.</span>
 
 <span class="sd">    :param name: The name of the Stack.</span>
-<span class="sd">    :type project: str</span>
 
 <span class="sd">    :param project_code: A code which is prepended to the Stack names\</span>
 <span class="sd">            of all Stacks built by Sceptre.</span>
-<span class="sd">    :type project_code: str</span>
 
 <span class="sd">    :param template_path: The relative path to the CloudFormation, Jinja2\</span>
 <span class="sd">            or Python template to build the Stack from. If this is filled,</span>
 <span class="sd">            `template_handler_config` should not be filled.</span>
-<span class="sd">    :type template_path: str</span>
 
 <span class="sd">    :param template_handler_config: Configuration for a Template Handler that can resolve</span>
 <span class="sd">            its arguments to a template string. Should contain the `type` property to specify</span>
 <span class="sd">            the type of template handler to load. Conflicts with `template_path`.</span>
-<span class="sd">    :type template_handler_config: dict</span>
 
 <span class="sd">    :param region: The AWS region to build Stacks in.</span>
-<span class="sd">    :type region: str</span>
 
 <span class="sd">    :param template_bucket_name: The name of the S3 bucket the Template is uploaded to.</span>
-<span class="sd">    :type template_bucket_name: str</span>
 
 <span class="sd">    :param template_key_prefix: A prefix to the key used to store templates uploaded to S3</span>
-<span class="sd">    :type template_key_prefix: str</span>
 
 <span class="sd">    :param required_version: A PEP 440 compatible version specifier. If the Sceptre version does\</span>
 <span class="sd">            not fall within the given version requirement it will abort.</span>
-<span class="sd">    :type required_version: str</span>
 
 <span class="sd">    :param parameters: The keys must match up with the name of the parameter.\</span>
 <span class="sd">            The value must be of the type as defined in the template.</span>
-<span class="sd">    :type parameters: dict</span>
 
 <span class="sd">    :param sceptre_user_data: Data passed into\</span>
 <span class="sd">            `sceptre_handler(sceptre_user_data)` function in Python templates\</span>
 <span class="sd">            or accessible under `sceptre_user_data` variable within Jinja2\</span>
 <span class="sd">            templates.</span>
-<span class="sd">    :type sceptre_user_data: dict</span>
 
 <span class="sd">    :param hooks: A list of arbitrary shell or python commands or scripts to\</span>
 <span class="sd">            run.</span>
-<span class="sd">    :type hooks: sceptre.hooks.Hook</span>
 
 <span class="sd">    :param s3_details:</span>
-<span class="sd">    :type s3_details: dict</span>
 
 <span class="sd">    :param dependencies: The relative path to the Stack, including the file\</span>
 <span class="sd">            extension of the Stack.</span>
-<span class="sd">    :type dependencies: list</span>
 
 <span class="sd">    :param role_arn: The ARN of a CloudFormation Service Role that is assumed\</span>
 <span class="sd">            by CloudFormation to create, update or delete resources.</span>
-<span class="sd">    :type role_arn: str</span>
 
 <span class="sd">    :param protected: Stack protection against execution.</span>
-<span class="sd">    :type protected: bool</span>
 
 <span class="sd">    :param tags: CloudFormation Tags to be applied to the Stack.</span>
-<span class="sd">    :type tags: dict</span>
 
 <span class="sd">    :param external_name:</span>
-<span class="sd">    :type external_name: str</span>
 
 <span class="sd">    :param notifications: SNS topic ARNs to publish Stack related events to.\</span>
 <span class="sd">            A maximum of 5 ARNs can be specified per Stack.</span>
-<span class="sd">    :type notifications: list</span>
 
 <span class="sd">    :param on_failure: This parameter describes the action taken by\</span>
 <span class="sd">            CloudFormation when a Stack fails to create.</span>
-<span class="sd">    :type on_failure: str</span>
 
 <span class="sd">    :param iam_role: The ARN of a role for Sceptre to assume before interacting\</span>
 <span class="sd">            with the environment. If not supplied, Sceptre uses the user&#39;s AWS CLI\</span>
 <span class="sd">            credentials.</span>
-<span class="sd">    :type iam_role: str</span>
 
 <span class="sd">    :param profile: The name of the profile as defined in ~/.aws/config and\</span>
 <span class="sd">            ~/.aws/credentials.</span>
-<span class="sd">    :type profile: str</span>
 
 <span class="sd">    :param stack_timeout: A timeout in minutes before considering the Stack\</span>
 <span class="sd">            deployment as failed. After the specified timeout, the Stack will\</span>
-<span class="sd">            be rolled back. Specifiyng zero, as well as ommiting the field,\</span>
+<span class="sd">            be rolled back. Specifying zero, as well as omitting the field,\</span>
 <span class="sd">            will result in no timeout. Supports only positive integer value.</span>
-<span class="sd">    :type stack_timeout: int</span>
 
-<span class="sd">    :param stack_group_config: The StackGroup config for the Stack</span>
-<span class="sd">    :type stack_group_config: dict</span>
+<span class="sd">    :param launch_action: If LaunchAction.include, will create/update the stack when the\</span>
+<span class="sd">            launch command is invoked. If LaunchAction.exclude, will delete the stack\</span>
+<span class="sd">            (if it exists) when the launch command is invoked.</span>
 
 <span class="sd">    :param iam_role_session_duration: The session duration when Scetre assumes a role.\</span>
 <span class="sd">           If not supplied, Sceptre uses default value (3600 seconds)</span>
-<span class="sd">    :type iam_role_session_duration: int</span>
+
+<span class="sd">    :param stack_group_config: The StackGroup config for the Stack</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">parameters</span> <span class="o">=</span> <span class="n">ResolvableContainerProperty</span><span class="p">(</span><span class="s2">&quot;parameters&quot;</span><span class="p">)</span>
@@ -347,14 +337,17 @@
         <span class="n">required_version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">parameters</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">sceptre_user_data</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">hooks</span><span class="p">:</span> <span class="n">Hook</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">s3_details</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">iam_role</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">dependencies</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">role_arn</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">protected</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">tags</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">external_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">notifications</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">on_failure</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">stack_timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">iam_role_session_duration</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">stack_group_config</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">stack_timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">iam_role_session_duration</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">launch_action</span><span class="p">:</span> <span class="n">LaunchAction</span> <span class="o">=</span> <span class="n">LaunchAction</span><span class="o">.</span><span class="n">deploy</span><span class="p">,</span>
+        <span class="n">stack_group_config</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">template_path</span> <span class="ow">and</span> <span class="n">template_handler_config</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">InvalidConfigFileError</span><span class="p">(</span><span class="s2">&quot;Both &#39;template_path&#39; and &#39;template&#39; are set, specify one or the other&quot;</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">template_path</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">template_handler_config</span><span class="p">:</span>
+        <span class="c1"># If excluded from launch, we don&#39;t care about template configurations. The config could be</span>
+        <span class="c1"># entirely empty apart from launch_action: exclude.</span>
+        <span class="k">if</span> <span class="n">launch_action</span> <span class="o">==</span> <span class="n">LaunchAction</span><span class="o">.</span><span class="n">deploy</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">template_path</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">template_handler_config</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">InvalidConfigFileError</span><span class="p">(</span><span class="s2">&quot;Neither &#39;template_path&#39; nor &#39;template&#39; is set&quot;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">sceptreise_path</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
@@ -371,6 +364,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">profile</span> <span class="o">=</span> <span class="n">profile</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">template_key_prefix</span> <span class="o">=</span> <span class="n">template_key_prefix</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">iam_role_session_duration</span> <span class="o">=</span> <span class="n">iam_role_session_duration</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">launch_action</span> <span class="o">=</span> <span class="n">launch_action</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_template</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_connection_manager</span> <span class="o">=</span> <span class="kc">None</span>
@@ -416,7 +410,8 @@
             <span class="s2">&quot;notifications=</span><span class="si">{notifications}</span><span class="s2">, &quot;</span>
             <span class="s2">&quot;on_failure=</span><span class="si">{on_failure}</span><span class="s2">, &quot;</span>
             <span class="s2">&quot;stack_timeout=</span><span class="si">{stack_timeout}</span><span class="s2">, &quot;</span>
-            <span class="s2">&quot;stack_group_config=</span><span class="si">{stack_group_config}</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;stack_group_config=</span><span class="si">{stack_group_config}</span><span class="s2">, &quot;</span>
+            <span class="s2">&quot;launch_action=</span><span class="si">{launch_action}</span><span class="s2">&quot;</span>
             <span class="s2">&quot;)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                 <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
                 <span class="n">project_code</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">project_code</span><span class="p">,</span>
@@ -441,6 +436,7 @@
                 <span class="n">notifications</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">notifications</span><span class="p">,</span>
                 <span class="n">on_failure</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">on_failure</span><span class="p">,</span>
                 <span class="n">stack_timeout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">stack_timeout</span><span class="p">,</span>
+                <span class="n">launch_action</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">launch_action</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
                 <span class="n">stack_group_config</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">stack_group_config</span>
             <span class="p">)</span>
         <span class="p">)</span>
@@ -473,6 +469,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">notifications</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">notifications</span> <span class="ow">and</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">on_failure</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">on_failure</span> <span class="ow">and</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">stack_timeout</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">stack_timeout</span> <span class="ow">and</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">launch_action</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">launch_action</span> <span class="ow">and</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">stack_group_config</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">stack_group_config</span>
         <span class="p">)</span>
 

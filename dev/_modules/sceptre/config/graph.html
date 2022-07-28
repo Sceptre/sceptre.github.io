@@ -195,8 +195,11 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
 <span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
 <span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">CircularDependenciesError</span>
+<span class="kn">from</span> <span class="nn">sceptre.stack</span> <span class="kn">import</span> <span class="n">Stack</span>
 
 
 <div class="viewcode-block" id="StackGraph"><a class="viewcode-back" href="../../../apidoc/sceptre.config.html#sceptre.config.graph.StackGraph">[docs]</a><span class="k">class</span> <span class="nc">StackGraph</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -264,27 +267,25 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_generate_edges</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="n">stack</span><span class="o">.</span><span class="n">dependencies</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">remove_edges_from</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">selfloop_edges</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">))</span>
 
-    <span class="k">def</span> <span class="nf">_generate_edges</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack</span><span class="p">,</span> <span class="n">dependencies</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_generate_edges</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack</span><span class="p">:</span> <span class="n">Stack</span><span class="p">,</span> <span class="n">dependencies</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Stack</span><span class="p">]):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds edges to the graph based on a list of dependencies that are</span>
-<span class="sd">        generated from the inital stack config. Each of the paths</span>
+<span class="sd">        generated from the initial stack config. Each of the paths</span>
 <span class="sd">        in the inital_dependency_paths list are a depency that the inital</span>
 <span class="sd">        Stack config depends on.</span>
 
 <span class="sd">        :param stack: A Sceptre Stack</span>
-<span class="sd">        :type stack: sceptre.stack.Stack</span>
 <span class="sd">        :param dependencies: a collection of dependency paths</span>
-<span class="sd">        :type dependencies: list</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
             <span class="s2">&quot;Generate dependencies for stack </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span>
         <span class="p">)</span>
-        <span class="k">for</span> <span class="n">dependency</span> <span class="ow">in</span> <span class="n">dependencies</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">dependency</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">dependencies</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">dependency</span><span class="p">,</span> <span class="n">stack</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">nx</span><span class="o">.</span><span class="n">is_directed_acyclic_graph</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">):</span>
                 <span class="k">raise</span> <span class="n">CircularDependenciesError</span><span class="p">(</span>
-                    <span class="s2">&quot;Dependency cycle detected: </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span>
-                                                              <span class="n">dependency</span><span class="p">))</span>
+                    <span class="sa">f</span><span class="s2">&quot;Dependency cycle detected: </span><span class="si">{</span><span class="n">stack</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">dependency</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;  Added dependency: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dependency</span><span class="p">))</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">dependencies</span><span class="p">:</span>

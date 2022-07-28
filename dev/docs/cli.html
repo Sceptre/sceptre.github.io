@@ -569,7 +569,9 @@ deletes a change set for stack in PATH.</p>
 <h4>diff<a class="headerlink" href="#sceptre-diff" title="Permalink to this headline">¶</a></h4>
 <dl>
 <dt>Indicates the difference between the currently DEPLOYED stacks in the command path and</dt><dd><p>the stacks configured in Sceptre right now. This command will compare both the templates as well
-as the subset of stack configurations that can be compared.</p>
+as the subset of stack configurations that can be compared. By default, all stacks relevant to
+the path will be will be diffed, but the –launchable flag will narrow the scope down to only
+stacks with launch_action: deploy.</p>
 <p>Some settings (such as sceptre_user_data) are not available in a CloudFormation stack
 description, so the diff will not be indicated. Currently compared stack configurations are:</p>
 <dl class="simple">
@@ -620,7 +622,13 @@ requires and causes an error, there is nothing further Sceptre can do and diffin
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-sceptre-diff-n">
 <span id="cmdoption-sceptre-diff-no-placeholders"></span><span class="sig-name descname"><span class="pre">-n</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-placeholders</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-diff-n" title="Permalink to this definition">¶</a></dt>
-<dd><p>If True, no placeholder values will be supplied for resolvers that cannot be resolved.</p>
+<dd><p>If set, no placeholder values will be supplied for resolvers that cannot be resolved.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-diff-l">
+<span id="cmdoption-sceptre-diff-launchable"></span><span class="sig-name descname"><span class="pre">-l</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--launchable</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-diff-l" title="Permalink to this definition">¶</a></dt>
+<dd><p>If set, will only perform diffing on stacks that have a “deploy” launch_action; Otherwise, it will diff all stacks, no matter the launch_action</p>
 </dd></dl>
 
 <p class="rubric">Arguments</p>
@@ -852,19 +860,19 @@ browser with the returned URI.</p>
 <div class="section" id="sceptre-launch">
 <h4>launch<a class="headerlink" href="#sceptre-launch" title="Permalink to this headline">¶</a></h4>
 <blockquote>
-<div><p>Launch a Stack or StackGroup for a given config PATH.</p>
+<div><p>Launch a Stack or StackGroup for a given config PATH. This command is intended as a catch-all
+command that will apply any changes from Stack Configs indicated via the path.</p>
+<p>
+* Any Stacks that do not exist will be created
+* Any stacks that already exist will be updated (if there are any changes)
+* If any stacks are marked with launch_type: exclude, they will NOT be created and, if they exist,
+will be deleted.</p>
 <dl class="field-list simple">
 <dt class="field-odd">param path</dt>
 <dd class="field-odd"><p>The path to launch. Can be a Stack or StackGroup.</p>
 </dd>
-<dt class="field-even">type path</dt>
-<dd class="field-even"><p>str</p>
-</dd>
-<dt class="field-odd">param yes</dt>
-<dd class="field-odd"><p>A flag to answer ‘yes’ to all CLI questions.</p>
-</dd>
-<dt class="field-even">type yes</dt>
-<dd class="field-even"><p>bool</p>
+<dt class="field-even">param yes</dt>
+<dd class="field-even"><p>A flag to answer ‘yes’ to all CLI questions.</p>
 </dd>
 </dl>
 </div></blockquote>

@@ -231,6 +231,12 @@
 <div class="section" id="module-sceptre.cli.diff">
 <span id="sceptre-cli-diff-module"></span><h2>sceptre.cli.diff module<a class="headerlink" href="#module-sceptre.cli.diff" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
+<dt class="sig sig-object py" id="sceptre.cli.diff.filter_plan_for_launchable">
+<span class="sig-prename descclassname"><span class="pre">sceptre.cli.diff.</span></span><span class="sig-name descname"><span class="pre">filter_plan_for_launchable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plan</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/cli/diff.html#filter_plan_for_launchable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.cli.diff.filter_plan_for_launchable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filters out the stacks without launch_action:deploy from the SceptrePlan.</p>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="sceptre.cli.diff.output_buffer_with_normalized_bar_lengths">
 <span class="sig-prename descclassname"><span class="pre">sceptre.cli.diff.</span></span><span class="sig-name descname"><span class="pre">output_buffer_with_normalized_bar_lengths</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">buffer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_stream</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/cli/diff.html#output_buffer_with_normalized_bar_lengths"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.cli.diff.output_buffer_with_normalized_bar_lengths" title="Permalink to this definition">¶</a></dt>
 <dd><p>Takes the output from a buffer and ensures that the star and line bars are the same length
@@ -465,6 +471,22 @@ write <code class="docutils literal notranslate"><span class="pre">var</span></c
 </div>
 <div class="section" id="module-sceptre.cli.launch">
 <span id="sceptre-cli-launch-module"></span><h2>sceptre.cli.launch module<a class="headerlink" href="#module-sceptre.cli.launch" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="sceptre.cli.launch.Launcher">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sceptre.cli.launch.</span></span><span class="sig-name descname"><span class="pre">Launcher</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">context</span></em>, <em class="sig-param"><span class="pre">plan_factory=&lt;class</span> <span class="pre">'sceptre.plan.plan.SceptrePlan'&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/cli/launch.html#Launcher"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.cli.launch.Launcher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="sceptre.cli.launch.Launcher.launch">
+<span class="sig-name descname"><span class="pre">launch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">yes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/cli/launch.html#Launcher.launch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.cli.launch.Launcher.launch" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-sceptre.cli.list">
 <span id="sceptre-cli-list-module"></span><h2>sceptre.cli.list module<a class="headerlink" href="#module-sceptre.cli.list" title="Permalink to this headline">¶</a></h2>
