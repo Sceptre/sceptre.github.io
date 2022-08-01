@@ -730,6 +730,15 @@
         <span class="n">s3_details</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collect_s3_details</span><span class="p">(</span>
             <span class="n">stack_name</span><span class="p">,</span> <span class="n">config</span>
         <span class="p">)</span>
+        <span class="n">launch_action_name</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;launch_action&#39;</span><span class="p">,</span> <span class="n">DEFAULT_LAUNCH_ACTION</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">launch_action</span> <span class="o">=</span> <span class="n">LaunchAction</span><span class="p">[</span><span class="n">launch_action_name</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">InvalidConfigFileError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">launch_action_name</span><span class="si">}</span><span class="s1"> is not a valid launch_action enumeration. Valid values are: &#39;</span>
+                <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">option</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">option</span> <span class="ow">in</span> <span class="n">LaunchAction</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span>
+            <span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+
         <span class="n">stack</span> <span class="o">=</span> <span class="n">Stack</span><span class="p">(</span>
             <span class="n">name</span><span class="o">=</span><span class="n">stack_name</span><span class="p">,</span>
             <span class="n">project_code</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;project_code&quot;</span><span class="p">],</span>
@@ -754,7 +763,7 @@
             <span class="n">notifications</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;notifications&quot;</span><span class="p">),</span>
             <span class="n">on_failure</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;on_failure&quot;</span><span class="p">),</span>
             <span class="n">stack_timeout</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;stack_timeout&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
-            <span class="n">launch_action</span><span class="o">=</span><span class="n">LaunchAction</span><span class="p">[</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;launch_action&#39;</span><span class="p">,</span> <span class="n">DEFAULT_LAUNCH_ACTION</span><span class="o">.</span><span class="n">name</span><span class="p">)],</span>
+            <span class="n">launch_action</span><span class="o">=</span><span class="n">launch_action</span><span class="p">,</span>
             <span class="n">stack_group_config</span><span class="o">=</span><span class="n">parsed_stack_group_config</span>
         <span class="p">)</span>
 

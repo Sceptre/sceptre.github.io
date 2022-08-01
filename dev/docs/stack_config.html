@@ -325,18 +325,18 @@ in the <a class="reference internal" href="hooks.html"><span class="doc">Hooks</
 <li><p>Inheritance strategy: Overrides parent if set</p></li>
 </ul>
 <p>This setting determines how the stack should be handled when running <code class="docutils literal notranslate"><span class="pre">sceptre</span> <span class="pre">launch</span></code>. This must
-be one of three values:</p>
+be one of the following values:</p>
 <ul class="simple">
-<li><p>“deploy” - The stack will be created/updated as “normal”. <strong>This is the default value on all stacks</strong></p></li>
+<li><p><strong>“deploy”</strong> - The stack will be created/updated as “normal”. <strong>This is the default value on all stacks</strong></p></li>
 <li><dl class="simple">
-<dt>“delete” - If the stack does NOT exist, it won’t be created; It will be excluded from the launch.</dt><dd><p>If the stack <em>DOES</em> exist, it will be deleted. You <strong>cannot</strong> mark as stack with “delete” that
+<dt><strong>“delete”</strong> - If the stack does NOT exist, it won’t be created; It will be excluded from the launch.</dt><dd><p>If the stack <em>DOES</em> exist, it will be deleted. You <strong>cannot</strong> mark as stack with “delete” that
 other stacks marked “deploy” depend upon. If a stack is marked “delete”, you do not need any
 other Stack Config keys present on it in order for it to be deleted.</p>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
-<dt>“skip” - The stack will be completely ignored by the launch command. If the stack does NOT exist,</dt><dd><p>it won’t be created. If it <em>DOES</em> exist, it will neither be updated nor deleted. You <em>can</em> mark
+<dt><strong>“skip”</strong> - The stack will be completely ignored by the launch command. If the stack does NOT exist,</dt><dd><p>it won’t be created. If it <em>DOES</em> exist, it will neither be updated nor deleted. You <em>can</em> mark
 a stack with “skip” that other stacks depend upon, but the launch will fail if dependent stacks
 require resources or outputs that don’t exist because the stack has been skipped.
 <strong>Use this option at your own risk.</strong></p>
