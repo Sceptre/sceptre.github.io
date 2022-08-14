@@ -282,8 +282,8 @@ you marked as obsolete in step 1, since the stacks they create have all been del
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Using <code class="docutils literal notranslate"><span class="pre">obsolete:</span> <span class="pre">True</span></code> will not work if any other stacks depend on that stack that are
-not themselves obsolete. Attempting to prune any stacks that depend on a obsolete stack will
-result in Sceptre immediately failing the launch.</p>
+not themselves obsolete. Attempting to prune any obsolete stacks that are depended on by
+non-obsolete stacks will result in Sceptre immediately failing the launch.</p>
 </div>
 </div>
 </div>

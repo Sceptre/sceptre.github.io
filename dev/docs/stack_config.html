@@ -352,7 +352,7 @@ ignore: True
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">ignore</span></code> configuration <strong>only</strong> applies to the <strong>launch</strong> command. You can still run
-<code class="docutils literal notranslate"><span class="pre">create</span></code>, <code class="docutils literal notranslate"><span class="pre">update</span></code>, or <code class="docutils literal notranslate"><span class="pre">delete</span></code> commands on a stack marked with <code class="docutils literal notranslate"><span class="pre">ignore:</span> <span class="pre">&quot;true&quot;</span></code>;
+<code class="docutils literal notranslate"><span class="pre">create</span></code>, <code class="docutils literal notranslate"><span class="pre">update</span></code>, or <code class="docutils literal notranslate"><span class="pre">delete</span></code> commands on a stack marked with <code class="docutils literal notranslate"><span class="pre">ignore:</span> <span class="pre">True</span></code>;
 these commands will ignore the <code class="docutils literal notranslate"><span class="pre">ignore</span></code> setting and act upon the stack the same as any other.</p>
 </div>
 </div>
@@ -382,7 +382,7 @@ set to <code class="docutils literal notranslate"><span class="pre">False</span>
 if they currently exist on AWS. (If they don’t exist on AWS, pruning does nothing).</p>
 <p>There are two ways to prune obsolete stacks:</p>
 <ol class="arabic simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">sceptre</span> <span class="pre">prune</span></code> will delete <em>all</em> obsolete stacks in the <strong>project</strong></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sceptre</span> <span class="pre">prune</span></code> will delete <em>all</em> obsolete stacks in the <strong>project</strong>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">sceptre</span> <span class="pre">launch</span> <span class="pre">--prune</span> <span class="pre">[command</span> <span class="pre">path]</span></code> will delete all obsolete stacks in the command path
 before continuing with the launch.</p></li>
 </ol>
@@ -395,7 +395,7 @@ of dependency structure is detected. Only obsolete stacks can depend on obsolete
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">obsolete</span></code> configuration <strong>only</strong> applies to the <strong>launch</strong> and <strong>prune</strong> commands. You can
-still run <code class="docutils literal notranslate"><span class="pre">create</span></code>, <code class="docutils literal notranslate"><span class="pre">update</span></code>, or <code class="docutils literal notranslate"><span class="pre">delete</span></code> commands on a stack marked with <code class="docutils literal notranslate"><span class="pre">obsolete:</span> <span class="pre">&quot;true&quot;</span></code>;
+still run <code class="docutils literal notranslate"><span class="pre">create</span></code>, <code class="docutils literal notranslate"><span class="pre">update</span></code>, or <code class="docutils literal notranslate"><span class="pre">delete</span></code> commands on a stack marked with <code class="docutils literal notranslate"><span class="pre">obsolete:</span> <span class="pre">True</span></code>;
 these commands will ignore the <code class="docutils literal notranslate"><span class="pre">obsolete</span></code> setting and act upon the stack the same as any other.</p>
 </div>
 </div>

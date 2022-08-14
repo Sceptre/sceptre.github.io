@@ -490,6 +490,8 @@
                             <span class="s2">&quot;have their full path from `config` defined.&quot;</span>
                             <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stackname</span><span class="o">=</span><span class="n">stack</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">dep</span><span class="o">=</span><span class="n">dep</span><span class="p">,</span>
                                     <span class="n">stackkeys</span><span class="o">=</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">stack_map</span><span class="o">.</span><span class="n">keys</span><span class="p">())))</span>
+                <span class="c1"># We deduplicate the dependencies using a set here, since it&#39;s possible that a given</span>
+                <span class="c1"># dependency ends up in the list multiple times.</span>
                 <span class="n">stack</span><span class="o">.</span><span class="n">dependencies</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">stack</span><span class="o">.</span><span class="n">dependencies</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">stack</span><span class="o">.</span><span class="n">dependencies</span> <span class="o">=</span> <span class="p">[]</span>
