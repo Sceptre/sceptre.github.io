@@ -105,6 +105,14 @@ sceptre.cli.policy module
    :undoc-members:
    :show-inheritance:
 
+sceptre.cli.prune module
+------------------------
+
+.. automodule:: sceptre.cli.prune
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 sceptre.cli.status module
 -------------------------
 

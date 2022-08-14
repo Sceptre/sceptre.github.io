@@ -119,6 +119,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#sceptre-launch">launch</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#sceptre-list">list</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#sceptre-new">new</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sceptre-prune">prune</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#sceptre-set-policy">set-policy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#sceptre-status">status</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#sceptre-update">update</a></li>
@@ -628,7 +629,7 @@ requires and causes an error, there is nothing further Sceptre can do and diffin
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-sceptre-diff-a">
 <span id="cmdoption-sceptre-diff-all"></span><span class="sig-name descname"><span class="pre">-a</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--all</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-diff-a" title="Permalink to this definition">¶</a></dt>
-<dd><p>If set, will perform diffing on ALL stacks, not just ones that have a “deploy” launch_action; Otherwise, it will diff only stacks that would be created or updated when running the launch command.</p>
+<dd><p>If set, will perform diffing on ALL stacks, including ignored and obsolete ones; Otherwise, it will diff only stacks that would be created or updated when running the launch command.</p>
 </dd></dl>
 
 <p class="rubric">Arguments</p>
@@ -865,16 +866,12 @@ command that will apply any changes from Stack Configs indicated via the path.</
 <p>
 * Any Stacks that do not exist will be created
 * Any stacks that already exist will be updated (if there are any changes)
-* If any stacks are marked with launch_type: exclude, they will NOT be created and, if they exist,
-will be deleted.</p>
-<dl class="field-list simple">
-<dt class="field-odd">param path</dt>
-<dd class="field-odd"><p>The path to launch. Can be a Stack or StackGroup.</p>
-</dd>
-<dt class="field-even">param yes</dt>
-<dd class="field-even"><p>A flag to answer ‘yes’ to all CLI questions.</p>
-</dd>
-</dl>
+* If any stacks are marked with “ignore: True”, those stacks will neither be created nor updated
+* If any stacks are marked with “obsolete: True”, those stacks will neither be created nor updated.</p>
+<blockquote>
+<div><p>Furthermore, if the “-p”/”–prune” flag is used, these stacks will be deleted prior to any
+other launch commands</p>
+</div></blockquote>
 </div></blockquote>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sceptre launch <span class="o">[</span>OPTIONS<span class="o">]</span> PATH
 </pre></div>
@@ -884,6 +881,12 @@ will be deleted.</p>
 <dt class="sig sig-object std" id="cmdoption-sceptre-launch-y">
 <span id="cmdoption-sceptre-launch-yes"></span><span class="sig-name descname"><span class="pre">-y</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--yes</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-launch-y" title="Permalink to this definition">¶</a></dt>
 <dd><p>Assume yes to all questions.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-launch-p">
+<span id="cmdoption-sceptre-launch-prune"></span><span class="sig-name descname"><span class="pre">-p</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--prune</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-launch-p" title="Permalink to this definition">¶</a></dt>
+<dd><p>If set, will delete all stacks in the command path marked as obsolete.</p>
 </dd></dl>
 
 <p class="rubric">Arguments</p>
@@ -1085,6 +1088,24 @@ required properties.</p>
 </dd></dl>
 
 </div>
+</div>
+<div class="section" id="sceptre-prune">
+<h4>prune<a class="headerlink" href="#sceptre-prune" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><p>This command deletes all obsolete stacks in the project. Only obsolete stacks can be deleted
+via prune; If any non-obsolete stacks depend on obsolete stacks, an error will be
+raised and this command will fail.</p>
+</div></blockquote>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sceptre prune <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-prune-y">
+<span id="cmdoption-sceptre-prune-yes"></span><span class="sig-name descname"><span class="pre">-y</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--yes</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-prune-y" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assume yes to all questions.</p>
+</dd></dl>
+
 </div>
 <div class="section" id="sceptre-set-policy">
 <h4>set-policy<a class="headerlink" href="#sceptre-set-policy" title="Permalink to this headline">¶</a></h4>

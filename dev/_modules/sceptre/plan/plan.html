@@ -280,6 +280,13 @@
                 <span class="n">batch</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span>
                 <span class="k">return</span></div>
 
+<div class="viewcode-block" id="SceptrePlan.filter"><a class="viewcode-back" href="../../../apidoc/sceptre.plan.html#sceptre.plan.plan.SceptrePlan.filter">[docs]</a>    <span class="nd">@require_resolved</span>
+    <span class="k">def</span> <span class="nf">filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">predicate</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Stack</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]):</span>
+        <span class="c1"># Cast self to list so we&#39;re not modifying what we&#39;re iterating over</span>
+        <span class="k">for</span> <span class="n">stack</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">predicate</span><span class="p">(</span><span class="n">stack</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">remove_stack_from_plan</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="SceptrePlan.resolve"><a class="viewcode-back" href="../../../apidoc/sceptre.plan.html#sceptre.plan.plan.SceptrePlan.resolve">[docs]</a>    <span class="k">def</span> <span class="nf">resolve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">command</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">command</span> <span class="ow">and</span> <span class="n">reverse</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">reverse</span><span class="p">:</span>
             <span class="k">return</span>

@@ -272,17 +272,18 @@ isn’t needed anymore and you want this automatically applied by the same proce
 in its Stack and StackGroup Configs; If you delete a Stack Config, Sceptre won’t know to clean it up.</p>
 <p>Therefore, the way to accomplish this “clean up” operation is to perform the change in 3 steps:</p>
 <ol class="arabic simple">
-<li><p>First, add <code class="docutils literal notranslate"><span class="pre">launch_action:</span> <span class="pre">&quot;delete&quot;</span></code> to the Stack Config(s) you want to clean up.
-For more information on <code class="docutils literal notranslate"><span class="pre">launch_action</span></code>, see the <a class="reference internal" href="stack_config.html#launch-action"><span class="std std-ref">Stack Config entry on it</span></a>.</p></li>
-<li><p>Run <code class="docutils literal notranslate"><span class="pre">sceptre</span> <span class="pre">launch</span></code> to apply the change to AWS. This will cause that stack to be deleted.</p></li>
-<li><p>Delete the local Stack Config files you added the launch_action to in step 1, since the stacks
-they create have all been deleted.</p></li>
+<li><p>First, add <code class="docutils literal notranslate"><span class="pre">obsolete:</span> <span class="pre">True</span></code> to the Stack Config(s) you want to clean up.
+For more information on <code class="docutils literal notranslate"><span class="pre">obsolete</span></code>, see the <a class="reference internal" href="stack_config.html#obsolete"><span class="std std-ref">Stack Config entry on it</span></a>.</p></li>
+<li><p>Update your CI/CD process to run <code class="docutils literal notranslate"><span class="pre">sceptre</span> <span class="pre">launch</span> <span class="pre">--prune</span></code> instead of <code class="docutils literal notranslate"><span class="pre">sceptre</span> <span class="pre">launch</span></code>. This
+will cause all stacks marked as obsolete to be deleted going forward.</p></li>
+<li><p>Once your CI/CD process has cleaned up all the obsolete stacks, delete the local Stack Config files
+you marked as obsolete in step 1, since the stacks they create have all been deleted.</p></li>
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Using <code class="docutils literal notranslate"><span class="pre">launch_action:</span> <span class="pre">&quot;delete&quot;</span></code> will not work if any other stacks depend on that stack that are
-not themselves marked with <code class="docutils literal notranslate"><span class="pre">launch_action:</span> <span class="pre">&quot;delete&quot;</span></code>. Attempting to launch any stacks that
-depend on a stack marked “delete” will result in Sceptre immediately failing the launch.</p>
+<p>Using <code class="docutils literal notranslate"><span class="pre">obsolete:</span> <span class="pre">True</span></code> will not work if any other stacks depend on that stack that are
+not themselves obsolete. Attempting to prune any stacks that depend on a obsolete stack will
+result in Sceptre immediately failing the launch.</p>
 </div>
 </div>
 </div>

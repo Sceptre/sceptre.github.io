@@ -108,8 +108,9 @@
 <li class="toctree-l3"><a class="reference internal" href="#template">template</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#dependencies">dependencies</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#hooks">hooks</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#launch-action">launch_action</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ignore">ignore</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#notifications">notifications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#obsolete">obsolete</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#on-failure">on_failure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#parameters">parameters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#protected">protected</a></li>
@@ -231,8 +232,9 @@ particular Stack. The available keys are listed below.</p>
 <li><p><a class="reference external" href="#template-path">template_path</a> or <a class="reference external" href="#template">template</a> <em>(required)</em></p></li>
 <li><p><a class="reference external" href="#dependencies">dependencies</a> <em>(optional)</em></p></li>
 <li><p><a class="reference external" href="#hooks">hooks</a> <em>(optional)</em></p></li>
-<li><p><a class="reference internal" href="#launch-action">launch_action</a> <em>(optional)</em></p></li>
+<li><p><a class="reference internal" href="#ignore">ignore</a> <em>(optional)</em></p></li>
 <li><p><a class="reference external" href="#notifications">notifications</a> <em>(optional)</em></p></li>
+<li><p><a class="reference internal" href="#obsolete">obsolete</a> <em>(optional)</em></p></li>
 <li><p><a class="reference external" href="#on-failure">on_failure</a> <em>(optional)</em></p></li>
 <li><p><a class="reference external" href="#parameters">parameters</a> <em>(optional)</em></p></li>
 <li><p><a class="reference external" href="#protected">protected</a> <em>(optional)</em></p></li>
@@ -317,57 +319,41 @@ the StackGroup Config, or (b) moving those dependency stacks outside of the Stac
 <p>A list of arbitrary shell or Python commands or scripts to run. Find out more
 in the <a class="reference internal" href="hooks.html"><span class="doc">Hooks</span></a> section.</p>
 </div>
-<div class="section" id="launch-action">
-<span id="id1"></span><h3>launch_action<a class="headerlink" href="#launch-action" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="ignore">
+<h3>ignore<a class="headerlink" href="#ignore" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Resolvable: No</p></li>
 <li><p>Can be inherited from StackGroup: Yes</p></li>
 <li><p>Inheritance strategy: Overrides parent if set</p></li>
 </ul>
-<p>This setting determines how the stack should be handled when running <code class="docutils literal notranslate"><span class="pre">sceptre</span> <span class="pre">launch</span></code>. This must
-be one of the following values:</p>
-<ul class="simple">
-<li><p><strong>“deploy”</strong> - The stack will be created/updated as “normal”. <strong>This is the default value on all stacks</strong></p></li>
-<li><dl class="simple">
-<dt><strong>“delete”</strong> - If the stack does NOT exist, it won’t be created; It will be excluded from the launch.</dt><dd><p>If the stack <em>DOES</em> exist, it will be deleted. You <strong>cannot</strong> mark as stack with “delete” that
-other stacks marked “deploy” depend upon. If a stack is marked “delete”, you do not need any
-other Stack Config keys present on it in order for it to be deleted.</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt><strong>“skip”</strong> - The stack will be completely ignored by the launch command. If the stack does NOT exist,</dt><dd><p>it won’t be created. If it <em>DOES</em> exist, it will neither be updated nor deleted. You <em>can</em> mark
-a stack with “skip” that other stacks depend upon, but the launch will fail if dependent stacks
-require resources or outputs that don’t exist because the stack has been skipped.
-<strong>Use this option at your own risk.</strong></p>
-</dd>
-</dl>
-</li>
-</ul>
-<p>This setting is especially useful in two situations:</p>
-<ol class="arabic simple">
-<li><p>You can use it to make conditional stacks that may or may not be included in a deployment based
-upon some Jinja2 logic.</p></li>
-<li><p>If your CI/CD deployment process runs <code class="docutils literal notranslate"><span class="pre">sceptre</span> <span class="pre">launch</span></code>, you can use this to have stacks deleted
-when it runs. Once the stack(s) have been deleted, you can then delete the StackConfig file.</p></li>
-</ol>
+<p>This configuration should be set with a boolean value of <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>. By default, this is
+set to <code class="docutils literal notranslate"><span class="pre">False</span></code> on all stacks.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ignore</span></code> determines how the stack should be handled when running <code class="docutils literal notranslate"><span class="pre">sceptre</span> <span class="pre">launch</span></code>. A stack
+marked with <code class="docutils literal notranslate"><span class="pre">ignore:</span> <span class="pre">True</span></code> will be completely ignored by the launch command. If the stack does NOT
+exist on AWS, it won’t be created. If it <em>DOES</em> exist, it will neither be updated nor deleted.</p>
+<p>You <em>can</em> mark a stack with <code class="docutils literal notranslate"><span class="pre">ignore:</span> <span class="pre">True</span></code> that other non-ignored stacks depend on, but the launch
+will fail if dependent stacks require resources or outputs that don’t exist because the stack has not been
+launched. <strong>Therefore, only ignore dependencies of other stacks if you are aware of the risks of
+launch failure.</strong></p>
+<p>This setting can be especially useful when combined with Jinja logic to exclude certain stacks from
+launch based upon conditional Jinja-based template logic.</p>
 <p>For Example:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span>template:
     path: &quot;my/test/resources.yaml&quot;
 
-# Configured this way, if the var &quot;use_test_resources&quot; is not true, the stack will be deleted and
-# excluded from the launch. But if &quot;use_test_resources&quot; is true, the stack will be deployed along
-# with the rest of the resources being deployed.
+# Configured this way, if the var &quot;use_test_resources&quot; is not true, the stack will not be launched
+# and instead excluded from the launch. But if &quot;use_test_resources&quot; is true, the stack will be
+# deployed along with the rest of the resources being deployed.
 {% if not var.use_test_resources %}
-launch_action: &quot;delete&quot;
+ignore: True
 {% endif %}
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">launch_action</span></code> configuration only applies to the <strong>launch</strong> command. You can still run
-<code class="docutils literal notranslate"><span class="pre">create</span></code>, <code class="docutils literal notranslate"><span class="pre">update</span></code>, or <code class="docutils literal notranslate"><span class="pre">delete</span></code> commands on a stack marked with <code class="docutils literal notranslate"><span class="pre">launch_action:</span> <span class="pre">&quot;delete&quot;</span></code>;
-these commands will ignore the launch_action setting.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ignore</span></code> configuration <strong>only</strong> applies to the <strong>launch</strong> command. You can still run
+<code class="docutils literal notranslate"><span class="pre">create</span></code>, <code class="docutils literal notranslate"><span class="pre">update</span></code>, or <code class="docutils literal notranslate"><span class="pre">delete</span></code> commands on a stack marked with <code class="docutils literal notranslate"><span class="pre">ignore:</span> <span class="pre">&quot;true&quot;</span></code>;
+these commands will ignore the <code class="docutils literal notranslate"><span class="pre">ignore</span></code> setting and act upon the stack the same as any other.</p>
 </div>
 </div>
 <div class="section" id="notifications">
@@ -382,6 +368,36 @@ can be specified per Stack. This configuration will be used by the <code class="
 <code class="docutils literal notranslate"><span class="pre">update</span></code>, and <code class="docutils literal notranslate"><span class="pre">delete</span></code> commands. More information about Stack notifications
 can found under the relevant section in the <a class="reference external" href="http://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateStack.html">AWS CloudFormation API
 documentation</a>.</p>
+</div>
+<div class="section" id="obsolete">
+<span id="id1"></span><h3>obsolete<a class="headerlink" href="#obsolete" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Resolvable: No</p></li>
+<li><p>Can be inherited from StackGroup: Yes</p></li>
+<li><p>Inheritance strategy: Overrides parent if set</p></li>
+</ul>
+<p>This configuration should be set with a boolean value of <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>. By default, this is
+set to <code class="docutils literal notranslate"><span class="pre">False</span></code> on all stacks.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">obsolete</span></code> configuration should be used to mark stacks to be deleted via <code class="docutils literal notranslate"><span class="pre">prune</span></code> actions,
+if they currently exist on AWS. (If they don’t exist on AWS, pruning does nothing).</p>
+<p>There are two ways to prune obsolete stacks:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sceptre</span> <span class="pre">prune</span></code> will delete <em>all</em> obsolete stacks in the <strong>project</strong></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sceptre</span> <span class="pre">launch</span> <span class="pre">--prune</span> <span class="pre">[command</span> <span class="pre">path]</span></code> will delete all obsolete stacks in the command path
+before continuing with the launch.</p></li>
+</ol>
+<p>In practice, the <code class="docutils literal notranslate"><span class="pre">obsolete</span></code> configuration operates identically to <code class="docutils literal notranslate"><span class="pre">ignore</span></code> with the extra prune
+effects. When the <code class="docutils literal notranslate"><span class="pre">launch</span></code> command is invoked without the <code class="docutils literal notranslate"><span class="pre">--prune</span></code> flag, obsolete stacks will
+be ignored and not launched, just as if <code class="docutils literal notranslate"><span class="pre">ignore:</span> <span class="pre">True</span></code> was on the Stack Config.</p>
+<p><strong>Important</strong>: You cannot have non-obsolete stacks dependent upon obsolete stacks. Both the
+<code class="docutils literal notranslate"><span class="pre">prune</span></code> and <code class="docutils literal notranslate"><span class="pre">launch</span> <span class="pre">--prune</span></code> will reject such configurations and will not continue if this sort
+of dependency structure is detected. Only obsolete stacks can depend on obsolete stacks.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">obsolete</span></code> configuration <strong>only</strong> applies to the <strong>launch</strong> and <strong>prune</strong> commands. You can
+still run <code class="docutils literal notranslate"><span class="pre">create</span></code>, <code class="docutils literal notranslate"><span class="pre">update</span></code>, or <code class="docutils literal notranslate"><span class="pre">delete</span></code> commands on a stack marked with <code class="docutils literal notranslate"><span class="pre">obsolete:</span> <span class="pre">&quot;true&quot;</span></code>;
+these commands will ignore the <code class="docutils literal notranslate"><span class="pre">obsolete</span></code> setting and act upon the stack the same as any other.</p>
+</div>
 </div>
 <div class="section" id="on-failure">
 <h3>on_failure<a class="headerlink" href="#on-failure" title="Permalink to this headline">¶</a></h3>

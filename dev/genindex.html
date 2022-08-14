@@ -301,6 +301,13 @@
 </li>
       </ul></li>
       <li>
+    --prune
+
+      <ul>
+        <li><a href="docs/cli.html#cmdoption-sceptre-launch-p">sceptre-launch command line option</a>
+</li>
+      </ul></li>
+      <li>
     --show-no-echo
 
       <ul>
@@ -365,6 +372,8 @@
 </li>
         <li><a href="docs/cli.html#cmdoption-sceptre-launch-y">sceptre-launch command line option</a>
 </li>
+        <li><a href="docs/cli.html#cmdoption-sceptre-prune-y">sceptre-prune command line option</a>
+</li>
         <li><a href="docs/cli.html#cmdoption-sceptre-update-y">sceptre-update command line option</a>
 </li>
       </ul></li>
@@ -415,6 +424,13 @@
 </li>
       </ul></li>
       <li>
+    -p
+
+      <ul>
+        <li><a href="docs/cli.html#cmdoption-sceptre-launch-p">sceptre-launch command line option</a>
+</li>
+      </ul></li>
+      <li>
     -s
 
       <ul>
@@ -455,6 +471,8 @@
         <li><a href="docs/cli.html#cmdoption-sceptre-execute-y">sceptre-execute command line option</a>
 </li>
         <li><a href="docs/cli.html#cmdoption-sceptre-launch-y">sceptre-launch command line option</a>
+</li>
+        <li><a href="docs/cli.html#cmdoption-sceptre-prune-y">sceptre-prune command line option</a>
 </li>
         <li><a href="docs/cli.html#cmdoption-sceptre-update-y">sceptre-update command line option</a>
 </li>
@@ -507,6 +525,8 @@
         <li><a href="apidoc/sceptre.plan.html#sceptre.plan.plan.SceptrePlan.cancel_stack_update">(sceptre.plan.plan.SceptrePlan method)</a>
 </li>
       </ul></li>
+      <li><a href="apidoc/sceptre.html#sceptre.exceptions.CannotPruneStackError">CannotPruneStackError</a>
+</li>
       <li><a href="apidoc/sceptre.html#sceptre.exceptions.CannotUpdateFailedStackError">CannotUpdateFailedStackError</a>
 </li>
       <li><a href="apidoc/sceptre.cli.html#sceptre.cli.helpers.catch_exceptions">catch_exceptions() (in module sceptre.cli.helpers)</a>
@@ -620,8 +640,6 @@
 </li>
       <li><a href="apidoc/sceptre.html#sceptre.stack_status.StackChangeSetStatus.DEFUNCT">DEFUNCT (sceptre.stack_status.StackChangeSetStatus attribute)</a>
 </li>
-      <li><a href="apidoc/sceptre.html#sceptre.stack.LaunchAction.delete">delete (sceptre.stack.LaunchAction attribute)</a>
-</li>
       <li><a href="apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.delete">delete() (sceptre.plan.actions.StackActions method)</a>
 
       <ul>
@@ -639,8 +657,6 @@
       <li><a href="apidoc/sceptre.html#sceptre.exceptions.DependencyStackMissingOutputError">DependencyStackMissingOutputError</a>
 </li>
       <li><a href="apidoc/sceptre.html#sceptre.exceptions.DependencyStackNotLaunchedError">DependencyStackNotLaunchedError</a>
-</li>
-      <li><a href="apidoc/sceptre.html#sceptre.stack.LaunchAction.deploy">deploy (sceptre.stack.LaunchAction attribute)</a>
 </li>
       <li><a href="apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.describe">describe() (sceptre.plan.actions.StackActions method)</a>
 
@@ -774,9 +790,11 @@
 </li>
       <li><a href="apidoc/sceptre.template_handlers.html#sceptre.template_handlers.file.File">File (class in sceptre.template_handlers.file)</a>
 </li>
+      <li><a href="apidoc/sceptre.resolvers.html#sceptre.resolvers.file_contents.FileContents">FileContents (class in sceptre.resolvers.file_contents)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="apidoc/sceptre.resolvers.html#sceptre.resolvers.file_contents.FileContents">FileContents (class in sceptre.resolvers.file_contents)</a>
+      <li><a href="apidoc/sceptre.plan.html#sceptre.plan.plan.SceptrePlan.filter">filter() (sceptre.plan.plan.SceptrePlan method)</a>
 </li>
       <li><a href="apidoc/sceptre.cli.html#sceptre.cli.diff.filter_plan_for_launchable">filter_plan_for_launchable() (in module sceptre.cli.diff)</a>
 </li>
@@ -926,8 +944,6 @@
         <li><a href="apidoc/sceptre.plan.html#sceptre.plan.plan.SceptrePlan.launch">(sceptre.plan.plan.SceptrePlan method)</a>
 </li>
       </ul></li>
-      <li><a href="apidoc/sceptre.html#sceptre.stack.LaunchAction">LaunchAction (class in sceptre.stack)</a>
-</li>
       <li><a href="apidoc/sceptre.cli.html#sceptre.cli.launch.Launcher">Launcher (class in sceptre.cli.launch)</a>
 </li>
       <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.diff_writer.DiffWriter.LINE_BAR">LINE_BAR (sceptre.diffing.diff_writer.DiffWriter attribute)</a>
@@ -989,6 +1005,8 @@
         <li><a href="apidoc/sceptre.cli.html#module-sceptre.cli.new">sceptre.cli.new</a>
 </li>
         <li><a href="apidoc/sceptre.cli.html#module-sceptre.cli.policy">sceptre.cli.policy</a>
+</li>
+        <li><a href="apidoc/sceptre.cli.html#module-sceptre.cli.prune">sceptre.cli.prune</a>
 </li>
         <li><a href="apidoc/sceptre.cli.html#module-sceptre.cli.status">sceptre.cli.status</a>
 </li>
@@ -1199,6 +1217,10 @@
       <li><a href="apidoc/sceptre.html#sceptre.exceptions.ProjectAlreadyExistsError">ProjectAlreadyExistsError</a>
 </li>
       <li><a href="apidoc/sceptre.html#sceptre.exceptions.ProtectedStackError">ProtectedStackError</a>
+</li>
+      <li><a href="apidoc/sceptre.cli.html#sceptre.cli.prune.Pruner.prune">prune() (sceptre.cli.prune.Pruner method)</a>
+</li>
+      <li><a href="apidoc/sceptre.cli.html#sceptre.cli.prune.Pruner">Pruner (class in sceptre.cli.prune)</a>
 </li>
       <li><a href="apidoc/sceptre.template_handlers.html#sceptre.template_handlers.TemplateHandler.python_template_extensions">python_template_extensions (sceptre.template_handlers.TemplateHandler attribute)</a>
 </li>
@@ -1454,7 +1476,11 @@
     sceptre-launch command line option
 
       <ul>
+        <li><a href="docs/cli.html#cmdoption-sceptre-launch-p">--prune</a>
+</li>
         <li><a href="docs/cli.html#cmdoption-sceptre-launch-y">--yes</a>
+</li>
+        <li><a href="docs/cli.html#cmdoption-sceptre-launch-p">-p</a>
 </li>
         <li><a href="docs/cli.html#cmdoption-sceptre-launch-y">-y</a>
 </li>
@@ -1509,6 +1535,15 @@
 
       <ul>
         <li><a href="docs/cli.html#cmdoption-sceptre-new-project-arg-PROJECT_NAME">PROJECT_NAME</a>
+</li>
+      </ul></li>
+      <li>
+    sceptre-prune command line option
+
+      <ul>
+        <li><a href="docs/cli.html#cmdoption-sceptre-prune-y">--yes</a>
+</li>
+        <li><a href="docs/cli.html#cmdoption-sceptre-prune-y">-y</a>
 </li>
       </ul></li>
       <li>
@@ -1638,6 +1673,8 @@
         <li><a href="apidoc/sceptre.cli.html#module-sceptre.cli.list">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     sceptre.cli.new
 
@@ -1645,13 +1682,18 @@
         <li><a href="apidoc/sceptre.cli.html#module-sceptre.cli.new">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     sceptre.cli.policy
 
       <ul>
         <li><a href="apidoc/sceptre.cli.html#module-sceptre.cli.policy">module</a>
+</li>
+      </ul></li>
+      <li>
+    sceptre.cli.prune
+
+      <ul>
+        <li><a href="apidoc/sceptre.cli.html#module-sceptre.cli.prune">module</a>
 </li>
       </ul></li>
       <li>
@@ -1954,8 +1996,6 @@
       <li><a href="apidoc/sceptre.cli.html#sceptre.cli.helpers.setup_vars">setup_vars() (in module sceptre.cli.helpers)</a>
 </li>
       <li><a href="apidoc/sceptre.cli.html#sceptre.cli.helpers.simplify_change_set_description">simplify_change_set_description() (in module sceptre.cli.helpers)</a>
-</li>
-      <li><a href="apidoc/sceptre.html#sceptre.stack.LaunchAction.skip">skip (sceptre.stack.LaunchAction attribute)</a>
 </li>
       <li><a href="apidoc/sceptre.html#sceptre.stack.Stack">Stack (class in sceptre.stack)</a>
 </li>
