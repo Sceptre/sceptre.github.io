@@ -34,6 +34,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
@@ -212,49 +213,93 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="sceptre-cli-package">
-<h1>sceptre.cli package<a class="headerlink" href="#sceptre-cli-package" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-sceptre.cli">
+<span id="sceptre-cli-package"></span><h1>sceptre.cli package<a class="headerlink" href="#module-sceptre.cli" title="Permalink to this heading">¶</a></h1>
+<p>sceptre.cli</p>
+<p>This module implements Sceptre’s CLI, and should not be directly imported.</p>
 <div class="section" id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
 </div>
-<div class="section" id="sceptre-cli-create-module">
-<h2>sceptre.cli.create module<a class="headerlink" href="#sceptre-cli-create-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-sceptre.cli.create">
+<span id="sceptre-cli-create-module"></span><h2>sceptre.cli.create module<a class="headerlink" href="#module-sceptre.cli.create" title="Permalink to this heading">¶</a></h2>
 </div>
-<div class="section" id="sceptre-cli-delete-module">
-<h2>sceptre.cli.delete module<a class="headerlink" href="#sceptre-cli-delete-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-sceptre.cli.delete">
+<span id="sceptre-cli-delete-module"></span><h2>sceptre.cli.delete module<a class="headerlink" href="#module-sceptre.cli.delete" title="Permalink to this heading">¶</a></h2>
 </div>
-<div class="section" id="sceptre-cli-describe-module">
-<h2>sceptre.cli.describe module<a class="headerlink" href="#sceptre-cli-describe-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-sceptre.cli.describe">
+<span id="sceptre-cli-describe-module"></span><h2>sceptre.cli.describe module<a class="headerlink" href="#module-sceptre.cli.describe" title="Permalink to this heading">¶</a></h2>
 </div>
-<div class="section" id="sceptre-cli-diff-module">
-<h2>sceptre.cli.diff module<a class="headerlink" href="#sceptre-cli-diff-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-sceptre.cli.diff">
+<span id="sceptre-cli-diff-module"></span><h2>sceptre.cli.diff module<a class="headerlink" href="#module-sceptre.cli.diff" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="sceptre.cli.diff.filter_plan_for_launchable">
+<span class="sig-prename descclassname"><span class="pre">sceptre.cli.diff.</span></span><span class="sig-name descname"><span class="pre">filter_plan_for_launchable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plan</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/cli/diff.html#filter_plan_for_launchable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.cli.diff.filter_plan_for_launchable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sceptre.cli.diff.output_buffer_with_normalized_bar_lengths">
+<span class="sig-prename descclassname"><span class="pre">sceptre.cli.diff.</span></span><span class="sig-name descname"><span class="pre">output_buffer_with_normalized_bar_lengths</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">buffer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_stream</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/cli/diff.html#output_buffer_with_normalized_bar_lengths"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.cli.diff.output_buffer_with_normalized_bar_lengths" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes the output from a buffer and ensures that the star and line bars are the same length
+across the entire buffer and that their length is the full width of longest line.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>buffer</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">StringIO</span></code>) – The input stream to normalize bar lengths for</p></li>
+<li><p><strong>output_stream</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TextIO" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextIO</span></code></a>) – The stream to output the normalized buffer into</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sceptre.cli.diff.output_diffs">
+<span class="sig-prename descclassname"><span class="pre">sceptre.cli.diff.</span></span><span class="sig-name descname"><span class="pre">output_diffs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">diffs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">writer_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_buffer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_format</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/cli/diff.html#output_diffs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.cli.diff.output_diffs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Outputs the diff results to the output_buffer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>diffs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code></a>[<a class="reference internal" href="sceptre.diffing.html#sceptre.diffing.stack_differ.StackDiff" title="sceptre.diffing.stack_differ.StackDiff"><code class="xref py py-class docutils literal notranslate"><span class="pre">StackDiff</span></code></a>]) – The differences computed</p></li>
+<li><p><strong>writer_class</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code></a>[<a class="reference internal" href="sceptre.diffing.html#sceptre.diffing.diff_writer.DiffWriter" title="sceptre.diffing.diff_writer.DiffWriter"><code class="xref py py-class docutils literal notranslate"><span class="pre">DiffWriter</span></code></a>]) – The DiffWriter class to be instantiated for each StackDiff</p></li>
+<li><p><strong>output_buffer</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TextIO" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextIO</span></code></a>) – The buffer to write the diff results to</p></li>
+<li><p><strong>output_format</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The format to output the results in</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The number of stacks that had a difference</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
-<div class="section" id="sceptre-cli-drift-module">
-<h2>sceptre.cli.drift module<a class="headerlink" href="#sceptre-cli-drift-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-sceptre.cli.drift">
+<span id="sceptre-cli-drift-module"></span><h2>sceptre.cli.drift module<a class="headerlink" href="#module-sceptre.cli.drift" title="Permalink to this heading">¶</a></h2>
 </div>
-<div class="section" id="sceptre-cli-dump-module">
-<h2>sceptre.cli.dump module<a class="headerlink" href="#sceptre-cli-dump-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-sceptre.cli.dump">
+<span id="sceptre-cli-dump-module"></span><h2>sceptre.cli.dump module<a class="headerlink" href="#module-sceptre.cli.dump" title="Permalink to this heading">¶</a></h2>
 </div>
-<div class="section" id="sceptre-cli-execute-module">
-<h2>sceptre.cli.execute module<a class="headerlink" href="#sceptre-cli-execute-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-sceptre.cli.execute">
+<span id="sceptre-cli-execute-module"></span><h2>sceptre.cli.execute module<a class="headerlink" href="#module-sceptre.cli.execute" title="Permalink to this heading">¶</a></h2>
 </div>
 <div class="section" id="module-sceptre.cli.helpers">
-<span id="sceptre-cli-helpers-module"></span><h2>sceptre.cli.helpers module<a class="headerlink" href="#module-sceptre.cli.helpers" title="Permalink to this headline">¶</a></h2>
+<span id="sceptre-cli-helpers-module"></span><h2>sceptre.cli.helpers module<a class="headerlink" href="#module-sceptre.cli.helpers" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="sceptre.cli.helpers.CfnYamlLoader">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sceptre.cli.helpers.</span></span><span class="sig-name descname"><span class="pre">CfnYamlLoader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/cli/helpers.html#CfnYamlLoader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.cli.helpers.CfnYamlLoader" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">yaml.loader.SafeLoader</span></code></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.cli.helpers.</span></span><span class="sig-name descname"><span class="pre">CfnYamlLoader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/cli/helpers.html#CfnYamlLoader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.cli.helpers.CfnYamlLoader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">SafeLoader</span></code></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="sceptre.cli.helpers.CfnYamlLoader.yaml_multi_constructors">
-<span class="sig-name descname"><span class="pre">yaml_multi_constructors</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'!':</span> <span class="pre">&lt;function</span> <span class="pre">_tag_constructor&gt;}</span></em><a class="headerlink" href="#sceptre.cli.helpers.CfnYamlLoader.yaml_multi_constructors" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">yaml_multi_constructors</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'!':</span> <span class="pre">&lt;function</span> <span class="pre">_tag_constructor&gt;}</span></em><a class="headerlink" href="#sceptre.cli.helpers.CfnYamlLoader.yaml_multi_constructors" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="sceptre.cli.helpers.ColouredFormatter">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sceptre.cli.helpers.</span></span><span class="sig-name descname"><span class="pre">ColouredFormatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datefmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'%'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/cli/helpers.html#ColouredFormatter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.cli.helpers.ColouredFormatter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Formatter" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">logging.Formatter</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.cli.helpers.</span></span><span class="sig-name descname"><span class="pre">ColouredFormatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datefmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'%'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/cli/helpers.html#ColouredFormatter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.cli.helpers.ColouredFormatter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Formatter" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Formatter</span></code></a></p>
 <p>ColouredFormatter add colours to all stack statuses that appear in log
 messages.</p>
 <dl class="py method">
@@ -273,15 +318,15 @@ messages.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="sceptre.cli.helpers.ColouredFormatter.stack_status_colourer">
-<span class="sig-name descname"><span class="pre">stack_status_colourer</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;sceptre.stack_status_colourer.StackStatusColourer</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#sceptre.cli.helpers.ColouredFormatter.stack_status_colourer" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">stack_status_colourer</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;sceptre.stack_status_colourer.StackStatusColourer</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#sceptre.cli.helpers.ColouredFormatter.stack_status_colourer" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="sceptre.cli.helpers.CustomJsonEncoder">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sceptre.cli.helpers.</span></span><span class="sig-name descname"><span class="pre">CustomJsonEncoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skipkeys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ensure_ascii</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_circular</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_nan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_keys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">separators</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/cli/helpers.html#CustomJsonEncoder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.cli.helpers.CustomJsonEncoder" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">json.encoder.JSONEncoder</span></code></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.cli.helpers.</span></span><span class="sig-name descname"><span class="pre">CustomJsonEncoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skipkeys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ensure_ascii</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_circular</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_nan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_keys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">separators</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/cli/helpers.html#CustomJsonEncoder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.cli.helpers.CustomJsonEncoder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">JSONEncoder</span></code></p>
 <p>CustomJsonEncoder is a JSONEncoder which encodes all items as JSON by
 calling their __str__() method.</p>
 <dl class="py method">
@@ -424,29 +469,112 @@ write <code class="docutils literal notranslate"><span class="pre">var</span></c
 </dd></dl>
 
 </div>
-<div class="section" id="sceptre-cli-launch-module">
-<h2>sceptre.cli.launch module<a class="headerlink" href="#sceptre-cli-launch-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-sceptre.cli.launch">
+<span id="sceptre-cli-launch-module"></span><h2>sceptre.cli.launch module<a class="headerlink" href="#module-sceptre.cli.launch" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="sceptre.cli.launch.Launcher">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.cli.launch.</span></span><span class="sig-name descname"><span class="pre">Launcher</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plan_factory=&lt;class</span> <span class="pre">'sceptre.plan.plan.SceptrePlan'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pruner_factory=&lt;class</span> <span class="pre">'sceptre.cli.prune.Pruner'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/cli/launch.html#Launcher"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.cli.launch.Launcher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Launcher is a utility to coordinate the flow of launching.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<a class="reference internal" href="sceptre.html#sceptre.context.SceptreContext" title="sceptre.context.SceptreContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceptreContext</span></code></a>) – The Sceptre context to use for launching</p></li>
+<li><p><strong>plan_factory</strong> – A callable with the signature of (SceptreContext) -&gt; SceptrePlan</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="sceptre.cli.launch.Launcher.confirm">
+<span class="sig-name descname"><span class="pre">confirm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prune</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/cli/launch.html#Launcher.confirm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.cli.launch.Launcher.confirm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sceptre.cli.launch.Launcher.launch">
+<span class="sig-name descname"><span class="pre">launch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prune</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/cli/launch.html#Launcher.launch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.cli.launch.Launcher.launch" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sceptre.cli.launch.Launcher.print_operations">
+<span class="sig-name descname"><span class="pre">print_operations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prune</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/cli/launch.html#Launcher.print_operations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.cli.launch.Launcher.print_operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="sceptre-cli-list-module">
-<h2>sceptre.cli.list module<a class="headerlink" href="#sceptre-cli-list-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-sceptre.cli.list">
+<span id="sceptre-cli-list-module"></span><h2>sceptre.cli.list module<a class="headerlink" href="#module-sceptre.cli.list" title="Permalink to this heading">¶</a></h2>
 </div>
 <div class="section" id="module-sceptre.cli.new">
-<span id="sceptre-cli-new-module"></span><h2>sceptre.cli.new module<a class="headerlink" href="#module-sceptre.cli.new" title="Permalink to this headline">¶</a></h2>
+<span id="sceptre-cli-new-module"></span><h2>sceptre.cli.new module<a class="headerlink" href="#module-sceptre.cli.new" title="Permalink to this heading">¶</a></h2>
 </div>
-<div class="section" id="sceptre-cli-policy-module">
-<h2>sceptre.cli.policy module<a class="headerlink" href="#sceptre-cli-policy-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-sceptre.cli.policy">
+<span id="sceptre-cli-policy-module"></span><h2>sceptre.cli.policy module<a class="headerlink" href="#module-sceptre.cli.policy" title="Permalink to this heading">¶</a></h2>
 </div>
-<div class="section" id="sceptre-cli-prune-module">
-<h2>sceptre.cli.prune module<a class="headerlink" href="#sceptre-cli-prune-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-sceptre.cli.prune">
+<span id="sceptre-cli-prune-module"></span><h2>sceptre.cli.prune module<a class="headerlink" href="#module-sceptre.cli.prune" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="sceptre.cli.prune.Pruner">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.cli.prune.</span></span><span class="sig-name descname"><span class="pre">Pruner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plan_factory=&lt;class</span> <span class="pre">'sceptre.plan.plan.SceptrePlan'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/cli/prune.html#Pruner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.cli.prune.Pruner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Pruner is a utility to coordinate the flow of deleting all stacks in the project that
+are marked “obsolete”.</p>
+<p>Note: The command_path on the passed context will be ignored; This command operates on the
+entire project rather than on any particular command path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<a class="reference internal" href="sceptre.html#sceptre.context.SceptreContext" title="sceptre.context.SceptreContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceptreContext</span></code></a>) – The Sceptre context to use for pruning</p></li>
+<li><p><strong>plan_factory</strong> – A callable with the signature of (SceptreContext) -&gt; SceptrePlan</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="sceptre.cli.prune.Pruner.confirm">
+<span class="sig-name descname"><span class="pre">confirm</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/cli/prune.html#Pruner.confirm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.cli.prune.Pruner.confirm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sceptre.cli.prune.Pruner.print_operations">
+<span class="sig-name descname"><span class="pre">print_operations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/cli/prune.html#Pruner.print_operations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.cli.prune.Pruner.print_operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sceptre.cli.prune.Pruner.prune">
+<span class="sig-name descname"><span class="pre">prune</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/cli/prune.html#Pruner.prune"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.cli.prune.Pruner.prune" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="sceptre.cli.prune.Pruner.prune_count">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">prune_count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span></em><a class="headerlink" href="#sceptre.cli.prune.Pruner.prune_count" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>0</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="sceptre-cli-status-module">
-<h2>sceptre.cli.status module<a class="headerlink" href="#sceptre-cli-status-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-sceptre.cli.status">
+<span id="sceptre-cli-status-module"></span><h2>sceptre.cli.status module<a class="headerlink" href="#module-sceptre.cli.status" title="Permalink to this heading">¶</a></h2>
 </div>
-<div class="section" id="sceptre-cli-template-module">
-<h2>sceptre.cli.template module<a class="headerlink" href="#sceptre-cli-template-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-sceptre.cli.template">
+<span id="sceptre-cli-template-module"></span><h2>sceptre.cli.template module<a class="headerlink" href="#module-sceptre.cli.template" title="Permalink to this heading">¶</a></h2>
 </div>
-<div class="section" id="sceptre-cli-update-module">
-<h2>sceptre.cli.update module<a class="headerlink" href="#sceptre-cli-update-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-sceptre.cli.update">
+<span id="sceptre-cli-update-module"></span><h2>sceptre.cli.update module<a class="headerlink" href="#module-sceptre.cli.update" title="Permalink to this heading">¶</a></h2>
 </div>
 </div>
 

@@ -34,6 +34,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
@@ -193,10 +194,10 @@
            <div itemprop="articleBody">
             
   <div class="section" id="terminology">
-<h1>Terminology<a class="headerlink" href="#terminology" title="Permalink to this headline">¶</a></h1>
+<h1>Terminology<a class="headerlink" href="#terminology" title="Permalink to this heading">¶</a></h1>
 <p>The following terms will be used through the rest of the Sceptre documentation:</p>
 <div class="section" id="sceptre-project">
-<h2>Sceptre Project:<a class="headerlink" href="#sceptre-project" title="Permalink to this headline">¶</a></h2>
+<h2>Sceptre Project:<a class="headerlink" href="#sceptre-project" title="Permalink to this heading">¶</a></h2>
 <p>The directory which stores the top level config directory.</p>
 <ul>
 <li><p><strong>Command Path</strong> The Stack or StackGroup that you want to execute a Sceptre
@@ -224,7 +225,7 @@ command path would be <code class="docutils literal notranslate"><span class="pr
 </ul>
 </div>
 <div class="section" id="sceptre-context">
-<h2>Sceptre Context<a class="headerlink" href="#sceptre-context" title="Permalink to this headline">¶</a></h2>
+<h2>Sceptre Context<a class="headerlink" href="#sceptre-context" title="Permalink to this heading">¶</a></h2>
 <p>Unless you go looking in the code, or you use Sceptre as a python module, you
 won’t need to worry about <code class="docutils literal notranslate"><span class="pre">SceptreContext</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">SceptreContext</span></code> is a place where we hold information that is relevant to the
@@ -237,7 +238,7 @@ path to your Sceptre project directory and the “command_path” - the path you
 are going to execute commands on.</p>
 </div>
 <div class="section" id="sceptre-plan">
-<h2>Sceptre Plan<a class="headerlink" href="#sceptre-plan" title="Permalink to this headline">¶</a></h2>
+<h2>Sceptre Plan<a class="headerlink" href="#sceptre-plan" title="Permalink to this heading">¶</a></h2>
 <p>As with <code class="docutils literal notranslate"><span class="pre">SceptreContext</span></code> you shouldn’t need to interact with <code class="docutils literal notranslate"><span class="pre">SceptrePlan</span></code>
 most of the time.</p>
 <p>A <code class="docutils literal notranslate"><span class="pre">SceptrePlan</span></code> takes a <code class="docutils literal notranslate"><span class="pre">SceptreContext</span></code> and constructs everything you will
@@ -251,7 +252,7 @@ and access the results from each stack. For example,</p>
 </div>
 </div>
 <div class="section" id="sceptreplanexecutor">
-<h2>SceptrePlanExecutor<a class="headerlink" href="#sceptreplanexecutor" title="Permalink to this headline">¶</a></h2>
+<h2>SceptrePlanExecutor<a class="headerlink" href="#sceptreplanexecutor" title="Permalink to this heading">¶</a></h2>
 <p>You won’t be able to interact with the <code class="docutils literal notranslate"><span class="pre">SceptrePlanExecutor</span></code> directly but
 this part of the code is responsible for taking a <code class="docutils literal notranslate"><span class="pre">SceptrePlan</span></code> and ensuring
 all commands on every stack, are executed in the correct order, concurrently.
@@ -260,7 +261,7 @@ what to execute and when based on a <code class="docutils literal notranslate"><
 <code class="docutils literal notranslate"><span class="pre">SceptrePlan</span></code> is created.</p>
 </div>
 <div class="section" id="stackgraph">
-<h2>StackGraph<a class="headerlink" href="#stackgraph" title="Permalink to this headline">¶</a></h2>
+<h2>StackGraph<a class="headerlink" href="#stackgraph" title="Permalink to this heading">¶</a></h2>
 <p>A <code class="docutils literal notranslate"><span class="pre">StackGraph</span></code> is a Directed Acyclic Graph where the nodes hold <code class="docutils literal notranslate"><span class="pre">Stack</span></code>
 objects and the edges represent a “depends on” relationship. The graph is
 created when a <code class="docutils literal notranslate"><span class="pre">SceptrePlan</span></code> is instantiated and is then used during the
@@ -270,7 +271,7 @@ correct. Previously, in <code class="docutils literal notranslate"><span class="
 this concept resolves this issue.</p>
 </div>
 <div class="section" id="stackactions">
-<h2>StackActions<a class="headerlink" href="#stackactions" title="Permalink to this headline">¶</a></h2>
+<h2>StackActions<a class="headerlink" href="#stackactions" title="Permalink to this heading">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">StackActions</span></code> class takes a <code class="docutils literal notranslate"><span class="pre">Stack</span></code> object and uses the data held on
 the <code class="docutils literal notranslate"><span class="pre">Stack</span></code> when calling AWS. StackActions is used by the
 <code class="docutils literal notranslate"><span class="pre">SceptrePlanExecutor</span></code>. To add new functionality you can add a method to

@@ -34,6 +34,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
@@ -191,7 +192,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="architecting-sceptre">
-<h1>Architecting Sceptre<a class="headerlink" href="#architecting-sceptre" title="Permalink to this headline">¶</a></h1>
+<h1>Architecting Sceptre<a class="headerlink" href="#architecting-sceptre" title="Permalink to this heading">¶</a></h1>
 <p>Sceptre is written in a way that aims to be unopinionated in how it is used. It
 is designed to work equally well with simple and complex infrastructures.
 Sceptre’s flexible nature, and the variation in how people organise their AWS
@@ -199,7 +200,7 @@ accounts, makes it difficult to give generic advice on how best to use it, as
 it can be use-case specific. However, the following patterns have emerged from
 our use of Sceptre at Cloudreach.</p>
 <div class="section" id="project-layout">
-<h2>Project layout<a class="headerlink" href="#project-layout" title="Permalink to this headline">¶</a></h2>
+<h2>Project layout<a class="headerlink" href="#project-layout" title="Permalink to this heading">¶</a></h2>
 <p>Sceptre’s nested StackGroups means that it is possible to store an entire
 company or department’s infrastructure in a single Sceptre project. While this
 is possible, it isn’t recommended. Having a large number of developers interact
@@ -210,7 +211,7 @@ not directly involved with.</p>
 infrastructure being built.</p>
 </div>
 <div class="section" id="directory-layout">
-<h2>Directory layout<a class="headerlink" href="#directory-layout" title="Permalink to this headline">¶</a></h2>
+<h2>Directory layout<a class="headerlink" href="#directory-layout" title="Permalink to this heading">¶</a></h2>
 <p>You need to store your <a class="reference internal" href="templates.html"><span class="doc">Sceptre templates</span></a> in the <code class="docutils literal notranslate"><span class="pre">templates</span></code> directory within
 your Sceptre Project.</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>.
@@ -220,7 +221,7 @@ your Sceptre Project.</p>
 </div>
 </div>
 <div class="section" id="stackgroup-structure">
-<h2>StackGroup structure<a class="headerlink" href="#stackgroup-structure" title="Permalink to this headline">¶</a></h2>
+<h2>StackGroup structure<a class="headerlink" href="#stackgroup-structure" title="Permalink to this heading">¶</a></h2>
 <p>StackGroups can be arbitrarily nested, and StackGroup commands can be applied
 to any level of the StackGroup tree. This can make it difficult to know how to
 divide StackGroups up.</p>
@@ -243,7 +244,7 @@ split these up into separate StackGroups.</p>
 </ol>
 </div>
 <div class="section" id="example-architectures">
-<h2>Example architectures<a class="headerlink" href="#example-architectures" title="Permalink to this headline">¶</a></h2>
+<h2>Example architectures<a class="headerlink" href="#example-architectures" title="Permalink to this heading">¶</a></h2>
 <p>The following examples demonstrate how we might architect various Sceptre
 projects. Only configuration layout is shown, and the examples are merely meant
 to demonstrate ways of organising different projects.</p>

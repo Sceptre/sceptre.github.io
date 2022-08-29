@@ -34,6 +34,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
@@ -213,10 +214,10 @@
            <div itemprop="articleBody">
             
   <div class="section" id="module-sceptre.hooks">
-<span id="sceptre-hooks-package"></span><h1>sceptre.hooks package<a class="headerlink" href="#module-sceptre.hooks" title="Permalink to this headline">¶</a></h1>
+<span id="sceptre-hooks-package"></span><h1>sceptre.hooks package<a class="headerlink" href="#module-sceptre.hooks" title="Permalink to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="sceptre.hooks.Hook">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sceptre.hooks.</span></span><span class="sig-name descname"><span class="pre">Hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">argument</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/hooks.html#Hook"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.hooks.Hook" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.hooks.</span></span><span class="sig-name descname"><span class="pre">Hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">argument</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/hooks.html#Hook"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.hooks.Hook" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Hook is an abstract base class that should be inherited by all hooks.</p>
 <dl class="field-list simple">
@@ -229,7 +230,7 @@
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="sceptre.hooks.Hook.run">
-<em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/hooks.html#Hook.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.hooks.Hook.run" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/hooks.html#Hook.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.hooks.Hook.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>run is an abstract method which must be overwritten by all
 inheriting classes. Run should execute the logic of the hook.</p>
 </dd></dl>
@@ -245,7 +246,7 @@ hooks to run so initalisation steps when config is first read.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="sceptre.hooks.HookProperty">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sceptre.hooks.</span></span><span class="sig-name descname"><span class="pre">HookProperty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/hooks.html#HookProperty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.hooks.HookProperty" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.hooks.</span></span><span class="sig-name descname"><span class="pre">HookProperty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/hooks.html#HookProperty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.hooks.HookProperty" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>This is a descriptor class used to store an attribute that may contain
 Hook objects. Used to setup Hooks when added as a attribute. Supports
@@ -286,14 +287,14 @@ Does not detect Resolver objects used as keys in dictionaries.</p>
 </dd></dl>
 
 <div class="section" id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
 </div>
 <div class="section" id="module-sceptre.hooks.asg_scaling_processes">
-<span id="sceptre-hooks-asg-scaling-processes-module"></span><h2>sceptre.hooks.asg_scaling_processes module<a class="headerlink" href="#module-sceptre.hooks.asg_scaling_processes" title="Permalink to this headline">¶</a></h2>
+<span id="sceptre-hooks-asg-scaling-processes-module"></span><h2>sceptre.hooks.asg_scaling_processes module<a class="headerlink" href="#module-sceptre.hooks.asg_scaling_processes" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="sceptre.hooks.asg_scaling_processes.ASGScalingProcesses">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sceptre.hooks.asg_scaling_processes.</span></span><span class="sig-name descname"><span class="pre">ASGScalingProcesses</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/hooks/asg_scaling_processes.html#ASGScalingProcesses"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.hooks.asg_scaling_processes.ASGScalingProcesses" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#sceptre.hooks.Hook" title="sceptre.hooks.Hook"><code class="xref py py-class docutils literal notranslate"><span class="pre">sceptre.hooks.Hook</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.hooks.asg_scaling_processes.</span></span><span class="sig-name descname"><span class="pre">ASGScalingProcesses</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/hooks/asg_scaling_processes.html#ASGScalingProcesses"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.hooks.asg_scaling_processes.ASGScalingProcesses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.hooks.Hook" title="sceptre.hooks.Hook"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hook</span></code></a></p>
 <p>Resumes or suspends autoscaling group scaling processes. This is
 useful as scheduled actions must be suspended when updating stacks with
 autoscaling groups.</p>
@@ -319,11 +320,11 @@ groups within the current stack.</p>
 
 </div>
 <div class="section" id="module-sceptre.hooks.cmd">
-<span id="sceptre-hooks-cmd-module"></span><h2>sceptre.hooks.cmd module<a class="headerlink" href="#module-sceptre.hooks.cmd" title="Permalink to this headline">¶</a></h2>
+<span id="sceptre-hooks-cmd-module"></span><h2>sceptre.hooks.cmd module<a class="headerlink" href="#module-sceptre.hooks.cmd" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="sceptre.hooks.cmd.Cmd">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sceptre.hooks.cmd.</span></span><span class="sig-name descname"><span class="pre">Cmd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/hooks/cmd.html#Cmd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.hooks.cmd.Cmd" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#sceptre.hooks.Hook" title="sceptre.hooks.Hook"><code class="xref py py-class docutils literal notranslate"><span class="pre">sceptre.hooks.Hook</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.hooks.cmd.</span></span><span class="sig-name descname"><span class="pre">Cmd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/hooks/cmd.html#Cmd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.hooks.cmd.Cmd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.hooks.Hook" title="sceptre.hooks.Hook"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hook</span></code></a></p>
 <p>Cmd implements a Sceptre hook which can run arbitrary commands.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="sceptre.hooks.cmd.Cmd.run">

@@ -34,6 +34,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
@@ -201,7 +202,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="template-handlers">
-<h1>Template Handlers<a class="headerlink" href="#template-handlers" title="Permalink to this headline">¶</a></h1>
+<h1>Template Handlers<a class="headerlink" href="#template-handlers" title="Permalink to this heading">¶</a></h1>
 <p>Template handlers can be used to resolve a <code class="docutils literal notranslate"><span class="pre">template</span></code> config block to a CloudFormation template. This can be used to
 fetch templates from S3, for example. Users can create their own template handlers to easily add support for other
 template loading mechanisms. See <a class="reference external" href="#custom-template-handlers">Custom Template Handlers</a> for more information.</p>
@@ -210,9 +211,9 @@ template loading mechanisms. See <a class="reference external" href="#custom-tem
 <p>The <code class="docutils literal notranslate"><span class="pre">template_path</span></code> key is deprecated in favor of the <code class="docutils literal notranslate"><span class="pre">template</span></code> key.</p>
 </div>
 <div class="section" id="available-template-handlers">
-<h2>Available Template Handlers<a class="headerlink" href="#available-template-handlers" title="Permalink to this headline">¶</a></h2>
+<h2>Available Template Handlers<a class="headerlink" href="#available-template-handlers" title="Permalink to this heading">¶</a></h2>
 <div class="section" id="file">
-<h3>file<a class="headerlink" href="#file" title="Permalink to this headline">¶</a></h3>
+<h3>file<a class="headerlink" href="#file" title="Permalink to this heading">¶</a></h3>
 <p>Loads a template from the local file system. This handler supports templates with .json, .yaml, .template, .j2
 and .py extensions.  This is the default template handler type, specifying the <code class="docutils literal notranslate"><span class="pre">file</span></code> type is optional.</p>
 <p>For backwards compatability, when a <code class="docutils literal notranslate"><span class="pre">template_path</span></code> key is specified in the Stack config, it is wired to
@@ -235,7 +236,7 @@ This handler assumes a relative path to be from sceptre_project_dir/templates</p
 </div>
 </div>
 <div class="section" id="s3">
-<h3>s3<a class="headerlink" href="#s3" title="Permalink to this headline">¶</a></h3>
+<h3>s3<a class="headerlink" href="#s3" title="Permalink to this heading">¶</a></h3>
 <p>Downloads a template from an S3 bucket.  The bucket is accessed with the same credentials that is used to run sceptre.
 This handler supports templates with .json, .yaml, .template, .j2 and .py extensions.</p>
 <p>Syntax:</p>
@@ -252,7 +253,7 @@ This handler supports templates with .json, .yaml, .template, .j2 and .py extens
 </div>
 </div>
 <div class="section" id="http">
-<h3>http<a class="headerlink" href="#http" title="Permalink to this headline">¶</a></h3>
+<h3>http<a class="headerlink" href="#http" title="Permalink to this heading">¶</a></h3>
 <p>Downloads a template from a url on the web.  By default, this handler will attempt to download
 templates with 5 retries and a download timeout of 5 seconds.  The default retry and timeout
 options can be overridden by setting the <a class="reference external" href="stack_group_config.html#http-template-handler">http_template_handler key</a> in the stack group config
@@ -272,7 +273,7 @@ file.</p>
 </div>
 </div>
 <div class="section" id="custom-template-handlers">
-<h2>Custom Template Handlers<a class="headerlink" href="#custom-template-handlers" title="Permalink to this headline">¶</a></h2>
+<h2>Custom Template Handlers<a class="headerlink" href="#custom-template-handlers" title="Permalink to this heading">¶</a></h2>
 <p>If you need to load templates from a different source, you can write your own template handler.</p>
 <p>A template handler is a Python class which inherits from abstract base class <code class="docutils literal notranslate"><span class="pre">TemplateHandler</span></code> found in the
 <code class="docutils literal notranslate"><span class="pre">sceptre.template_handlers</span></code> module.</p>
@@ -296,7 +297,7 @@ to perform actions or fetch templates. These correspond to the AWS Python SDK (s
 <p>Sceptre uses the <code class="docutils literal notranslate"><span class="pre">sceptre.template_handlers</span></code> entry point to load template handlers. They can be written anywhere and
 are installed as Python packages.</p>
 <div class="section" id="example">
-<h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<h3>Example<a class="headerlink" href="#example" title="Permalink to this heading">¶</a></h3>
 <p>The following Python module template can be copied and used:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>custom_template_handler
 ├── custom_template_handler.py
@@ -305,7 +306,7 @@ are installed as Python packages.</p>
 </div>
 <p>The following Python module template can be copied and used:</p>
 <div class="section" id="custom-template-handler-py">
-<h4>custom_template_handler.py<a class="headerlink" href="#custom-template-handler-py" title="Permalink to this headline">¶</a></h4>
+<h4>custom_template_handler.py<a class="headerlink" href="#custom-template-handler-py" title="Permalink to this heading">¶</a></h4>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sceptre.template_handlers</span> <span class="kn">import</span> <span class="n">TemplateHandler</span>
 
 
@@ -357,7 +358,7 @@ are installed as Python packages.</p>
 </div>
 </div>
 <div class="section" id="setup-py">
-<h4>setup.py<a class="headerlink" href="#setup-py" title="Permalink to this headline">¶</a></h4>
+<h4>setup.py<a class="headerlink" href="#setup-py" title="Permalink to this heading">¶</a></h4>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">setuptools</span> <span class="kn">import</span> <span class="n">setup</span>
 
 <span class="n">setup</span><span class="p">(</span>

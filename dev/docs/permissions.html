@@ -34,6 +34,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
@@ -195,7 +196,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="sceptre-and-iam">
-<h1>Sceptre and IAM<a class="headerlink" href="#sceptre-and-iam" title="Permalink to this headline">¶</a></h1>
+<h1>Sceptre and IAM<a class="headerlink" href="#sceptre-and-iam" title="Permalink to this heading">¶</a></h1>
 <p>Inevitably, when working with CloudFormation, IAM permissions are relevant. <strong>By default, Sceptre
 uses the permissions of the user executing Sceptre commands when performing any of its actions.</strong>
 Also, by default, CloudFormation uses the permissions of the user executing its actions when
@@ -209,13 +210,13 @@ CloudFormation actually only need the permissions necessary to perform the requi
 given project on the resources that will be managed by them. The actual range of permissions required
 tends to be a much narrower scope than admin-level.</p>
 <div class="section" id="permissions-configurations">
-<h2>Permissions Configurations<a class="headerlink" href="#permissions-configurations" title="Permalink to this headline">¶</a></h2>
+<h2>Permissions Configurations<a class="headerlink" href="#permissions-configurations" title="Permalink to this heading">¶</a></h2>
 <p>There are three main configurations for Sceptre that can modify default permissions behavior to
 provide more flexibility, control, and safety within an organization: <strong>role_arn</strong>, <strong>iam_role</strong>, and
 <strong>profile</strong>. These can be applied in a very targeted way, on a stack by stack basis or can be applied
 broadly to a whole StackGroup.</p>
 <div class="section" id="role-arn">
-<span id="role-arn-permissions"></span><h3>role_arn<a class="headerlink" href="#role-arn" title="Permalink to this headline">¶</a></h3>
+<span id="role-arn-permissions"></span><h3>role_arn<a class="headerlink" href="#role-arn" title="Permalink to this heading">¶</a></h3>
 <p>This is the <strong>CloudFormation service role</strong> that will be attached to a given CloudFormation stack.
 This IAM role needs to be able to be assumed by <strong>CloudFormation</strong>, and must provide all the
 necessary permissions for all create/read/update/delete operations for all resources defined in that
@@ -242,7 +243,7 @@ Stack or StackGroup Config. This means you could define that role within your pr
 ARN, and then reference it using <cite>!stack_output</cite>.</p>
 </div>
 <div class="section" id="iam-role">
-<span id="iam-role-permissions"></span><h3>iam_role<a class="headerlink" href="#iam-role" title="Permalink to this headline">¶</a></h3>
+<span id="iam-role-permissions"></span><h3>iam_role<a class="headerlink" href="#iam-role" title="Permalink to this heading">¶</a></h3>
 <p>This is a <strong>role that Sceptre will assume</strong> when taking any actions on the Stack. It is not a service
 role for CloudFormation. Instead, this is simply a role that the current user assumes to execute
 any Sceptre actions on that stack. This has some benefits over a CloudFormation service role:</p>
@@ -266,7 +267,7 @@ Stack or StackGroup Config. This means you could define that role within your pr
 ARN, and then reference it using <cite>!stack_output</cite>.</p>
 </div>
 <div class="section" id="profile">
-<span id="profile-permissions"></span><h3>profile<a class="headerlink" href="#profile" title="Permalink to this headline">¶</a></h3>
+<span id="profile-permissions"></span><h3>profile<a class="headerlink" href="#profile" title="Permalink to this heading">¶</a></h3>
 <p>This is different from <code class="docutils literal notranslate"><span class="pre">role_arn</span></code> and <code class="docutils literal notranslate"><span class="pre">iam_role</span></code>, as both of those cause CloudFormation or
 Sceptre to <em>assume</em> a different role with different permissions than the permissions the current
 user has.</p>
@@ -278,7 +279,7 @@ variable, which has the same effect.</p>
 </div>
 </div>
 <div class="section" id="tips-for-working-with-sceptre-iam-and-a-ci-cd-system">
-<h2>Tips for working with Sceptre, IAM, and a CI/CD system<a class="headerlink" href="#tips-for-working-with-sceptre-iam-and-a-ci-cd-system" title="Permalink to this headline">¶</a></h2>
+<h2>Tips for working with Sceptre, IAM, and a CI/CD system<a class="headerlink" href="#tips-for-working-with-sceptre-iam-and-a-ci-cd-system" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Rather than giving your CI/CD system blanket, admin-level permissions, you can define an IAM role
 with Sceptre to use for deploying the rest of your infrastructure, outputing its ARN in the template.
@@ -316,7 +317,7 @@ permissions needed to do those deployments).</p></li>
 </ul>
 </div>
 <div class="section" id="basic-permissions-that-sceptre-requires">
-<h2>Basic permissions that Sceptre requires<a class="headerlink" href="#basic-permissions-that-sceptre-requires" title="Permalink to this headline">¶</a></h2>
+<h2>Basic permissions that Sceptre requires<a class="headerlink" href="#basic-permissions-that-sceptre-requires" title="Permalink to this heading">¶</a></h2>
 <p>There are certain permissions that Sceptre requires to perform even its most basic operations. These
 include:</p>
 <p><strong>For Basic operations:</strong></p>

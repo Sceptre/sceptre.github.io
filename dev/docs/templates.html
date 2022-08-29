@@ -34,6 +34,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
@@ -200,7 +201,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="templates">
-<h1>Templates<a class="headerlink" href="#templates" title="Permalink to this headline">¶</a></h1>
+<h1>Templates<a class="headerlink" href="#templates" title="Permalink to this heading">¶</a></h1>
 <p>Sceptre uses CloudFormation Templates to launch AWS Stacks. Templates must be
 stored in a directory named <code class="docutils literal notranslate"><span class="pre">templates/</span></code>, in the same directory as the
 <code class="docutils literal notranslate"><span class="pre">config/</span></code> directory:</p>
@@ -214,12 +215,12 @@ stored in a directory named <code class="docutils literal notranslate"><span cla
 </pre></div>
 </div>
 <div class="section" id="cloudformation">
-<h2>CloudFormation<a class="headerlink" href="#cloudformation" title="Permalink to this headline">¶</a></h2>
+<h2>CloudFormation<a class="headerlink" href="#cloudformation" title="Permalink to this heading">¶</a></h2>
 <p>Templates with <code class="docutils literal notranslate"><span class="pre">.json</span></code> or <code class="docutils literal notranslate"><span class="pre">.yaml</span></code> extensions are treated as CloudFormation
 Templates. They are read in and used without modification.</p>
 </div>
 <div class="section" id="jinja">
-<h2>Jinja<a class="headerlink" href="#jinja" title="Permalink to this headline">¶</a></h2>
+<h2>Jinja<a class="headerlink" href="#jinja" title="Permalink to this heading">¶</a></h2>
 <p>Templates with <code class="docutils literal notranslate"><span class="pre">.j2</span></code> extensions are treated as Jinja2 Templates.
 These are rendered and should create a raw JSON or YAML CloudFormation
 Template. Sceptre User Data is accessible within Templates as
@@ -227,7 +228,7 @@ Template. Sceptre User Data is accessible within Templates as
 <code class="docutils literal notranslate"><span class="pre">sceptre_user_data</span></code> accesses the <code class="docutils literal notranslate"><span class="pre">sceptre_user_data</span></code> key in the Stack
 Config file.</p>
 <div class="section" id="example">
-<h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<h3>Example<a class="headerlink" href="#example" title="Permalink to this heading">¶</a></h3>
 <p>While rendering templates with Jinja2, some characters aren’t supported by AWS. A workaround for this is to use Jinja to replace <cite>-</cite>, <cite>.</cite> and <cite>_</cite> with other characters to ensure that we produce a valid template. With this we had some plasticity to the template and it becomes easier to add/remove entries on a particular stack.</p>
 <p>With this templating some problems will arise, such empty strings as parameters. In the following example you can find a work around for this issues.</p>
 <p>This represents a stack to deploy route53 records, it’s only showing CNAME and ALIAS records to not get too large.</p>
@@ -333,16 +334,16 @@ Config file.</p>
 </div>
 </div>
 <div class="section" id="python">
-<h2>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h2>
+<h2>Python<a class="headerlink" href="#python" title="Permalink to this heading">¶</a></h2>
 <p>Templates with a <code class="docutils literal notranslate"><span class="pre">.py</span></code> extension are treated as Python Templates. They should
 implement a function named <code class="docutils literal notranslate"><span class="pre">sceptre_handler(sceptre_user_data)</span></code> which returns
 the CloudFormation Template as a <code class="docutils literal notranslate"><span class="pre">string</span></code>. Sceptre User Data is passed to
 this function as an argument. If Sceptre User Data is not defined in the Stack
 Config file, Sceptre passes an empty <code class="docutils literal notranslate"><span class="pre">dict</span></code>.</p>
 <div class="section" id="id1">
-<h3>Example<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<h3>Example<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
 <div class="section" id="troposphere">
-<h4>Troposphere<a class="headerlink" href="#troposphere" title="Permalink to this headline">¶</a></h4>
+<h4>Troposphere<a class="headerlink" href="#troposphere" title="Permalink to this heading">¶</a></h4>
 <p>This example is using <a class="reference external" href="https://github.com/cloudtools/troposphere/">troposphere</a>
 to generate CloudFormation Template as a <cite>json</cite> string.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">troposphere</span> <span class="kn">import</span> <span class="n">Template</span>
@@ -368,7 +369,7 @@ Troposphere library by running <code class="docutils literal notranslate"><span 
 </div>
 </div>
 <div class="section" id="aws-cdk">
-<h4>AWS CDK<a class="headerlink" href="#aws-cdk" title="Permalink to this headline">¶</a></h4>
+<h4>AWS CDK<a class="headerlink" href="#aws-cdk" title="Permalink to this heading">¶</a></h4>
 <p>This example generates a cloudformation template from <a class="reference internal" href="#aws-cdk">AWS CDK</a> code.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sceptre_user_data</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">BucketName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-bucket</span><span class="w"></span>

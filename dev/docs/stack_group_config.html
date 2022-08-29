@@ -34,6 +34,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
@@ -208,14 +209,14 @@
            <div itemprop="articleBody">
             
   <div class="section" id="stackgroup-config">
-<h1>StackGroup Config<a class="headerlink" href="#stackgroup-config" title="Permalink to this headline">¶</a></h1>
+<h1>StackGroup Config<a class="headerlink" href="#stackgroup-config" title="Permalink to this heading">¶</a></h1>
 <p>StackGroup config stores information related to the StackGroup, such as a
 particular profile to use, the name of the S3 bucket in which to store
 templates, and the target region in which to build resources. StackGroup config
 is stored in various files around the directory structure, all with the name
 <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>.</p>
 <div class="section" id="structure">
-<h2>Structure<a class="headerlink" href="#structure" title="Permalink to this headline">¶</a></h2>
+<h2>Structure<a class="headerlink" href="#structure" title="Permalink to this heading">¶</a></h2>
 <p>An StackGroup config file is a yaml object of key-value pairs configuring
 Sceptre. The available keys are listed below.</p>
 <ul class="simple">
@@ -232,7 +233,7 @@ Sceptre. The available keys are listed below.</p>
 and are directly accessible from Stack(). Any other keys added by the user are
 made available via <code class="docutils literal notranslate"><span class="pre">stack_group_config</span></code> attribute on <code class="docutils literal notranslate"><span class="pre">Stack()</span></code>.</p>
 <div class="section" id="profile">
-<h3>profile<a class="headerlink" href="#profile" title="Permalink to this headline">¶</a></h3>
+<h3>profile<a class="headerlink" href="#profile" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Resolvable: No</p></li>
 <li><p>Inheritance strategy: Overrides parent if set by child</p></li>
@@ -244,7 +245,7 @@ made available via <code class="docutils literal notranslate"><span class="pre">
 <p>Reference: <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html">AWS_CLI_Configure</a></p>
 </div>
 <div class="section" id="project-code">
-<h3>project_code<a class="headerlink" href="#project-code" title="Permalink to this headline">¶</a></h3>
+<h3>project_code<a class="headerlink" href="#project-code" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Resolvable: No</p></li>
 <li><p>Inheritance strategy: Overrides parent if set by child</p></li>
@@ -252,7 +253,7 @@ made available via <code class="docutils literal notranslate"><span class="pre">
 <p>A string which is prepended to the Stack names of all Stacks built by Sceptre.</p>
 </div>
 <div class="section" id="region">
-<h3>region<a class="headerlink" href="#region" title="Permalink to this headline">¶</a></h3>
+<h3>region<a class="headerlink" href="#region" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Resolvable: No</p></li>
 <li><p>Inheritance strategy: Overrides parent if set by child</p></li>
@@ -261,7 +262,7 @@ made available via <code class="docutils literal notranslate"><span class="pre">
 supports CloudFormation</a>.</p>
 </div>
 <div class="section" id="template-bucket-name">
-<h3>template_bucket_name<a class="headerlink" href="#template-bucket-name" title="Permalink to this headline">¶</a></h3>
+<h3>template_bucket_name<a class="headerlink" href="#template-bucket-name" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Resolvable: Yes</p></li>
 <li><p>Inheritance strategy: Overrides parent if set by child</p></li>
@@ -301,7 +302,7 @@ this:</p>
 </div>
 </div>
 <div class="section" id="template-key-prefix">
-<h3>template_key_prefix<a class="headerlink" href="#template-key-prefix" title="Permalink to this headline">¶</a></h3>
+<h3>template_key_prefix<a class="headerlink" href="#template-key-prefix" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Resolvable: No</p></li>
 <li><p>Inheritance strategy: Overrides parent if set by child</p></li>
@@ -318,7 +319,7 @@ directories in the S3 console.</p>
 ignored.</p>
 </div>
 <div class="section" id="j2-environment">
-<h3>j2_environment<a class="headerlink" href="#j2-environment" title="Permalink to this headline">¶</a></h3>
+<h3>j2_environment<a class="headerlink" href="#j2-environment" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Resolvable: No</p></li>
 <li><p>Inheritance strategy: Child configs will be merged with parent configs</p></li>
@@ -337,7 +338,7 @@ This will impact the templating of stacks by modifying the behavior of jinja.</p
 </div>
 </div>
 <div class="section" id="http-template-handler">
-<h3>http_template_handler<a class="headerlink" href="#http-template-handler" title="Permalink to this headline">¶</a></h3>
+<h3>http_template_handler<a class="headerlink" href="#http-template-handler" title="Permalink to this heading">¶</a></h3>
 <dl class="simple">
 <dt>Options passed to the <a class="reference external" href="template_handlers.html#http">http template handler</a>.</dt><dd><ul class="simple">
 <li><p>retries - The number of retry attempts (default is 5)</p></li>
@@ -352,13 +353,13 @@ This will impact the templating of stacks by modifying the behavior of jinja.</p
 </div>
 </div>
 <div class="section" id="require-version">
-<h3>require_version<a class="headerlink" href="#require-version" title="Permalink to this headline">¶</a></h3>
+<h3>require_version<a class="headerlink" href="#require-version" title="Permalink to this heading">¶</a></h3>
 <p>A <a class="reference external" href="https://www.python.org/dev/peps/pep-0440/#version-specifiers">PEP 440</a> compatible version specifier. If the Sceptre version does not fall
 within the given version requirement it will abort.</p>
 </div>
 </div>
 <div class="section" id="cascading-config">
-<span id="stack-group-config-cascading-config"></span><h2>Cascading Config<a class="headerlink" href="#cascading-config" title="Permalink to this headline">¶</a></h2>
+<span id="stack-group-config-cascading-config"></span><h2>Cascading Config<a class="headerlink" href="#cascading-config" title="Permalink to this heading">¶</a></h2>
 <p>Using Sceptre, config files are cascaded. Given the following sceptre directory
 structure:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>.
@@ -383,7 +384,7 @@ region, this setting could be specified in the <code class="docutils literal not
 and would only be applied to builds in the <code class="docutils literal notranslate"><span class="pre">dev</span></code> StackGroup.</p>
 </div>
 <div class="section" id="setting-dependencies-for-stackgroups">
-<span id="setting-dependencies-for-stack-groups"></span><h2>Setting Dependencies for StackGroups<a class="headerlink" href="#setting-dependencies-for-stackgroups" title="Permalink to this headline">¶</a></h2>
+<span id="setting-dependencies-for-stack-groups"></span><h2>Setting Dependencies for StackGroups<a class="headerlink" href="#setting-dependencies-for-stackgroups" title="Permalink to this heading">¶</a></h2>
 <p>There are a few pieces of AWS infrastructure that Sceptre can (optionally) use to support the needs
 and concerns of the project. These include:</p>
 <ul class="simple">
@@ -427,7 +428,7 @@ structure that would support doing this:</p>
 </div>
 </div>
 <div class="section" id="templating">
-<span id="stack-group-config-templating"></span><h2>Templating<a class="headerlink" href="#templating" title="Permalink to this headline">¶</a></h2>
+<span id="stack-group-config-templating"></span><h2>Templating<a class="headerlink" href="#templating" title="Permalink to this heading">¶</a></h2>
 <p>Sceptre supports the use of templating in config files. Templating allows
 config files to be further configured using values from the command line,
 environment variables, files or parts of the <code class="docutils literal notranslate"><span class="pre">command_path</span></code>.</p>
@@ -436,7 +437,7 @@ should work with Sceptre templating.</p>
 <p>Templating can be used for any values in the config files, not just those that
 are used by Sceptre.</p>
 <div class="section" id="var">
-<h3>Var<a class="headerlink" href="#var" title="Permalink to this headline">¶</a></h3>
+<h3>Var<a class="headerlink" href="#var" title="Permalink to this heading">¶</a></h3>
 <p>User variables are used to replace the value of any item in a config file with
 a value defined by a CLI flag or in a YAML variable file:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">profile</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">var.profile</span><span class="w"> </span><span class="p p-Indicator">}}</span><span class="w"></span>
@@ -511,7 +512,7 @@ that the value is correctly formatted.</p>
 to make sure that user variable names do not unintentionally clash.</p>
 </div>
 <div class="section" id="environment-variables">
-<h3>Environment Variables<a class="headerlink" href="#environment-variables" title="Permalink to this headline">¶</a></h3>
+<h3>Environment Variables<a class="headerlink" href="#environment-variables" title="Permalink to this heading">¶</a></h3>
 <p>Config item values can be replaced with environment variables:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">profile</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">environment_variable.PROFILE</span><span class="w"> </span><span class="p p-Indicator">}}</span><span class="w"></span>
 <span class="nt">region</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eu-west-1</span><span class="w"></span>
@@ -520,7 +521,7 @@ to make sure that user variable names do not unintentionally clash.</p>
 <p>Where <code class="docutils literal notranslate"><span class="pre">PROFILE</span></code> is the name of an environment variable.</p>
 </div>
 <div class="section" id="command-path">
-<h3>Command Path<a class="headerlink" href="#command-path" title="Permalink to this headline">¶</a></h3>
+<h3>Command Path<a class="headerlink" href="#command-path" title="Permalink to this heading">¶</a></h3>
 <p>Config item values can be replaced with parts of the <code class="docutils literal notranslate"><span class="pre">command_path</span></code></p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">region</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">command_path.0</span><span class="w"> </span><span class="p p-Indicator">}}</span><span class="w"></span>
 <span class="nt">profile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span><span class="w"></span>
@@ -533,7 +534,7 @@ invoking sceptre command:</p>
 </div>
 </div>
 <div class="section" id="template-defaults">
-<h3>Template Defaults<a class="headerlink" href="#template-defaults" title="Permalink to this headline">¶</a></h3>
+<h3>Template Defaults<a class="headerlink" href="#template-defaults" title="Permalink to this heading">¶</a></h3>
 <p>Any templated value can be supplied with a default value with the syntax:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{{ var.value | default(&quot;default_value&quot;) }}
 </pre></div>
@@ -541,7 +542,7 @@ invoking sceptre command:</p>
 </div>
 </div>
 <div class="section" id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">profile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">profile</span><span class="w"></span>
 <span class="nt">project_code</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prj</span><span class="w"></span>
 <span class="nt">region</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eu-west-1</span><span class="w"></span>

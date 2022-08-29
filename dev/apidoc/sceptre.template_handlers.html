@@ -34,6 +34,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
@@ -212,10 +213,10 @@
            <div itemprop="articleBody">
             
   <div class="section" id="module-sceptre.template_handlers">
-<span id="sceptre-template-handlers-package"></span><h1>sceptre.template_handlers package<a class="headerlink" href="#module-sceptre.template_handlers" title="Permalink to this headline">¶</a></h1>
+<span id="sceptre-template-handlers-package"></span><h1>sceptre.template_handlers package<a class="headerlink" href="#module-sceptre.template_handlers" title="Permalink to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="sceptre.template_handlers.TemplateHandler">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sceptre.template_handlers.</span></span><span class="sig-name descname"><span class="pre">TemplateHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sceptre_user_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connection_manager</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack_group_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/template_handlers.html#TemplateHandler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.template_handlers.TemplateHandler" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.template_handlers.</span></span><span class="sig-name descname"><span class="pre">TemplateHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sceptre_user_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connection_manager</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack_group_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/template_handlers.html#TemplateHandler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.template_handlers.TemplateHandler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>TemplateHandler is an abstract base class that should be inherited
 by all Template Handlers.</p>
@@ -232,7 +233,7 @@ by all Template Handlers.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="sceptre.template_handlers.TemplateHandler.handle">
-<em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">handle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/template_handlers.html#TemplateHandler.handle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.template_handlers.TemplateHandler.handle" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">handle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/template_handlers.html#TemplateHandler.handle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.template_handlers.TemplateHandler.handle" title="Permalink to this definition">¶</a></dt>
 <dd><p>An abstract method which must be overwritten by all inheriting classes.
 This method is called to retrieve the template.
 Implementation of this method in subclasses must return a string that
@@ -241,17 +242,17 @@ can be interpreted by Sceptre (CloudFormation YAML / JSON, Jinja or Python)</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="sceptre.template_handlers.TemplateHandler.jinja_template_extensions">
-<span class="sig-name descname"><span class="pre">jinja_template_extensions</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['.j2']</span></em><a class="headerlink" href="#sceptre.template_handlers.TemplateHandler.jinja_template_extensions" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">jinja_template_extensions</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['.j2']</span></em><a class="headerlink" href="#sceptre.template_handlers.TemplateHandler.jinja_template_extensions" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="sceptre.template_handlers.TemplateHandler.python_template_extensions">
-<span class="sig-name descname"><span class="pre">python_template_extensions</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['.py']</span></em><a class="headerlink" href="#sceptre.template_handlers.TemplateHandler.python_template_extensions" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">python_template_extensions</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['.py']</span></em><a class="headerlink" href="#sceptre.template_handlers.TemplateHandler.python_template_extensions" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sceptre.template_handlers.TemplateHandler.schema">
-<em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">schema</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/template_handlers.html#TemplateHandler.schema"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.template_handlers.TemplateHandler.schema" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">schema</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/template_handlers.html#TemplateHandler.schema"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.template_handlers.TemplateHandler.schema" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the schema for the arguments of this Template Resolver. This will
 be used to validate that the arguments passed in the stack config are what
 the Template Handler expects.
@@ -261,12 +262,12 @@ the Template Handler expects.
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="sceptre.template_handlers.TemplateHandler.standard_template_extensions">
-<span class="sig-name descname"><span class="pre">standard_template_extensions</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['.json',</span> <span class="pre">'.yaml',</span> <span class="pre">'.template']</span></em><a class="headerlink" href="#sceptre.template_handlers.TemplateHandler.standard_template_extensions" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">standard_template_extensions</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['.json',</span> <span class="pre">'.yaml',</span> <span class="pre">'.template']</span></em><a class="headerlink" href="#sceptre.template_handlers.TemplateHandler.standard_template_extensions" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="sceptre.template_handlers.TemplateHandler.supported_template_extensions">
-<span class="sig-name descname"><span class="pre">supported_template_extensions</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['.json',</span> <span class="pre">'.yaml',</span> <span class="pre">'.template',</span> <span class="pre">'.j2',</span> <span class="pre">'.py']</span></em><a class="headerlink" href="#sceptre.template_handlers.TemplateHandler.supported_template_extensions" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">supported_template_extensions</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['.json',</span> <span class="pre">'.yaml',</span> <span class="pre">'.template',</span> <span class="pre">'.j2',</span> <span class="pre">'.py']</span></em><a class="headerlink" href="#sceptre.template_handlers.TemplateHandler.supported_template_extensions" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -279,14 +280,14 @@ does not raise an exception, the template handler’s arguments are valid.</p>
 </dd></dl>
 
 <div class="section" id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
 </div>
 <div class="section" id="module-sceptre.template_handlers.file">
-<span id="sceptre-template-handlers-file-module"></span><h2>sceptre.template_handlers.file module<a class="headerlink" href="#module-sceptre.template_handlers.file" title="Permalink to this headline">¶</a></h2>
+<span id="sceptre-template-handlers-file-module"></span><h2>sceptre.template_handlers.file module<a class="headerlink" href="#module-sceptre.template_handlers.file" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="sceptre.template_handlers.file.File">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sceptre.template_handlers.file.</span></span><span class="sig-name descname"><span class="pre">File</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/template_handlers/file.html#File"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.template_handlers.file.File" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#sceptre.template_handlers.TemplateHandler" title="sceptre.template_handlers.TemplateHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">sceptre.template_handlers.TemplateHandler</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.template_handlers.file.</span></span><span class="sig-name descname"><span class="pre">File</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/template_handlers/file.html#File"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.template_handlers.file.File" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.template_handlers.TemplateHandler" title="sceptre.template_handlers.TemplateHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateHandler</span></code></a></p>
 <p>Template handler that can load files from disk. Supports JSON, YAML, Jinja2 and Python.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="sceptre.template_handlers.file.File.handle">
@@ -311,7 +312,7 @@ the Template Handler expects.
 
 </div>
 <div class="section" id="module-sceptre.template_handlers.helper">
-<span id="sceptre-template-handlers-helper-module"></span><h2>sceptre.template_handlers.helper module<a class="headerlink" href="#module-sceptre.template_handlers.helper" title="Permalink to this headline">¶</a></h2>
+<span id="sceptre-template-handlers-helper-module"></span><h2>sceptre.template_handlers.helper module<a class="headerlink" href="#module-sceptre.template_handlers.helper" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="sceptre.template_handlers.helper.call_sceptre_handler">
 <span class="sig-prename descclassname"><span class="pre">sceptre.template_handlers.helper.</span></span><span class="sig-name descname"><span class="pre">call_sceptre_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sceptre_user_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/template_handlers/helper.html#call_sceptre_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.template_handlers.helper.call_sceptre_handler" title="Permalink to this definition">¶</a></dt>
@@ -341,7 +342,7 @@ scripts.</p>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="sceptre.template_handlers.helper.logger">
-<span class="sig-prename descclassname"><span class="pre">sceptre.template_handlers.helper.</span></span><span class="sig-name descname"><span class="pre">logger</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;Logger</span> <span class="pre">sceptre.template_handlers.helper</span> <span class="pre">(WARNING)&gt;</span></em><a class="headerlink" href="#sceptre.template_handlers.helper.logger" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">sceptre.template_handlers.helper.</span></span><span class="sig-name descname"><span class="pre">logger</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;Logger</span> <span class="pre">sceptre.template_handlers.helper</span> <span class="pre">(WARNING)&gt;</span></em><a class="headerlink" href="#sceptre.template_handlers.helper.logger" title="Permalink to this definition">¶</a></dt>
 <dd><p>Template handler helpers.</p>
 </dd></dl>
 
@@ -356,7 +357,7 @@ instant feedback about why their templates are failing to compile.</p>
 <dd class="field-odd"><p><strong>path</strong> – A path to the file.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)">None</a></p>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -386,11 +387,11 @@ CloudFormation templates using Jinja2 templating.</p>
 
 </div>
 <div class="section" id="module-sceptre.template_handlers.http">
-<span id="sceptre-template-handlers-http-module"></span><h2>sceptre.template_handlers.http module<a class="headerlink" href="#module-sceptre.template_handlers.http" title="Permalink to this headline">¶</a></h2>
+<span id="sceptre-template-handlers-http-module"></span><h2>sceptre.template_handlers.http module<a class="headerlink" href="#module-sceptre.template_handlers.http" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="sceptre.template_handlers.http.Http">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sceptre.template_handlers.http.</span></span><span class="sig-name descname"><span class="pre">Http</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/template_handlers/http.html#Http"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.template_handlers.http.Http" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#sceptre.template_handlers.TemplateHandler" title="sceptre.template_handlers.TemplateHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">sceptre.template_handlers.TemplateHandler</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.template_handlers.http.</span></span><span class="sig-name descname"><span class="pre">Http</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/template_handlers/http.html#Http"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.template_handlers.http.Http" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.template_handlers.TemplateHandler" title="sceptre.template_handlers.TemplateHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateHandler</span></code></a></p>
 <p>Template handler that can resolve templates from the web.  Standard CFN templates
 with extension (.json, .yaml, .template) are deployed directly from memory
 while references to jinja (.j2) and python (.py) templates are downloaded,
@@ -415,11 +416,11 @@ the Template Handler expects.
 
 </div>
 <div class="section" id="module-sceptre.template_handlers.s3">
-<span id="sceptre-template-handlers-s3-module"></span><h2>sceptre.template_handlers.s3 module<a class="headerlink" href="#module-sceptre.template_handlers.s3" title="Permalink to this headline">¶</a></h2>
+<span id="sceptre-template-handlers-s3-module"></span><h2>sceptre.template_handlers.s3 module<a class="headerlink" href="#module-sceptre.template_handlers.s3" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="sceptre.template_handlers.s3.S3">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sceptre.template_handlers.s3.</span></span><span class="sig-name descname"><span class="pre">S3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/template_handlers/s3.html#S3"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.template_handlers.s3.S3" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#sceptre.template_handlers.TemplateHandler" title="sceptre.template_handlers.TemplateHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">sceptre.template_handlers.TemplateHandler</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.template_handlers.s3.</span></span><span class="sig-name descname"><span class="pre">S3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/template_handlers/s3.html#S3"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.template_handlers.s3.S3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.template_handlers.TemplateHandler" title="sceptre.template_handlers.TemplateHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateHandler</span></code></a></p>
 <p>Template handler that can resolve templates from S3.  Raw CFN templates
 with extension (.json, .yaml, .template) are deployed directly from memory
 while references to jinja (.j2) and python (.py) templates are downloaded,

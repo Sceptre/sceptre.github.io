@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sceptre.config.strategies &mdash; Sceptre 3.1.0 documentation</title>
+  <title>sceptre.plan.executor &mdash; Sceptre 3.1.0 documentation</title>
   
 
   
@@ -168,9 +168,9 @@
         
           <li><a href="../../sceptre.html">sceptre</a> &raquo;</li>
         
-          <li><a href="../config.html">sceptre.config</a> &raquo;</li>
+          <li><a href="../plan.html">sceptre.plan</a> &raquo;</li>
         
-      <li>sceptre.config.strategies</li>
+      <li>sceptre.plan.executor</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -185,80 +185,67 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <h1>Source code for sceptre.config.strategies</h1><div class="highlight"><pre>
+  <h1>Source code for sceptre.plan.executor</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">sceptre.config.strategies</span>
+<span class="sd">sceptre.plan.executor</span>
 
-<span class="sd">This module contains the implementations of the strategies used to merge config</span>
-<span class="sd">attributes.</span>
+<span class="sd">This module implements a SceptrePlanExecutor, which is responsible for</span>
+<span class="sd">executing the command specified in a SceptrePlan.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">concurrent.futures</span> <span class="kn">import</span> <span class="n">ThreadPoolExecutor</span><span class="p">,</span> <span class="n">as_completed</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Set</span>
+
+<span class="kn">from</span> <span class="nn">sceptre.plan.actions</span> <span class="kn">import</span> <span class="n">StackActions</span>
+<span class="kn">from</span> <span class="nn">sceptre.stack</span> <span class="kn">import</span> <span class="n">Stack</span>
 
 
-<div class="viewcode-block" id="list_join"><a class="viewcode-back" href="../../../apidoc/sceptre.config.html#sceptre.config.strategies.list_join">[docs]</a><span class="k">def</span> <span class="nf">list_join</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Takes two lists and joins them.</span>
+<div class="viewcode-block" id="SceptrePlanExecutor"><a class="viewcode-back" href="../../../apidoc/sceptre.plan.html#sceptre.plan.executor.SceptrePlanExecutor">[docs]</a><span class="k">class</span> <span class="nc">SceptrePlanExecutor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-<span class="sd">    :param a: A list.</span>
-<span class="sd">    :type a: list</span>
-<span class="sd">    :param b: A list.</span>
-<span class="sd">    :type b: list</span>
-<span class="sd">    :returns: A joined list from the two parameters.</span>
-<span class="sd">    :rtype: list</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">a</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> is not a list&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">launch_order</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Set</span><span class="p">[</span><span class="n">Stack</span><span class="p">]]):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialises a SceptrePlanExecutor, generates the launch order, threads</span>
+<span class="sd">        and intial Stack Statuses.</span>
 
-    <span class="k">if</span> <span class="n">b</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> is not a list&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+<span class="sd">        :param command: The command to execute on the Stack.</span>
 
-    <span class="k">if</span> <span class="n">a</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="sd">        :param launch_order: A list containing sets of Stacks that can be executed concurrently.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
-    <span class="k">if</span> <span class="n">b</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">command</span> <span class="o">=</span> <span class="n">command</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">launch_order</span> <span class="o">=</span> <span class="n">launch_order</span>
+        <span class="c1"># Select the number of threads based upon the max batch size,</span>
+        <span class="c1"># or use 1 if all batches are empty</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_threads</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">launch_order</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">))</span> <span class="ow">or</span> <span class="mi">1</span>
 
-    <span class="k">return</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">a</span><span class="p">)</span></div>
+<div class="viewcode-block" id="SceptrePlanExecutor.execute"><a class="viewcode-back" href="../../../apidoc/sceptre.plan.html#sceptre.plan.executor.SceptrePlanExecutor.execute">[docs]</a>    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Execute is responsible executing the sets of Stacks in launch_order</span>
+<span class="sd">        concurrently, in the correct order.</span>
 
+<span class="sd">        :param args: Any arguments that should be passed through to the</span>
+<span class="sd">                StackAction being called.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">responses</span> <span class="o">=</span> <span class="p">{}</span>
 
-<div class="viewcode-block" id="dict_merge"><a class="viewcode-back" href="../../../apidoc/sceptre.config.html#sceptre.config.strategies.dict_merge">[docs]</a><span class="k">def</span> <span class="nf">dict_merge</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Takes two dictionaries and merges them.</span>
+        <span class="k">with</span> <span class="n">ThreadPoolExecutor</span><span class="p">(</span><span class="n">max_workers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">num_threads</span><span class="p">)</span> <span class="k">as</span> <span class="n">executor</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">launch_order</span><span class="p">:</span>
+                <span class="n">futures</span> <span class="o">=</span> <span class="p">[</span><span class="n">executor</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">,</span> <span class="n">stack</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+                           <span class="k">for</span> <span class="n">stack</span> <span class="ow">in</span> <span class="n">batch</span><span class="p">]</span>
 
-<span class="sd">    :param a: A dictionary.</span>
-<span class="sd">    :type a: dict</span>
-<span class="sd">    :param b: A dictionary.</span>
-<span class="sd">    :type b: dict</span>
-<span class="sd">    :returns: A merged dict.</span>
-<span class="sd">    :rtype: dict</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">a</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> is not a dict&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
-    <span class="k">if</span> <span class="n">b</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> is not a dict&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+                <span class="k">for</span> <span class="n">future</span> <span class="ow">in</span> <span class="n">as_completed</span><span class="p">(</span><span class="n">futures</span><span class="p">):</span>
+                    <span class="n">stack</span><span class="p">,</span> <span class="n">status</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+                    <span class="n">responses</span><span class="p">[</span><span class="n">stack</span><span class="p">]</span> <span class="o">=</span> <span class="n">status</span>
 
-    <span class="k">if</span> <span class="n">a</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">responses</span></div>
 
-    <span class="k">if</span> <span class="n">b</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">deepcopy</span><span class="p">({</span><span class="o">**</span><span class="n">a</span><span class="p">,</span> <span class="o">**</span><span class="n">b</span><span class="p">})</span>
-
-    <span class="k">return</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">a</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="child_wins"><a class="viewcode-back" href="../../../apidoc/sceptre.config.html#sceptre.config.strategies.child_wins">[docs]</a><span class="k">def</span> <span class="nf">child_wins</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Always returns the second parameter.</span>
-
-<span class="sd">    :param a: An object.</span>
-<span class="sd">    :type a: object</span>
-<span class="sd">    :param b: An object.</span>
-<span class="sd">    :type b: object</span>
-<span class="sd">    :returns: b</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">b</span></div>
+    <span class="k">def</span> <span class="nf">_execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="n">actions</span> <span class="o">=</span> <span class="n">StackActions</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">actions</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">command</span><span class="p">)(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">stack</span><span class="p">,</span> <span class="n">result</span></div>
 </pre></div>
 
            </div>

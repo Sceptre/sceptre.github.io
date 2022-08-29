@@ -34,6 +34,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
@@ -209,7 +210,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="resolvers">
-<h1>Resolvers<a class="headerlink" href="#resolvers" title="Permalink to this headline">¶</a></h1>
+<h1>Resolvers<a class="headerlink" href="#resolvers" title="Permalink to this heading">¶</a></h1>
 <p>Sceptre implements resolvers, which can be used to resolve a value of a
 CloudFormation <code class="docutils literal notranslate"><span class="pre">parameter</span></code> or <code class="docutils literal notranslate"><span class="pre">sceptre_user_data</span></code> value at runtime. This is
 most commonly used to chain the outputs of one Stack to the inputs of another.</p>
@@ -223,9 +224,9 @@ on <a class="reference external" href="#custom-resolvers">Custom Resolvers</a>.<
 </pre></div>
 </div>
 <div class="section" id="available-resolvers">
-<h2>Available Resolvers<a class="headerlink" href="#available-resolvers" title="Permalink to this headline">¶</a></h2>
+<h2>Available Resolvers<a class="headerlink" href="#available-resolvers" title="Permalink to this heading">¶</a></h2>
 <div class="section" id="environment-variable">
-<h3>environment_variable<a class="headerlink" href="#environment-variable" title="Permalink to this headline">¶</a></h3>
+<h3>environment_variable<a class="headerlink" href="#environment-variable" title="Permalink to this heading">¶</a></h3>
 <p>Fetches the value from an environment variable.</p>
 <p>Syntax:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameter|sceptre_user_data</span><span class="p">:</span><span class="w"></span>
@@ -239,17 +240,17 @@ on <a class="reference external" href="#custom-resolvers">Custom Resolvers</a>.<
 </div>
 </div>
 <div class="section" id="file">
-<h3>file<a class="headerlink" href="#file" title="Permalink to this headline">¶</a></h3>
+<h3>file<a class="headerlink" href="#file" title="Permalink to this heading">¶</a></h3>
 <p>A Sceptre resolver to get file contents. The returned value can be passed into a parameter as
 a string, json, or yaml object.</p>
 <p>Refer to <a class="reference external" href="https://github.com/Sceptre/sceptre-file-resolver/">sceptre-file-resolver</a> for documentation.</p>
 </div>
 <div class="section" id="file-contents">
-<h3>file_contents<a class="headerlink" href="#file-contents" title="Permalink to this headline">¶</a></h3>
+<h3>file_contents<a class="headerlink" href="#file-contents" title="Permalink to this heading">¶</a></h3>
 <p><strong>deprecated</strong>: Consider using the <a class="reference internal" href="#file">file</a> resolver instead.</p>
 </div>
 <div class="section" id="no-value">
-<h3>no_value<a class="headerlink" href="#no-value" title="Permalink to this headline">¶</a></h3>
+<h3>no_value<a class="headerlink" href="#no-value" title="Permalink to this heading">¶</a></h3>
 <p>This resolver “resolves to nothing”, functioning just as if it was not set at all. This works just
 like the “AWS::NoValue” special variable that you can reference on a CloudFormation template. It
 can help simplify Stack and StackGroup config Jinja logic in cases where, if a condition is met, a
@@ -265,12 +266,12 @@ won’t even be passed to CloudFormation at all. This might be desired if there 
 the CloudFormation template for <code class="docutils literal notranslate"><span class="pre">my_parameter</span></code> and we’d want to fall back to that default.</p>
 </div>
 <div class="section" id="rcmd">
-<h3>rcmd<a class="headerlink" href="#rcmd" title="Permalink to this headline">¶</a></h3>
+<h3>rcmd<a class="headerlink" href="#rcmd" title="Permalink to this heading">¶</a></h3>
 <p>A resolver to execute any shell command.</p>
 <p>Refer to <a class="reference external" href="https://github.com/Sceptre/sceptre-resolver-cmd/">sceptre-resolver-cmd</a> for documentation.</p>
 </div>
 <div class="section" id="stack-attr">
-<span id="stack-attr-resolver"></span><h3>stack_attr<a class="headerlink" href="#stack-attr" title="Permalink to this headline">¶</a></h3>
+<span id="stack-attr-resolver"></span><h3>stack_attr<a class="headerlink" href="#stack-attr" title="Permalink to this heading">¶</a></h3>
 <p>This resolver resolves to the values of other fields on the same Stack Config or those
 inherited from StackGroups in which the current Stack Config exists, even when those other fields are
 also resolvers.</p>
@@ -308,7 +309,7 @@ nested values in dicts and lists using “.” to separate key/index segments. F
 </div>
 </div>
 <div class="section" id="stack-output">
-<h3>stack_output<a class="headerlink" href="#stack-output" title="Permalink to this headline">¶</a></h3>
+<h3>stack_output<a class="headerlink" href="#stack-output" title="Permalink to this heading">¶</a></h3>
 <p>Fetches the value of an output from a different Stack controlled by Sceptre.</p>
 <p>Syntax:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters | sceptre_user_data</span><span class="p">:</span><span class="w"></span>
@@ -334,7 +335,7 @@ doesn’t “inherit” that resolver.</p>
 </div>
 </div>
 <div class="section" id="stack-output-external">
-<h3>stack_output_external<a class="headerlink" href="#stack-output-external" title="Permalink to this headline">¶</a></h3>
+<h3>stack_output_external<a class="headerlink" href="#stack-output-external" title="Permalink to this heading">¶</a></h3>
 <p>Fetches the value of an output from a different Stack in the same account and
 region. You can specify a optional AWS profile to connect to a different
 account/region.</p>
@@ -353,7 +354,7 @@ basename of that Stack can be used.</p>
 </div>
 </div>
 <div class="section" id="custom-resolvers">
-<h2>Custom Resolvers<a class="headerlink" href="#custom-resolvers" title="Permalink to this headline">¶</a></h2>
+<h2>Custom Resolvers<a class="headerlink" href="#custom-resolvers" title="Permalink to this heading">¶</a></h2>
 <p>Users can define their own resolvers which are used by Sceptre to resolve the
 value of a parameter before it is passed to the CloudFormation template.</p>
 <p>A resolver is a Python class which inherits from abstract base class
@@ -368,7 +369,7 @@ Your custom resolver can be written anywhere and is installed as Python
 package.
 In case you are not familiar with python packaging, <a class="reference external" href="https://docs.python.org/3/distributing/">this is great place to start</a>.</p>
 <div class="section" id="example">
-<h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<h3>Example<a class="headerlink" href="#example" title="Permalink to this heading">¶</a></h3>
 <p>The following python module template can be copied and used:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>custom_resolver
 ├── custom_resolver.py
@@ -377,7 +378,7 @@ In case you are not familiar with python packaging, <a class="reference external
 </div>
 <p>The following python module template can be copied and used:</p>
 <div class="section" id="custom-resolver-py">
-<h4>custom_resolver.py<a class="headerlink" href="#custom-resolver-py" title="Permalink to this headline">¶</a></h4>
+<h4>custom_resolver.py<a class="headerlink" href="#custom-resolver-py" title="Permalink to this heading">¶</a></h4>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sceptre.resolvers</span> <span class="kn">import</span> <span class="n">Resolver</span>
 
 
@@ -428,7 +429,7 @@ In case you are not familiar with python packaging, <a class="reference external
 </div>
 </div>
 <div class="section" id="setup-py">
-<h4>setup.py<a class="headerlink" href="#setup-py" title="Permalink to this headline">¶</a></h4>
+<h4>setup.py<a class="headerlink" href="#setup-py" title="Permalink to this heading">¶</a></h4>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">setuptools</span> <span class="kn">import</span> <span class="n">setup</span>
 
 <span class="n">setup</span><span class="p">(</span>
@@ -453,7 +454,7 @@ In case you are not familiar with python packaging, <a class="reference external
 </div>
 </div>
 <div class="section" id="resolver-arguments">
-<h4>Resolver arguments<a class="headerlink" href="#resolver-arguments" title="Permalink to this headline">¶</a></h4>
+<h4>Resolver arguments<a class="headerlink" href="#resolver-arguments" title="Permalink to this heading">¶</a></h4>
 <p>Resolver arguments can be a simple string or a complex data structure.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;...&gt;</span><span class="w"></span>
@@ -467,7 +468,7 @@ In case you are not familiar with python packaging, <a class="reference external
 </div>
 </div>
 <div class="section" id="resolving-to-nothing">
-<h4>Resolving to nothing<a class="headerlink" href="#resolving-to-nothing" title="Permalink to this headline">¶</a></h4>
+<h4>Resolving to nothing<a class="headerlink" href="#resolving-to-nothing" title="Permalink to this heading">¶</a></h4>
 <p>When a resolver returns <code class="docutils literal notranslate"><span class="pre">None</span></code>, this means that it resolves to “nothing”. For resolvers set for
 single values (such as for <code class="docutils literal notranslate"><span class="pre">template_bucket_name</span></code> or <code class="docutils literal notranslate"><span class="pre">role_arn</span></code>), this just means the value is
 <code class="docutils literal notranslate"><span class="pre">None</span></code> and treated like those values aren’t actually set. But for resolvers inside of containers
@@ -480,7 +481,7 @@ nothing, similar to the AWS::NoValue pseudo-parameter that can be referenced in 
 template.</p>
 </div>
 <div class="section" id="resolver-placeholders">
-<h4>Resolver placeholders<a class="headerlink" href="#resolver-placeholders" title="Permalink to this headline">¶</a></h4>
+<h4>Resolver placeholders<a class="headerlink" href="#resolver-placeholders" title="Permalink to this heading">¶</a></h4>
 <p>Resolvers (especially the !stack_output resolver) often express dependencies on other stacks and
 their outputs. However, there are times when those stacks or outputs will not exist yet because they
 have not yet been deployed. During normal deployment operations (using the <code class="docutils literal notranslate"><span class="pre">launch</span></code>, <code class="docutils literal notranslate"><span class="pre">create</span></code>,

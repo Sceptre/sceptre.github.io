@@ -34,6 +34,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
@@ -203,14 +204,14 @@
            <div itemprop="articleBody">
             
   <div class="section" id="hooks">
-<h1>Hooks<a class="headerlink" href="#hooks" title="Permalink to this headline">¶</a></h1>
+<h1>Hooks<a class="headerlink" href="#hooks" title="Permalink to this heading">¶</a></h1>
 <p>Hooks allows the ability for custom commands to be run when Sceptre actions
 occur.</p>
 <p>A hook is executed at a particular hook point when Sceptre is run.</p>
 <p>If required, users can create their own <code class="docutils literal notranslate"><span class="pre">hooks</span></code>, as described in the section
 <a class="reference external" href="#custom-hooks">Custom Hooks</a>.</p>
 <div class="section" id="hook-points">
-<h2>Hook points<a class="headerlink" href="#hook-points" title="Permalink to this headline">¶</a></h2>
+<h2>Hook points<a class="headerlink" href="#hook-points" title="Permalink to this heading">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">before_generate</span></code> or <code class="docutils literal notranslate"><span class="pre">after_generate</span></code> - run hook before or after generating stack template.</p>
 <p><code class="docutils literal notranslate"><span class="pre">before_create</span></code> or <code class="docutils literal notranslate"><span class="pre">after_create</span></code> - run hook before or after Stack creation.</p>
 <p><code class="docutils literal notranslate"><span class="pre">before_update</span></code> or <code class="docutils literal notranslate"><span class="pre">after_update</span></code> - run hook before or after Stack update.</p>
@@ -228,9 +229,9 @@ occur.</p>
 </div>
 </div>
 <div class="section" id="available-hooks">
-<h2>Available Hooks<a class="headerlink" href="#available-hooks" title="Permalink to this headline">¶</a></h2>
+<h2>Available Hooks<a class="headerlink" href="#available-hooks" title="Permalink to this heading">¶</a></h2>
 <div class="section" id="cmd">
-<h3>cmd<a class="headerlink" href="#cmd" title="Permalink to this headline">¶</a></h3>
+<h3>cmd<a class="headerlink" href="#cmd" title="Permalink to this heading">¶</a></h3>
 <p>Executes the argument string in the shell as a Python subprocess.</p>
 <p>For more information about how this works, see the <a class="reference external" href="https://docs.python.org/3/library/subprocess.html">subprocess documentation</a></p>
 <p>Syntax:</p>
@@ -245,7 +246,7 @@ occur.</p>
 </div>
 </div>
 <div class="section" id="asg-scaling-processes">
-<h3>asg_scaling_processes<a class="headerlink" href="#asg-scaling-processes" title="Permalink to this headline">¶</a></h3>
+<h3>asg_scaling_processes<a class="headerlink" href="#asg-scaling-processes" title="Permalink to this heading">¶</a></h3>
 <p>Suspends or resumes autoscaling scaling processes.</p>
 <p>Syntax:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;hook_point&gt;</span><span class="p">:</span><span class="w"></span>
@@ -262,7 +263,7 @@ occur.</p>
 </div>
 </div>
 <div class="section" id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
 <p>A Stack’s <code class="docutils literal notranslate"><span class="pre">config.yml</span></code> where multiple hooks with multiple commands are
 specified:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span><span class="w"></span>
@@ -286,7 +287,7 @@ specified:</p>
 </div>
 </div>
 <div class="section" id="custom-hooks">
-<h2>Custom Hooks<a class="headerlink" href="#custom-hooks" title="Permalink to this headline">¶</a></h2>
+<h2>Custom Hooks<a class="headerlink" href="#custom-hooks" title="Permalink to this heading">¶</a></h2>
 <p>Users can define their own custom hooks, allowing users to extend hooks and
 integrate additional functionality into Sceptre projects.</p>
 <p>A hook is a Python class which inherits from abstract base class <code class="docutils literal notranslate"><span class="pre">Hook</span></code> found
@@ -298,7 +299,7 @@ and to call the base class initializer.</p>
 custom hook can be written anywhere and is installed as Python package.
 In case you are not familiar with python packaging, <a class="reference external" href="https://docs.python.org/3/distributing/">this is great place to start</a>.</p>
 <div class="section" id="example">
-<h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<h3>Example<a class="headerlink" href="#example" title="Permalink to this heading">¶</a></h3>
 <p>The following python module template can be copied and used:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>custom_hook
 ├── custom_hook.py
@@ -306,7 +307,7 @@ In case you are not familiar with python packaging, <a class="reference external
 </pre></div>
 </div>
 <div class="section" id="custom-hook-py">
-<h4>custom_hook.py<a class="headerlink" href="#custom-hook-py" title="Permalink to this headline">¶</a></h4>
+<h4>custom_hook.py<a class="headerlink" href="#custom-hook-py" title="Permalink to this heading">¶</a></h4>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sceptre.hooks</span> <span class="kn">import</span> <span class="n">Hook</span>
 
 <span class="k">class</span> <span class="nc">CustomHook</span><span class="p">(</span><span class="n">Hook</span><span class="p">):</span>
@@ -342,7 +343,7 @@ In case you are not familiar with python packaging, <a class="reference external
 </div>
 </div>
 <div class="section" id="setup-py">
-<h4>setup.py<a class="headerlink" href="#setup-py" title="Permalink to this headline">¶</a></h4>
+<h4>setup.py<a class="headerlink" href="#setup-py" title="Permalink to this heading">¶</a></h4>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">setuptools</span> <span class="kn">import</span> <span class="n">setup</span>
 
 <span class="n">setup</span><span class="p">(</span>
@@ -368,7 +369,7 @@ In case you are not familiar with python packaging, <a class="reference external
 </div>
 </div>
 <div class="section" id="hook-arguments">
-<h4>hook arguments<a class="headerlink" href="#hook-arguments" title="Permalink to this headline">¶</a></h4>
+<h4>hook arguments<a class="headerlink" href="#hook-arguments" title="Permalink to this heading">¶</a></h4>
 <p>Hook arguments can be a simple string or a complex data structure.
 Assume a Sceptre <cite>copy</cite> hook that calls the <a class="reference external" href="http://man7.org/linux/man-pages/man1/cp.1.html">cp command</a>:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span><span class="w"></span>

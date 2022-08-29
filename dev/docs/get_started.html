@@ -34,6 +34,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
@@ -203,14 +204,14 @@
            <div itemprop="articleBody">
             
   <div class="section" id="get-started">
-<h1>Get Started<a class="headerlink" href="#get-started" title="Permalink to this headline">¶</a></h1>
+<h1>Get Started<a class="headerlink" href="#get-started" title="Permalink to this heading">¶</a></h1>
 <div class="section" id="install">
-<h2>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h2>
+<h2>Install<a class="headerlink" href="#install" title="Permalink to this heading">¶</a></h2>
 <p>This tutorial assumes that you have installed Sceptre. Instructions on how to
 do this can be found in the section on <a class="reference internal" href="install.html"><span class="doc">installing Sceptre</span></a>.</p>
 </div>
 <div class="section" id="aws-cli-config">
-<h2>AWS CLI Config<a class="headerlink" href="#aws-cli-config" title="Permalink to this headline">¶</a></h2>
+<h2>AWS CLI Config<a class="headerlink" href="#aws-cli-config" title="Permalink to this heading">¶</a></h2>
 <p>Sceptre uses the same configuration files as the official AWS CLI and can be
 configured using the <cite>aws configure</cite> command. This command configures 2 files
 <cite>~/.aws/config</cite> and <cite>~/.aws/credentials</cite> to setup the API Keys to access your
@@ -218,7 +219,7 @@ AWS Account.</p>
 <p>Reference: <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html">AWS_CLI_Configure</a></p>
 </div>
 <div class="section" id="directory-structure">
-<h2>Directory Structure<a class="headerlink" href="#directory-structure" title="Permalink to this headline">¶</a></h2>
+<h2>Directory Structure<a class="headerlink" href="#directory-structure" title="Permalink to this heading">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">sceptre</span> <span class="pre">new</span></code> provides a quick and easy way to setup a Sceptre project.</p>
 <p>To setup a fresh project run:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ sceptre new project my-sceptre-project
@@ -251,7 +252,7 @@ touch config/dev/config.yaml config/dev/vpc.yaml templates/vpc.yaml
 config relevant to that template, and <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> will contain environment
 config.</p>
 <div class="section" id="our-first-template-vpc-yaml">
-<h3>Our First Template - vpc.yaml<a class="headerlink" href="#our-first-template-vpc-yaml" title="Permalink to this headline">¶</a></h3>
+<h3>Our First Template - vpc.yaml<a class="headerlink" href="#our-first-template-vpc-yaml" title="Permalink to this heading">¶</a></h3>
 <p>Add the following CloudFormation to <code class="docutils literal notranslate"><span class="pre">templates/vpc.yaml</span></code>:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Parameters</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">CidrBlock</span><span class="p">:</span><span class="w"></span>
@@ -272,7 +273,7 @@ config.</p>
 <a class="reference external" href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html">CloudFormation</a>.</p>
 </div>
 <div class="section" id="our-first-stackgroup-config-config-yaml">
-<h3>Our First StackGroup config - config.yaml<a class="headerlink" href="#our-first-stackgroup-config-config-yaml" title="Permalink to this headline">¶</a></h3>
+<h3>Our First StackGroup config - config.yaml<a class="headerlink" href="#our-first-stackgroup-config-config-yaml" title="Permalink to this heading">¶</a></h3>
 <p>Add the following configuration to <code class="docutils literal notranslate"><span class="pre">config/dev/config.yaml</span></code>:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">project_code</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sceptre-example</span><span class="w"></span>
 <span class="nt">region</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eu-west-1</span><span class="w"></span>
@@ -282,7 +283,7 @@ config.</p>
 StackGroup will be built in the AWS region <code class="docutils literal notranslate"><span class="pre">region</span></code>.</p>
 </div>
 <div class="section" id="our-first-stack-config-vpc-yaml">
-<h3>Our First Stack config - vpc.yaml<a class="headerlink" href="#our-first-stack-config-vpc-yaml" title="Permalink to this headline">¶</a></h3>
+<h3>Our First Stack config - vpc.yaml<a class="headerlink" href="#our-first-stack-config-vpc-yaml" title="Permalink to this heading">¶</a></h3>
 <p>Add the following configuration to <code class="docutils literal notranslate"><span class="pre">config/dev/vpc.yaml</span></code>:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vpc.yaml</span><span class="w"></span>
@@ -320,9 +321,9 @@ values from the child configs replace the parent (unless otherwise specified).</
 </div>
 </div>
 <div class="section" id="commands">
-<h2>Commands<a class="headerlink" href="#commands" title="Permalink to this headline">¶</a></h2>
+<h2>Commands<a class="headerlink" href="#commands" title="Permalink to this heading">¶</a></h2>
 <div class="section" id="create-stack">
-<h3>Create stack<a class="headerlink" href="#create-stack" title="Permalink to this headline">¶</a></h3>
+<h3>Create stack<a class="headerlink" href="#create-stack" title="Permalink to this heading">¶</a></h3>
 <p>We can create the VPC Stack with the following command:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ sceptre create dev/vpc.yaml
 </pre></div>
@@ -330,7 +331,7 @@ values from the child configs replace the parent (unless otherwise specified).</
 <p>This command must be run from the <code class="docutils literal notranslate"><span class="pre">my-sceptre-project</span></code> directory.</p>
 </div>
 <div class="section" id="meta-commands">
-<h3>Meta commands<a class="headerlink" href="#meta-commands" title="Permalink to this headline">¶</a></h3>
+<h3>Meta commands<a class="headerlink" href="#meta-commands" title="Permalink to this heading">¶</a></h3>
 <p>We can find out information about our running stack:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ sceptre list resources dev
 $ sceptre list resources dev/vpc.yaml
@@ -339,7 +340,7 @@ $ sceptre --ignore-dependencies list outputs dev/vpc.yaml
 </div>
 </div>
 <div class="section" id="update-stack">
-<h3>Update stack<a class="headerlink" href="#update-stack" title="Permalink to this headline">¶</a></h3>
+<h3>Update stack<a class="headerlink" href="#update-stack" title="Permalink to this heading">¶</a></h3>
 <p>If the Stack’s config or Template is changed in <code class="docutils literal notranslate"><span class="pre">vpc.yaml</span></code>, the Stack can be
 updated with:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ sceptre update dev/vpc.yaml
@@ -347,7 +348,7 @@ updated with:</p>
 </div>
 </div>
 <div class="section" id="delete-stack">
-<h3>Delete stack<a class="headerlink" href="#delete-stack" title="Permalink to this headline">¶</a></h3>
+<h3>Delete stack<a class="headerlink" href="#delete-stack" title="Permalink to this heading">¶</a></h3>
 <p>Delete the stack:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ sceptre delete dev/vpc.yaml
 </pre></div>
@@ -355,7 +356,7 @@ updated with:</p>
 </div>
 </div>
 <div class="section" id="next-steps">
-<h2>Next Steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h2>
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">¶</a></h2>
 <p>We have created our first Sceptre project, added a Template and Stack config,
 and used the CLI to create, update and delete the Stack. You can find a full
 reference to the CLI <a class="reference internal" href="cli.html"><span class="doc">in our CLI guide</span></a></p>

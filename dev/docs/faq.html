@@ -34,6 +34,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
@@ -192,9 +193,9 @@
            <div itemprop="articleBody">
             
   <div class="section" id="faq">
-<h1>FAQ<a class="headerlink" href="#faq" title="Permalink to this headline">¶</a></h1>
+<h1>FAQ<a class="headerlink" href="#faq" title="Permalink to this heading">¶</a></h1>
 <div class="section" id="how-do-i-set-aws-region-or-profile-via-the-cli">
-<h2>How do I set AWS Region or Profile via the CLI?<a class="headerlink" href="#how-do-i-set-aws-region-or-profile-via-the-cli" title="Permalink to this headline">¶</a></h2>
+<h2>How do I set AWS Region or Profile via the CLI?<a class="headerlink" href="#how-do-i-set-aws-region-or-profile-via-the-cli" title="Permalink to this heading">¶</a></h2>
 <p>These configuration items, and others, can be set from the CLI using
 <a class="reference internal" href="stack_group_config.html#stack-group-config-templating"><span class="std std-ref">templating</span></a>. The syntax for setting the AWS region is presented below. The
 syntax for replacing the other items is the same, with the word <code class="docutils literal notranslate"><span class="pre">region</span></code>
@@ -209,7 +210,7 @@ substituted out.</p>
 </div>
 </div>
 <div class="section" id="should-i-use-a-parameter-or-sceptre-user-data">
-<h2>Should I use a Parameter or Sceptre User Data?<a class="headerlink" href="#should-i-use-a-parameter-or-sceptre-user-data" title="Permalink to this headline">¶</a></h2>
+<h2>Should I use a Parameter or Sceptre User Data?<a class="headerlink" href="#should-i-use-a-parameter-or-sceptre-user-data" title="Permalink to this heading">¶</a></h2>
 <p>Parameters are the standard way of passing StackGroup-specific configuration to
 a CloudFormation template. They offer:</p>
 <ul class="simple">
@@ -231,7 +232,7 @@ cases. Sceptre user data should only be used when the user wants to alter the
 template based on the value of a config value.</p>
 </div>
 <div class="section" id="why-are-there-two-ways-to-supply-environment-variables-in-stack-config-files">
-<span id="faq-stackconfig-env"></span><h2>Why are there two ways to supply environment variables in stack config files?<a class="headerlink" href="#why-are-there-two-ways-to-supply-environment-variables-in-stack-config-files" title="Permalink to this headline">¶</a></h2>
+<span id="faq-stackconfig-env"></span><h2>Why are there two ways to supply environment variables in stack config files?<a class="headerlink" href="#why-are-there-two-ways-to-supply-environment-variables-in-stack-config-files" title="Permalink to this heading">¶</a></h2>
 <p>It is possible to replace values in stack config files with environment
 variables in two ways.</p>
 <p>The first is by using templating, and the syntax
@@ -257,19 +258,19 @@ built in the same <code class="docutils literal notranslate"><span class="pre">l
 used.</p>
 </div>
 <div class="section" id="how-do-i-build-a-serverless-application-using-sceptre-and-sam">
-<h2>How do I build a Serverless application using Sceptre and SAM?<a class="headerlink" href="#how-do-i-build-a-serverless-application-using-sceptre-and-sam" title="Permalink to this headline">¶</a></h2>
+<h2>How do I build a Serverless application using Sceptre and SAM?<a class="headerlink" href="#how-do-i-build-a-serverless-application-using-sceptre-and-sam" title="Permalink to this heading">¶</a></h2>
 <p>There is now a SAM Template Handler that lets you incorporate SAM applications into environments that
 are managed and deployed using Sceptre. For more information on how to install and use SAM in your
 Sceptre project, see the <a class="reference external" href="https://pypi.org/project/sceptre-sam-handler/">sceptre-sam-handler</a> page on PyPI.</p>
 </div>
 <div class="section" id="my-ci-cd-process-uses-sceptre-launch-how-do-i-delete-stacks-that-aren-t-needed-anymore">
-<h2>My CI/CD process uses <code class="docutils literal notranslate"><span class="pre">sceptre</span> <span class="pre">launch</span></code>. How do I delete stacks that aren’t needed anymore?<a class="headerlink" href="#my-ci-cd-process-uses-sceptre-launch-how-do-i-delete-stacks-that-aren-t-needed-anymore" title="Permalink to this headline">¶</a></h2>
+<h2>My CI/CD process uses <code class="docutils literal notranslate"><span class="pre">sceptre</span> <span class="pre">launch</span></code>. How do I delete stacks that aren’t needed anymore?<a class="headerlink" href="#my-ci-cd-process-uses-sceptre-launch-how-do-i-delete-stacks-that-aren-t-needed-anymore" title="Permalink to this heading">¶</a></h2>
 <p>Running the <code class="docutils literal notranslate"><span class="pre">launch</span></code> command is a very useful “1-stop-shop” to apply changes from Stack Configs,
 creating stacks that don’t exist and updating stacks that do exist. This makes it a very useful
 command to configure your CI/CD system to invoke. However, sometimes you need to delete a stack that
 isn’t needed anymore and you want this automatically applied by the same process.</p>
-<p>This “clean up” is complicated by the fact that Sceptre doesn’t know about anything that isn’t
-in its Stack and StackGroup Configs; If you delete a Stack Config, Sceptre won’t know to clean it up.</p>
+<p>This “clean up” is complicated by the fact that Sceptre doesn’t know anything that isn’t in its
+Stack and StackGroup Configs; If you delete a Stack Config, Sceptre won’t know to clean it up.</p>
 <p>Therefore, the way to accomplish this “clean up” operation is to perform the change in 3 steps:</p>
 <ol class="arabic simple">
 <li><p>First, add <code class="docutils literal notranslate"><span class="pre">obsolete:</span> <span class="pre">True</span></code> to the Stack Config(s) you want to clean up.
