@@ -245,7 +245,7 @@ across the entire buffer and that their length is the full width of longest line
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>buffer</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">StringIO</span></code>) – The input stream to normalize bar lengths for</p></li>
-<li><p><strong>output_stream</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TextIO" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextIO</span></code></a>) – The stream to output the normalized buffer into</p></li>
+<li><p><strong>output_stream</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TextIO" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextIO</span></code></a>) – The stream to output the normalized buffer into</p></li>
 </ul>
 </dd>
 </dl>
@@ -258,14 +258,14 @@ across the entire buffer and that their length is the full width of longest line
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>diffs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code></a>[<a class="reference internal" href="sceptre.diffing.html#sceptre.diffing.stack_differ.StackDiff" title="sceptre.diffing.stack_differ.StackDiff"><code class="xref py py-class docutils literal notranslate"><span class="pre">StackDiff</span></code></a>]) – The differences computed</p></li>
-<li><p><strong>writer_class</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code></a>[<a class="reference internal" href="sceptre.diffing.html#sceptre.diffing.diff_writer.DiffWriter" title="sceptre.diffing.diff_writer.DiffWriter"><code class="xref py py-class docutils literal notranslate"><span class="pre">DiffWriter</span></code></a>]) – The DiffWriter class to be instantiated for each StackDiff</p></li>
-<li><p><strong>output_buffer</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TextIO" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextIO</span></code></a>) – The buffer to write the diff results to</p></li>
-<li><p><strong>output_format</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The format to output the results in</p></li>
+<li><p><strong>diffs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code></a>[<a class="reference internal" href="sceptre.diffing.html#sceptre.diffing.stack_differ.StackDiff" title="sceptre.diffing.stack_differ.StackDiff"><code class="xref py py-class docutils literal notranslate"><span class="pre">StackDiff</span></code></a>]) – The differences computed</p></li>
+<li><p><strong>writer_class</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code></a>[<a class="reference internal" href="sceptre.diffing.html#sceptre.diffing.diff_writer.DiffWriter" title="sceptre.diffing.diff_writer.DiffWriter"><code class="xref py py-class docutils literal notranslate"><span class="pre">DiffWriter</span></code></a>]) – The DiffWriter class to be instantiated for each StackDiff</p></li>
+<li><p><strong>output_buffer</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TextIO" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextIO</span></code></a>) – The buffer to write the diff results to</p></li>
+<li><p><strong>output_format</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The format to output the results in</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The number of stacks that had a difference</p>
@@ -299,7 +299,7 @@ across the entire buffer and that their length is the full width of longest line
 <dl class="py class">
 <dt class="sig sig-object py" id="sceptre.cli.helpers.ColouredFormatter">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.cli.helpers.</span></span><span class="sig-name descname"><span class="pre">ColouredFormatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datefmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'%'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/cli/helpers.html#ColouredFormatter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.cli.helpers.ColouredFormatter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Formatter" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Formatter</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Formatter" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Formatter</span></code></a></p>
 <p>ColouredFormatter add colours to all stack statuses that appear in log
 messages.</p>
 <dl class="py method">
@@ -308,7 +308,7 @@ messages.</p>
 <dd><p>Colours and returns all stack statuses in <code class="docutils literal notranslate"><span class="pre">record</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>record</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The log item to format.</p>
+<dd class="field-odd"><p><strong>record</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The log item to format.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>str</p>
@@ -335,13 +335,13 @@ calling their __str__() method.</p>
 <dd><p>Returns stringified version of item.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>item</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><em>object</em></a>) – An arbitrary object to stringify.</p>
+<dd class="field-odd"><p><strong>item</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><em>object</em></a>) – An arbitrary object to stringify.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The stringified object.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -390,7 +390,7 @@ as long as their level is at least INFO. The log format is set to
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>debug</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – A flag indication whether to turn on debug logging.</p>
+<dd class="field-odd"><p><strong>debug</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – A flag indication whether to turn on debug logging.</p>
 </dd>
 <dt class="field-even">No_colour</dt>
 <dd class="field-even"><p>A flag to indicating whether to turn off coloured output.</p>
@@ -399,7 +399,7 @@ as long as their level is at least INFO. The log format is set to
 <dd class="field-odd"><p>A logger.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Logger" title="(in Python v3.10)">logging.Logger</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Logger" title="(in Python v3.11)">logging.Logger</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -414,11 +414,11 @@ by the ConfigReader and SceptreContext.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>var_file</strong> (<em>List</em><em>[</em><em>Dict</em><em>]</em>) – the var_file list.</p></li>
-<li><p><strong>var</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – the var list.</p></li>
-<li><p><strong>merge_vars</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Merge instead of
+<li><p><strong>var</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em>) – the var list.</p></li>
+<li><p><strong>merge_vars</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Merge instead of
 overwrite duplicate keys.</p></li>
-<li><p><strong>debug</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – debug mode.</p></li>
-<li><p><strong>no_colour</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – no_colour mode.</p></li>
+<li><p><strong>debug</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – debug mode.</p></li>
+<li><p><strong>no_colour</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – no_colour mode.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -436,13 +436,13 @@ overwrite duplicate keys.</p></li>
 <dd><p>Simplies the response from the AWS describe change set API.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>response</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – The original api response.</p>
+<dd class="field-odd"><p><strong>response</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – The original api response.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A more concise description of the change set.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -460,9 +460,9 @@ write <code class="docutils literal notranslate"><span class="pre">var</span></c
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>var</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><em>object</em></a>) – The object to print</p></li>
-<li><p><strong>output_format</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The format to print the output as. Allowed values:     “text”, “json”, “yaml”</p></li>
-<li><p><strong>no_colour</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to colour stack statuses</p></li>
+<li><p><strong>var</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><em>object</em></a>) – The object to print</p></li>
+<li><p><strong>output_format</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The format to print the output as. Allowed values:     “text”, “json”, “yaml”</p></li>
+<li><p><strong>no_colour</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to colour stack statuses</p></li>
 </ul>
 </dd>
 </dl>
@@ -474,7 +474,7 @@ write <code class="docutils literal notranslate"><span class="pre">var</span></c
 <dl class="py class">
 <dt class="sig sig-object py" id="sceptre.cli.launch.Launcher">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.cli.launch.</span></span><span class="sig-name descname"><span class="pre">Launcher</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plan_factory=&lt;class</span> <span class="pre">'sceptre.plan.plan.SceptrePlan'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pruner_factory=&lt;class</span> <span class="pre">'sceptre.cli.prune.Pruner'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/cli/launch.html#Launcher"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.cli.launch.Launcher" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Launcher is a utility to coordinate the flow of launching.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -494,7 +494,7 @@ write <code class="docutils literal notranslate"><span class="pre">var</span></c
 <span class="sig-name descname"><span class="pre">launch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prune</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/cli/launch.html#Launcher.launch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.cli.launch.Launcher.launch" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -521,7 +521,7 @@ write <code class="docutils literal notranslate"><span class="pre">var</span></c
 <dl class="py class">
 <dt class="sig sig-object py" id="sceptre.cli.prune.Pruner">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.cli.prune.</span></span><span class="sig-name descname"><span class="pre">Pruner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plan_factory=&lt;class</span> <span class="pre">'sceptre.plan.plan.SceptrePlan'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/cli/prune.html#Pruner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.cli.prune.Pruner" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Pruner is a utility to coordinate the flow of deleting all stacks in the project that
 are marked “obsolete”.</p>
 <p>Note: The command_path on the passed context will be ignored; This command operates on the
@@ -549,7 +549,7 @@ entire project rather than on any particular command path.</p>
 <span class="sig-name descname"><span class="pre">prune</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/cli/prune.html#Pruner.prune"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.cli.prune.Pruner.prune" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
