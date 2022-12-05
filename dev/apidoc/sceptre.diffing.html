@@ -221,24 +221,6 @@
 <div class="section" id="module-sceptre.diffing.diff_writer">
 <span id="sceptre-diffing-diff-writer-module"></span><h2>sceptre.diffing.diff_writer module<a class="headerlink" href="#module-sceptre.diffing.diff_writer" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="sceptre.diffing.diff_writer.ColouredDiffLibWriter">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.diffing.diff_writer.</span></span><span class="sig-name descname"><span class="pre">ColouredDiffLibWriter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stack_diff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_stream</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_format</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/diffing/diff_writer.html#ColouredDiffLibWriter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.diffing.diff_writer.ColouredDiffLibWriter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#sceptre.diffing.diff_writer.DiffLibWriter" title="sceptre.diffing.diff_writer.DiffLibWriter"><code class="xref py py-class docutils literal notranslate"><span class="pre">DiffLibWriter</span></code></a></p>
-<p>A DiffWriter for StackDiffs where the DiffType is a a list of strings with coloured diffs.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="sceptre.diffing.diff_writer.ColouredDiffLibWriter.dump_diff">
-<span class="sig-name descname"><span class="pre">dump_diff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">diff</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/diffing/diff_writer.html#ColouredDiffLibWriter.dump_diff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.diffing.diff_writer.ColouredDiffLibWriter.dump_diff" title="Permalink to this definition">¶</a></dt>
-<dd><p>“Implement this method to write the DiffType to string</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
 <dt class="sig sig-object py" id="sceptre.diffing.diff_writer.DeepDiffWriter">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.diffing.diff_writer.</span></span><span class="sig-name descname"><span class="pre">DeepDiffWriter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stack_diff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_stream</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_format</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/diffing/diff_writer.html#DeepDiffWriter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.diffing.diff_writer.DeepDiffWriter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#sceptre.diffing.diff_writer.DiffWriter" title="sceptre.diffing.diff_writer.DiffWriter"><code class="xref py py-class docutils literal notranslate"><span class="pre">DiffWriter</span></code></a>[<a class="reference external" href="https://zepworks.com/deepdiff/current/diff.html#deepdiff.diff.DeepDiff" title="(in DeepDiff v6.2.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeepDiff</span></code></a>]</p>
