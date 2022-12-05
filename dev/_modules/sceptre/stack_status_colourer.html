@@ -200,8 +200,6 @@
 <div class="viewcode-block" id="StackStatusColourer"><a class="viewcode-back" href="../../apidoc/sceptre.html#sceptre.stack_status_colourer.StackStatusColourer">[docs]</a><span class="k">class</span> <span class="nc">StackStatusColourer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    StackStatusColourer adds colours to stack statuses.</span>
-<span class="sd">    These are documented here:</span>
-<span class="sd">    https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-describing-stacks.html</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">STACK_STATUS_CODES</span> <span class="o">=</span> <span class="p">{</span>
@@ -212,12 +210,6 @@
         <span class="s2">&quot;DELETE_COMPLETE&quot;</span><span class="p">:</span> <span class="n">Fore</span><span class="o">.</span><span class="n">GREEN</span><span class="p">,</span>
         <span class="s2">&quot;DELETE_FAILED&quot;</span><span class="p">:</span> <span class="n">Fore</span><span class="o">.</span><span class="n">RED</span><span class="p">,</span>
         <span class="s2">&quot;DELETE_IN_PROGRESS&quot;</span><span class="p">:</span> <span class="n">Fore</span><span class="o">.</span><span class="n">YELLOW</span><span class="p">,</span>
-        <span class="s2">&quot;IMPORT_COMPLETE&quot;</span><span class="p">:</span> <span class="n">Fore</span><span class="o">.</span><span class="n">GREEN</span><span class="p">,</span>
-        <span class="s2">&quot;IMPORT_IN_PROGRESS&quot;</span><span class="p">:</span> <span class="n">Fore</span><span class="o">.</span><span class="n">YELLOW</span><span class="p">,</span>
-        <span class="s2">&quot;IMPORT_ROLLBACK_COMPLETE&quot;</span><span class="p">:</span> <span class="n">Fore</span><span class="o">.</span><span class="n">GREEN</span><span class="p">,</span>
-        <span class="s2">&quot;IMPORT_ROLLBACK_FAILED&quot;</span><span class="p">:</span> <span class="n">Fore</span><span class="o">.</span><span class="n">RED</span><span class="p">,</span>
-        <span class="s2">&quot;IMPORT_ROLLBACK_IN_PROGRESS&quot;</span><span class="p">:</span> <span class="n">Fore</span><span class="o">.</span><span class="n">YELLOW</span><span class="p">,</span>
-        <span class="s2">&quot;REVIEW_IN_PROGRESS&quot;</span><span class="p">:</span> <span class="n">Fore</span><span class="o">.</span><span class="n">YELLOW</span><span class="p">,</span>
         <span class="s2">&quot;ROLLBACK_COMPLETE&quot;</span><span class="p">:</span> <span class="n">Fore</span><span class="o">.</span><span class="n">RED</span><span class="p">,</span>
         <span class="s2">&quot;ROLLBACK_FAILED&quot;</span><span class="p">:</span> <span class="n">Fore</span><span class="o">.</span><span class="n">RED</span><span class="p">,</span>
         <span class="s2">&quot;ROLLBACK_IN_PROGRESS&quot;</span><span class="p">:</span> <span class="n">Fore</span><span class="o">.</span><span class="n">YELLOW</span><span class="p">,</span>
