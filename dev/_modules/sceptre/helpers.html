@@ -186,11 +186,7 @@
   <h1>Source code for sceptre.helpers</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">sep</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
-
-<span class="kn">import</span> <span class="nn">dateutil.parser</span>
 
 <span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">PathConversionError</span>
 
@@ -307,23 +303,6 @@
 <span class="sd">    available in py3.6, so providing it here instead.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">yield</span></div>
-
-
-<div class="viewcode-block" id="extract_datetime_from_aws_response_headers"><a class="viewcode-back" href="../../apidoc/sceptre.html#sceptre.helpers.extract_datetime_from_aws_response_headers">[docs]</a><span class="k">def</span> <span class="nf">extract_datetime_from_aws_response_headers</span><span class="p">(</span><span class="n">boto_response</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Returns a datetime.datetime extracted from the response metadata in a</span>
-<span class="sd">    boto response or None if it&#39;s unable to find or parse one.</span>
-<span class="sd">    :param boto_response: A dictionary returned from a boto client call</span>
-<span class="sd">    :returns a datetime.datetime or None</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">boto_response</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="kc">None</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">dateutil</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">boto_response</span><span class="p">[</span><span class="s2">&quot;ResponseMetadata&quot;</span><span class="p">][</span><span class="s2">&quot;HTTPHeaders&quot;</span><span class="p">][</span><span class="s2">&quot;date&quot;</span><span class="p">])</span>
-    <span class="k">except</span> <span class="p">(</span><span class="ne">KeyError</span><span class="p">,</span> <span class="n">dateutil</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">ParserError</span><span class="p">):</span>
-        <span class="c1"># We expect a KeyError if the date isn&#39;t present in the response. We</span>
-        <span class="c1"># expect a ParserError if it&#39;s not well-formed. Any other error we want</span>
-        <span class="c1"># to pass along.</span>
-        <span class="k">return</span> <span class="kc">None</span></div>
 </pre></div>
 
            </div>
