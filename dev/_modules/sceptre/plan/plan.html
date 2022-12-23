@@ -220,7 +220,6 @@
 
 
 <div class="viewcode-block" id="SceptrePlan"><a class="viewcode-back" href="../../../apidoc/sceptre.plan.html#sceptre.plan.plan.SceptrePlan">[docs]</a><span class="k">class</span> <span class="nc">SceptrePlan</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">SceptreContext</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Intialises a SceptrePlan and generates the Stacks, StackGraph and</span>
@@ -262,8 +261,10 @@
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">launch_order</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ConfigFileNotFoundError</span><span class="p">(</span>
-                <span class="s2">&quot;No stacks detected from the given path &#39;</span><span class="si">{}</span><span class="s2">&#39;. Valid stack paths are: </span><span class="si">{}</span><span class="s2">&quot;</span>
-                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sceptreise_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">command_path</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_valid_stack_paths</span><span class="p">())</span>
+                <span class="s2">&quot;No stacks detected from the given path &#39;</span><span class="si">{}</span><span class="s2">&#39;. Valid stack paths are: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">sceptreise_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">command_path</span><span class="p">),</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_valid_stack_paths</span><span class="p">(),</span>
+                <span class="p">)</span>
             <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">launch_order</span>
@@ -433,7 +434,7 @@
 
 <span class="sd">        :returns: A dictionary of Stacks</span>
 <span class="sd">        :rtype: dict</span>
-<span class="sd">       &quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">continue_update_rollback</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span></div>
 
@@ -576,7 +577,9 @@
 
     <span class="k">def</span> <span class="nf">_valid_stack_paths</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">[</span>
-            <span class="n">sceptreise_path</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">relpath</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirpath</span><span class="p">,</span> <span class="n">f</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">config_path</span><span class="p">))</span>
+            <span class="n">sceptreise_path</span><span class="p">(</span>
+                <span class="n">path</span><span class="o">.</span><span class="n">relpath</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirpath</span><span class="p">,</span> <span class="n">f</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">config_path</span><span class="p">)</span>
+            <span class="p">)</span>
             <span class="k">for</span> <span class="n">dirpath</span><span class="p">,</span> <span class="n">dirnames</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">walk</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">config_path</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">config_file</span><span class="p">)</span>

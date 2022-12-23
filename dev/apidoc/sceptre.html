@@ -663,6 +663,20 @@ boto response or None if it’s unable to find or parse one.
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="sceptre.helpers.gen_repr">
+<span class="sig-prename descclassname"><span class="pre">sceptre.helpers.</span></span><span class="sig-name descname"><span class="pre">gen_repr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attributes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/helpers.html#gen_repr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.helpers.gen_repr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a standard __repr__ based on instance attributes.
+:type instance: <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>
+:param instance: The instance to represent (<cite>self</cite>).
+:type class_label: <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]
+:param class_label: Override the name of the class found through introspection.
+:type attributes: <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]
+:param attributes: List the attributes to include the in representation.
+:rtype: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>
+:returns: A string representation of <cite>instance</cite></p>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="sceptre.helpers.get_external_stack_name">
 <span class="sig-prename descclassname"><span class="pre">sceptre.helpers.</span></span><span class="sig-name descname"><span class="pre">get_external_stack_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/helpers.html#get_external_stack_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.helpers.get_external_stack_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the name given to a stack in CloudFormation.
