@@ -199,7 +199,7 @@
 
 
 <div class="viewcode-block" id="SceptreContext"><a class="viewcode-back" href="../../apidoc/sceptre.html#sceptre.context.SceptreContext">[docs]</a><span class="k">class</span> <span class="nc">SceptreContext</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    SceptreContext is a place that holds data that is relevant to the</span>
 <span class="sd">    project, including references to the project paths such as the path to your</span>
 <span class="sd">    Sceptre project, templates path, config path, and the default names for</span>
@@ -276,7 +276,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">full_scan</span> <span class="o">=</span> <span class="n">full_scan</span> <span class="k">if</span> <span class="n">full_scan</span> <span class="ow">is</span> <span class="kc">True</span> <span class="k">else</span> <span class="kc">False</span>
 
 <div class="viewcode-block" id="SceptreContext.full_config_path"><a class="viewcode-back" href="../../apidoc/sceptre.html#sceptre.context.SceptreContext.full_config_path">[docs]</a>    <span class="k">def</span> <span class="nf">full_config_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the config path in the format: ``project_path/config_path``.</span>
 
 <span class="sd">        :returns: The absolute path to the config directory</span>
@@ -285,7 +285,7 @@
         <span class="k">return</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_path</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="SceptreContext.full_command_path"><a class="viewcode-back" href="../../apidoc/sceptre.html#sceptre.context.SceptreContext.full_command_path">[docs]</a>    <span class="k">def</span> <span class="nf">full_command_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the command path in the format:</span>
 <span class="sd">        ``project_path/config_path/command_path``.</span>
 
@@ -295,7 +295,7 @@
         <span class="k">return</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">command_path</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="SceptreContext.full_templates_path"><a class="viewcode-back" href="../../apidoc/sceptre.html#sceptre.context.SceptreContext.full_templates_path">[docs]</a>    <span class="k">def</span> <span class="nf">full_templates_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the templates path in the format: project_path/templates_path.</span>
 
 <span class="sd">        :returns: The absolute path to the  templates directory</span>
@@ -304,7 +304,7 @@
         <span class="k">return</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">templates_path</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="SceptreContext.command_path_is_stack"><a class="viewcode-back" href="../../apidoc/sceptre.html#sceptre.context.SceptreContext.command_path_is_stack">[docs]</a>    <span class="k">def</span> <span class="nf">command_path_is_stack</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns True if the command path is a file.</span>
 
 <span class="sd">        :returns: True if the command path is a file</span>
@@ -315,7 +315,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SceptreContext.clone"><a class="viewcode-back" href="../../apidoc/sceptre.html#sceptre.context.SceptreContext.clone">[docs]</a>    <span class="k">def</span> <span class="nf">clone</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;SceptreContext&quot;</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Creates a new, deep clone of the context with all the same values.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Creates a new, deep clone of the context with all the same values.&quot;&quot;&quot;</span>
         <span class="n">new</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
         <span class="n">new</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">new</span></div></div>

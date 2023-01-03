@@ -205,7 +205,7 @@
 
 
 <div class="viewcode-block" id="DiffWriter"><a class="viewcode-back" href="../../../apidoc/sceptre.diffing.html#sceptre.diffing.diff_writer.DiffWriter">[docs]</a><span class="k">class</span> <span class="nc">DiffWriter</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">DiffType</span><span class="p">]):</span>
-    <span class="sd">&quot;&quot;&quot;A component responsible for taking a StackDiff and writing it in a way that is useful and</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A component responsible for taking a StackDiff and writing it in a way that is useful and</span>
 <span class="sd">    readable. This is an abstract base class, so the abstract methods need to be implemented to</span>
 <span class="sd">    create a DiffWriter for a given DiffType.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -216,7 +216,7 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">stack_diff</span><span class="p">:</span> <span class="n">StackDiff</span><span class="p">,</span> <span class="n">output_stream</span><span class="p">:</span> <span class="n">TextIO</span><span class="p">,</span> <span class="n">output_format</span><span class="p">:</span> <span class="nb">str</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Initializes the DiffWriter</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initializes the DiffWriter</span>
 
 <span class="sd">        :param stack_diff: The diff this writer will be outputting</span>
 <span class="sd">        :param output_stream: The stream this writer should output to; Generally, this will be</span>
@@ -239,7 +239,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_config_difference</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_template_difference</span>
 
 <div class="viewcode-block" id="DiffWriter.write"><a class="viewcode-back" href="../../../apidoc/sceptre.diffing.html#sceptre.diffing.diff_writer.DiffWriter.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Writes the diff to the output stream.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Writes the diff to the output stream.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">STAR_BAR</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_difference</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No difference to deployed stack </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stack_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -308,21 +308,21 @@
 
 <div class="viewcode-block" id="DiffWriter.dump_diff"><a class="viewcode-back" href="../../../apidoc/sceptre.diffing.html#sceptre.diffing.diff_writer.DiffWriter.dump_diff">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">dump_diff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">diff</span><span class="p">:</span> <span class="n">DiffType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot; &quot;Implement this method to write the DiffType to string&quot;&quot;&quot;</span></div>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; &quot;Implement this method to write the DiffType to string&quot;&quot;&quot;</span></div>
 
     <span class="nd">@property</span>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">has_config_difference</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Implement this to indicate whether or not there is a config difference&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Implement this to indicate whether or not there is a config difference&quot;&quot;&quot;</span>
 
     <span class="nd">@property</span>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">has_template_difference</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Implement this to indicate whether or not there is a template difference&quot;&quot;&quot;</span></div>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Implement this to indicate whether or not there is a template difference&quot;&quot;&quot;</span></div>
 
 
 <div class="viewcode-block" id="DeepDiffWriter"><a class="viewcode-back" href="../../../apidoc/sceptre.diffing.html#sceptre.diffing.diff_writer.DeepDiffWriter">[docs]</a><span class="k">class</span> <span class="nc">DeepDiffWriter</span><span class="p">(</span><span class="n">DiffWriter</span><span class="p">[</span><span class="n">DeepDiff</span><span class="p">]):</span>
-    <span class="sd">&quot;&quot;&quot;A DiffWriter for StackDiffs where the DiffType is a DeepDiff object.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A DiffWriter for StackDiffs where the DiffType is a DeepDiff object.&quot;&quot;&quot;</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">has_config_difference</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -345,7 +345,7 @@
         <span class="k">return</span> <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">compatible</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_make_strings_block_compatible</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;A recursive method that strips out extraneous spaces that precede line breaks.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;A recursive method that strips out extraneous spaces that precede line breaks.</span>
 
 <span class="sd">        PyYaml disallows block styling for multiline strings if any of the lines has a space followed</span>
 <span class="sd">        by a line break.</span>
@@ -375,7 +375,7 @@
 
 
 <div class="viewcode-block" id="DiffLibWriter"><a class="viewcode-back" href="../../../apidoc/sceptre.diffing.html#sceptre.diffing.diff_writer.DiffLibWriter">[docs]</a><span class="k">class</span> <span class="nc">DiffLibWriter</span><span class="p">(</span><span class="n">DiffWriter</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]):</span>
-    <span class="sd">&quot;&quot;&quot;A DiffWriter for StackDiffs where the DiffType is a a list of strings.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A DiffWriter for StackDiffs where the DiffType is a a list of strings.&quot;&quot;&quot;</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">has_config_difference</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -392,7 +392,7 @@
 
 
 <div class="viewcode-block" id="ColouredDiffLibWriter"><a class="viewcode-back" href="../../../apidoc/sceptre.diffing.html#sceptre.diffing.diff_writer.ColouredDiffLibWriter">[docs]</a><span class="k">class</span> <span class="nc">ColouredDiffLibWriter</span><span class="p">(</span><span class="n">DiffLibWriter</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;A DiffWriter for StackDiffs where the DiffType is a a list of strings with coloured diffs.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A DiffWriter for StackDiffs where the DiffType is a a list of strings with coloured diffs.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">_colour_diff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">diff</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">diff</span><span class="p">:</span>

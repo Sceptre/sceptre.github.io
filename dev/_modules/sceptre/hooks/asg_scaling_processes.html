@@ -196,7 +196,7 @@
 
 
 <div class="viewcode-block" id="ASGScalingProcesses"><a class="viewcode-back" href="../../../apidoc/sceptre.hooks.html#sceptre.hooks.asg_scaling_processes.ASGScalingProcesses">[docs]</a><span class="k">class</span> <span class="nc">ASGScalingProcesses</span><span class="p">(</span><span class="n">Hook</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Resumes or suspends autoscaling group scaling processes. This is</span>
 <span class="sd">    useful as scheduled actions must be suspended when updating stacks with</span>
 <span class="sd">    autoscaling groups.</span>
@@ -206,7 +206,7 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">ASGScalingProcesses</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
 <div class="viewcode-block" id="ASGScalingProcesses.run"><a class="viewcode-back" href="../../../apidoc/sceptre.hooks.html#sceptre.hooks.asg_scaling_processes.ASGScalingProcesses.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Either suspends or resumes any scaling processes on all autoscaling</span>
 <span class="sd">        groups within the current stack.</span>
 
@@ -251,7 +251,7 @@
             <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_get_stack_resources</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieves all resources in stack.</span>
 <span class="sd">        :return: list</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -263,7 +263,7 @@
         <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;StackResources&quot;</span><span class="p">,</span> <span class="p">[])</span>
 
     <span class="k">def</span> <span class="nf">_find_autoscaling_groups</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieves all the autoscaling groups</span>
 <span class="sd">        :return: list [str]</span>
 <span class="sd">        &quot;&quot;&quot;</span>

@@ -192,7 +192,7 @@
 
 
 <div class="viewcode-block" id="StackAttr"><a class="viewcode-back" href="../../../apidoc/sceptre.resolvers.html#sceptre.resolvers.stack_attr.StackAttr">[docs]</a><span class="k">class</span> <span class="nc">StackAttr</span><span class="p">(</span><span class="n">Resolver</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Resolves to the value of another field on the Stack Config, including other resolvers.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Resolves to the value of another field on the Stack Config, including other resolvers.</span>
 
 <span class="sd">    The argument for this resolver should be the &quot;key path&quot; from the stack object, which can access</span>
 <span class="sd">    nested keys/indexes using a &quot;.&quot; to separate segments.</span>
@@ -217,7 +217,7 @@
     <span class="p">}</span>
 
 <div class="viewcode-block" id="StackAttr.resolve"><a class="viewcode-back" href="../../../apidoc/sceptre.resolvers.html#sceptre.resolvers.stack_attr.StackAttr.resolve">[docs]</a>    <span class="k">def</span> <span class="nf">resolve</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Returns the resolved value of the field referenced by the resolver&#39;s argument.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the resolved value of the field referenced by the resolver&#39;s argument.&quot;&quot;&quot;</span>
         <span class="n">segments</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">argument</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
 
         <span class="c1"># Remap top-level attributes to match stack config</span>

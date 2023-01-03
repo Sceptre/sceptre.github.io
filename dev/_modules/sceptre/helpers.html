@@ -196,7 +196,7 @@
 
 
 <div class="viewcode-block" id="get_external_stack_name"><a class="viewcode-back" href="../../apidoc/sceptre.html#sceptre.helpers.get_external_stack_name">[docs]</a><span class="k">def</span> <span class="nf">get_external_stack_name</span><span class="p">(</span><span class="n">project_code</span><span class="p">,</span> <span class="n">stack_name</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the name given to a stack in CloudFormation.</span>
 <span class="sd">    :param project_code: The project code, as defined in config.yaml.</span>
 <span class="sd">    :type project_code: str</span>
@@ -209,7 +209,7 @@
 
 
 <div class="viewcode-block" id="mask_key"><a class="viewcode-back" href="../../apidoc/sceptre.html#sceptre.helpers.mask_key">[docs]</a><span class="k">def</span> <span class="nf">mask_key</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns an masked version of ``key``.</span>
 
 <span class="sd">    Returned version has all but the last four characters are replaced with the</span>
@@ -226,7 +226,7 @@
 
 
 <span class="k">def</span> <span class="nf">_call_func_on_values</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="bp">cls</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Searches through dictionary or list for objects of type `cls` and calls the</span>
 <span class="sd">    supplied function `func`. Supports nested dictionaries and lists.</span>
 <span class="sd">    Does not detect objects used as keys in dictionaries.</span>
@@ -253,7 +253,7 @@
 
 
 <div class="viewcode-block" id="normalise_path"><a class="viewcode-back" href="../../apidoc/sceptre.html#sceptre.helpers.normalise_path">[docs]</a><span class="k">def</span> <span class="nf">normalise_path</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Converts a path to use correct path separator.</span>
 <span class="sd">    Raises an PathConversionError if the path has a</span>
 <span class="sd">    trailing slash.</span>
@@ -276,7 +276,7 @@
 
 
 <div class="viewcode-block" id="sceptreise_path"><a class="viewcode-back" href="../../apidoc/sceptre.html#sceptre.helpers.sceptreise_path">[docs]</a><span class="k">def</span> <span class="nf">sceptreise_path</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Converts a path to use correct sceptre path separator.</span>
 <span class="sd">    Raises an PathConversionError if the path has a</span>
 <span class="sd">    trailing slash.</span>
@@ -297,7 +297,7 @@
 
 <div class="viewcode-block" id="null_context"><a class="viewcode-back" href="../../apidoc/sceptre.html#sceptre.helpers.null_context">[docs]</a><span class="nd">@contextmanager</span>
 <span class="k">def</span> <span class="nf">null_context</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;A context manager that does nothing. This is identical to the nullcontext in py3.7+, but isn&#39;t</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A context manager that does nothing. This is identical to the nullcontext in py3.7+, but isn&#39;t</span>
 <span class="sd">    available in py3.6, so providing it here instead.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">yield</span></div>
@@ -306,7 +306,7 @@
 <div class="viewcode-block" id="extract_datetime_from_aws_response_headers"><a class="viewcode-back" href="../../apidoc/sceptre.html#sceptre.helpers.extract_datetime_from_aws_response_headers">[docs]</a><span class="k">def</span> <span class="nf">extract_datetime_from_aws_response_headers</span><span class="p">(</span>
     <span class="n">boto_response</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Returns a datetime.datetime extracted from the response metadata in a</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns a datetime.datetime extracted from the response metadata in a</span>
 <span class="sd">    boto response or None if it&#39;s unable to find or parse one.</span>
 <span class="sd">    :param boto_response: A dictionary returned from a boto client call</span>
 <span class="sd">    :returns a datetime.datetime or None</span>
@@ -325,7 +325,7 @@
 
 
 <div class="viewcode-block" id="gen_repr"><a class="viewcode-back" href="../../apidoc/sceptre.html#sceptre.helpers.gen_repr">[docs]</a><span class="k">def</span> <span class="nf">gen_repr</span><span class="p">(</span><span class="n">instance</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">class_label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">attributes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns a standard __repr__ based on instance attributes.</span>
 <span class="sd">    :param instance: The instance to represent (`self`).</span>
 <span class="sd">    :param class_label: Override the name of the class found through introspection.</span>

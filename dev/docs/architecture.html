@@ -250,56 +250,56 @@ projects. Only configuration layout is shown, and the examples are merely meant
 to demonstrate ways of organising different projects.</p>
 <ul>
 <li><p>Application development within an externally defined VPC</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">config</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">- prod</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">- application</span><span class="w"></span>
-<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">- asg.yaml</span><span class="w"></span>
-<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">- security-group.yaml</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">- database</span><span class="w"></span>
-<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">- rds.yaml</span><span class="w"></span>
-<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">- security-group.yaml</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">config</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">- prod</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">- application</span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">- asg.yaml</span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">- security-group.yaml</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">- database</span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">- rds.yaml</span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">- security-group.yaml</span>
 </pre></div>
 </div>
 </li>
 <li><p>DevOps team who manage all the infrastructure for their service</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">config</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">- prod</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">- network</span><span class="w"></span>
-<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">- vpc.yaml</span><span class="w"></span>
-<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">- subnet.yaml</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">- frontend</span><span class="w"></span>
-<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">- api-gateway.yaml</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">- application</span><span class="w"></span>
-<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">- lambda-get-item.yaml</span><span class="w"></span>
-<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">- lambda-put-item.yaml</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">- database</span><span class="w"></span>
-<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">- dynamodb.yaml</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">config</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">- prod</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">- network</span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">- vpc.yaml</span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">- subnet.yaml</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">- frontend</span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">- api-gateway.yaml</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">- application</span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">- lambda-get-item.yaml</span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">- lambda-put-item.yaml</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">- database</span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">- dynamodb.yaml</span>
 </pre></div>
 </div>
 </li>
 <li><p>Centralised, company-wide networking</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">config</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">- prod</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">- vpc.yaml</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">- public-subnet.yaml</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">- application-subnet.yaml</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">- database-subnet.yaml</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">- dev</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">- vpc.yaml</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">- public-subnet.yaml</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">- application-subnet.yaml</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">- database-subnet.yaml</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">config</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">- prod</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">- vpc.yaml</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">- public-subnet.yaml</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">- application-subnet.yaml</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">- database-subnet.yaml</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">- dev</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">- vpc.yaml</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">- public-subnet.yaml</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">- application-subnet.yaml</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">- database-subnet.yaml</span>
 </pre></div>
 </div>
 </li>
 <li><p>IAM management</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">config</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">- account-1</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">- iam-role-admin.yaml</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">- iam-role-developer.yaml</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">- account-2</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">- iam-role-admin.yaml</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">- iam-role-developer.yaml</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">config</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">- account-1</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">- iam-role-admin.yaml</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">- iam-role-developer.yaml</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">- account-2</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">- iam-role-admin.yaml</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">- iam-role-developer.yaml</span>
 </pre></div>
 </div>
 </li>

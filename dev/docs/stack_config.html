@@ -275,12 +275,12 @@ from the Stack config filename.</p>
 and resolve that to a CloudFormation template. This enables you to not only
 load templates from disk, but also from third-party storage or AWS services.</p>
 <p>Example for loading from S3 bucket:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">s3</span><span class="w"></span>
-<span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">infra-templates/s3/v1/bucket.yaml</span><span class="w"></span>
-<span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">&lt;parameter1_name&gt;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="w"></span>
-<span class="nt">sceptre_user_data</span><span class="p">:</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">s3</span>
+<span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">infra-templates/s3/v1/bucket.yaml</span>
+<span class="nt">parameters</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">&lt;parameter1_name&gt;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span>
+<span class="nt">sceptre_user_data</span><span class="p">:</span>
 </pre></div>
 </div>
 <p>It is possible to write your own template handlers should you need to. You
@@ -447,31 +447,31 @@ values/resolvers. Lists of values/resolvers will be formatted into an AWS
 compatible comma separated string e.g. <code class="docutils literal notranslate"><span class="pre">value1,value2,value3</span></code>. Lists can
 contain a mixture of values and resolvers.</p>
 <p>Syntax:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">&lt;parameter1_name&gt;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="nt">&lt;parameter2_name&gt;</span><span class="p">:</span><span class="w"> </span><span class="kt">!&lt;resolver_name&gt;</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;resolver_value&gt;</span><span class="w"></span>
-<span class="w">  </span><span class="nt">&lt;parameter3_name&gt;</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;value1&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;value2&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="nt">&lt;parameter4_name&gt;</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!&lt;resolver_name&gt;</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;resolver_value&gt;</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!&lt;resolver_name&gt;</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;resolver_value&gt;</span><span class="w"></span>
-<span class="w">  </span><span class="nt">&lt;parameter5_name&gt;</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!&lt;resolver_name&gt;</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;resolver_value&gt;</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;value1&quot;</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">&lt;parameter1_name&gt;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span>
+<span class="w">  </span><span class="nt">&lt;parameter2_name&gt;</span><span class="p">:</span><span class="w"> </span><span class="kt">!&lt;resolver_name&gt;</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;resolver_value&gt;</span>
+<span class="w">  </span><span class="nt">&lt;parameter3_name&gt;</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;value1&quot;</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;value2&quot;</span>
+<span class="w">  </span><span class="nt">&lt;parameter4_name&gt;</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!&lt;resolver_name&gt;</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;resolver_value&gt;</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!&lt;resolver_name&gt;</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;resolver_value&gt;</span>
+<span class="w">  </span><span class="nt">&lt;parameter5_name&gt;</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!&lt;resolver_name&gt;</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;resolver_value&gt;</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;value1&quot;</span>
 </pre></div>
 </div>
 <p>Example:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">database_username</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;mydbuser&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="nt">database_password</span><span class="p">:</span><span class="w"> </span><span class="kt">!environment_variable</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DATABASE_PASSWORD</span><span class="w"></span>
-<span class="w">  </span><span class="nt">subnet_ids</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;subnet-12345678&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;subnet-87654321&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="nt">security_group_ids</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;sg-12345678&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!stack_output</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">security-groups.yaml::BaseSecurityGroupId</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!file_contents</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/file/with/security_group_id.txt</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">database_username</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;mydbuser&quot;</span>
+<span class="w">  </span><span class="nt">database_password</span><span class="p">:</span><span class="w"> </span><span class="kt">!environment_variable</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DATABASE_PASSWORD</span>
+<span class="w">  </span><span class="nt">subnet_ids</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;subnet-12345678&quot;</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;subnet-87654321&quot;</span>
+<span class="w">  </span><span class="nt">security_group_ids</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;sg-12345678&quot;</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!stack_output</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">security-groups.yaml::BaseSecurityGroupId</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!file_contents</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/file/with/security_group_id.txt</span>
 </pre></div>
 </div>
 </div>
@@ -569,19 +569,19 @@ dependencies parameter, to make sure the Stacks are launched in the correct
 order.</p>
 </div>
 <p>e.g:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">VpcID</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_output_external</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;custom-named-vpc-stack&gt;::VpcID</span><span class="w"></span>
-<span class="nt">dependencies</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;environment&gt;/&lt;Stack&gt;</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">VpcID</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_output_external</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;custom-named-vpc-stack&gt;::VpcID</span>
+<span class="nt">dependencies</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;environment&gt;/&lt;Stack&gt;</span>
 </pre></div>
 </div>
 <p>You can also pass an optional argument to <code class="docutils literal notranslate"><span class="pre">stack_output_external</span></code> specifying
 the profile you want to use. This is especially useful if the Template you’re
 referring to is in a different AWS account or region.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">VpcID</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_output_external</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;custom-named-vpc-stack&gt;::VpcID my-aws-prod-profile</span><span class="w"></span>
-<span class="nt">dependencies</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;environment&gt;/&lt;Stack&gt;</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">VpcID</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_output_external</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;custom-named-vpc-stack&gt;::VpcID my-aws-prod-profile</span>
+<span class="nt">dependencies</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;environment&gt;/&lt;Stack&gt;</span>
 </pre></div>
 </div>
 </div>
@@ -622,8 +622,8 @@ described in the section in StackGroup Config on <a class="reference internal" h
 <h3>StackGroup config<a class="headerlink" href="#stackgroup-config" title="Permalink to this heading">¶</a></h3>
 <p>StackGroup config properties are available via the stack_group_config variable
 when using templating.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">sceptre-project-code</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">stack_group_config.project-code</span><span class="w"> </span><span class="p p-Indicator">}}</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">sceptre-project-code</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">stack_group_config.project-code</span><span class="w"> </span><span class="p p-Indicator">}}</span>
 </pre></div>
 </div>
 </div>
@@ -644,8 +644,8 @@ file. The file path must be hard-coded in the Python template.</p>
 <code class="docutils literal notranslate"><span class="pre">&lt;stack-name&gt;.yaml</span></code> file. This data is then passed as a Python <code class="docutils literal notranslate"><span class="pre">dict</span></code> to
 the <code class="docutils literal notranslate"><span class="pre">sceptre_handler(sceptre_user_data)</span></code> function in Python templates.</p>
 <p>Syntax:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sceptre_user_data</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">iam_policy_file_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/path/to/policy.json</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sceptre_user_data</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">iam_policy_file_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/path/to/policy.json</span>
 </pre></div>
 </div>
 <p>When compiled, <code class="docutils literal notranslate"><span class="pre">sceptre_user_data</span></code> would be the dictionary
@@ -717,44 +717,44 @@ its use.</p>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">templates/example.py</span><span class="w"></span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">file</span><span class="w"></span>
-<span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">param_1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value_1</span><span class="w"></span>
-<span class="w">  </span><span class="nt">param_2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value_2</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">templates/example.py</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">file</span>
+<span class="nt">parameters</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">param_1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value_1</span>
+<span class="w">  </span><span class="nt">param_2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value_2</span>
 </pre></div>
 </div>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">templates/example.yaml</span><span class="w"></span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">file</span><span class="w"></span>
-<span class="nt">dependencies</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dev/vpc.yaml</span><span class="w"></span>
-<span class="nt">hooks</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">before_create</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!cmd</span><span class="w"> </span><span class="s">&quot;echo</span><span class="nv"> </span><span class="s">creating...&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">after_create</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!cmd</span><span class="w"> </span><span class="s">&quot;echo</span><span class="nv"> </span><span class="s">created&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!cmd</span><span class="w"> </span><span class="s">&quot;echo</span><span class="nv"> </span><span class="s">done&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">after_update</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!cmd</span><span class="w"> </span><span class="s">&quot;mkdir</span><span class="nv"> </span><span class="s">example&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!cmd</span><span class="w"> </span><span class="s">&quot;touch</span><span class="nv"> </span><span class="s">example.txt&quot;</span><span class="w"></span>
-<span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">param_1</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_output</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stack_name.yaml::output_name</span><span class="w"></span>
-<span class="w">    </span><span class="nt">param_2</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_output_external</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">full_stack_name::output_name</span><span class="w"></span>
-<span class="w">    </span><span class="nt">param_3</span><span class="p">:</span><span class="w"> </span><span class="kt">!environment_variable</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VALUE_3</span><span class="w"></span>
-<span class="w">    </span><span class="nt">param_4</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">var.value4</span><span class="w"> </span><span class="p p-Indicator">}}</span><span class="w"></span>
-<span class="w">    </span><span class="nt">param_5</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">command_path.3</span><span class="w"> </span><span class="p p-Indicator">}}</span><span class="w"></span>
-<span class="w">    </span><span class="nt">param_6</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">environment_variable.VALUE_6</span><span class="w"> </span><span class="p p-Indicator">}}</span><span class="w"></span>
-<span class="nt">sceptre_user_data</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">thing_1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value_1</span><span class="w"></span>
-<span class="w">    </span><span class="nt">thing_2</span><span class="p">:</span><span class="w"> </span><span class="kt">!file_contents</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">path/to/file.txt</span><span class="w"></span>
-<span class="nt">stack_tags</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">tag_1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value_1</span><span class="w"></span>
-<span class="w">    </span><span class="nt">tag_2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value_2</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">templates/example.yaml</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">file</span>
+<span class="nt">dependencies</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dev/vpc.yaml</span>
+<span class="nt">hooks</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">before_create</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!cmd</span><span class="w"> </span><span class="s">&quot;echo</span><span class="nv"> </span><span class="s">creating...&quot;</span>
+<span class="w">    </span><span class="nt">after_create</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!cmd</span><span class="w"> </span><span class="s">&quot;echo</span><span class="nv"> </span><span class="s">created&quot;</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!cmd</span><span class="w"> </span><span class="s">&quot;echo</span><span class="nv"> </span><span class="s">done&quot;</span>
+<span class="w">    </span><span class="nt">after_update</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!cmd</span><span class="w"> </span><span class="s">&quot;mkdir</span><span class="nv"> </span><span class="s">example&quot;</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!cmd</span><span class="w"> </span><span class="s">&quot;touch</span><span class="nv"> </span><span class="s">example.txt&quot;</span>
+<span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">param_1</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_output</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stack_name.yaml::output_name</span>
+<span class="w">    </span><span class="nt">param_2</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_output_external</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">full_stack_name::output_name</span>
+<span class="w">    </span><span class="nt">param_3</span><span class="p">:</span><span class="w"> </span><span class="kt">!environment_variable</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VALUE_3</span>
+<span class="w">    </span><span class="nt">param_4</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">var.value4</span><span class="w"> </span><span class="p p-Indicator">}}</span>
+<span class="w">    </span><span class="nt">param_5</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">command_path.3</span><span class="w"> </span><span class="p p-Indicator">}}</span>
+<span class="w">    </span><span class="nt">param_6</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">environment_variable.VALUE_6</span><span class="w"> </span><span class="p p-Indicator">}}</span>
+<span class="nt">sceptre_user_data</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">thing_1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value_1</span>
+<span class="w">    </span><span class="nt">thing_2</span><span class="p">:</span><span class="w"> </span><span class="kt">!file_contents</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">path/to/file.txt</span>
+<span class="nt">stack_tags</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">tag_1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value_1</span>
+<span class="w">    </span><span class="nt">tag_2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value_2</span>
 </pre></div>
 </div>
 </div>

@@ -217,10 +217,10 @@ most commonly used to chain the outputs of one Stack to the inputs of another.</
 <p>If required, users can create their own resolvers, as described in the section
 on <a class="reference external" href="#custom-resolvers">Custom Resolvers</a>.</p>
 <p>Syntax:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">&lt;parameter_name&gt;</span><span class="p">:</span><span class="w"> </span><span class="kt">!&lt;resolver_name&gt;</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;resolver_value&gt;</span><span class="w"></span>
-<span class="nt">sceptre_user_data</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">&lt;name&gt;</span><span class="p">:</span><span class="w"> </span><span class="kt">!&lt;resolver_name&gt;</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;resolver_value&gt;</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">&lt;parameter_name&gt;</span><span class="p">:</span><span class="w"> </span><span class="kt">!&lt;resolver_name&gt;</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;resolver_value&gt;</span>
+<span class="nt">sceptre_user_data</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">&lt;name&gt;</span><span class="p">:</span><span class="w"> </span><span class="kt">!&lt;resolver_name&gt;</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;resolver_value&gt;</span>
 </pre></div>
 </div>
 <div class="section" id="available-resolvers">
@@ -229,13 +229,13 @@ on <a class="reference external" href="#custom-resolvers">Custom Resolvers</a>.<
 <h3>environment_variable<a class="headerlink" href="#environment-variable" title="Permalink to this heading">¶</a></h3>
 <p>Fetches the value from an environment variable.</p>
 <p>Syntax:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameter|sceptre_user_data</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">&lt;name&gt;</span><span class="p">:</span><span class="w"> </span><span class="kt">!environment_variable</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ENVIRONMENT_VARIABLE_NAME</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameter|sceptre_user_data</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">&lt;name&gt;</span><span class="p">:</span><span class="w"> </span><span class="kt">!environment_variable</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ENVIRONMENT_VARIABLE_NAME</span>
 </pre></div>
 </div>
 <p>Example:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">database_password</span><span class="p">:</span><span class="w"> </span><span class="kt">!environment_variable</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DATABASE_PASSWORD</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">database_password</span><span class="p">:</span><span class="w"> </span><span class="kt">!environment_variable</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DATABASE_PASSWORD</span>
 </pre></div>
 </div>
 </div>
@@ -256,8 +256,8 @@ like the “AWS::NoValue” special variable that you can reference on a CloudFo
 can help simplify Stack and StackGroup config Jinja logic in cases where, if a condition is met, a
 value is passed, otherwise no value is passed.</p>
 <p>For example, you could use this resolver like this:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
-<span class="w"> </span><span class="nt">my_parameter</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">var.some_value_that_might_not_be_set | default(&#39;!no_value&#39;)</span><span class="w"> </span><span class="p p-Indicator">}}</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w"> </span><span class="nt">my_parameter</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">var.some_value_that_might_not_be_set | default(&#39;!no_value&#39;)</span><span class="w"> </span><span class="p p-Indicator">}}</span>
 </pre></div>
 </div>
 <p>In this example, if <code class="docutils literal notranslate"><span class="pre">var.some_value_that_might_not_be_set</span></code> is set, <code class="docutils literal notranslate"><span class="pre">my_parameter</span></code> will be set to
@@ -284,27 +284,27 @@ This is due to the <a class="reference internal" href="stack_config.html#resolut
 resolvers are constructed or resolved, so you can’t resolve a resolver from a StackGroup Config via
 Jinja. That’s where !stack_attr is useful. It’s a resolver that resolves to the value of another stack
 attribute (which could be another resolver).</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sam</span><span class="w"></span>
-<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">path/from/my/cwd/template.yaml</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># template_bucket_name could be set by a resolver in the StackGroup.</span><span class="w"></span>
-<span class="w">    </span><span class="nt">artifact_bucket_name</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_attr</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template_bucket_name</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sam</span>
+<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">path/from/my/cwd/template.yaml</span>
+<span class="w">    </span><span class="c1"># template_bucket_name could be set by a resolver in the StackGroup.</span>
+<span class="w">    </span><span class="nt">artifact_bucket_name</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_attr</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template_bucket_name</span>
 </pre></div>
 </div>
 <p>The argument to this resolver is the full attribute “path” from the Stack Config. You can access
 nested values in dicts and lists using “.” to separate key/index segments. For example:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sceptre_user_data</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">key</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;some</span><span class="nv"> </span><span class="s">random</span><span class="nv"> </span><span class="s">value&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;the</span><span class="nv"> </span><span class="s">value</span><span class="nv"> </span><span class="s">we</span><span class="nv"> </span><span class="s">want</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">select&quot;</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sceptre_user_data</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">key</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;some</span><span class="nv"> </span><span class="s">random</span><span class="nv"> </span><span class="s">value&quot;</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;the</span><span class="nv"> </span><span class="s">value</span><span class="nv"> </span><span class="s">we</span><span class="nv"> </span><span class="s">want</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">select&quot;</span>
 
-<span class="nt">iam_role</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_output</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">roles.yaml::RoleArn</span><span class="w"></span>
+<span class="nt">iam_role</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_output</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">roles.yaml::RoleArn</span>
 
-<span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># This will pass the value of &quot;the value we want to select&quot; for my_parameter</span><span class="w"></span>
-<span class="w">    </span><span class="nt">my_parameter</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_attr</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sceptre_user_data.key.1</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># You can also access the value of another resolvable property like this:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">use_role_arn</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_attr</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">iam_role</span><span class="w"></span>
+<span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># This will pass the value of &quot;the value we want to select&quot; for my_parameter</span>
+<span class="w">    </span><span class="nt">my_parameter</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_attr</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sceptre_user_data.key.1</span>
+<span class="w">    </span><span class="c1"># You can also access the value of another resolvable property like this:</span>
+<span class="w">    </span><span class="nt">use_role_arn</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_attr</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">iam_role</span>
 </pre></div>
 </div>
 </div>
@@ -312,13 +312,13 @@ nested values in dicts and lists using “.” to separate key/index segments. F
 <h3>stack_output<a class="headerlink" href="#stack-output" title="Permalink to this heading">¶</a></h3>
 <p>Fetches the value of an output from a different Stack controlled by Sceptre.</p>
 <p>Syntax:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters | sceptre_user_data</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">&lt;name&gt;</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_output</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;stack_name&gt;.yaml::&lt;output_name&gt;</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters | sceptre_user_data</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">&lt;name&gt;</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_output</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;stack_name&gt;.yaml::&lt;output_name&gt;</span>
 </pre></div>
 </div>
 <p>Example:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">VpcIdParameter</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_output</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">shared/vpc.yaml::VpcIdOutput</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">VpcIdParameter</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_output</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">shared/vpc.yaml::VpcIdOutput</span>
 </pre></div>
 </div>
 <p>Sceptre infers that the Stack to fetch the output value from is a dependency,
@@ -342,13 +342,13 @@ account/region.</p>
 <p>If the Stack whose output is being fetched is in the same StackGroup, the
 basename of that Stack can be used.</p>
 <p>Syntax:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters/sceptre_user_data</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">&lt;name&gt;</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_output_external</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;full_stack_name&gt;::&lt;output_name&gt; &lt;optional-aws-profile-name&gt;</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters/sceptre_user_data</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">&lt;name&gt;</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_output_external</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;full_stack_name&gt;::&lt;output_name&gt; &lt;optional-aws-profile-name&gt;</span>
 </pre></div>
 </div>
 <p>Example:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">VpcIdParameter</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_output_external</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prj-network-vpc::VpcIdOutput prod</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">VpcIdParameter</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_output_external</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prj-network-vpc::VpcIdOutput prod</span>
 </pre></div>
 </div>
 </div>
@@ -383,7 +383,7 @@ In case you are not familiar with python packaging, <a class="reference external
 
 
 <span class="k">class</span> <span class="nc">CustomResolver</span><span class="p">(</span><span class="n">Resolver</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The following instance attributes are inherited from the parent class Resolver.</span>
 
 <span class="sd">    Parameters</span>
@@ -399,7 +399,7 @@ In case you are not familiar with python packaging, <a class="reference external
         <span class="nb">super</span><span class="p">(</span><span class="n">CustomResolver</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">argument</span><span class="p">,</span> <span class="n">stack</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Setup is invoked after the stack has been set on the resolver, whether or not the</span>
 <span class="sd">        resolver is ever resolved.</span>
 
@@ -407,7 +407,7 @@ In case you are not familiar with python packaging, <a class="reference external
 <span class="sd">        &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">resolve</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        resolve is the method called by Sceptre. It should carry out the work</span>
 <span class="sd">        intended by this resolver. It should return a string to become the</span>
 <span class="sd">        final value.</span>
@@ -445,25 +445,25 @@ In case you are not familiar with python packaging, <a class="reference external
 </div>
 <p>Then install using <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></code> or <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">.</span></code> commands.</p>
 <p>This resolver can be used in a Stack config file with the following syntax:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;...&gt;</span><span class="w"></span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;...&gt;</span><span class="w"></span>
-<span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">param1</span><span class="p">:</span><span class="w"> </span><span class="kt">!&lt;custom_resolver_command_name&gt;</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;value&gt; &lt;optional-aws-profile&gt;</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;...&gt;</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;...&gt;</span>
+<span class="nt">parameters</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">param1</span><span class="p">:</span><span class="w"> </span><span class="kt">!&lt;custom_resolver_command_name&gt;</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;value&gt; &lt;optional-aws-profile&gt;</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="resolver-arguments">
 <h4>Resolver arguments<a class="headerlink" href="#resolver-arguments" title="Permalink to this heading">¶</a></h4>
 <p>Resolver arguments can be a simple string or a complex data structure.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;...&gt;</span><span class="w"></span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;...&gt;</span><span class="w"></span>
-<span class="w w-Error"> </span><span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
-<span class="w">   </span><span class="nt">Param1</span><span class="p">:</span><span class="w"> </span><span class="kt">!ssm</span><span class="w"> </span><span class="s">&quot;/dev/DbPassword&quot;</span><span class="w"></span>
-<span class="w">   </span><span class="nt">Param2</span><span class="p">:</span><span class="w"> </span><span class="kt">!ssm</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;/dev/DbPassword&quot;</span><span class="p p-Indicator">}</span><span class="w"></span>
-<span class="w">   </span><span class="nt">Param3</span><span class="p">:</span><span class="w"> </span><span class="kt">!ssm</span><span class="w"></span>
-<span class="w">     </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/dev/DbPassword&quot;</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;...&gt;</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;...&gt;</span>
+<span class="w w-Error"> </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">   </span><span class="nt">Param1</span><span class="p">:</span><span class="w"> </span><span class="kt">!ssm</span><span class="w"> </span><span class="s">&quot;/dev/DbPassword&quot;</span>
+<span class="w">   </span><span class="nt">Param2</span><span class="p">:</span><span class="w"> </span><span class="kt">!ssm</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;/dev/DbPassword&quot;</span><span class="p p-Indicator">}</span>
+<span class="w">   </span><span class="nt">Param3</span><span class="p">:</span><span class="w"> </span><span class="kt">!ssm</span>
+<span class="w">     </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/dev/DbPassword&quot;</span>
 </pre></div>
 </div>
 </div>

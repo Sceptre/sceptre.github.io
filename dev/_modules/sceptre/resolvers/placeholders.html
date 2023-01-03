@@ -212,7 +212,7 @@
 
 <div class="viewcode-block" id="use_resolver_placeholders_on_error"><a class="viewcode-back" href="../../../apidoc/sceptre.resolvers.html#sceptre.resolvers.placeholders.use_resolver_placeholders_on_error">[docs]</a><span class="nd">@contextmanager</span>
 <span class="k">def</span> <span class="nf">use_resolver_placeholders_on_error</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;A context manager that toggles on placeholders for resolvers that error out. This should NOT</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A context manager that toggles on placeholders for resolvers that error out. This should NOT</span>
 <span class="sd">    be used while creating/launching stacks, but it is often required when validating or diffing</span>
 <span class="sd">    stacks whose dependencies haven&#39;t yet been deployed and that reference those dependencies with</span>
 <span class="sd">    resolvers, especially in the sceptre_user_data.</span>
@@ -229,7 +229,7 @@
 
 
 <div class="viewcode-block" id="are_placeholders_enabled"><a class="viewcode-back" href="../../../apidoc/sceptre.resolvers.html#sceptre.resolvers.placeholders.are_placeholders_enabled">[docs]</a><span class="k">def</span> <span class="nf">are_placeholders_enabled</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Indicates whether placeholders have been globally enabled or not.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Indicates whether placeholders have been globally enabled or not.&quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="n">_placeholder_lock</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">_RESOLVE_PLACEHOLDER_ON_ERROR</span></div>
 
@@ -242,7 +242,7 @@
 
 
 <span class="k">def</span> <span class="nf">_create_explicit_resolver_placeholder</span><span class="p">(</span><span class="n">resolver</span><span class="p">:</span> <span class="s2">&quot;resolvers.Resolver&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Creates a placeholder value to be substituted for the resolved value when placeholders are</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Creates a placeholder value to be substituted for the resolved value when placeholders are</span>
 <span class="sd">    allowed and the value cannot be resolved.</span>
 
 <span class="sd">    The placeholder will look like one of:</span>
@@ -260,7 +260,7 @@
 
 
 <span class="k">def</span> <span class="nf">_create_alphanumeric_placeholder</span><span class="p">(</span><span class="n">resolver</span><span class="p">:</span> <span class="s2">&quot;resolvers.Resolver&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Creates a placeholder value that is only composed of alphanumeric characters. This is more</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Creates a placeholder value that is only composed of alphanumeric characters. This is more</span>
 <span class="sd">    useful when performing operations that send a template to CloudFormation, which will have stricter</span>
 <span class="sd">    requirements for values in templates.</span>
 

@@ -204,14 +204,14 @@
 
 
 <div class="viewcode-block" id="StackGraph"><a class="viewcode-back" href="../../../apidoc/sceptre.config.html#sceptre.config.graph.StackGraph">[docs]</a><span class="k">class</span> <span class="nc">StackGraph</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A Directed Acyclic Graph representing the relationship between a Stack</span>
 <span class="sd">    and its dependencies. Responsible for initalising the graph based on a set</span>
 <span class="sd">    of Stacks.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stacks</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialises a StackGraph based on a `set` of Stacks.</span>
 
 <span class="sd">        :param stacks: A set of Stacks.</span>
@@ -241,7 +241,7 @@
         <span class="k">return</span> <span class="n">filtered</span></div>
 
 <div class="viewcode-block" id="StackGraph.count_dependencies"><a class="viewcode-back" href="../../../apidoc/sceptre.config.html#sceptre.config.graph.StackGraph.count_dependencies">[docs]</a>    <span class="k">def</span> <span class="nf">count_dependencies</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the number of incoming edges a given Stack has in the</span>
 <span class="sd">        StackGraph. The number of incoming edge also represents the number</span>
 <span class="sd">        of Stacks that depend on the given Stack.</span>
@@ -249,7 +249,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">in_degree</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="StackGraph.remove_stack"><a class="viewcode-back" href="../../../apidoc/sceptre.config.html#sceptre.config.graph.StackGraph.remove_stack">[docs]</a>    <span class="k">def</span> <span class="nf">remove_stack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Removes a Stack from the StackGraph. This operation will also remove</span>
 <span class="sd">        all adjecent edges that represent a &#39;depends on&#39; relationship with</span>
 <span class="sd">        other Stacks.</span>
@@ -257,7 +257,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">remove_node</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_generate_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stacks</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generates the graph for the StackGraph object.</span>
 
 <span class="sd">        :param stacks: A set of Stacks</span>
@@ -269,7 +269,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">remove_edges_from</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">selfloop_edges</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">_generate_edges</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack</span><span class="p">:</span> <span class="n">Stack</span><span class="p">,</span> <span class="n">dependencies</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Stack</span><span class="p">]):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds edges to the graph based on a list of dependencies that are</span>
 <span class="sd">        generated from the initial stack config. Each of the paths</span>
 <span class="sd">        in the inital_dependency_paths list are a depency that the inital</span>

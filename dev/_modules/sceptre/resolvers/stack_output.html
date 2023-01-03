@@ -205,7 +205,7 @@
 
 <div class="viewcode-block" id="StackOutputBase"><a class="viewcode-back" href="../../../apidoc/sceptre.resolvers.html#sceptre.resolvers.stack_output.StackOutputBase">[docs]</a><span class="nd">@six</span><span class="o">.</span><span class="n">add_metaclass</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">StackOutputBase</span><span class="p">(</span><span class="n">Resolver</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A abstract base class which provides methods for getting Stack outputs.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -216,7 +216,7 @@
     <span class="k">def</span> <span class="nf">_get_output_value</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">stack_name</span><span class="p">,</span> <span class="n">output_key</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">iam_role</span><span class="o">=</span><span class="kc">None</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Attempts to get the Stack output named by ``output_key``</span>
 
 <span class="sd">        :param stack_name: Name of the Stack to collect output for.</span>
@@ -239,7 +239,7 @@
             <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_get_stack_outputs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack_name</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">iam_role</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Communicates with AWS CloudFormation to fetch outputs from a specific</span>
 <span class="sd">        Stack.</span>
 
@@ -280,7 +280,7 @@
 
 
 <div class="viewcode-block" id="StackOutput"><a class="viewcode-back" href="../../../apidoc/sceptre.resolvers.html#sceptre.resolvers.stack_output.StackOutput">[docs]</a><span class="k">class</span> <span class="nc">StackOutput</span><span class="p">(</span><span class="n">StackOutputBase</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Resolver for retrieving the value of a Stack output within the current</span>
 <span class="sd">    Sceptre StackGroup. Adds the target Stack to the dependencies of the</span>
 <span class="sd">    Stack using the Resolver.</span>
@@ -293,7 +293,7 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">StackOutput</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
 <div class="viewcode-block" id="StackOutput.setup"><a class="viewcode-back" href="../../../apidoc/sceptre.resolvers.html#sceptre.resolvers.stack_output.StackOutput.setup">[docs]</a>    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds dependency to a Stack.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">dep_stack_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">argument</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;::&quot;</span><span class="p">)</span>
@@ -301,7 +301,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">dependencies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dependency_stack_name</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="StackOutput.resolve"><a class="viewcode-back" href="../../../apidoc/sceptre.resolvers.html#sceptre.resolvers.stack_output.StackOutput.resolve">[docs]</a>    <span class="k">def</span> <span class="nf">resolve</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieves the value of an output of an internal Stack.</span>
 
 <span class="sd">        :returns: The value of the Stack output.</span>
@@ -331,7 +331,7 @@
 
 
 <div class="viewcode-block" id="StackOutputExternal"><a class="viewcode-back" href="../../../apidoc/sceptre.resolvers.html#sceptre.resolvers.stack_output.StackOutputExternal">[docs]</a><span class="k">class</span> <span class="nc">StackOutputExternal</span><span class="p">(</span><span class="n">StackOutputBase</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Resolver for retrieving the value of an output of any Stack within the</span>
 <span class="sd">    current Sceptre stack_group&#39;s account and region.</span>
 
@@ -343,7 +343,7 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">StackOutputExternal</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
 <div class="viewcode-block" id="StackOutputExternal.resolve"><a class="viewcode-back" href="../../../apidoc/sceptre.resolvers.html#sceptre.resolvers.stack_output.StackOutputExternal.resolve">[docs]</a>    <span class="k">def</span> <span class="nf">resolve</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieves the value of CloudFormation output of the external Stack</span>
 
 <span class="sd">        :returns: The value of the Stack output.</span>

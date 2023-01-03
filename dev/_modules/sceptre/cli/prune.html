@@ -202,7 +202,7 @@
 <span class="nd">@click</span><span class="o">.</span><span class="n">pass_context</span>
 <span class="nd">@catch_exceptions</span>
 <span class="k">def</span> <span class="nf">prune_command</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">yes</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This command deletes all obsolete stacks in the project. Only obsolete stacks can be deleted</span>
 <span class="sd">    via prune; If any non-obsolete stacks depend on obsolete stacks, an error will be</span>
 <span class="sd">    raised and this command will fail.</span>
@@ -225,7 +225,7 @@
 
 
 <div class="viewcode-block" id="Pruner"><a class="viewcode-back" href="../../../apidoc/sceptre.cli.html#sceptre.cli.prune.Pruner">[docs]</a><span class="k">class</span> <span class="nc">Pruner</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Pruner is a utility to coordinate the flow of deleting all stacks in the project that</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Pruner is a utility to coordinate the flow of deleting all stacks in the project that</span>
 <span class="sd">    are marked &quot;obsolete&quot;.</span>
 
 <span class="sd">    Note: The command_path on the passed context will be ignored; This command operates on the</span>

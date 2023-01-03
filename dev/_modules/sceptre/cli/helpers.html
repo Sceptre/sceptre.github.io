@@ -204,7 +204,7 @@
 
 
 <div class="viewcode-block" id="catch_exceptions"><a class="viewcode-back" href="../../../apidoc/sceptre.cli.html#sceptre.cli.helpers.catch_exceptions">[docs]</a><span class="k">def</span> <span class="nf">catch_exceptions</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Catches and simplifies expected errors thrown by sceptre.</span>
 
 <span class="sd">    catch_exceptions should be used as a decorator.</span>
@@ -220,7 +220,7 @@
 
     <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">decorated</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Invokes ``func``, catches expected errors, prints the error message and</span>
 <span class="sd">        exits sceptre with a non-zero exit code. In debug mode, the original</span>
 <span class="sd">        exception is re-raised to assist debugging.</span>
@@ -253,7 +253,7 @@
 
 
 <div class="viewcode-block" id="write"><a class="viewcode-back" href="../../../apidoc/sceptre.cli.html#sceptre.cli.helpers.write">[docs]</a><span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">output_format</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">,</span> <span class="n">no_colour</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Writes ``var`` to stdout. If output_format is set to &quot;json&quot; or &quot;yaml&quot;,</span>
 <span class="sd">    write ``var`` as a JSON or YAML string.</span>
 
@@ -360,7 +360,7 @@
 
 
 <div class="viewcode-block" id="setup_vars"><a class="viewcode-back" href="../../../apidoc/sceptre.cli.html#sceptre.cli.helpers.setup_vars">[docs]</a><span class="k">def</span> <span class="nf">setup_vars</span><span class="p">(</span><span class="n">var_file</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">merge_vars</span><span class="p">,</span> <span class="n">debug</span><span class="p">,</span> <span class="n">no_colour</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Handle --var-file and --var arguments before</span>
 <span class="sd">    returning data for the user_variables as required</span>
 <span class="sd">    by the ConfigReader and SceptreContext.</span>
@@ -453,7 +453,7 @@
 
 
 <div class="viewcode-block" id="setup_logging"><a class="viewcode-back" href="../../../apidoc/sceptre.cli.html#sceptre.cli.helpers.setup_logging">[docs]</a><span class="k">def</span> <span class="nf">setup_logging</span><span class="p">(</span><span class="n">debug</span><span class="p">,</span> <span class="n">no_colour</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Sets up logging.</span>
 
 <span class="sd">    By default, the python logging module is configured to push logs to stdout</span>
@@ -499,7 +499,7 @@
 
 
 <div class="viewcode-block" id="simplify_change_set_description"><a class="viewcode-back" href="../../../apidoc/sceptre.cli.html#sceptre.cli.helpers.simplify_change_set_description">[docs]</a><span class="k">def</span> <span class="nf">simplify_change_set_description</span><span class="p">(</span><span class="n">response</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Simplies the response from the AWS describe change set API.</span>
 
 <span class="sd">    :param response: The original api response.</span>
@@ -555,7 +555,7 @@
 
 
 <div class="viewcode-block" id="ColouredFormatter"><a class="viewcode-back" href="../../../apidoc/sceptre.cli.html#sceptre.cli.helpers.ColouredFormatter">[docs]</a><span class="k">class</span> <span class="nc">ColouredFormatter</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    ColouredFormatter add colours to all stack statuses that appear in log</span>
 <span class="sd">    messages.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -563,7 +563,7 @@
     <span class="n">stack_status_colourer</span> <span class="o">=</span> <span class="n">StackStatusColourer</span><span class="p">()</span>
 
 <div class="viewcode-block" id="ColouredFormatter.format"><a class="viewcode-back" href="../../../apidoc/sceptre.cli.html#sceptre.cli.helpers.ColouredFormatter.format">[docs]</a>    <span class="k">def</span> <span class="nf">format</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Colours and returns all stack statuses in ``record``.</span>
 
 <span class="sd">        :param record: The log item to format.</span>
@@ -576,13 +576,13 @@
 
 
 <div class="viewcode-block" id="CustomJsonEncoder"><a class="viewcode-back" href="../../../apidoc/sceptre.cli.html#sceptre.cli.helpers.CustomJsonEncoder">[docs]</a><span class="k">class</span> <span class="nc">CustomJsonEncoder</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">JSONEncoder</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    CustomJsonEncoder is a JSONEncoder which encodes all items as JSON by</span>
 <span class="sd">    calling their __str__() method.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="CustomJsonEncoder.default"><a class="viewcode-back" href="../../../apidoc/sceptre.cli.html#sceptre.cli.helpers.CustomJsonEncoder.default">[docs]</a>    <span class="k">def</span> <span class="nf">default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns stringified version of item.</span>
 
 <span class="sd">        :param item: An arbitrary object to stringify.</span>

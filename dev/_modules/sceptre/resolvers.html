@@ -209,7 +209,7 @@
 
 
 <div class="viewcode-block" id="Resolver"><a class="viewcode-back" href="../../apidoc/sceptre.resolvers.html#sceptre.resolvers.Resolver">[docs]</a><span class="k">class</span> <span class="nc">Resolver</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Resolver is an abstract base class that should be inherited by all</span>
 <span class="sd">    Resolvers.</span>
 
@@ -223,7 +223,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">stack</span> <span class="o">=</span> <span class="n">stack</span>
 
 <div class="viewcode-block" id="Resolver.setup"><a class="viewcode-back" href="../../apidoc/sceptre.resolvers.html#sceptre.resolvers.Resolver.setup">[docs]</a>    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method is called at during stack initialisation.</span>
 <span class="sd">        Implementation of this method in subclasses can be used to do any</span>
 <span class="sd">        initial setup of the object.</span>
@@ -232,7 +232,7 @@
 
 <div class="viewcode-block" id="Resolver.resolve"><a class="viewcode-back" href="../../apidoc/sceptre.resolvers.html#sceptre.resolvers.Resolver.resolve">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">resolve</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        An abstract method which must be overwritten by all inheriting classes.</span>
 <span class="sd">        This method is called to retrieve the final desired value.</span>
 <span class="sd">        Implementation of this method in subclasses must return a suitable</span>
@@ -241,7 +241,7 @@
         <span class="k">pass</span>  <span class="c1"># pragma: no cover</span></div>
 
 <div class="viewcode-block" id="Resolver.clone"><a class="viewcode-back" href="../../apidoc/sceptre.resolvers.html#sceptre.resolvers.Resolver.clone">[docs]</a>    <span class="k">def</span> <span class="nf">clone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack</span><span class="p">:</span> <span class="s2">&quot;stack.Stack&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Resolver&quot;</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Produces a &quot;fresh&quot; copy of the Resolver, with the specified stack.</span>
 
 <span class="sd">        :param stack: The stack to set on the cloned resolver</span>
@@ -250,7 +250,7 @@
 
 
 <div class="viewcode-block" id="ResolvableProperty"><a class="viewcode-back" href="../../apidoc/sceptre.resolvers.html#sceptre.resolvers.ResolvableProperty">[docs]</a><span class="k">class</span> <span class="nc">ResolvableProperty</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This is an abstract base class for a descriptor used to store an attribute that have values</span>
 <span class="sd">    associated with Resolver objects.</span>
 
@@ -267,7 +267,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span> <span class="o">=</span> <span class="n">RLock</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="fm">__get__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack</span><span class="p">:</span> <span class="s2">&quot;stack.Stack&quot;</span><span class="p">,</span> <span class="n">stack_class</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="s2">&quot;stack.Stack&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Attribute getter which resolves the resolver(s).</span>
 
 <span class="sd">        :param stack: The Stack instance the property is being retrieved for</span>
@@ -280,7 +280,7 @@
                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_resolved_value</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="n">stack_class</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__set__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack</span><span class="p">:</span> <span class="s2">&quot;stack.Stack&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Attribute setter which adds a stack reference to any resolvers in the</span>
 <span class="sd">        data structure `value` and calls the setup method.</span>
 
@@ -312,7 +312,7 @@
 <div class="viewcode-block" id="ResolvableProperty.get_setup_resolver_for_stack"><a class="viewcode-back" href="../../apidoc/sceptre.resolvers.html#sceptre.resolvers.ResolvableProperty.get_setup_resolver_for_stack">[docs]</a>    <span class="k">def</span> <span class="nf">get_setup_resolver_for_stack</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">stack</span><span class="p">:</span> <span class="s2">&quot;stack.Stack&quot;</span><span class="p">,</span> <span class="n">resolver</span><span class="p">:</span> <span class="n">Resolver</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Resolver</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Obtains a clone of the resolver with the stack set on it and the setup method having</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Obtains a clone of the resolver with the stack set on it and the setup method having</span>
 <span class="sd">        been called on it.</span>
 
 <span class="sd">        :param stack: The stack to set on the Resolver</span>
@@ -330,16 +330,16 @@
     <span class="k">def</span> <span class="nf">get_resolved_value</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">stack</span><span class="p">:</span> <span class="s2">&quot;stack.Stack&quot;</span><span class="p">,</span> <span class="n">stack_class</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="s2">&quot;stack.Stack&quot;</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Implement this method to return the value of the resolvable_property.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Implement this method to return the value of the resolvable_property.&quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
 <div class="viewcode-block" id="ResolvableProperty.assign_value_to_stack"><a class="viewcode-back" href="../../apidoc/sceptre.resolvers.html#sceptre.resolvers.ResolvableProperty.assign_value_to_stack">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">assign_value_to_stack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack</span><span class="p">:</span> <span class="s2">&quot;stack.Stack&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Implement this method to assign the value to the resolvable property.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Implement this method to assign the value to the resolvable property.&quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
 <div class="viewcode-block" id="ResolvableProperty.resolve_resolver_value"><a class="viewcode-back" href="../../apidoc/sceptre.resolvers.html#sceptre.resolvers.ResolvableProperty.resolve_resolver_value">[docs]</a>    <span class="k">def</span> <span class="nf">resolve_resolver_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resolver</span><span class="p">:</span> <span class="s2">&quot;Resolver&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Returns the resolved parameter value.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the resolved parameter value.</span>
 
 <span class="sd">        If the resolver happens to raise an error and placeholders are currently allowed for resolvers,</span>
 <span class="sd">        a placeholder will be returned instead of reraising the error.</span>
@@ -370,7 +370,7 @@
 
 
 <div class="viewcode-block" id="ResolvableContainerProperty"><a class="viewcode-back" href="../../apidoc/sceptre.resolvers.html#sceptre.resolvers.ResolvableContainerProperty">[docs]</a><span class="k">class</span> <span class="nc">ResolvableContainerProperty</span><span class="p">(</span><span class="n">ResolvableProperty</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This is a descriptor class used to store an attribute that may CONTAIN</span>
 <span class="sd">    Resolver objects. Resolvers will be resolved upon access of this property.</span>
 <span class="sd">    When resolvers are resolved, they will be replaced in the container with their</span>
@@ -396,7 +396,7 @@
 <div class="viewcode-block" id="ResolvableContainerProperty.get_resolved_value"><a class="viewcode-back" href="../../apidoc/sceptre.resolvers.html#sceptre.resolvers.ResolvableContainerProperty.get_resolved_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_resolved_value</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">stack</span><span class="p">:</span> <span class="s2">&quot;stack.Stack&quot;</span><span class="p">,</span> <span class="n">stack_class</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="s2">&quot;stack.Stack&quot;</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T_Container</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Obtains the resolved value for this property. Any resolvers that resolve to None will have</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Obtains the resolved value for this property. Any resolvers that resolve to None will have</span>
 <span class="sd">        their key/index removed from their dict/list where they are. Other resolvers will have their</span>
 <span class="sd">        key/index&#39;s value replace with the resolved value to avoid redundant resolutions.</span>
 
@@ -454,7 +454,7 @@
         <span class="k">return</span> <span class="n">container</span></div>
 
 <div class="viewcode-block" id="ResolvableContainerProperty.assign_value_to_stack"><a class="viewcode-back" href="../../apidoc/sceptre.resolvers.html#sceptre.resolvers.ResolvableContainerProperty.assign_value_to_stack">[docs]</a>    <span class="k">def</span> <span class="nf">assign_value_to_stack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack</span><span class="p">:</span> <span class="s2">&quot;stack.Stack&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">list</span><span class="p">]):</span>
-        <span class="sd">&quot;&quot;&quot;Assigns a COPY of the specified value to the stack instance. This method copies the value</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Assigns a COPY of the specified value to the stack instance. This method copies the value</span>
 <span class="sd">        rather than directly assigns it to avoid bugs related to shared objects in memory.</span>
 
 <span class="sd">        :param stack: The stack to assign the value to</span>
@@ -466,7 +466,7 @@
     <span class="k">def</span> <span class="nf">_clone_container_with_resolvers</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">container</span><span class="p">:</span> <span class="n">T_Container</span><span class="p">,</span> <span class="n">stack</span><span class="p">:</span> <span class="s2">&quot;stack.Stack&quot;</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T_Container</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Recurses into the container, cloning and setting up resolvers and creating a copy of all</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Recurses into the container, cloning and setting up resolvers and creating a copy of all</span>
 <span class="sd">        nested containers.</span>
 
 <span class="sd">        :param container: The container being recursed into and cloned</span>
@@ -510,7 +510,7 @@
             <span class="n">_call_func_on_values</span><span class="p">(</span><span class="n">raise_if_not_resolved</span><span class="p">,</span> <span class="n">container</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ResolveLater</span><span class="p">)</span>
 
 <div class="viewcode-block" id="ResolvableContainerProperty.ResolveLater"><a class="viewcode-back" href="../../apidoc/sceptre.resolvers.html#sceptre.resolvers.ResolvableContainerProperty.ResolveLater">[docs]</a>    <span class="k">class</span> <span class="nc">ResolveLater</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Represents a value that could not yet be resolved but can be resolved in the future.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Represents a value that could not yet be resolved but can be resolved in the future.&quot;&quot;&quot;</span>
 
         <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">resolution_function</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_instance</span> <span class="o">=</span> <span class="n">instance</span>
@@ -519,7 +519,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_resolution_function</span> <span class="o">=</span> <span class="n">resolution_function</span>
 
         <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-            <span class="sd">&quot;&quot;&quot;Resolve the value.&quot;&quot;&quot;</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;Resolve the value.&quot;&quot;&quot;</span>
             <span class="n">attr</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_instance</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">)</span>
             <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolution_function</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -532,7 +532,7 @@
 
 
 <div class="viewcode-block" id="ResolvableValueProperty"><a class="viewcode-back" href="../../apidoc/sceptre.resolvers.html#sceptre.resolvers.ResolvableValueProperty">[docs]</a><span class="k">class</span> <span class="nc">ResolvableValueProperty</span><span class="p">(</span><span class="n">ResolvableProperty</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This is a descriptor class used to store an attribute that may BE a single</span>
 <span class="sd">    Resolver object. If it is a resolver, it will be resolved upon access of this property.</span>
 <span class="sd">    When resolved, the resolved value will replace the resolver on the stack in order to avoid</span>
@@ -545,7 +545,7 @@
 <div class="viewcode-block" id="ResolvableValueProperty.get_resolved_value"><a class="viewcode-back" href="../../apidoc/sceptre.resolvers.html#sceptre.resolvers.ResolvableValueProperty.get_resolved_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_resolved_value</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">stack</span><span class="p">:</span> <span class="s2">&quot;stack.Stack&quot;</span><span class="p">,</span> <span class="n">stack_class</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="s2">&quot;stack.Stack&quot;</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Gets the fully-resolved value from the property. Resolvers will be replaced on the stack</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Gets the fully-resolved value from the property. Resolvers will be replaced on the stack</span>
 <span class="sd">        instance with their resolved value to avoid redundant resolutions.</span>
 
 <span class="sd">        :param stack: The Stack instance to obtain the value from</span>
@@ -564,7 +564,7 @@
         <span class="k">return</span> <span class="n">value</span></div>
 
 <div class="viewcode-block" id="ResolvableValueProperty.assign_value_to_stack"><a class="viewcode-back" href="../../apidoc/sceptre.resolvers.html#sceptre.resolvers.ResolvableValueProperty.assign_value_to_stack">[docs]</a>    <span class="k">def</span> <span class="nf">assign_value_to_stack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack</span><span class="p">:</span> <span class="s2">&quot;stack.Stack&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Assigns the value to the Stack instance passed, setting up and cloning the value if it</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Assigns the value to the Stack instance passed, setting up and cloning the value if it</span>
 <span class="sd">        is a Resolver.</span>
 
 <span class="sd">        :param stack: The Stack instance to set the value on</span>

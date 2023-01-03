@@ -214,7 +214,7 @@
 
 
 <div class="viewcode-block" id="StackConfiguration"><a class="viewcode-back" href="../../../apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.StackConfiguration">[docs]</a><span class="k">class</span> <span class="nc">StackConfiguration</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;A data container to represent the comparable parts of a Stack.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A data container to represent the comparable parts of a Stack.&quot;&quot;&quot;</span>
 
     <span class="n">stack_name</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">parameters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]</span>
@@ -224,7 +224,7 @@
 
 
 <div class="viewcode-block" id="StackDiff"><a class="viewcode-back" href="../../../apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.StackDiff">[docs]</a><span class="k">class</span> <span class="nc">StackDiff</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;A data container to represent the full difference between a deployed stack and the stack as</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A data container to represent the full difference between a deployed stack and the stack as</span>
 <span class="sd">    it exists locally within Sceptre.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -237,7 +237,7 @@
 
 
 <div class="viewcode-block" id="repr_str"><a class="viewcode-back" href="../../../apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.repr_str">[docs]</a><span class="k">def</span> <span class="nf">repr_str</span><span class="p">(</span><span class="n">dumper</span><span class="p">:</span> <span class="n">Dumper</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;A YAML Representer that handles strings, breaking multi-line strings into something a lot</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A YAML Representer that handles strings, breaking multi-line strings into something a lot</span>
 <span class="sd">    more readable in the yaml output. This is useful for representing long, multiline strings in</span>
 <span class="sd">    templates or in stack parameters.</span>
 
@@ -251,7 +251,7 @@
 
 
 <div class="viewcode-block" id="repr_odict"><a class="viewcode-back" href="../../../apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.repr_odict">[docs]</a><span class="k">def</span> <span class="nf">repr_odict</span><span class="p">(</span><span class="n">dumper</span><span class="p">:</span> <span class="n">Dumper</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">ODict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;A YAML Representer for cfn-flip&#39;s ODict objects.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A YAML Representer for cfn-flip&#39;s ODict objects.</span>
 
 <span class="sd">    ODicts are a variation on OrderedDicts for that library. Since the Diff command makes extensive</span>
 <span class="sd">    use of ODicts, they can end up in diff output and the PyYaml library doesn&#39;t otherwise calls the</span>
@@ -270,7 +270,7 @@
 
 
 <div class="viewcode-block" id="StackDiffer"><a class="viewcode-back" href="../../../apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.StackDiffer">[docs]</a><span class="k">class</span> <span class="nc">StackDiffer</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">DiffType</span><span class="p">]):</span>
-    <span class="sd">&quot;&quot;&quot;A utility for producing a StackDiff that indicates the full difference between a given stack</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A utility for producing a StackDiff that indicates the full difference between a given stack</span>
 <span class="sd">    as it is currently DEPLOYED on CloudFormation and the stack as it exists in the local Sceptre</span>
 <span class="sd">    configurations.</span>
 
@@ -290,7 +290,7 @@
     <span class="n">NO_ECHO_REPLACEMENT</span> <span class="o">=</span> <span class="s2">&quot;***HIDDEN***&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">show_no_echo</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Initializes the StackDiffer.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initializes the StackDiffer.</span>
 
 <span class="sd">        :param show_no_echo: If True, local parameters passed that the template says are NoEcho</span>
 <span class="sd">            parameters will be displayed; Otherwise, they will be masked in the diff.</span>
@@ -298,7 +298,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">show_no_echo</span> <span class="o">=</span> <span class="n">show_no_echo</span>
 
 <div class="viewcode-block" id="StackDiffer.diff"><a class="viewcode-back" href="../../../apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.StackDiffer.diff">[docs]</a>    <span class="k">def</span> <span class="nf">diff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack_actions</span><span class="p">:</span> <span class="n">StackActions</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">StackDiff</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Produces a StackDiff between the currently deployed stack (if it exists) and the stack</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Produces a StackDiff between the currently deployed stack (if it exists) and the stack</span>
 <span class="sd">        as it exists locally in Sceptre.</span>
 
 <span class="sd">        :param stack_actions: The StackActions object to use for generating and fetching templates</span>
@@ -345,7 +345,7 @@
         <span class="k">return</span> <span class="n">stack_configuration</span>
 
     <span class="k">def</span> <span class="nf">_extract_parameters_from_generated_stack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack</span><span class="p">:</span> <span class="n">Stack</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Extracts a usable dict of parameters from the stack, performing some minor transformations</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extracts a usable dict of parameters from the stack, performing some minor transformations</span>
 <span class="sd">        to match the what CloudFormation does on its end.</span>
 
 <span class="sd">        :param stack: The stack to extract the parameters from</span>
@@ -504,7 +504,7 @@
 
 <div class="viewcode-block" id="StackDiffer.compare_templates"><a class="viewcode-back" href="../../../apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.StackDiffer.compare_templates">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">compare_templates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deployed</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">generated</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DiffType</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Implement this method to return the diff for the templates</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Implement this method to return the diff for the templates</span>
 
 <span class="sd">        :param deployed: The stack template as it has been deployed</span>
 <span class="sd">        :param generated: The stack template as it exists locally within Sceptre</span>
@@ -515,7 +515,7 @@
     <span class="k">def</span> <span class="nf">compare_stack_configurations</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">deployed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">StackConfiguration</span><span class="p">],</span> <span class="n">generated</span><span class="p">:</span> <span class="n">StackConfiguration</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DiffType</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Implement this method to return the diff for the stack configurations.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Implement this method to return the diff for the stack configurations.</span>
 
 <span class="sd">        :param deployed: The StackConfiguration as it has been deployed. This MIGHT be None, if the</span>
 <span class="sd">            stack has not been deployed.</span>
@@ -525,7 +525,7 @@
 
 
 <div class="viewcode-block" id="DeepDiffStackDiffer"><a class="viewcode-back" href="../../../apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.DeepDiffStackDiffer">[docs]</a><span class="k">class</span> <span class="nc">DeepDiffStackDiffer</span><span class="p">(</span><span class="n">StackDiffer</span><span class="p">[</span><span class="n">deepdiff</span><span class="o">.</span><span class="n">DeepDiff</span><span class="p">]):</span>
-    <span class="sd">&quot;&quot;&quot;A StackDiffer that relies upon the DeepDiff library to produce the difference between the</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A StackDiffer that relies upon the DeepDiff library to produce the difference between the</span>
 <span class="sd">    stack as it has been deployed onto CloudFormation and as it exists locally within Sceptre.</span>
 
 <span class="sd">    This differ relies upon a recursive key/value comparison of Python data structures, indicating</span>
@@ -542,7 +542,7 @@
         <span class="o">*</span><span class="p">,</span>
         <span class="n">universal_template_loader</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">cfn_flip</span><span class="o">.</span><span class="n">load</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Initializes a DeepDiffStackDiffer.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initializes a DeepDiffStackDiffer.</span>
 
 <span class="sd">        :param show_no_echo: If True, local parameters passed that the template says are NoEcho</span>
 <span class="sd">            parameters will be displayed; Otherwise, they will be masked in the diff.</span>
@@ -578,7 +578,7 @@
 
 
 <div class="viewcode-block" id="DifflibStackDiffer"><a class="viewcode-back" href="../../../apidoc/sceptre.diffing.html#sceptre.diffing.stack_differ.DifflibStackDiffer">[docs]</a><span class="k">class</span> <span class="nc">DifflibStackDiffer</span><span class="p">(</span><span class="n">StackDiffer</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]):</span>
-    <span class="sd">&quot;&quot;&quot;A StackDiffer that uses difflib to produce a diff between the stack as it exists on AWS and</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A StackDiffer that uses difflib to produce a diff between the stack as it exists on AWS and</span>
 <span class="sd">    the stack as it exists locally within Sceptre.</span>
 
 <span class="sd">    Because difflib generates diffs off of lists of strings, both StackConfigurations and</span>
@@ -590,7 +590,7 @@
         <span class="o">*</span><span class="p">,</span>
         <span class="n">universal_template_loader</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">cfn_flip</span><span class="o">.</span><span class="n">load</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Initializes a DifflibStackDiffer.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initializes a DifflibStackDiffer.</span>
 
 <span class="sd">        :param show_no_echo: If True, local parameters passed that the template says are NoEcho</span>
 <span class="sd">            parameters will be displayed; Otherwise, they will be masked in the diff.</span>

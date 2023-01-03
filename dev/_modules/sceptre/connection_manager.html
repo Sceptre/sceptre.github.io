@@ -208,7 +208,7 @@
 
 
 <span class="k">def</span> <span class="nf">_retry_boto_call</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Retries a Boto3 call up to 30 times if request rate limits are hit.</span>
 
 <span class="sd">    Between each try we wait a random amount with a max of that time being 45 seconds.</span>
@@ -256,7 +256,7 @@
 
 
 <div class="viewcode-block" id="ConnectionManager"><a class="viewcode-back" href="../../apidoc/sceptre.html#sceptre.connection_manager.ConnectionManager">[docs]</a><span class="k">class</span> <span class="nc">ConnectionManager</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The Connection Manager is used to create boto3 clients for</span>
 <span class="sd">    the various AWS services that Sceptre needs to interact with.</span>
 
@@ -309,7 +309,7 @@
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_get_session</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">iam_role</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a boto session in the target account.</span>
 
 <span class="sd">        If a ``profile`` is specified in ConnectionManager&#39;s initialiser,</span>
@@ -396,7 +396,7 @@
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_boto_sessions</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">_get_client</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">profile</span><span class="p">,</span> <span class="n">stack_name</span><span class="p">,</span> <span class="n">iam_role</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the Boto3 client associated with &lt;service&gt;.</span>
 
 <span class="sd">        Equivalent to calling Boto3.client(&lt;service&gt;). Gets the client using</span>
@@ -428,7 +428,7 @@
         <span class="n">stack_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">iam_role</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Makes a thread-safe Boto3 client call.</span>
 
 <span class="sd">        Equivalent to ``boto3.client(&lt;service&gt;).&lt;command&gt;(**kwargs)``.</span>

@@ -196,7 +196,7 @@
 
 <div class="viewcode-block" id="TemplateHandler"><a class="viewcode-back" href="../../apidoc/sceptre.template_handlers.html#sceptre.template_handlers.TemplateHandler">[docs]</a><span class="nd">@six</span><span class="o">.</span><span class="n">add_metaclass</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">TemplateHandler</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    TemplateHandler is an abstract base class that should be inherited</span>
 <span class="sd">    by all Template Handlers.</span>
 
@@ -247,7 +247,7 @@
 
 <div class="viewcode-block" id="TemplateHandler.schema"><a class="viewcode-back" href="../../apidoc/sceptre.template_handlers.html#sceptre.template_handlers.TemplateHandler.schema">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">schema</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the schema for the arguments of this Template Resolver. This will</span>
 <span class="sd">        be used to validate that the arguments passed in the stack config are what</span>
 <span class="sd">        the Template Handler expects.</span>
@@ -258,7 +258,7 @@
 
 <div class="viewcode-block" id="TemplateHandler.handle"><a class="viewcode-back" href="../../apidoc/sceptre.template_handlers.html#sceptre.template_handlers.TemplateHandler.handle">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        An abstract method which must be overwritten by all inheriting classes.</span>
 <span class="sd">        This method is called to retrieve the template.</span>
 <span class="sd">        Implementation of this method in subclasses must return a string that</span>
@@ -267,7 +267,7 @@
         <span class="k">pass</span>  <span class="c1"># pragma: no cover</span></div>
 
 <div class="viewcode-block" id="TemplateHandler.validate"><a class="viewcode-back" href="../../apidoc/sceptre.template_handlers.html#sceptre.template_handlers.TemplateHandler.validate">[docs]</a>    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Validates if the current arguments are correct according to the schema. If this</span>
 <span class="sd">        does not raise an exception, the template handler&#39;s arguments are valid.</span>
 <span class="sd">        &quot;&quot;&quot;</span>

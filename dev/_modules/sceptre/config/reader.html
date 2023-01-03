@@ -297,7 +297,7 @@
 
 
 <div class="viewcode-block" id="ConfigReader"><a class="viewcode-back" href="../../../apidoc/sceptre.config.html#sceptre.config.reader.ConfigReader">[docs]</a><span class="k">class</span> <span class="nc">ConfigReader</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parses YAML configuration files and produces Stack objects.</span>
 
 <span class="sd">    Responsible for loading Resolvers and Hook classes and adding them as</span>
@@ -324,7 +324,7 @@
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_iterate_entry_points</span><span class="p">(</span><span class="n">group</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Helper to determine whether to use pkg_resources or importlib.metadata.</span>
 <span class="sd">        https://docs.python.org/3/library/importlib.metadata.html</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -338,7 +338,7 @@
             <span class="k">return</span> <span class="n">entry_points</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">group</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_add_yaml_constructors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entry_point_groups</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds PyYAML constructor functions for all classes found registered at</span>
 <span class="sd">        the given entry point groups. Classes are registered whereby the node</span>
 <span class="sd">        tag is the entry point name.</span>
@@ -353,7 +353,7 @@
         <span class="p">)</span>
 
         <span class="k">def</span> <span class="nf">constructor_factory</span><span class="p">(</span><span class="n">node_class</span><span class="p">):</span>
-            <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Returns constructor that will initialise objects from a</span>
 <span class="sd">            given node class.</span>
 
@@ -393,7 +393,7 @@
         <span class="k">return</span> <span class="n">node</span></div>
 
 <div class="viewcode-block" id="ConfigReader.construct_stacks"><a class="viewcode-back" href="../../../apidoc/sceptre.config.html#sceptre.config.reader.ConfigReader.construct_stacks">[docs]</a>    <span class="k">def</span> <span class="nf">construct_stacks</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Set</span><span class="p">[</span><span class="n">Stack</span><span class="p">],</span> <span class="n">Set</span><span class="p">[</span><span class="n">Stack</span><span class="p">]]:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Traverses the files under the command path.</span>
 <span class="sd">        For each file encountered, a Stack is constructed</span>
 <span class="sd">        using the correct config. Dependencies are traversed</span>
@@ -465,7 +465,7 @@
         <span class="k">return</span> <span class="n">stacks</span><span class="p">,</span> <span class="n">command_stacks</span></div>
 
 <div class="viewcode-block" id="ConfigReader.resolve_stacks"><a class="viewcode-back" href="../../../apidoc/sceptre.config.html#sceptre.config.reader.ConfigReader.resolve_stacks">[docs]</a>    <span class="k">def</span> <span class="nf">resolve_stacks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack_map</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="n">Stack</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Transforms map of Stacks into a set of Stacks, transforms dependencies</span>
 <span class="sd">        from a list of Strings (stack names) to a list of Stacks.</span>
 
@@ -505,7 +505,7 @@
         <span class="k">return</span> <span class="n">stacks</span></div>
 
 <div class="viewcode-block" id="ConfigReader.read"><a class="viewcode-back" href="../../../apidoc/sceptre.config.html#sceptre.config.reader.ConfigReader.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rel_path</span><span class="p">,</span> <span class="n">base_config</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Reads in configuration from one or more YAML files</span>
 <span class="sd">        within the Sceptre project folder.</span>
 
@@ -555,7 +555,7 @@
     <span class="k">def</span> <span class="nf">_recursive_read</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">directory_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">stack_group_config</span><span class="p">:</span> <span class="nb">dict</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Traverses the directory_path, from top to bottom, reading in all</span>
 <span class="sd">        relevant config files. If config attributes are encountered further</span>
 <span class="sd">        down the StackGroup they are merged with the parent as defined in the</span>
@@ -595,7 +595,7 @@
         <span class="k">return</span> <span class="n">config</span>
 
     <span class="k">def</span> <span class="nf">_render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory_path</span><span class="p">,</span> <span class="n">basename</span><span class="p">,</span> <span class="n">stack_group_config</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Reads a configuration file, loads the config file as a template</span>
 <span class="sd">        and returns config loaded from the file.</span>
 
@@ -643,7 +643,7 @@
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_check_valid_project_path</span><span class="p">(</span><span class="n">config_path</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Raises an InvalidSceptreDirectoryError if ``path`` is not a directory.</span>
 
 <span class="sd">        :param path: A config directory path.</span>
@@ -656,7 +656,7 @@
             <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_check_version</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Raises a VersionIncompatibleException when the current Sceptre version</span>
 <span class="sd">        does not comply with the configured version requirement.</span>
 
@@ -673,7 +673,7 @@
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_collect_s3_details</span><span class="p">(</span><span class="n">stack_name</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Collects and constructs details for where to store the Template in S3.</span>
 
 <span class="sd">        :param stack_name: Stack name.</span>
@@ -709,7 +709,7 @@
         <span class="k">return</span> <span class="n">s3_details</span>
 
     <span class="k">def</span> <span class="nf">_construct_stack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rel_path</span><span class="p">,</span> <span class="n">stack_group_config</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Constructs an individual Stack object from a config path and a</span>
 <span class="sd">        base config.</span>
 
@@ -774,7 +774,7 @@
         <span class="k">return</span> <span class="n">stack</span>
 
     <span class="k">def</span> <span class="nf">_parsed_stack_group_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack_group_config</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Remove all config items that are supported by Sceptre and</span>
 <span class="sd">        remove the `project_path` and `stack_group_path` added by `read()`.</span>
 <span class="sd">        Return a dictionary that has only user-specified config items.</span>

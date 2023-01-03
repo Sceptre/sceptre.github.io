@@ -204,7 +204,7 @@
 
 
 <div class="viewcode-block" id="Template"><a class="viewcode-back" href="../../apidoc/sceptre.html#sceptre.template.Template">[docs]</a><span class="k">class</span> <span class="nc">Template</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Template represents an AWS CloudFormation template. It is responsible for</span>
 <span class="sd">    loading, storing and optionally uploading local templates for use by</span>
 <span class="sd">    CloudFormation.</span>
@@ -263,7 +263,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">body</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Represents body of the CloudFormation template.</span>
 
 <span class="sd">        :returns: The body of the CloudFormation template.</span>
@@ -290,7 +290,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_body</span>
 
 <div class="viewcode-block" id="Template.upload_to_s3"><a class="viewcode-back" href="../../apidoc/sceptre.html#sceptre.template.Template.upload_to_s3">[docs]</a>    <span class="k">def</span> <span class="nf">upload_to_s3</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Uploads the template to ``bucket_name`` and returns its URL.</span>
 
 <span class="sd">        The Template is uploaded with the ``bucket_key``.</span>
@@ -340,7 +340,7 @@
         <span class="k">return</span> <span class="n">url</span></div>
 
     <span class="k">def</span> <span class="nf">_bucket_exists</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks if the bucket ``bucket_name`` exists.</span>
 
 <span class="sd">        :returns: Boolean whether the bucket exists</span>
@@ -366,7 +366,7 @@
         <span class="k">return</span> <span class="kc">True</span>
 
     <span class="k">def</span> <span class="nf">_create_bucket</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create the s3 bucket ``bucket_name``.</span>
 
 <span class="sd">        :raises: botocore.exception.ClientError</span>
@@ -393,7 +393,7 @@
             <span class="p">)</span>
 
 <div class="viewcode-block" id="Template.get_boto_call_parameter"><a class="viewcode-back" href="../../apidoc/sceptre.html#sceptre.template.Template.get_boto_call_parameter">[docs]</a>    <span class="k">def</span> <span class="nf">get_boto_call_parameter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the CloudFormation template location.</span>
 
 <span class="sd">        Uploads the template to S3 and returns the object&#39;s URL, or returns</span>
@@ -421,7 +421,7 @@
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_iterate_entry_points</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Helper to determine whether to use pkg_resources or importlib.metadata.</span>
 <span class="sd">        https://docs.python.org/3/library/importlib.metadata.html</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -435,7 +435,7 @@
             <span class="k">return</span> <span class="n">entry_points</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">group</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_get_handler_of_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets a TemplateHandler type from the registry that can be used to get a string</span>
 <span class="sd">        representation of a CloudFormation template.</span>
 <span class="sd">        :param type: The type of Template Handler to load</span>
