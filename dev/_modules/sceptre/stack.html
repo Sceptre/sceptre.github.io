@@ -266,6 +266,8 @@
 <span class="sd">    :param on_failure: This parameter describes the action taken by\</span>
 <span class="sd">            CloudFormation when a Stack fails to create.</span>
 
+<span class="sd">    :param disable_rollback: If True, cloudformation will not rollback on deployment failures</span>
+
 <span class="sd">    :param iam_role: The ARN of a role for Sceptre to assume before interacting\</span>
 <span class="sd">            with the environment. If not supplied, Sceptre uses the user&#39;s AWS CLI\</span>
 <span class="sd">            credentials.</span>
@@ -340,6 +342,7 @@
         <span class="n">external_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">notifications</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">on_failure</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">disable_rollback</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">profile</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">stack_timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
         <span class="n">iam_role_session_duration</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
@@ -370,6 +373,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">dependencies</span> <span class="o">=</span> <span class="n">dependencies</span> <span class="ow">or</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">protected</span> <span class="o">=</span> <span class="n">protected</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">on_failure</span> <span class="o">=</span> <span class="n">on_failure</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">disable_rollback</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_boolean</span><span class="p">(</span>
+            <span class="s2">&quot;disable_rollback&quot;</span><span class="p">,</span> <span class="n">disable_rollback</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stack_group_config</span> <span class="o">=</span> <span class="n">stack_group_config</span> <span class="ow">or</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stack_timeout</span> <span class="o">=</span> <span class="n">stack_timeout</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">profile</span> <span class="o">=</span> <span class="n">profile</span>
@@ -428,6 +434,7 @@
             <span class="sa">f</span><span class="s2">&quot;external_name=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">external_name</span><span class="si">}</span><span class="s2">, &quot;</span>
             <span class="sa">f</span><span class="s2">&quot;notifications=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">notifications</span><span class="si">}</span><span class="s2">, &quot;</span>
             <span class="sa">f</span><span class="s2">&quot;on_failure=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">on_failure</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;disable_rollback=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">disable_rollback</span><span class="si">}</span><span class="s2">, &quot;</span>
             <span class="sa">f</span><span class="s2">&quot;stack_timeout=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stack_timeout</span><span class="si">}</span><span class="s2">, &quot;</span>
             <span class="sa">f</span><span class="s2">&quot;stack_group_config=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stack_group_config</span><span class="si">}</span><span class="s2">, &quot;</span>
             <span class="sa">f</span><span class="s2">&quot;ignore=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ignore</span><span class="si">}</span><span class="s2">, &quot;</span>
@@ -455,6 +462,7 @@
             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">dependencies</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">dependencies</span>
             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">protected</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">protected</span>
             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_failure</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">on_failure</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">disable_rollback</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">disable_rollback</span>
             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack_timeout</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">stack_timeout</span>
             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">ignore</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">ignore</span>
             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">obsolete</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">obsolete</span>
