@@ -740,11 +740,6 @@
                 <span class="p">)</span>
 
         <span class="n">s3_details</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collect_s3_details</span><span class="p">(</span><span class="n">stack_name</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
-        <span class="c1"># If disable/enable rollback was specified on the command line, use that. Otherwise,</span>
-        <span class="c1"># fall back to the stack config.</span>
-        <span class="n">disable_rollback</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">command_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;disable_rollback&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">disable_rollback</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">disable_rollback</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;disable_rollback&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 
         <span class="n">stack</span> <span class="o">=</span> <span class="n">Stack</span><span class="p">(</span>
             <span class="n">name</span><span class="o">=</span><span class="n">stack_name</span><span class="p">,</span>
@@ -769,7 +764,6 @@
             <span class="n">external_name</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;stack_name&quot;</span><span class="p">),</span>
             <span class="n">notifications</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;notifications&quot;</span><span class="p">),</span>
             <span class="n">on_failure</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;on_failure&quot;</span><span class="p">),</span>
-            <span class="n">disable_rollback</span><span class="o">=</span><span class="n">disable_rollback</span><span class="p">,</span>
             <span class="n">stack_timeout</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;stack_timeout&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
             <span class="n">ignore</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
             <span class="n">obsolete</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;obsolete&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>

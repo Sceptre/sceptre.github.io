@@ -408,9 +408,6 @@ creates a change set for stack in PATH.</p>
 <dt class="field-even">type yes</dt>
 <dd class="field-even"><p>bool</p>
 </dd>
-<dt class="field-odd">param disable_rollback</dt>
-<dd class="field-odd"><p>A flag to disable cloudformation rollback.</p>
-</dd>
 </dl>
 </div></blockquote>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sceptre<span class="w"> </span>create<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>PATH<span class="w"> </span><span class="o">[</span>CHANGE_SET_NAME<span class="o">]</span>
@@ -421,12 +418,6 @@ creates a change set for stack in PATH.</p>
 <dt class="sig sig-object std" id="cmdoption-sceptre-create-y">
 <span id="cmdoption-sceptre-create-yes"></span><span class="sig-name descname"><span class="pre">-y</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--yes</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-create-y" title="Permalink to this definition">¶</a></dt>
 <dd><p>Assume yes to all questions.</p>
-</dd></dl>
-
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-sceptre-create-disable-rollback">
-<span id="cmdoption-sceptre-create-enable-rollback"></span><span class="sig-name descname"><span class="pre">--disable-rollback</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--enable-rollback</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-create-disable-rollback" title="Permalink to this definition">¶</a></dt>
-<dd><p>Disable or enable the cloudformation automatic rollback</p>
 </dd></dl>
 
 <p class="rubric">Arguments</p>
@@ -799,12 +790,6 @@ browser with the returned URI.</p>
 <dd><p>Assume yes to all questions.</p>
 </dd></dl>
 
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-sceptre-execute-disable-rollback">
-<span id="cmdoption-sceptre-execute-enable-rollback"></span><span class="sig-name descname"><span class="pre">--disable-rollback</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--enable-rollback</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-execute-disable-rollback" title="Permalink to this definition">¶</a></dt>
-<dd><p>Disable or enable the cloudformation automatic rollback</p>
-</dd></dl>
-
 <p class="rubric">Arguments</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-sceptre-execute-arg-PATH">
@@ -883,10 +868,10 @@ command that will apply any changes from Stack Configs indicated via the path.</
 * Any Stacks that do not exist will be created
 * Any stacks that already exist will be updated (if there are any changes)
 * If any stacks are marked with “ignore: True”, those stacks will neither be created nor updated
-* If any stacks are marked with “obsolete: True”, those stacks will neither be created nor updated.
-* Furthermore, if the “-p”/”–prune” flag is used, these stacks will be deleted prior to any</p>
+* If any stacks are marked with “obsolete: True”, those stacks will neither be created nor updated.</p>
 <blockquote>
-<div><p>other launch commands</p>
+<div><p>Furthermore, if the “-p”/”–prune” flag is used, these stacks will be deleted prior to any
+other launch commands</p>
 </div></blockquote>
 </div></blockquote>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sceptre<span class="w"> </span>launch<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>PATH
@@ -903,12 +888,6 @@ command that will apply any changes from Stack Configs indicated via the path.</
 <dt class="sig sig-object std" id="cmdoption-sceptre-launch-p">
 <span id="cmdoption-sceptre-launch-prune"></span><span class="sig-name descname"><span class="pre">-p</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--prune</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-launch-p" title="Permalink to this definition">¶</a></dt>
 <dd><p>If set, will delete all stacks in the command path marked as obsolete.</p>
-</dd></dl>
-
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-sceptre-launch-disable-rollback">
-<span id="cmdoption-sceptre-launch-enable-rollback"></span><span class="sig-name descname"><span class="pre">--disable-rollback</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--enable-rollback</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-launch-disable-rollback" title="Permalink to this definition">¶</a></dt>
-<dd><p>Disable or enable the cloudformation automatic rollback</p>
 </dd></dl>
 
 <p class="rubric">Arguments</p>
@@ -1267,12 +1246,6 @@ change-set when the change-set flag is set.</p>
 <dt class="sig sig-object std" id="cmdoption-sceptre-update-y">
 <span id="cmdoption-sceptre-update-yes"></span><span class="sig-name descname"><span class="pre">-y</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--yes</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-update-y" title="Permalink to this definition">¶</a></dt>
 <dd><p>Assume yes to all questions.</p>
-</dd></dl>
-
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-sceptre-update-disable-rollback">
-<span id="cmdoption-sceptre-update-enable-rollback"></span><span class="sig-name descname"><span class="pre">--disable-rollback</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--enable-rollback</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-update-disable-rollback" title="Permalink to this definition">¶</a></dt>
-<dd><p>Disable or enable the cloudformation automatic rollback</p>
 </dd></dl>
 
 <p class="rubric">Arguments</p>

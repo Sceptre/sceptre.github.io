@@ -236,7 +236,6 @@
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">project_path</span><span class="p">,</span>
         <span class="n">command_path</span><span class="p">,</span>
-        <span class="n">command_params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">user_variables</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">output_format</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -257,9 +256,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">command_path</span> <span class="o">=</span> <span class="n">normalise_path</span><span class="p">(</span><span class="n">command_path</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">normal_command_path</span> <span class="o">=</span> <span class="n">normalise_path</span><span class="p">(</span><span class="n">command_path</span><span class="p">)</span>
-
-        <span class="c1"># the sceptre command parameters (e.g. sceptre launch &lt;command params&gt;)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">command_params</span> <span class="o">=</span> <span class="n">command_params</span> <span class="ow">or</span> <span class="p">{}</span>
 
         <span class="c1"># config_file: stack group config. User definable later in v2</span>
         <span class="c1"># e.g. {project_path/config/command_path}/config_file</span>
