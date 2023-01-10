@@ -117,7 +117,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#how-do-i-set-aws-region-or-profile-via-the-cli">How do I set AWS Region or Profile via the CLI?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#should-i-use-a-parameter-or-sceptre-user-data">Should I use a Parameter or Sceptre User Data?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#why-are-there-two-ways-to-supply-environment-variables-in-stack-config-files">Why are there two ways to supply environment variables in stack config files?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#how-do-i-build-a-serverless-application-using-sceptre-and-sam">How do I build a Serverless application using Sceptre and SAM?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#my-ci-cd-process-uses-sceptre-launch-how-do-i-delete-stacks-that-aren-t-needed-anymore">My CI/CD process uses <code class="docutils literal notranslate"><span class="pre">sceptre</span> <span class="pre">launch</span></code>. How do I delete stacks that aren’t needed anymore?</a></li>
 </ul>
 </li>
@@ -256,12 +255,6 @@ This is only possible using resolvers.</p>
 <p>In order to use environment variables set by Hooks run by a stack previously
 built in the same <code class="docutils literal notranslate"><span class="pre">launch</span></code> command, the environment variable resolver must be
 used.</p>
-</div>
-<div class="section" id="how-do-i-build-a-serverless-application-using-sceptre-and-sam">
-<h2>How do I build a Serverless application using Sceptre and SAM?<a class="headerlink" href="#how-do-i-build-a-serverless-application-using-sceptre-and-sam" title="Permalink to this heading">¶</a></h2>
-<p>There is now a SAM Template Handler that lets you incorporate SAM applications into environments that
-are managed and deployed using Sceptre. For more information on how to install and use SAM in your
-Sceptre project, see the <a class="reference external" href="https://pypi.org/project/sceptre-sam-handler/">sceptre-sam-handler</a> page on PyPI.</p>
 </div>
 <div class="section" id="my-ci-cd-process-uses-sceptre-launch-how-do-i-delete-stacks-that-aren-t-needed-anymore">
 <h2>My CI/CD process uses <code class="docutils literal notranslate"><span class="pre">sceptre</span> <span class="pre">launch</span></code>. How do I delete stacks that aren’t needed anymore?<a class="headerlink" href="#my-ci-cd-process-uses-sceptre-launch-how-do-i-delete-stacks-that-aren-t-needed-anymore" title="Permalink to this heading">¶</a></h2>

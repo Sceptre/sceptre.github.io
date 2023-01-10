@@ -113,7 +113,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#notifications">notifications</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#obsolete">obsolete</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#on-failure">on_failure</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#disable-rollback">disable_rollback</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#parameters">parameters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#protected">protected</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#role-arn">role_arn</a></li>
@@ -238,7 +237,6 @@ particular Stack. The available keys are listed below.</p>
 <li><p><a class="reference external" href="#notifications">notifications</a> <em>(optional)</em></p></li>
 <li><p><a class="reference internal" href="#obsolete">obsolete</a> <em>(optional)</em></p></li>
 <li><p><a class="reference external" href="#on-failure">on_failure</a> <em>(optional)</em></p></li>
-<li><p><a class="reference external" href="#disable-rollback">disable_rollback</a> <em>(optional)</em></p></li>
 <li><p><a class="reference external" href="#parameters">parameters</a> <em>(optional)</em></p></li>
 <li><p><a class="reference external" href="#protected">protected</a> <em>(optional)</em></p></li>
 <li><p><a class="reference external" href="#role-arn">role_arn</a> <em>(optional)</em></p></li>
@@ -415,23 +413,6 @@ to create. For more information and valid values see the <a class="reference ext
 <p><code class="docutils literal notranslate"><span class="pre">on_failure:</span> <span class="pre">&quot;DO_NOTHING&quot;</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">on_failure:</span> <span class="pre">&quot;ROLLBACK&quot;</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">on_failure:</span> <span class="pre">&quot;DELETE&quot;</span></code></p>
-</div>
-<div class="section" id="disable-rollback">
-<h3>disable_rollback<a class="headerlink" href="#disable-rollback" title="Permalink to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>Resolvable: No</p></li>
-<li><p>Can be inherited from StackGroup: Yes</p></li>
-<li><p>Inheritance strategy: Overrides parent if set</p></li>
-</ul>
-<p>This parameter describes the action taken by CloudFormation when a Stack fails
-to create or update, default is False. This option can be set from the stack
-config or from the Sceptre CLI commands to deploy stacks. The disable_rollback
-CLI option (i.e. sceptre launch –disable-rollback) disables cloudformation
-rollback globally for all stacks. This option overrides on_failure since
-Cloudformation does not allow setting both on deployment. For more information
-and valid values see the <a class="reference external" href="http://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateStack.html">AWS Documentation</a>.</p>
-<p>Examples:</p>
-<p><code class="docutils literal notranslate"><span class="pre">disable_rollback:</span> <span class="pre">&quot;True&quot;</span></code></p>
 </div>
 <div class="section" id="parameters">
 <h3>parameters<a class="headerlink" href="#parameters" title="Permalink to this heading">¶</a></h3>
