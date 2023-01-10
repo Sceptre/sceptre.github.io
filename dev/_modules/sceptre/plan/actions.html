@@ -270,8 +270,12 @@
             <span class="p">],</span>
         <span class="p">}</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">on_failure</span><span class="p">:</span>
+        <span class="c1"># can specify either DisableRollback or OnFailure , but not both</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">disable_rollback</span><span class="p">:</span>
+            <span class="n">create_stack_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;DisableRollback&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">disable_rollback</span><span class="p">})</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">on_failure</span><span class="p">:</span>
             <span class="n">create_stack_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;OnFailure&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">on_failure</span><span class="p">})</span>
+
         <span class="n">create_stack_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">template</span><span class="o">.</span><span class="n">get_boto_call_parameter</span><span class="p">())</span>
         <span class="n">create_stack_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_role_arn</span><span class="p">())</span>
         <span class="n">create_stack_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_stack_timeout</span><span class="p">())</span>
