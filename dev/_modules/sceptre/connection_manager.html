@@ -195,18 +195,16 @@
 
 <span class="kn">import</span> <span class="nn">functools</span>
 <span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">import</span> <span class="nn">threading</span>
 <span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Dict</span>
-
 <span class="kn">import</span> <span class="nn">boto3</span>
-<span class="kn">from</span> <span class="nn">botocore.credentials</span> <span class="kn">import</span> <span class="n">Credentials</span>
+
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">environ</span>
 <span class="kn">from</span> <span class="nn">botocore.exceptions</span> <span class="kn">import</span> <span class="n">ClientError</span>
 
-<span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">InvalidAWSCredentialsError</span><span class="p">,</span> <span class="n">RetryLimitExceededError</span>
 <span class="kn">from</span> <span class="nn">sceptre.helpers</span> <span class="kn">import</span> <span class="n">mask_key</span>
+<span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">InvalidAWSCredentialsError</span><span class="p">,</span> <span class="n">RetryLimitExceededError</span>
 
 
 <span class="k">def</span> <span class="nf">_retry_boto_call</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
@@ -257,21 +255,19 @@
     <span class="k">return</span> <span class="n">decorated</span>
 
 
-<span class="c1"># STACK_DEFAULT is a sentinel value meaning &quot;default to the stack&#39;s configuration&quot;. This is in</span>
-<span class="c1"># contrast with passing None, which would mean &quot;use no value&quot;.</span>
-<span class="n">STACK_DEFAULT</span> <span class="o">=</span> <span class="s2">&quot;[STACK DEFAULT]&quot;</span>
-
-
 <div class="viewcode-block" id="ConnectionManager"><a class="viewcode-back" href="../../apidoc/sceptre.html#sceptre.connection_manager.ConnectionManager">[docs]</a><span class="k">class</span> <span class="nc">ConnectionManager</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The Connection Manager is used to create boto3 clients for</span>
 <span class="sd">    the various AWS services that Sceptre needs to interact with.</span>
 
 <span class="sd">    :param profile: The AWS credentials profile that should be used.</span>
+<span class="sd">    :type profile: str</span>
 <span class="sd">    :param iam_role: The iam_role that should be assumed in the account.</span>
+<span class="sd">    :type iam_role: str</span>
 <span class="sd">    :param stack_name: The CloudFormation stack name for this connection.</span>
+<span class="sd">    :type stack_name: str</span>
 <span class="sd">    :param region: The region to use.</span>
-<span class="sd">    :param iam_role_session_duration: The duration to assume the specified iam_role per session.</span>
+<span class="sd">    :type region: str</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">_session_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
@@ -282,14 +278,11 @@
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">region</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">stack_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">iam_role</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">iam_role_session_duration</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="o">*</span><span class="p">,</span>
-        <span class="n">session_class</span><span class="o">=</span><span class="n">boto3</span><span class="o">.</span><span class="n">Session</span><span class="p">,</span>
-        <span class="n">get_envs_func</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">,</span>
+        <span class="n">region</span><span class="p">,</span>
+        <span class="n">profile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">stack_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">iam_role</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">iam_role_session_duration</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
@@ -303,9 +296,6 @@
         <span class="k">if</span> <span class="n">stack_name</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_stack_keys</span><span class="p">[</span><span class="n">stack_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">profile</span><span class="p">,</span> <span class="n">iam_role</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_session_class</span> <span class="o">=</span> <span class="n">session_class</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_get_envs</span> <span class="o">=</span> <span class="n">get_envs_func</span>
-
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">(</span>
             <span class="s2">&quot;sceptre.connection_manager.ConnectionManager(region=&#39;</span><span class="si">{0}</span><span class="s2">&#39;, &quot;</span>
@@ -318,94 +308,19 @@
             <span class="p">)</span>
         <span class="p">)</span>
 
-<div class="viewcode-block" id="ConnectionManager.get_session"><a class="viewcode-back" href="../../apidoc/sceptre.html#sceptre.connection_manager.ConnectionManager.get_session">[docs]</a>    <span class="k">def</span> <span class="nf">get_session</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">STACK_DEFAULT</span><span class="p">,</span>
-        <span class="n">region</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">STACK_DEFAULT</span><span class="p">,</span>
-        <span class="n">iam_role</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">STACK_DEFAULT</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">boto3</span><span class="o">.</span><span class="n">Session</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_get_session</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">iam_role</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns a boto3 session for the targeted profile, region, and iam_role.</span>
+<span class="sd">        Returns a boto session in the target account.</span>
 
-<span class="sd">        For each of profile, region, and iam_role, these values will default to the ConnectionManager&#39;s</span>
-<span class="sd">        configured default values (which correspond to the Stack&#39;s configuration). These values can</span>
-<span class="sd">        be overridden, however, by passing them explicitly.</span>
-
-<span class="sd">        :param profile: The name of the AWS Profile as configured in the local environment. Passing</span>
-<span class="sd">            None will result in no profile being specified. Defaults to the ConnectionManager&#39;s</span>
-<span class="sd">            configured profile (if there is one).</span>
-<span class="sd">        :param region: The AWS Region the session should be configured with. Defaults to the</span>
-<span class="sd">            ConnectionManager&#39;s configured region.</span>
-<span class="sd">        :param iam_role: The IAM role ARN that is assumed using STS to create the session. Passing</span>
-<span class="sd">            None will result in no IAM role being assumed. Defaults to the ConnectionManager&#39;s</span>
-<span class="sd">            configured iam_role (if there is one).</span>
+<span class="sd">        If a ``profile`` is specified in ConnectionManager&#39;s initialiser,</span>
+<span class="sd">        then the profile is used to generate temporary credentials to create</span>
+<span class="sd">        the Boto session. If ``profile`` is not specified then the default</span>
+<span class="sd">        profile is assumed to create the boto session.</span>
 
 <span class="sd">        :returns: The Boto3 session.</span>
+<span class="sd">        :rtype: boto3.session.Session</span>
 <span class="sd">        :raises: botocore.exceptions.ClientError</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">profile</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">profile</span> <span class="k">if</span> <span class="n">profile</span> <span class="o">==</span> <span class="n">STACK_DEFAULT</span> <span class="k">else</span> <span class="n">profile</span>
-        <span class="n">region</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">region</span> <span class="k">if</span> <span class="n">region</span> <span class="o">==</span> <span class="n">STACK_DEFAULT</span> <span class="k">else</span> <span class="n">region</span>
-        <span class="n">iam_role</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iam_role</span> <span class="k">if</span> <span class="n">iam_role</span> <span class="o">==</span> <span class="n">STACK_DEFAULT</span> <span class="k">else</span> <span class="n">iam_role</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_session</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">iam_role</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="ConnectionManager.create_session_environment_variables"><a class="viewcode-back" href="../../apidoc/sceptre.html#sceptre.connection_manager.ConnectionManager.create_session_environment_variables">[docs]</a>    <span class="k">def</span> <span class="nf">create_session_environment_variables</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">STACK_DEFAULT</span><span class="p">,</span>
-        <span class="n">region</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">STACK_DEFAULT</span><span class="p">,</span>
-        <span class="n">iam_role</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">STACK_DEFAULT</span><span class="p">,</span>
-        <span class="n">include_system_envs</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Creates the standard AWS environment variables that would need to be passed to a</span>
-<span class="sd">        subprocess in a hook, resolver, or template handler and allow that subprocess to work with</span>
-<span class="sd">        the currently configured session.</span>
-
-<span class="sd">        :param profile: The name of the AWS Profile as configured in the local environment. Passing</span>
-<span class="sd">            None will result in no profile being specified. Defaults to the ConnectionManager&#39;s</span>
-<span class="sd">            configured profile (if there is one).</span>
-<span class="sd">        :param region: The AWS Region the session should be configured with. Defaults to the</span>
-<span class="sd">            ConnectionManager&#39;s configured region.</span>
-<span class="sd">        :param iam_role: The IAM role ARN that is assumed using STS to create the session. Passing</span>
-<span class="sd">            None will result in no IAM role being assumed. Defaults to the ConnectionManager&#39;s</span>
-<span class="sd">            configured iam_role (if there is one).</span>
-<span class="sd">        :param include_system_envs: If True, will return a dict with all the system environment</span>
-<span class="sd">            variables included. This is useful for creating a complete dict of environment variables</span>
-<span class="sd">            to pass to a subprocess. By default, this method will ONLY return the relevant AWS</span>
-<span class="sd">            environment variables.</span>
-
-<span class="sd">        :returns: A dict of environment variables with the appropriate credentials available for use.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">iam_role</span><span class="p">)</span>
-        <span class="c1"># Set aws environment variables specific to whatever AWS configuration has been set on the</span>
-        <span class="c1"># stack&#39;s connection manager.</span>
-        <span class="n">credentials</span><span class="p">:</span> <span class="n">Credentials</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get_credentials</span><span class="p">()</span>
-        <span class="n">envs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_envs</span><span class="p">())</span> <span class="k">if</span> <span class="n">include_system_envs</span> <span class="k">else</span> <span class="p">{}</span>
-
-        <span class="k">if</span> <span class="n">include_system_envs</span><span class="p">:</span>
-            <span class="c1"># We don&#39;t want a profile specified, since that could interfere with the credentials we&#39;re</span>
-            <span class="c1"># about to set. Even if we&#39;re using a profile, the credentials will already reflect that</span>
-            <span class="c1"># profile&#39;s configurations.</span>
-            <span class="n">envs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;AWS_PROFILE&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-
-        <span class="n">envs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
-            <span class="n">AWS_ACCESS_KEY_ID</span><span class="o">=</span><span class="n">credentials</span><span class="o">.</span><span class="n">access_key</span><span class="p">,</span>
-            <span class="n">AWS_SECRET_ACCESS_KEY</span><span class="o">=</span><span class="n">credentials</span><span class="o">.</span><span class="n">secret_key</span><span class="p">,</span>
-            <span class="c1"># Most AWS SDKs use AWS_DEFAULT_REGION for the region; some use AWS_REGION</span>
-            <span class="n">AWS_DEFAULT_REGION</span><span class="o">=</span><span class="n">session</span><span class="o">.</span><span class="n">region_name</span><span class="p">,</span>
-            <span class="n">AWS_REGION</span><span class="o">=</span><span class="n">session</span><span class="o">.</span><span class="n">region_name</span><span class="p">,</span>
-        <span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">credentials</span><span class="o">.</span><span class="n">token</span><span class="p">:</span>
-            <span class="n">envs</span><span class="p">[</span><span class="s2">&quot;AWS_SESSION_TOKEN&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">credentials</span><span class="o">.</span><span class="n">token</span>
-        <span class="c1"># There might not be a session token, so if there isn&#39;t one, make sure it doesn&#39;t exist in</span>
-        <span class="c1"># the envs being passed to the subprocess</span>
-        <span class="k">elif</span> <span class="n">include_system_envs</span><span class="p">:</span>
-            <span class="n">envs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;AWS_SESSION_TOKEN&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">envs</span></div>
-
-    <span class="k">def</span> <span class="nf">_get_session</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">region</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">iam_role</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">boto3</span><span class="o">.</span><span class="n">Session</span><span class="p">:</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session_lock</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Getting Boto3 session&quot;</span><span class="p">)</span>
             <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">profile</span><span class="p">,</span> <span class="n">iam_role</span><span class="p">)</span>
@@ -413,7 +328,7 @@
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_boto_sessions</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;No Boto3 session found, creating one...&quot;</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Using cli credentials...&quot;</span><span class="p">)</span>
-                <span class="n">environ</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_envs</span><span class="p">()</span>
+
                 <span class="c1"># Credentials from env take priority over profile</span>
                 <span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
                     <span class="s2">&quot;profile_name&quot;</span><span class="p">:</span> <span class="n">profile</span><span class="p">,</span>
@@ -423,7 +338,7 @@
                     <span class="s2">&quot;aws_session_token&quot;</span><span class="p">:</span> <span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;AWS_SESSION_TOKEN&quot;</span><span class="p">),</span>
                 <span class="p">}</span>
 
-                <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session_class</span><span class="p">(</span><span class="o">**</span><span class="n">config</span><span class="p">)</span>
+                <span class="n">session</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="o">**</span><span class="n">config</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_boto_sessions</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">session</span>
 
                 <span class="k">if</span> <span class="n">session</span><span class="o">.</span><span class="n">get_credentials</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -448,7 +363,7 @@
                     <span class="n">sts_response</span> <span class="o">=</span> <span class="n">sts_client</span><span class="o">.</span><span class="n">assume_role</span><span class="p">(</span><span class="o">**</span><span class="n">assume_role_kwargs</span><span class="p">)</span>
 
                     <span class="n">credentials</span> <span class="o">=</span> <span class="n">sts_response</span><span class="p">[</span><span class="s2">&quot;Credentials&quot;</span><span class="p">]</span>
-                    <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session_class</span><span class="p">(</span>
+                    <span class="n">session</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span>
                         <span class="n">aws_access_key_id</span><span class="o">=</span><span class="n">credentials</span><span class="p">[</span><span class="s2">&quot;AccessKeyId&quot;</span><span class="p">],</span>
                         <span class="n">aws_secret_access_key</span><span class="o">=</span><span class="n">credentials</span><span class="p">[</span><span class="s2">&quot;SecretAccessKey&quot;</span><span class="p">],</span>
                         <span class="n">aws_session_token</span><span class="o">=</span><span class="n">credentials</span><span class="p">[</span><span class="s2">&quot;SessionToken&quot;</span><span class="p">],</span>
