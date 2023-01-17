@@ -308,17 +308,18 @@ raises a NotImplementedError.</p>
 Boto3 calls.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="sceptre.connection_manager.ConnectionManager">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.connection_manager.</span></span><span class="sig-name descname"><span class="pre">ConnectionManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iam_role</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iam_role_session_duration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/connection_manager.html#ConnectionManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.connection_manager.ConnectionManager" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.connection_manager.</span></span><span class="sig-name descname"><span class="pre">ConnectionManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack_name=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iam_role=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iam_role_session_duration=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session_class=&lt;class</span> <span class="pre">'boto3.session.Session'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_envs_func=&lt;function</span> <span class="pre">ConnectionManager.&lt;lambda&gt;&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/connection_manager.html#ConnectionManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.connection_manager.ConnectionManager" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>The Connection Manager is used to create boto3 clients for
 the various AWS services that Sceptre needs to interact with.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>profile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The AWS credentials profile that should be used.</p></li>
-<li><p><strong>iam_role</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The iam_role that should be assumed in the account.</p></li>
-<li><p><strong>stack_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The CloudFormation stack name for this connection.</p></li>
-<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The region to use.</p></li>
+<li><p><strong>profile</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – The AWS credentials profile that should be used.</p></li>
+<li><p><strong>iam_role</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – The iam_role that should be assumed in the account.</p></li>
+<li><p><strong>stack_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – The CloudFormation stack name for this connection.</p></li>
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The region to use.</p></li>
+<li><p><strong>iam_role_session_duration</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]) – The duration to assume the specified iam_role per session.</p></li>
 </ul>
 </dd>
 </dl>
@@ -340,6 +341,70 @@ the various AWS services that Sceptre needs to interact with.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sceptre.connection_manager.ConnectionManager.create_session_environment_variables">
+<span class="sig-name descname"><span class="pre">create_session_environment_variables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">profile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'[STACK</span> <span class="pre">DEFAULT]'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'[STACK</span> <span class="pre">DEFAULT]'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iam_role</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'[STACK</span> <span class="pre">DEFAULT]'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_system_envs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/connection_manager.html#ConnectionManager.create_session_environment_variables"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.connection_manager.ConnectionManager.create_session_environment_variables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the standard AWS environment variables that would need to be passed to a
+subprocess in a hook, resolver, or template handler and allow that subprocess to work with
+the currently configured session.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>profile</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – The name of the AWS Profile as configured in the local environment. Passing
+None will result in no profile being specified. Defaults to the ConnectionManager’s
+configured profile (if there is one).</p></li>
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – The AWS Region the session should be configured with. Defaults to the
+ConnectionManager’s configured region.</p></li>
+<li><p><strong>iam_role</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – The IAM role ARN that is assumed using STS to create the session. Passing
+None will result in no IAM role being assumed. Defaults to the ConnectionManager’s
+configured iam_role (if there is one).</p></li>
+<li><p><strong>include_system_envs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – If True, will return a dict with all the system environment
+variables included. This is useful for creating a complete dict of environment variables
+to pass to a subprocess. By default, this method will ONLY return the relevant AWS
+environment variables.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A dict of environment variables with the appropriate credentials available for use.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sceptre.connection_manager.ConnectionManager.get_session">
+<span class="sig-name descname"><span class="pre">get_session</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">profile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'[STACK</span> <span class="pre">DEFAULT]'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'[STACK</span> <span class="pre">DEFAULT]'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iam_role</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'[STACK</span> <span class="pre">DEFAULT]'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/connection_manager.html#ConnectionManager.get_session"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.connection_manager.ConnectionManager.get_session" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a boto3 session for the targeted profile, region, and iam_role.</p>
+<p>For each of profile, region, and iam_role, these values will default to the ConnectionManager’s
+configured default values (which correspond to the Stack’s configuration). These values can
+be overridden, however, by passing them explicitly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>profile</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – The name of the AWS Profile as configured in the local environment. Passing
+None will result in no profile being specified. Defaults to the ConnectionManager’s
+configured profile (if there is one).</p></li>
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – The AWS Region the session should be configured with. Defaults to the
+ConnectionManager’s configured region.</p></li>
+<li><p><strong>iam_role</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – The IAM role ARN that is assumed using STS to create the session. Passing
+None will result in no IAM role being assumed. Defaults to the ConnectionManager’s
+configured iam_role (if there is one).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/core/session.html#boto3.session.Session" title="(in Boto3 Docs v1.26.49)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Session</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The Boto3 session.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p>botocore.exceptions.ClientError</p>
 </dd>
 </dl>
 </dd></dl>
