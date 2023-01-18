@@ -353,11 +353,25 @@
         <span class="n">profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">STACK_DEFAULT</span><span class="p">,</span>
         <span class="n">region</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">STACK_DEFAULT</span><span class="p">,</span>
         <span class="n">iam_role</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">STACK_DEFAULT</span><span class="p">,</span>
-        <span class="n">include_system_envs</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">include_system_envs</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Creates the standard AWS environment variables that would need to be passed to a</span>
 <span class="sd">        subprocess in a hook, resolver, or template handler and allow that subprocess to work with</span>
 <span class="sd">        the currently configured session.</span>
+
+<span class="sd">        The environment variables returned by this method should be everything needed for</span>
+<span class="sd">        subprocesses to properly interact with AWS using the ConnectionManager&#39;s configurations for</span>
+<span class="sd">        profile, iam_role, and region. By default, they include the other process environment</span>
+<span class="sd">        variables, such as PATH and any others. If you do not want the other environment variables,</span>
+<span class="sd">        you can toggle these off via include_system_envs=False.</span>
+
+<span class="sd">        | Notes on including system envs:</span>
+<span class="sd">        |   * The AWS_DEFAULT_REGION, AWS_REGION, AWS_ACCESS_KEY_ID, and AWS_SECRET_ACCESS_KEY</span>
+<span class="sd">        |     environment variables (if they are set in the Sceptre process) will be overwritten in</span>
+<span class="sd">        |     the returned dict with the correct values from the newly created Session.</span>
+<span class="sd">        |   * If the AWS_SESSION_TOKEN environment variable is currently set for the process, this</span>
+<span class="sd">        |     will be overwritten with the new session&#39;s token (if there is one) or removed from the</span>
+<span class="sd">        |     returned environment variables dict (if the new session doesn&#39;t have a token).</span>
 
 <span class="sd">        :param profile: The name of the AWS Profile as configured in the local environment. Passing</span>
 <span class="sd">            None will result in no profile being specified. Defaults to the ConnectionManager&#39;s</span>
@@ -369,8 +383,8 @@
 <span class="sd">            configured iam_role (if there is one).</span>
 <span class="sd">        :param include_system_envs: If True, will return a dict with all the system environment</span>
 <span class="sd">            variables included. This is useful for creating a complete dict of environment variables</span>
-<span class="sd">            to pass to a subprocess. By default, this method will ONLY return the relevant AWS</span>
-<span class="sd">            environment variables.</span>
+<span class="sd">            to pass to a subprocess. If set to False, this method will ONLY return the relevant AWS</span>
+<span class="sd">            environment variables. Defaults to True.</span>
 
 <span class="sd">        :returns: A dict of environment variables with the appropriate credentials available for use.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
