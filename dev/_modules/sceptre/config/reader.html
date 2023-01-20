@@ -625,7 +625,14 @@
                 <span class="n">stack_group_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;j2_environment&quot;</span><span class="p">,</span> <span class="p">{}),</span>
             <span class="p">)</span>
             <span class="n">j2_environment</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">(</span><span class="o">**</span><span class="n">j2_environment_config</span><span class="p">)</span>
-            <span class="n">template</span> <span class="o">=</span> <span class="n">j2_environment</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="n">basename</span><span class="p">)</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">template</span> <span class="o">=</span> <span class="n">j2_environment</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="n">basename</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">SceptreException</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Path</span><span class="p">(</span><span class="n">directory_path</span><span class="p">,</span><span class="w"> </span><span class="n">basename</span><span class="p">)</span><span class="o">.</span><span class="n">as_posix</span><span class="p">()</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">err</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span>
+
             <span class="bp">self</span><span class="o">.</span><span class="n">templating_vars</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">stack_group_config</span><span class="p">)</span>
 
             <span class="k">try</span><span class="p">:</span>
