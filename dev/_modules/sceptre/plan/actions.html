@@ -225,7 +225,7 @@
     <span class="kn">from</span> <span class="nn">sceptre.diffing.stack_differ</span> <span class="kn">import</span> <span class="n">StackDiff</span><span class="p">,</span> <span class="n">StackDiffer</span>
 
 
-<div class="viewcode-block" id="StackActions"><a class="viewcode-back" href="../../../apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions">[docs]</a><span class="k">class</span> <span class="nc">StackActions</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="StackActions"><a class="viewcode-back" href="../../../apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions">[docs]</a><span class="k">class</span> <span class="nc">StackActions</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    StackActions stores the operations a Stack can take, such as creating or</span>
 <span class="sd">    deleting the Stack.</span>
@@ -242,8 +242,8 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">region</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">profile</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">external_name</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">iam_role</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">iam_role_session_duration</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">sceptre_role</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">sceptre_role_session_duration</span><span class="p">,</span>
         <span class="p">)</span>
 
 <div class="viewcode-block" id="StackActions.create"><a class="viewcode-back" href="../../../apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.create">[docs]</a>    <span class="nd">@add_stack_hooks</span>
@@ -907,8 +907,8 @@
 <span class="sd">        :returns: The a Role ARN</span>
 <span class="sd">        :rtype: dict</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">role_arn</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;RoleARN&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">role_arn</span><span class="p">}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">cloudformation_service_role</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;RoleARN&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">cloudformation_service_role</span><span class="p">}</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">{}</span>
 

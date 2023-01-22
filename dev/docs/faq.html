@@ -262,13 +262,13 @@ used.</p>
 <p>In order to call AWS services in your custom hook/resolver/template handler properly, you should use
 the IAM configurations of the stack where the resolver is being used (unless you need to use a
 different configuration for a specific reason). This means your hook/resolver/handler should honor the
-<code class="docutils literal notranslate"><span class="pre">profile</span></code>, <code class="docutils literal notranslate"><span class="pre">region</span></code>, and <code class="docutils literal notranslate"><span class="pre">iam_role</span></code> configurations as set for your project and/or Stack Config.
+<code class="docutils literal notranslate"><span class="pre">profile</span></code>, <code class="docutils literal notranslate"><span class="pre">region</span></code>, and <code class="docutils literal notranslate"><span class="pre">sceptre_role</span></code> configurations as set for your project and/or Stack Config.
 Simply invoking <code class="docutils literal notranslate"><span class="pre">boto3.client('s3')</span></code> is _not_ going to regard those and could end up using the
 wrong credentials or not even working.</p>
 <p>There is a simple interface available for doing this properly, the
 <a class="reference internal" href="../apidoc/sceptre.html#sceptre.connection_manager.ConnectionManager" title="sceptre.connection_manager.ConnectionManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">sceptre.connection_manager.ConnectionManager</span></code></a>. The ConnectionManager is an interface that
-will be pre-configured with each stack’s profile, region, and iam_role and will be ready for you to use.
-If you are using an <cite>iam_role</cite>, it will automatically assume that role via STS for making calls to
+will be pre-configured with each stack’s profile, region, and sceptre_role and will be ready for you to use.
+If you are using an <code class="docutils literal notranslate"><span class="pre">sceptre_role</span></code>, it will automatically assume that role via STS for making calls to
 AWS so you can just use it the way you want. It is accessible on hooks and resolvers via
 <code class="docutils literal notranslate"><span class="pre">self.stack.connection_manager</span></code> and on template_handlers via <code class="docutils literal notranslate"><span class="pre">self.connection_manager</span></code>.</p>
 <p>There are three public methods on the ConnectionManager:</p>
