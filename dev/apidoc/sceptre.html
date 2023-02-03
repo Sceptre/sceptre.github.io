@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sceptre package &mdash; Sceptre 4.0.0 documentation</title>
+  <title>sceptre package &mdash; Sceptre 3.2.0 documentation</title>
   
 
   
@@ -417,7 +417,7 @@ v5.0.0.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/core/session.html#boto3.session.Session" title="(in Boto3 Docs v1.26.55)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Session</span></code></a></p>
+<dd class="field-even"><p><a class="reference external" href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/core/session.html#boto3.session.Session" title="(in Boto3 Docs v1.26.63)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Session</span></code></a></p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The Boto3 session.</p>
@@ -431,18 +431,12 @@ v5.0.0.</p></li>
 <dl class="py property">
 <dt class="sig sig-object py" id="sceptre.connection_manager.ConnectionManager.iam_role">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">iam_role</span></span><a class="headerlink" href="#sceptre.connection_manager.ConnectionManager.iam_role" title="Permalink to this definition">¶</a></dt>
-<dd><div class="deprecated">
-<p><span class="versionmodified deprecated">Deprecated since version 4.0.0: </span>This will be removed in 5.0.0. It is being renamed to “sceptre_role”. You should migrate all uses of “iam_role” to that in order to avoid future breakage.</p>
-</div>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="sceptre.connection_manager.ConnectionManager.iam_role_session_duration">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">iam_role_session_duration</span></span><a class="headerlink" href="#sceptre.connection_manager.ConnectionManager.iam_role_session_duration" title="Permalink to this definition">¶</a></dt>
-<dd><div class="deprecated">
-<p><span class="versionmodified deprecated">Deprecated since version 4.0.0: </span>This will be removed in 5.0.0. It is being renamed to “sceptre_role_session_duration”. You should migrate all uses of “iam_role_session_duration” to that in order to avoid future breakage.</p>
-</div>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="sceptre.connection_manager.ConnectionManager.sceptre_role_session_duration">
@@ -971,18 +965,12 @@ nested dictionary and lists.</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="sceptre.stack.Stack.iam_role">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">iam_role</span></span><a class="headerlink" href="#sceptre.stack.Stack.iam_role" title="Permalink to this definition">¶</a></dt>
-<dd><div class="deprecated">
-<p><span class="versionmodified deprecated">Deprecated since version 4.0.0: </span>This will be removed in 5.0.0. It is being renamed to “sceptre_role”. You should migrate all uses of “iam_role” to that in order to avoid future breakage.</p>
-</div>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="sceptre.stack.Stack.iam_role_session_duration">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">iam_role_session_duration</span></span><a class="headerlink" href="#sceptre.stack.Stack.iam_role_session_duration" title="Permalink to this definition">¶</a></dt>
-<dd><div class="deprecated">
-<p><span class="versionmodified deprecated">Deprecated since version 4.0.0: </span>This will be removed in 5.0.0. It is being renamed to “sceptre_role_session_duration”. You should migrate all uses of “iam_role_session_duration” to that in order to avoid future breakage.</p>
-</div>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="sceptre.stack.Stack.notifications">
@@ -1017,10 +1005,7 @@ resolved value, in order to avoid redundant resolutions.</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="sceptre.stack.Stack.role_arn">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">role_arn</span></span><a class="headerlink" href="#sceptre.stack.Stack.role_arn" title="Permalink to this definition">¶</a></dt>
-<dd><div class="deprecated">
-<p><span class="versionmodified deprecated">Deprecated since version 4.0.0: </span>This will be removed in 5.0.0. It is being renamed to “cloudformation_service_role”. You should migrate all uses of “role_arn” to that in order to avoid future breakage.</p>
-</div>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="sceptre.stack.Stack.s3_details">
@@ -1134,9 +1119,6 @@ resolved value, in order to avoid redundant resolutions.</p>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">template_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></em><a class="headerlink" href="#sceptre.stack.Stack.template_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>The path argument from the template_handler config. This field is deprecated as of v4.0.0
 and will be removed in v5.0.0.</p>
-<div class="deprecated">
-<p><span class="versionmodified deprecated">Deprecated since version 4.0.0: </span>This will be removed in 5.0.0. Use the template Stack Config key instead.</p>
-</div>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
