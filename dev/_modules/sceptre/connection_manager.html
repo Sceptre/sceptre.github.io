@@ -258,11 +258,6 @@
     <span class="k">return</span> <span class="n">decorated</span>
 
 
-<span class="c1"># STACK_DEFAULT is a sentinel value meaning &quot;default to the stack&#39;s configuration&quot;. This is in</span>
-<span class="c1"># contrast with passing None, which would mean &quot;use no value&quot;.</span>
-<span class="n">STACK_DEFAULT</span> <span class="o">=</span> <span class="s2">&quot;[STACK DEFAULT]&quot;</span>
-
-
 <div class="viewcode-block" id="ConnectionManager"><a class="viewcode-back" href="../../apidoc/sceptre.html#sceptre.connection_manager.ConnectionManager">[docs]</a><span class="k">class</span> <span class="nc">ConnectionManager</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The Connection Manager is used to create boto3 clients for</span>
@@ -274,6 +269,10 @@
 <span class="sd">    :param region: The region to use.</span>
 <span class="sd">    :param sceptre_role_session_duration: The duration to assume the specified sceptre_role per session.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># STACK_DEFAULT is a sentinel value meaning &quot;default to the stack&#39;s configuration&quot;. This is in</span>
+    <span class="c1"># contrast with passing None, which would mean &quot;use no value&quot;.</span>
+    <span class="n">STACK_DEFAULT</span> <span class="o">=</span> <span class="s2">&quot;[STACK DEFAULT]&quot;</span>
 
     <span class="n">_session_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
     <span class="n">_client_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
@@ -365,11 +364,11 @@
     <span class="k">def</span> <span class="nf">_determine_session_args</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">region</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">sceptre_role</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">iam_role</span><span class="p">:</span> <span class="nb">str</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
-        <span class="n">profile</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">profile</span> <span class="k">if</span> <span class="n">profile</span> <span class="o">==</span> <span class="n">STACK_DEFAULT</span> <span class="k">else</span> <span class="n">profile</span>
-        <span class="n">region</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">region</span> <span class="k">if</span> <span class="n">region</span> <span class="o">==</span> <span class="n">STACK_DEFAULT</span> <span class="k">else</span> <span class="n">region</span>
+        <span class="n">profile</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">profile</span> <span class="k">if</span> <span class="n">profile</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">STACK_DEFAULT</span> <span class="k">else</span> <span class="n">profile</span>
+        <span class="n">region</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">region</span> <span class="k">if</span> <span class="n">region</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">STACK_DEFAULT</span> <span class="k">else</span> <span class="n">region</span>
         <span class="n">sceptre_role</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coalesce_sceptre_role</span><span class="p">(</span><span class="n">iam_role</span><span class="p">,</span> <span class="n">sceptre_role</span><span class="p">)</span>
         <span class="n">sceptre_role</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">sceptre_role</span> <span class="k">if</span> <span class="n">sceptre_role</span> <span class="o">==</span> <span class="n">STACK_DEFAULT</span> <span class="k">else</span> <span class="n">sceptre_role</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sceptre_role</span> <span class="k">if</span> <span class="n">sceptre_role</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">STACK_DEFAULT</span> <span class="k">else</span> <span class="n">sceptre_role</span>
         <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">profile</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">sceptre_role</span>
@@ -627,11 +626,11 @@
             <span class="c1"># In every other circumstance, we will interpret each parameter individually according</span>
             <span class="c1"># to the way described in the docstring.</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">region</span> <span class="o">=</span> <span class="n">stack_region</span> <span class="k">if</span> <span class="n">region</span> <span class="o">==</span> <span class="n">STACK_DEFAULT</span> <span class="k">else</span> <span class="n">region</span>
-                <span class="n">profile</span> <span class="o">=</span> <span class="n">stack_profile</span> <span class="k">if</span> <span class="n">profile</span> <span class="o">==</span> <span class="n">STACK_DEFAULT</span> <span class="k">else</span> <span class="n">profile</span>
+                <span class="n">region</span> <span class="o">=</span> <span class="n">stack_region</span> <span class="k">if</span> <span class="n">region</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">STACK_DEFAULT</span> <span class="k">else</span> <span class="n">region</span>
+                <span class="n">profile</span> <span class="o">=</span> <span class="n">stack_profile</span> <span class="k">if</span> <span class="n">profile</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">STACK_DEFAULT</span> <span class="k">else</span> <span class="n">profile</span>
                 <span class="n">sceptre_role</span> <span class="o">=</span> <span class="p">(</span>
                     <span class="n">stack_sceptre_role</span>
-                    <span class="k">if</span> <span class="n">sceptre_role</span> <span class="o">==</span> <span class="n">STACK_DEFAULT</span>
+                    <span class="k">if</span> <span class="n">sceptre_role</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">STACK_DEFAULT</span>
                     <span class="k">else</span> <span class="n">sceptre_role</span>
                 <span class="p">)</span>
         <span class="c1"># In most cases, we won&#39;t be targeting another stack&#39;s configurations. Instead, we&#39;ll want</span>
@@ -651,7 +650,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Evaluates the iam_role and sceptre_role parameters as passed to determine which value to</span>
 <span class="sd">        use.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">sceptre_role</span> <span class="o">==</span> <span class="n">STACK_DEFAULT</span> <span class="ow">and</span> <span class="n">iam_role</span> <span class="o">!=</span> <span class="n">STACK_DEFAULT</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">sceptre_role</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">STACK_DEFAULT</span> <span class="ow">and</span> <span class="n">iam_role</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">STACK_DEFAULT</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_emit_iam_role_deprecation_warning</span><span class="p">()</span>
             <span class="n">sceptre_role</span> <span class="o">=</span> <span class="n">iam_role</span>
         <span class="k">return</span> <span class="n">sceptre_role</span></div>
