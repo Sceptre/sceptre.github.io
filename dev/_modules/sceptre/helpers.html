@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sceptre.helpers &mdash; Sceptre 3.2.0 documentation</title>
+  <title>sceptre.helpers &mdash; Sceptre 3.3.0 documentation</title>
   
 
   
@@ -191,10 +191,8 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span>
 
 <span class="kn">import</span> <span class="nn">dateutil.parser</span>
-<span class="kn">import</span> <span class="nn">deprecation</span>
 
 <span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">PathConversionError</span>
-<span class="kn">from</span> <span class="nn">sceptre</span> <span class="kn">import</span> <span class="n">__version__</span>
 
 
 <div class="viewcode-block" id="get_external_stack_name"><a class="viewcode-back" href="../../apidoc/sceptre.html#sceptre.helpers.get_external_stack_name">[docs]</a><span class="k">def</span> <span class="nf">get_external_stack_name</span><span class="p">(</span><span class="n">project_code</span><span class="p">,</span> <span class="n">stack_name</span><span class="p">):</span>
@@ -340,47 +338,6 @@
         <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="nb">repr</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="n">a</span><span class="p">))</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">attributes</span><span class="p">]</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">class_label</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="n">attr_str</span><span class="si">}</span><span class="s2">)&quot;</span></div>
-
-
-<div class="viewcode-block" id="create_deprecated_alias_property"><a class="viewcode-back" href="../../apidoc/sceptre.html#sceptre.helpers.create_deprecated_alias_property">[docs]</a><span class="k">def</span> <span class="nf">create_deprecated_alias_property</span><span class="p">(</span>
-    <span class="n">alias_from</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">alias_to</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">deprecated_in</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">removed_in</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">property</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Creates a property object with a deprecated getter and a deprecated setter that emit warnings</span>
-<span class="sd">    when used, aliasing to their renamed property names.</span>
-
-<span class="sd">    :param alias_from: The name of the attribute that is deprecated and that needs to be aliased</span>
-<span class="sd">    :param alias_to: The name of the attribute to alias the deprecated field to.</span>
-<span class="sd">    :param deprecated_in: The version in which the property is deprecated.</span>
-<span class="sd">    :param removed_in: The version when it will be removed, after which the alias will no longer work.</span>
-<span class="sd">        This value can be None, indicating that removal is not yet planned.</span>
-<span class="sd">    :return: A property object to be assigned directly onto a class.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="nf">getter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alias_to</span><span class="p">)</span>
-
-    <span class="n">getter</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="n">alias_from</span>
-
-    <span class="k">def</span> <span class="nf">setter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alias_to</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-
-    <span class="n">setter</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="n">alias_from</span>
-
-    <span class="n">deprecation_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
-        <span class="n">deprecated_in</span><span class="o">=</span><span class="n">deprecated_in</span><span class="p">,</span>
-        <span class="n">removed_in</span><span class="o">=</span><span class="n">removed_in</span><span class="p">,</span>
-        <span class="n">current_version</span><span class="o">=</span><span class="n">__version__</span><span class="p">,</span>
-        <span class="n">details</span><span class="o">=</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s1">&#39;It is being renamed to &quot;</span><span class="si">{</span><span class="n">alias_to</span><span class="si">}</span><span class="s1">&quot;. You should migrate all uses of &quot;</span><span class="si">{</span><span class="n">alias_from</span><span class="si">}</span><span class="s1">&quot; to &#39;</span>
-            <span class="sa">f</span><span class="s2">&quot;that in order to avoid future breakage.&quot;</span>
-        <span class="p">),</span>
-    <span class="p">)</span>
-
-    <span class="n">deprecated_getter</span> <span class="o">=</span> <span class="n">deprecation</span><span class="o">.</span><span class="n">deprecated</span><span class="p">(</span><span class="o">**</span><span class="n">deprecation_kwargs</span><span class="p">)(</span><span class="n">getter</span><span class="p">)</span>
-    <span class="n">deprecated_setter</span> <span class="o">=</span> <span class="n">deprecation</span><span class="o">.</span><span class="n">deprecated</span><span class="p">(</span><span class="o">**</span><span class="n">deprecation_kwargs</span><span class="p">)(</span><span class="n">setter</span><span class="p">)</span>
-
-    <span class="n">deprecated_property</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">deprecated_getter</span><span class="p">,</span> <span class="n">deprecated_setter</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">deprecated_property</span></div>
 </pre></div>
 
            </div>

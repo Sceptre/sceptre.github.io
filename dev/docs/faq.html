@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>FAQ &mdash; Sceptre 3.2.0 documentation</title>
+  <title>FAQ &mdash; Sceptre 3.3.0 documentation</title>
   
 
   
@@ -117,7 +117,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#how-do-i-set-aws-region-or-profile-via-the-cli">How do I set AWS Region or Profile via the CLI?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#should-i-use-a-parameter-or-sceptre-user-data">Should I use a Parameter or Sceptre User Data?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#why-are-there-two-ways-to-supply-environment-variables-in-stack-config-files">Why are there two ways to supply environment variables in stack config files?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#how-do-i-call-aws-services-or-use-aws-based-tools-in-my-custom-hook-resolver-template-handler">How do I call AWS services or use AWS-based tools in my custom hook/resolver/template handler?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#my-ci-cd-process-uses-sceptre-launch-how-do-i-delete-stacks-that-aren-t-needed-anymore">My CI/CD process uses <code class="docutils literal notranslate"><span class="pre">sceptre</span> <span class="pre">launch</span></code>. How do I delete stacks that aren’t needed anymore?</a></li>
 </ul>
 </li>
@@ -256,55 +255,6 @@ This is only possible using resolvers.</p>
 <p>In order to use environment variables set by Hooks run by a stack previously
 built in the same <code class="docutils literal notranslate"><span class="pre">launch</span></code> command, the environment variable resolver must be
 used.</p>
-</div>
-<div class="section" id="how-do-i-call-aws-services-or-use-aws-based-tools-in-my-custom-hook-resolver-template-handler">
-<span id="using-connection-manager"></span><h2>How do I call AWS services or use AWS-based tools in my custom hook/resolver/template handler?<a class="headerlink" href="#how-do-i-call-aws-services-or-use-aws-based-tools-in-my-custom-hook-resolver-template-handler" title="Permalink to this heading">¶</a></h2>
-<p>In order to call AWS services in your custom hook/resolver/template handler properly, you should use
-the IAM configurations of the stack where the resolver is being used (unless you need to use a
-different configuration for a specific reason). This means your hook/resolver/handler should honor the
-<code class="docutils literal notranslate"><span class="pre">profile</span></code>, <code class="docutils literal notranslate"><span class="pre">region</span></code>, and <code class="docutils literal notranslate"><span class="pre">sceptre_role</span></code> configurations as set for your project and/or Stack Config.
-Simply invoking <code class="docutils literal notranslate"><span class="pre">boto3.client('s3')</span></code> is _not_ going to regard those and could end up using the
-wrong credentials or not even working.</p>
-<p>There is a simple interface available for doing this properly, the
-<a class="reference internal" href="../apidoc/sceptre.html#sceptre.connection_manager.ConnectionManager" title="sceptre.connection_manager.ConnectionManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">sceptre.connection_manager.ConnectionManager</span></code></a>. The ConnectionManager is an interface that
-will be pre-configured with each stack’s profile, region, and sceptre_role and will be ready for you to use.
-If you are using an <code class="docutils literal notranslate"><span class="pre">sceptre_role</span></code>, it will automatically assume that role via STS for making calls to
-AWS so you can just use it the way you want. It is accessible on hooks and resolvers via
-<code class="docutils literal notranslate"><span class="pre">self.stack.connection_manager</span></code> and on template_handlers via <code class="docutils literal notranslate"><span class="pre">self.connection_manager</span></code>.</p>
-<p>There are three public methods on the ConnectionManager:</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="../apidoc/sceptre.html#sceptre.connection_manager.ConnectionManager.call" title="sceptre.connection_manager.ConnectionManager.call"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sceptre.connection_manager.ConnectionManager.call()</span></code></a> can be used to directly call a boto3
-API method on any api service and return the result from boto3. This is perfect when you just need
-to invoke a boto3 client method without any additional capabilities.</p></li>
-<li><p><a class="reference internal" href="../apidoc/sceptre.html#sceptre.connection_manager.ConnectionManager.get_session" title="sceptre.connection_manager.ConnectionManager.get_session"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sceptre.connection_manager.ConnectionManager.get_session()</span></code></a> can be used to get a boto3 Session
-object. This is very useful if you need to work with Boto3 Resource objects (like an s3 Bucket) or
-if you need to create and pass the bot3 session, client, or resource to a third-party framework.</p></li>
-<li><p><a class="reference internal" href="../apidoc/sceptre.html#sceptre.connection_manager.ConnectionManager.create_session_environment_variables" title="sceptre.connection_manager.ConnectionManager.create_session_environment_variables"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sceptre.connection_manager.ConnectionManager.create_session_environment_variables()</span></code></a> creates
-a dictionary of environment variables used by AWS sdks with all the relevant connection information.
-This is extremely useful if you are needing to invoke other SDKs using <code class="docutils literal notranslate"><span class="pre">subprocess</span></code> and still need
-the Stack’s connection information honored.</p></li>
-</ul>
-<p>Using the connection manager, you can use <a class="reference external" href="https://boto3.amazonaws.com/v1/documentation/api/latest/index.html">boto3</a>
-to perform any AWS actions you need:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># For example, in your custom resolver:</span>
-<span class="k">def</span> <span class="nf">resolve</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="c1"># You can invoke a lower-level service method like...</span>
-    <span class="n">obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">connection_manager</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;s3&#39;</span><span class="p">,</span> <span class="s1">&#39;get_object&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;Bucket&#39;</span><span class="p">:</span> <span class="s1">&#39;my-bucket&#39;</span><span class="p">,</span> <span class="s1">&#39;Key&#39;</span><span class="p">:</span> <span class="s1">&#39;my-key&#39;</span><span class="p">})</span>
-    <span class="c1"># Or you can create higher-level resource objects like...</span>
-    <span class="n">bucket</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">connection_manager</span><span class="o">.</span><span class="n">get_session</span><span class="p">()</span><span class="o">.</span><span class="n">resource</span><span class="p">(</span><span class="s1">&#39;s3&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">Bucket</span><span class="p">(</span><span class="s1">&#39;my-bucket&#39;</span><span class="p">)</span>
-    <span class="c1"># Or if you need to invoke a third-party tool via a subprocess, you can create the necessary environment</span>
-    <span class="c1"># variables like this:</span>
-    <span class="n">environment_variables</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">connection_manager</span><span class="o">.</span><span class="n">create_session_environment_variables</span><span class="p">(</span>
-        <span class="n">include_system_envs</span><span class="o">=</span><span class="kc">True</span>
-    <span class="p">)</span>
-    <span class="n">list_output</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
-        <span class="s1">&#39;aws s3 list-bucket&#39;</span><span class="p">,</span>
-        <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">env</span><span class="o">=</span><span class="n">environment_variables</span><span class="p">,</span>
-        <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span>
-    <span class="p">)</span><span class="o">.</span><span class="n">stdout</span>
-</pre></div>
-</div>
 </div>
 <div class="section" id="my-ci-cd-process-uses-sceptre-launch-how-do-i-delete-stacks-that-aren-t-needed-anymore">
 <h2>My CI/CD process uses <code class="docutils literal notranslate"><span class="pre">sceptre</span> <span class="pre">launch</span></code>. How do I delete stacks that aren’t needed anymore?<a class="headerlink" href="#my-ci-cd-process-uses-sceptre-launch-how-do-i-delete-stacks-that-aren-t-needed-anymore" title="Permalink to this heading">¶</a></h2>

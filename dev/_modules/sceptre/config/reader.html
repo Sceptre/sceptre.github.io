@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sceptre.config.reader &mdash; Sceptre 3.2.0 documentation</title>
+  <title>sceptre.config.reader &mdash; Sceptre 3.3.0 documentation</title>
   
 
   
@@ -230,9 +230,7 @@
     <span class="s2">&quot;dependencies&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">list_join</span><span class="p">,</span>
     <span class="s2">&quot;hooks&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
     <span class="s2">&quot;iam_role&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
-    <span class="s2">&quot;sceptre_role&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
     <span class="s2">&quot;iam_role_session_duration&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
-    <span class="s2">&quot;sceptre_role_session_duration&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
     <span class="s2">&quot;notifications&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
     <span class="s2">&quot;on_failure&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
     <span class="s2">&quot;parameters&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
@@ -242,15 +240,14 @@
     <span class="s2">&quot;region&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
     <span class="s2">&quot;required_version&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
     <span class="s2">&quot;role_arn&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
-    <span class="s2">&quot;cloudformation_service_role&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
     <span class="s2">&quot;sceptre_user_data&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
     <span class="s2">&quot;stack_name&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
     <span class="s2">&quot;stack_tags&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
     <span class="s2">&quot;stack_timeout&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
     <span class="s2">&quot;template_bucket_name&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
     <span class="s2">&quot;template_key_value&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
-    <span class="s2">&quot;template&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
     <span class="s2">&quot;template_path&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
+    <span class="s2">&quot;template&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
     <span class="s2">&quot;ignore&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
     <span class="s2">&quot;obsolete&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
 <span class="p">}</span>
@@ -273,16 +270,13 @@
         <span class="s2">&quot;dependencies&quot;</span><span class="p">,</span>
         <span class="s2">&quot;hooks&quot;</span><span class="p">,</span>
         <span class="s2">&quot;iam_role&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;sceptre_role&quot;</span><span class="p">,</span>
         <span class="s2">&quot;iam_role_session_duration&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;sceptre_role_session_duration&quot;</span><span class="p">,</span>
         <span class="s2">&quot;notifications&quot;</span><span class="p">,</span>
         <span class="s2">&quot;on_failure&quot;</span><span class="p">,</span>
         <span class="s2">&quot;parameters&quot;</span><span class="p">,</span>
         <span class="s2">&quot;profile&quot;</span><span class="p">,</span>
         <span class="s2">&quot;protect&quot;</span><span class="p">,</span>
         <span class="s2">&quot;role_arn&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;cloudformation_service_role&quot;</span><span class="p">,</span>
         <span class="s2">&quot;sceptre_user_data&quot;</span><span class="p">,</span>
         <span class="s2">&quot;stack_name&quot;</span><span class="p">,</span>
         <span class="s2">&quot;stack_tags&quot;</span><span class="p">,</span>
@@ -369,6 +363,7 @@
 <span class="sd">            :returns: Class initialiser.</span>
 <span class="sd">            :rtype: func</span>
 <span class="sd">            &quot;&quot;&quot;</span>
+
             <span class="c1"># This function signture is required by PyYAML</span>
             <span class="k">def</span> <span class="nf">class_constructor</span><span class="p">(</span><span class="n">loader</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
                 <span class="k">return</span> <span class="n">node_class</span><span class="p">(</span>
@@ -378,7 +373,6 @@
             <span class="k">return</span> <span class="n">class_constructor</span>
 
         <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">entry_point_groups</span><span class="p">:</span>
-
             <span class="k">for</span> <span class="n">entry_point</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iterate_entry_points</span><span class="p">(</span><span class="n">group</span><span class="p">):</span>
                 <span class="c1"># Retrieve name and class from entry point</span>
                 <span class="n">node_tag</span> <span class="o">=</span> <span class="s2">&quot;!&quot;</span> <span class="o">+</span> <span class="n">entry_point</span><span class="o">.</span><span class="n">name</span>
@@ -775,9 +769,7 @@
             <span class="n">template_bucket_name</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;template_bucket_name&quot;</span><span class="p">),</span>
             <span class="n">template_key_prefix</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;template_key_prefix&quot;</span><span class="p">),</span>
             <span class="n">required_version</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;required_version&quot;</span><span class="p">),</span>
-            <span class="n">sceptre_role</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;sceptre_role&quot;</span><span class="p">),</span>
             <span class="n">iam_role</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;iam_role&quot;</span><span class="p">),</span>
-            <span class="n">sceptre_role_session_duration</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;sceptre_role_session_duration&quot;</span><span class="p">),</span>
             <span class="n">iam_role_session_duration</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;iam_role_session_duration&quot;</span><span class="p">),</span>
             <span class="n">profile</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;profile&quot;</span><span class="p">),</span>
             <span class="n">parameters</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;parameters&quot;</span><span class="p">,</span> <span class="p">{}),</span>
@@ -786,7 +778,6 @@
             <span class="n">s3_details</span><span class="o">=</span><span class="n">s3_details</span><span class="p">,</span>
             <span class="n">dependencies</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;dependencies&quot;</span><span class="p">,</span> <span class="p">[]),</span>
             <span class="n">role_arn</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;role_arn&quot;</span><span class="p">),</span>
-            <span class="n">cloudformation_service_role</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;cloudformation_service_role&quot;</span><span class="p">),</span>
             <span class="n">protected</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;protect&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
             <span class="n">tags</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;stack_tags&quot;</span><span class="p">,</span> <span class="p">{}),</span>
             <span class="n">external_name</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;stack_name&quot;</span><span class="p">),</span>
