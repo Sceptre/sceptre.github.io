@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>StackGroup Config &mdash; Sceptre 3.3.0 documentation</title>
+  <title>StackGroup Config &mdash; Sceptre 3.2.0 documentation</title>
   
 
   
@@ -391,8 +391,8 @@ and concerns of the project. These include:</p>
 <li><p>The S3 bucket where templates are uploaded to and then referenced from for stack actions (i.e. the
 <code class="docutils literal notranslate"><span class="pre">template_bucket_name</span></code> config key).</p></li>
 <li><p>The CloudFormation service role added to the stack(s) that CloudFormation uses to execute stack
-actions (i.e. the <code class="docutils literal notranslate"><span class="pre">role_arn</span></code> config key).</p></li>
-<li><p>The role that Sceptre will assume to execute stack actions (i.e. the <code class="docutils literal notranslate"><span class="pre">iam_role</span></code> config key).</p></li>
+actions (i.e. the <code class="docutils literal notranslate"><span class="pre">cloudformation_service_role</span></code> config key).</p></li>
+<li><p>The role that Sceptre will assume to execute stack actions (i.e. the <code class="docutils literal notranslate"><span class="pre">sceptre_role</span></code> config key).</p></li>
 <li><p>SNS topics that cloudformation will notify with the results of stack actions (i.e. the
 <code class="docutils literal notranslate"><span class="pre">notifications</span></code> config key).</p></li>
 </ul>
@@ -406,7 +406,7 @@ dependencies.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>You might have already considered that this might cause a circular dependency for those
-dependency stacks, the ones that output the template bucket name, role arn, iam_role, or topic arns.
+dependency stacks, the ones that output the template bucket name, role arn, sceptre_role, or topic arns.
 In order to avoid the circular dependency issue, you can either:</p>
 <ol class="arabic">
 <li><p>Set the value of those configurations to <code class="docutils literal notranslate"><span class="pre">!no_value</span></code> in the actual stacks that define those
