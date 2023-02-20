@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sceptre.connection_manager &mdash; Sceptre 4.0.2 documentation</title>
+  <title>sceptre.connection_manager &mdash; Sceptre 4.0.1 documentation</title>
   
 
   
@@ -369,10 +369,6 @@
         <span class="n">sceptre_role</span> <span class="o">=</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">sceptre_role</span> <span class="k">if</span> <span class="n">sceptre_role</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">STACK_DEFAULT</span> <span class="k">else</span> <span class="n">sceptre_role</span>
         <span class="p">)</span>
-        <span class="c1"># For historical reasons, if all three values are &quot;None&quot;, that means we default to the</span>
-        <span class="c1"># Stack&#39;s configuration.</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">sceptre_role</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
-            <span class="n">profile</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">sceptre_role</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">profile</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">region</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sceptre_role</span>
 
         <span class="k">return</span> <span class="n">profile</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">sceptre_role</span>
 
@@ -589,9 +585,6 @@
 <span class="sd">        |        it will likely blow up if doing this for region, since AWS almost always requires that.</span>
 <span class="sd">        |      * Otherwise, any value that has been specified will override the target stack&#39;s</span>
 <span class="sd">        |        configuration, regardless of what has been passed for other parameters.</span>
-<span class="sd">        |      * In the case that `None` has been specified for all parameters, that will be</span>
-<span class="sd">        |        interpreted as using the target stack&#39;s values for all three, falling back to the</span>
-<span class="sd">        |        current stack.</span>
 
 <span class="sd">        :param service: The Boto3 service to return a client for.</span>
 <span class="sd">        :param command: The Boto3 command to call.</span>

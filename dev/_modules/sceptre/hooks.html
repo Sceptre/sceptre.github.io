@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sceptre.hooks &mdash; Sceptre 4.0.2 documentation</title>
+  <title>sceptre.hooks &mdash; Sceptre 4.0.1 documentation</title>
   
 
   
@@ -189,22 +189,28 @@
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
 
 <span class="kn">from</span> <span class="nn">sceptre.helpers</span> <span class="kn">import</span> <span class="n">_call_func_on_values</span>
+<span class="kn">from</span> <span class="nn">sceptre.logging</span> <span class="kn">import</span> <span class="n">StackLoggerAdapter</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Any</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">sceptre.stack</span> <span class="kn">import</span> <span class="n">Stack</span>
 
 
-<div class="viewcode-block" id="Hook"><a class="viewcode-back" href="../../apidoc/sceptre.hooks.html#sceptre.hooks.Hook">[docs]</a><span class="k">class</span> <span class="nc">Hook</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="Hook"><a class="viewcode-back" href="../../apidoc/sceptre.hooks.html#sceptre.hooks.Hook">[docs]</a><span class="k">class</span> <span class="nc">Hook</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Hook is an abstract base class that should be inherited by all hooks.</span>
 
 <span class="sd">    :param argument: The argument of the hook.</span>
-<span class="sd">    :type argument: str</span>
 <span class="sd">    :param stack: The associated stack of the hook.</span>
-<span class="sd">    :type stack: sceptre.stack.Stack</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argument</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">stack</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argument</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">stack</span><span class="p">:</span> <span class="s2">&quot;Stack&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">stack</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">StackLoggerAdapter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span> <span class="n">stack</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">argument</span> <span class="o">=</span> <span class="n">argument</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stack</span> <span class="o">=</span> <span class="n">stack</span>
 
@@ -221,7 +227,16 @@
 <span class="sd">        run is an abstract method which must be overwritten by all</span>
 <span class="sd">        inheriting classes. Run should execute the logic of the hook.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">pass</span>  <span class="c1"># pragma: no cover</span></div></div>
+        <span class="k">pass</span>  <span class="c1"># pragma: no cover</span></div>
+
+<div class="viewcode-block" id="Hook.clone"><a class="viewcode-back" href="../../apidoc/sceptre.hooks.html#sceptre.hooks.Hook.clone">[docs]</a>    <span class="k">def</span> <span class="nf">clone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack</span><span class="p">:</span> <span class="s2">&quot;Stack&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Hook&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Produces a &quot;fresh&quot; copy of the Hook, with the specified stack.</span>
+
+<span class="sd">        :param stack: The stack to set on the cloned resolver</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">clone</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">argument</span><span class="p">,</span> <span class="n">stack</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">clone</span></div></div>
 
 
 <div class="viewcode-block" id="HookProperty"><a class="viewcode-back" href="../../apidoc/sceptre.hooks.html#sceptre.hooks.HookProperty">[docs]</a><span class="k">class</span> <span class="nc">HookProperty</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -247,16 +262,16 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__set__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__set__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">:</span> <span class="s2">&quot;Stack&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Attribute setter which adds a stack reference to any hooks in the</span>
 <span class="sd">        data structure `value` and calls the setup method.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-            <span class="n">value</span><span class="o">.</span><span class="n">stack</span> <span class="o">=</span> <span class="n">instance</span>
-            <span class="n">value</span><span class="o">.</span><span class="n">setup</span><span class="p">()</span>
+        <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Hook</span><span class="p">):</span>
+            <span class="n">attr</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">clone</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
+            <span class="n">clone</span><span class="o">.</span><span class="n">setup</span><span class="p">()</span>
 
         <span class="n">_call_func_on_values</span><span class="p">(</span><span class="n">setup</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">Hook</span><span class="p">)</span>
         <span class="nb">setattr</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>

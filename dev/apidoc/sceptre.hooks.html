@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sceptre.hooks package &mdash; Sceptre 4.0.2 documentation</title>
+  <title>sceptre.hooks package &mdash; Sceptre 4.0.1 documentation</title>
   
 
   
@@ -134,6 +134,7 @@
 <li class="toctree-l3"><a class="reference internal" href="sceptre.html#module-sceptre.context">sceptre.context module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sceptre.html#module-sceptre.exceptions">sceptre.exceptions module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sceptre.html#module-sceptre.helpers">sceptre.helpers module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sceptre.html#module-sceptre.logging">sceptre.logging module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sceptre.html#module-sceptre.stack">sceptre.stack module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sceptre.html#module-sceptre.stack_status">sceptre.stack_status module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sceptre.html#module-sceptre.stack_status_colourer">sceptre.stack_status_colourer module</a></li>
@@ -218,16 +219,30 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="sceptre.hooks.Hook">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.hooks.</span></span><span class="sig-name descname"><span class="pre">Hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">argument</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/hooks.html#Hook"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.hooks.Hook" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.ABC" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></a></p>
 <p>Hook is an abstract base class that should be inherited by all hooks.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>argument</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The argument of the hook.</p></li>
-<li><p><strong>stack</strong> (<a class="reference internal" href="sceptre.html#sceptre.stack.Stack" title="sceptre.stack.Stack"><em>sceptre.stack.Stack</em></a>) – The associated stack of the hook.</p></li>
+<li><p><strong>argument</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]) – The argument of the hook.</p></li>
+<li><p><strong>stack</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference internal" href="sceptre.html#sceptre.stack.Stack" title="sceptre.stack.Stack"><code class="xref py py-class docutils literal notranslate"><span class="pre">Stack</span></code></a>]) – The associated stack of the hook.</p></li>
 </ul>
 </dd>
 </dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="sceptre.hooks.Hook.clone">
+<span class="sig-name descname"><span class="pre">clone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stack</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/hooks.html#Hook.clone"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.hooks.Hook.clone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Produces a “fresh” copy of the Hook, with the specified stack.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>stack</strong> (<a class="reference internal" href="sceptre.html#sceptre.stack.Stack" title="sceptre.stack.Stack"><code class="xref py py-class docutils literal notranslate"><span class="pre">Stack</span></code></a>) – The stack to set on the cloned resolver</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#sceptre.hooks.Hook" title="sceptre.hooks.Hook"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hook</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="sceptre.hooks.Hook.run">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/hooks.html#Hook.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.hooks.Hook.run" title="Permalink to this definition">¶</a></dt>
