@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sceptre package &mdash; Sceptre 4.0.1 documentation</title>
+  <title>sceptre package &mdash; Sceptre 4.0.2 documentation</title>
   
 
   
@@ -351,6 +351,11 @@ the various AWS services that Sceptre needs to interact with.</p>
 <div class="line">* Otherwise, any value that has been specified will override the target stack’s</div>
 <div class="line-block">
 <div class="line">configuration, regardless of what has been passed for other parameters.</div>
+</div>
+<div class="line">* In the case that <cite>None</cite> has been specified for all parameters, that will be</div>
+<div class="line-block">
+<div class="line">interpreted as using the target stack’s values for all three, falling back to the</div>
+<div class="line">current stack.</div>
 </div>
 </div>
 </div>
