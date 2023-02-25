@@ -188,23 +188,20 @@
   <h1>Source code for sceptre.resolvers.stack_output</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="kn">import</span> <span class="nn">abc</span>
-<span class="kn">import</span> <span class="nn">six</span>
+<span class="kn">import</span> <span class="nn">functools</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">shlex</span>
 
 <span class="kn">from</span> <span class="nn">botocore.exceptions</span> <span class="kn">import</span> <span class="n">ClientError</span>
 
+<span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">DependencyStackMissingOutputError</span><span class="p">,</span> <span class="n">StackDoesNotExistError</span>
 <span class="kn">from</span> <span class="nn">sceptre.helpers</span> <span class="kn">import</span> <span class="n">normalise_path</span><span class="p">,</span> <span class="n">sceptreise_path</span>
 <span class="kn">from</span> <span class="nn">sceptre.resolvers</span> <span class="kn">import</span> <span class="n">Resolver</span>
-<span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">DependencyStackMissingOutputError</span>
-<span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">StackDoesNotExistError</span>
 
 <span class="n">TEMPLATE_EXTENSION</span> <span class="o">=</span> <span class="s2">&quot;.yaml&quot;</span>
 
 
-<div class="viewcode-block" id="StackOutputBase"><a class="viewcode-back" href="../../../apidoc/sceptre.resolvers.html#sceptre.resolvers.stack_output.StackOutputBase">[docs]</a><span class="nd">@six</span><span class="o">.</span><span class="n">add_metaclass</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span><span class="p">)</span>
-<span class="k">class</span> <span class="nc">StackOutputBase</span><span class="p">(</span><span class="n">Resolver</span><span class="p">):</span>
+<div class="viewcode-block" id="StackOutputBase"><a class="viewcode-back" href="../../../apidoc/sceptre.resolvers.html#sceptre.resolvers.stack_output.StackOutputBase">[docs]</a><span class="k">class</span> <span class="nc">StackOutputBase</span><span class="p">(</span><span class="n">Resolver</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A abstract base class which provides methods for getting Stack outputs.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -238,6 +235,7 @@
                 <span class="p">)</span>
             <span class="p">)</span>
 
+    <span class="nd">@functools</span><span class="o">.</span><span class="n">lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">4096</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">_get_stack_outputs</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">stack_name</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sceptre_role</span><span class="o">=</span><span class="kc">None</span>
     <span class="p">):</span>
