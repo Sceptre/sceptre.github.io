@@ -191,7 +191,7 @@
 <span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">RLock</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">TypeVar</span>
 
-<span class="kn">from</span> <span class="nn">sceptre.helpers</span> <span class="kn">import</span> <span class="n">_call_func_on_values</span><span class="p">,</span> <span class="n">delete_keys_from_containers</span>
+<span class="kn">from</span> <span class="nn">sceptre.helpers</span> <span class="kn">import</span> <span class="n">_call_func_on_values</span>
 <span class="kn">from</span> <span class="nn">sceptre.logging</span> <span class="kn">import</span> <span class="n">StackLoggerAdapter</span>
 <span class="kn">from</span> <span class="nn">sceptre.resolvers.placeholders</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">create_placeholder_value</span><span class="p">,</span>
@@ -203,146 +203,36 @@
     <span class="kn">from</span> <span class="nn">sceptre</span> <span class="kn">import</span> <span class="n">stack</span>
 
 <span class="n">T_Container</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;T_Container&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">Union</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">list</span><span class="p">])</span>
-<span class="n">Self</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;Self&quot;</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="RecursiveResolve"><a class="viewcode-back" href="../../apidoc/sceptre.resolvers.html#sceptre.resolvers.RecursiveResolve">[docs]</a><span class="k">class</span> <span class="nc">RecursiveResolve</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
-<div class="viewcode-block" id="CustomYamlTagBase"><a class="viewcode-back" href="../../apidoc/sceptre.resolvers.html#sceptre.resolvers.CustomYamlTagBase">[docs]</a><span class="k">class</span> <span class="nc">CustomYamlTagBase</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A base class for custom Yaml Elements (i.e. hooks and resolvers).</span>
+<div class="viewcode-block" id="Resolver"><a class="viewcode-back" href="../../apidoc/sceptre.resolvers.html#sceptre.resolvers.Resolver">[docs]</a><span class="k">class</span> <span class="nc">Resolver</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Resolver is an abstract base class that should be inherited by all</span>
+<span class="sd">    Resolvers.</span>
 
-<span class="sd">    This base class takes care of common functionality needed by subclasses:</span>
-<span class="sd">    * logging setup (associated with stacks)</span>
-<span class="sd">    * Creating unique clones associated with individual stacks (applied recursively down to all</span>
-<span class="sd">        resolvers in the argument)</span>
-<span class="sd">    * On-connect setup that might be needed once connected to a Stack (applied recursively down to</span>
-<span class="sd">        all resolvers in the argument)</span>
-<span class="sd">    * Resolving resolvers in argument when accessing self.argument</span>
+<span class="sd">    :param argument: The argument of the resolver.</span>
+<span class="sd">    :param stack: The associated stack of the resolver.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
-
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argument</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">stack</span><span class="p">:</span> <span class="s2">&quot;stack.Stack&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initializes a custom yaml tag object.</span>
-
-<span class="sd">        :param argument: The argument passed to the yaml tag. This could be a string, number, list,</span>
-<span class="sd">            or dict. Resolvers are supported in the argument, but they must be in either list or dict</span>
-<span class="sd">            arguments.</span>
-<span class="sd">        :param stack: The stack object associated with this instance. NOTE: When first instantiated</span>
-<span class="sd">            from loading the YAML, there will be no Stack. A Stack instance will only be passed into</span>
-<span class="sd">            the instance when &quot;clone_for_stack&quot; is invoked when the tag is associated with a specific</span>
-<span class="sd">            stack.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">stack</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">StackLoggerAdapter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span> <span class="n">stack</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">argument</span> <span class="o">=</span> <span class="n">argument</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stack</span> <span class="o">=</span> <span class="n">stack</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_argument</span> <span class="o">=</span> <span class="n">argument</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_argument_is_resolved</span> <span class="o">=</span> <span class="kc">False</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">argument</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;This is the resolver or hook&#39;s argument.</span>
-
-<span class="sd">        This property will resolve all nested resolvers inside the argument, but only if this</span>
-<span class="sd">        instance has been associated with a Stack.</span>
-
-<span class="sd">        Resolving nested resolvers will result in their values being replaced in the dict/list they</span>
-<span class="sd">        were in with their resolved value, so we won&#39;t have to resolve them again.</span>
-
-<span class="sd">        If this property is accessed BEFORE the instance has a stack, it will return</span>
-<span class="sd">        the raw argument value. This is to safeguard any __init__() behaviors from triggering</span>
-<span class="sd">        resolution prematurely.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_argument_is_resolved</span><span class="p">:</span>
-            <span class="c1"># Since resolving the argument updates the argument list or dict so that there aren&#39;t</span>
-            <span class="c1"># resolvers in it any more, we only need to do this resolution once per instance.</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_argument</span><span class="p">()</span>
-
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_argument</span>
-
-    <span class="nd">@argument</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">argument</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_argument</span> <span class="o">=</span> <span class="n">value</span>
-
-    <span class="k">def</span> <span class="nf">_resolve_argument</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Resolves all argument resolvers recursively.&quot;&quot;&quot;</span>
-
-        <span class="n">keys_to_delete</span> <span class="o">=</span> <span class="p">[]</span>
-
-        <span class="k">def</span> <span class="nf">resolve</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">obj</span><span class="p">:</span> <span class="n">Resolver</span><span class="p">):</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
-            <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">keys_to_delete</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">attr</span><span class="p">,</span> <span class="n">key</span><span class="p">))</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">attr</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span>
-
-        <span class="n">_call_func_on_values</span><span class="p">(</span><span class="n">resolve</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_argument</span><span class="p">,</span> <span class="n">Resolver</span><span class="p">)</span>
-        <span class="n">delete_keys_from_containers</span><span class="p">(</span><span class="n">keys_to_delete</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_argument_is_resolved</span> <span class="o">=</span> <span class="kc">True</span>
-
-    <span class="k">def</span> <span class="nf">_recursively_setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Ensures all nested resolvers in this resolver&#39;s argument are also setup when this</span>
-<span class="sd">        instance&#39;s setup method is called.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setup</span><span class="p">()</span>
-
-        <span class="k">def</span> <span class="nf">setup_nested</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">obj</span><span class="p">:</span> <span class="n">Resolver</span><span class="p">):</span>
-            <span class="n">obj</span><span class="o">.</span><span class="n">_recursively_setup</span><span class="p">()</span>
-
-        <span class="n">_call_func_on_values</span><span class="p">(</span><span class="n">setup_nested</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_argument</span><span class="p">,</span> <span class="n">Resolver</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">_recursively_clone</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Self</span><span class="p">,</span> <span class="n">stack</span><span class="p">:</span> <span class="s2">&quot;stack.Stack&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Recursively clones the instance and its arguments.</span>
-
-<span class="sd">        The returned instance will have an identical argument that is a different memory reference,</span>
-<span class="sd">        so that instances inherited from a stack group and applied across multiple stacks are</span>
-<span class="sd">        independent of each other.</span>
-
-<span class="sd">        Furthermore, all nested resolvers in this resolver&#39;s argument will also be cloned to ensure</span>
-<span class="sd">        they themselves are also independent and fully configured for the current stack.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="k">def</span> <span class="nf">recursively_clone_arguments</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">Resolver</span><span class="p">):</span>
-                <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">_recursively_clone</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-                <span class="k">return</span> <span class="p">[</span><span class="n">recursively_clone_arguments</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">]</span>
-            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-                <span class="k">return</span> <span class="p">{</span>
-                    <span class="n">key</span><span class="p">:</span> <span class="n">recursively_clone_arguments</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">obj</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-                <span class="p">}</span>
-            <span class="k">return</span> <span class="n">obj</span>
-
-        <span class="n">argument</span> <span class="o">=</span> <span class="n">recursively_clone_arguments</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_argument</span><span class="p">)</span>
-        <span class="n">clone</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="n">argument</span><span class="p">,</span> <span class="n">stack</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">clone</span>
-
-<div class="viewcode-block" id="CustomYamlTagBase.clone_for_stack"><a class="viewcode-back" href="../../apidoc/sceptre.resolvers.html#sceptre.resolvers.CustomYamlTagBase.clone_for_stack">[docs]</a>    <span class="k">def</span> <span class="nf">clone_for_stack</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Self</span><span class="p">,</span> <span class="n">stack</span><span class="p">:</span> <span class="s2">&quot;stack.Stack&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+<div class="viewcode-block" id="Resolver.setup"><a class="viewcode-back" href="../../apidoc/sceptre.resolvers.html#sceptre.resolvers.Resolver.setup">[docs]</a>    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Obtains a clone of the current object, setup and ready for use for a given Stack instance.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">clone</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_recursively_clone</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span>
-        <span class="n">clone</span><span class="o">.</span><span class="n">_recursively_setup</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">clone</span></div>
-
-<div class="viewcode-block" id="CustomYamlTagBase.setup"><a class="viewcode-back" href="../../apidoc/sceptre.resolvers.html#sceptre.resolvers.CustomYamlTagBase.setup">[docs]</a>    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        This method is called when the object is connected to a Stack instance.</span>
+<span class="sd">        This method is called at during stack initialisation.</span>
 <span class="sd">        Implementation of this method in subclasses can be used to do any</span>
 <span class="sd">        initial setup of the object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">pass</span>  <span class="c1"># pragma: no cover</span></div></div>
-
-
-<div class="viewcode-block" id="Resolver"><a class="viewcode-back" href="../../apidoc/sceptre.resolvers.html#sceptre.resolvers.Resolver">[docs]</a><span class="k">class</span> <span class="nc">Resolver</span><span class="p">(</span><span class="n">CustomYamlTagBase</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Resolver is an abstract base class that should be subclassed by all Resolvers.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+        <span class="k">pass</span>  <span class="c1"># pragma: no cover</span></div>
 
 <div class="viewcode-block" id="Resolver.resolve"><a class="viewcode-back" href="../../apidoc/sceptre.resolvers.html#sceptre.resolvers.Resolver.resolve">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">resolve</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -352,7 +242,15 @@
 <span class="sd">        Implementation of this method in subclasses must return a suitable</span>
 <span class="sd">        object or primitive type.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">pass</span>  <span class="c1"># pragma: no cover</span></div></div>
+        <span class="k">pass</span>  <span class="c1"># pragma: no cover</span></div>
+
+<div class="viewcode-block" id="Resolver.clone"><a class="viewcode-back" href="../../apidoc/sceptre.resolvers.html#sceptre.resolvers.Resolver.clone">[docs]</a>    <span class="k">def</span> <span class="nf">clone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack</span><span class="p">:</span> <span class="s2">&quot;stack.Stack&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Resolver&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Produces a &quot;fresh&quot; copy of the Resolver, with the specified stack.</span>
+
+<span class="sd">        :param stack: The stack to set on the cloned resolver</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">argument</span><span class="p">,</span> <span class="n">stack</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="ResolvableProperty"><a class="viewcode-back" href="../../apidoc/sceptre.resolvers.html#sceptre.resolvers.ResolvableProperty">[docs]</a><span class="k">class</span> <span class="nc">ResolvableProperty</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">):</span>
@@ -414,6 +312,23 @@
             <span class="k">yield</span>
         <span class="k">finally</span><span class="p">:</span>
             <span class="nb">setattr</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="n">get_status_name</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ResolvableProperty.get_setup_resolver_for_stack"><a class="viewcode-back" href="../../apidoc/sceptre.resolvers.html#sceptre.resolvers.ResolvableProperty.get_setup_resolver_for_stack">[docs]</a>    <span class="k">def</span> <span class="nf">get_setup_resolver_for_stack</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">stack</span><span class="p">:</span> <span class="s2">&quot;stack.Stack&quot;</span><span class="p">,</span> <span class="n">resolver</span><span class="p">:</span> <span class="n">Resolver</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Resolver</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Obtains a clone of the resolver with the stack set on it and the setup method having</span>
+<span class="sd">        been called on it.</span>
+
+<span class="sd">        :param stack: The stack to set on the Resolver</span>
+<span class="sd">        :param resolver: The Resolver to clone and set up</span>
+<span class="sd">        :return: The cloned resolver.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We clone the resolver when we assign the value so that every stack gets its own resolver</span>
+        <span class="c1"># rather than potentially having one resolver instance shared in memory across multiple</span>
+        <span class="c1"># stacks.</span>
+        <span class="n">clone</span> <span class="o">=</span> <span class="n">resolver</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span>
+        <span class="n">clone</span><span class="o">.</span><span class="n">setup</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">clone</span></div>
 
 <div class="viewcode-block" id="ResolvableProperty.get_resolved_value"><a class="viewcode-back" href="../../apidoc/sceptre.resolvers.html#sceptre.resolvers.ResolvableProperty.get_resolved_value">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">get_resolved_value</span><span class="p">(</span>
@@ -525,7 +440,20 @@
 
         <span class="n">container</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
         <span class="n">_call_func_on_values</span><span class="p">(</span><span class="n">resolve</span><span class="p">,</span> <span class="n">container</span><span class="p">,</span> <span class="n">Resolver</span><span class="p">)</span>
-        <span class="n">delete_keys_from_containers</span><span class="p">(</span><span class="n">keys_to_delete</span><span class="p">)</span>
+        <span class="c1"># Remove keys and indexes from their containers that had resolvers resolve to None.</span>
+        <span class="n">list_items_to_delete</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">attr</span><span class="p">,</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys_to_delete</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="c1"># If it&#39;s a list, we want to gather up the items to remove from the list.</span>
+                <span class="c1"># We don&#39;t want to modify the list length yet.</span>
+                <span class="c1"># Since removals will change all the other list indexes,</span>
+                <span class="c1"># we don&#39;t wan&#39;t to modify lists yet.</span>
+                <span class="n">list_items_to_delete</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">attr</span><span class="p">,</span> <span class="n">attr</span><span class="p">[</span><span class="n">key</span><span class="p">]))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">del</span> <span class="n">attr</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">containing_list</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">list_items_to_delete</span><span class="p">:</span>
+            <span class="n">containing_list</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">container</span></div>
 
@@ -552,7 +480,7 @@
 
         <span class="k">def</span> <span class="nf">recurse</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">Resolver</span><span class="p">):</span>
-                <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">clone_for_stack</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_setup_resolver_for_stack</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
                 <span class="k">return</span> <span class="p">[</span><span class="n">recurse</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">]</span>
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
@@ -647,7 +575,7 @@
 <span class="sd">        :param value: The value to set</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Resolver</span><span class="p">):</span>
-            <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">clone_for_stack</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_setup_resolver_for_stack</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
         <span class="nb">setattr</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div></div>
 </pre></div>
 

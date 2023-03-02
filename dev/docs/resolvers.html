@@ -112,15 +112,11 @@
 <li class="toctree-l3"><a class="reference internal" href="#environment-variable">environment_variable</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#file">file</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#file-contents">file_contents</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#join">join</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#no-value">no_value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#rcmd">rcmd</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#select">select</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#split">split</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stack-attr">stack_attr</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stack-output">stack_output</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stack-output-external">stack_output_external</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#substitute">substitute</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#custom-resolvers">Custom Resolvers</a><ul>
@@ -219,8 +215,6 @@
 <p>Sceptre implements resolvers, which can be used to resolve a value of a
 CloudFormation <code class="docutils literal notranslate"><span class="pre">parameter</span></code> or <code class="docutils literal notranslate"><span class="pre">sceptre_user_data</span></code> value at runtime. This is
 most commonly used to chain the outputs of one Stack to the inputs of another.</p>
-<p>You can use resolvers with any resolvable property on a StackConfig, as well as in the arguments
-of hooks and other resolvers.</p>
 <p>If required, users can create their own resolvers, as described in the section
 on <a class="reference external" href="#custom-resolvers">Custom Resolvers</a>.</p>
 <p>Syntax:</p>
@@ -256,22 +250,6 @@ a string, json, or yaml object.</p>
 <h3>file_contents<a class="headerlink" href="#file-contents" title="Permalink to this heading">¶</a></h3>
 <p><strong>deprecated</strong>: Consider using the <a class="reference internal" href="#file">file</a> resolver instead.</p>
 </div>
-<div class="section" id="join">
-<h3>join<a class="headerlink" href="#join" title="Permalink to this heading">¶</a></h3>
-<p>This resolver allows you to join multiple strings together to form a single string. This is great
-for combining the outputs of multiple resolvers. This resolver works just like CloudFormation’s
-<code class="docutils literal notranslate"><span class="pre">!Join</span></code> intrinsic function.</p>
-<p>The argument for this resolver should be a list with two elements: (1) A string to join the elements
-on and (2) a list of items to join.</p>
-<p>Example:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">BaseUrl</span><span class="p">:</span><span class="w"> </span><span class="kt">!join</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;:&quot;</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!stack_output</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my/app/stack.yaml::HostName</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!stack_output</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my/other/stack.yaml::Port</span>
-</pre></div>
-</div>
-</div>
 <div class="section" id="no-value">
 <h3>no_value<a class="headerlink" href="#no-value" title="Permalink to this heading">¶</a></h3>
 <p>This resolver “resolves to nothing”, functioning just as if it was not set at all. This works just
@@ -293,41 +271,8 @@ the CloudFormation template for <code class="docutils literal notranslate"><span
 <p>A resolver to execute any shell command.</p>
 <p>Refer to <a class="reference external" href="https://github.com/Sceptre/sceptre-resolver-cmd/">sceptre-resolver-cmd</a> for documentation.</p>
 </div>
-<div class="section" id="select">
-<span id="stack-attr-resolver"></span><h3>select<a class="headerlink" href="#select" title="Permalink to this heading">¶</a></h3>
-<p>This resolver allows you to select a specific index of a list of items. This is great for combining
-with the <code class="docutils literal notranslate"><span class="pre">!split</span></code> resolver to obtain part of a string. This function works almost the same as
-CloudFormation’s <code class="docutils literal notranslate"><span class="pre">!Select</span></code> intrinsic function, <strong>except you can use this with negative indexes to
-select with a reverse index</strong>.</p>
-<p>The argument for this resolver should be a list with two elements: (1) A numerical index and (2) a
-list of items to select out of. If the index is negative, it will select from the end of the list.
-For example, “-1” would select the last element and “-2” would select the second-to-last element.</p>
-<p>Example:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">  </span><span class="c1"># This selects the last element after you split the connection string on &quot;/&quot;</span>
-<span class="w">  </span><span class="nt">DatabaseName</span><span class="p">:</span><span class="w"> </span><span class="kt">!select</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-1</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!split</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;/&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="kt">!stack_output</span><span class="w"> </span><span class="nv">my/database/stack.yaml</span><span class="p p-Indicator">::</span><span class="nv">ConnectionString</span><span class="p p-Indicator">]</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="split">
-<h3>split<a class="headerlink" href="#split" title="Permalink to this heading">¶</a></h3>
-<p>This resolver will split a value on a given delimiter string. This is great when combining with the
-<code class="docutils literal notranslate"><span class="pre">!select</span></code> resolver. This function works the same as CloudFormation’s <code class="docutils literal notranslate"><span class="pre">!Split</span></code> intrinsic function.</p>
-<p>Note: The return value of this resolver is a <em>list</em>, not a string. This will not work to set Stack
-configurations that expect strings, but it WILL work to set Stack configurations that expect lists.</p>
-<p>The argument for this resolver should be a list with two elements: (1) The delimiter to split on and
-(2) a string to split.</p>
-<p>Example:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">notifications</span><span class="p">:</span><span class="w"> </span><span class="kt">!split</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;;&quot;</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!stack_output</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my/sns/topics.yaml::SemicolonDelimitedArns</span>
-</pre></div>
-</div>
-</div>
 <div class="section" id="stack-attr">
-<h3>stack_attr<a class="headerlink" href="#stack-attr" title="Permalink to this heading">¶</a></h3>
+<span id="stack-attr-resolver"></span><h3>stack_attr<a class="headerlink" href="#stack-attr" title="Permalink to this heading">¶</a></h3>
 <p>This resolver resolves to the values of other fields on the same Stack Config or those
 inherited from StackGroups in which the current Stack Config exists, even when those other fields are
 also resolvers.</p>
@@ -405,26 +350,6 @@ basename of that Stack can be used.</p>
 <p>Example:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">VpcIdParameter</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_output_external</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prj-network-vpc::VpcIdOutput prod</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="substitute">
-<h3>substitute<a class="headerlink" href="#substitute" title="Permalink to this heading">¶</a></h3>
-<p>This resolver allows you to create a string using Python string format syntax. This functions as a
-great way to combine together a number of resolver outputs into a single string. This functions very
-similarly to Cloudformation’s <code class="docutils literal notranslate"><span class="pre">!Sub</span></code> intrinsic function.</p>
-<p>The argument to this resolver should be a two-element list: (1) Is the format string, using
-curly-brace templates to indicate variables, and (2) a dictionary where the keys are the format
-string’s variable names and the values are the variable values.</p>
-<p>Example:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">ConnectionString</span><span class="p">:</span><span class="w"> </span><span class="kt">!substitute</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;postgres://{username}:{password}@{hostname}:{port}/{database}&quot;</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">var.username</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="w">      </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="kt">!ssm</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/my/ssm/password</span>
-<span class="w">      </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_output</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my/database/stack.yaml::HostName</span>
-<span class="w">      </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_output</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my/database/stack.yaml::Port</span>
-<span class="w">      </span><span class="nt">database</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="nv">var.database</span><span class="p p-Indicator">}}</span>
 </pre></div>
 </div>
 </div>
@@ -536,19 +461,15 @@ In case you are not familiar with python packaging, <a class="reference external
 </div>
 <div class="section" id="resolver-arguments">
 <h4>Resolver arguments<a class="headerlink" href="#resolver-arguments" title="Permalink to this heading">¶</a></h4>
-<p>Resolver arguments can be a simple string or a complex data structure. You can even use
-other resolvers in the arguments to resolvers! (Note: Other resolvers can only be passed in
-arguments when they’re passed in lists and dicts.)</p>
+<p>Resolver arguments can be a simple string or a complex data structure.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;...&gt;</span>
 <span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;...&gt;</span>
-<span class="nt">parameters</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">Param1</span><span class="p">:</span><span class="w"> </span><span class="kt">!ssm</span><span class="w"> </span><span class="s">&quot;/dev/DbPassword&quot;</span>
-<span class="w">  </span><span class="nt">Param2</span><span class="p">:</span><span class="w"> </span><span class="kt">!ssm</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;/dev/DbPassword&quot;</span><span class="p p-Indicator">}</span>
-<span class="w">  </span><span class="nt">Param3</span><span class="p">:</span><span class="w"> </span><span class="kt">!ssm</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/dev/DbPassword&quot;</span>
-<span class="w">  </span><span class="nt">Param4</span><span class="p">:</span><span class="w"> </span><span class="kt">!ssm</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_output</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my/other/stack.yaml::MySsmName</span>
+<span class="w w-Error"> </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">   </span><span class="nt">Param1</span><span class="p">:</span><span class="w"> </span><span class="kt">!ssm</span><span class="w"> </span><span class="s">&quot;/dev/DbPassword&quot;</span>
+<span class="w">   </span><span class="nt">Param2</span><span class="p">:</span><span class="w"> </span><span class="kt">!ssm</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;/dev/DbPassword&quot;</span><span class="p p-Indicator">}</span>
+<span class="w">   </span><span class="nt">Param3</span><span class="p">:</span><span class="w"> </span><span class="kt">!ssm</span>
+<span class="w">     </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/dev/DbPassword&quot;</span>
 </pre></div>
 </div>
 </div>
