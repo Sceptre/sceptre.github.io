@@ -321,7 +321,7 @@ the StackGroup Config, or (b) moving those dependency stacks outside of the Stac
 <div class="section" id="hooks">
 <h3>hooks<a class="headerlink" href="#hooks" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>Resolvable: No</p></li>
+<li><p>Resolvable: No (but you can use resolvers _in_ hook arguments!)</p></li>
 <li><p>Can be inherited from StackGroup: Yes</p></li>
 <li><p>Inheritance strategy: Overrides parent if set</p></li>
 </ul>
@@ -760,19 +760,25 @@ the very last moment, right when it is needed (and not before).</p></li>
 <p>A common point of confusion tends to be around the distinction between <strong>“render time”</strong> (phase 3, when
 Jinja logic is applied) and <strong>“resolve time”</strong> (phase 6, when resolvers are resolved). You cannot use
 a resolver via Jinja during “render time”, since the resolver won’t exist or be ready to use yet. You can,
-however, use Jinja logic to indicate <em>whether</em>, <em>which</em>, or <em>how</em> a resolver is configured.</p>
+however, use Jinja logic to indicate <em>whether</em>, <em>which</em>, or <em>how</em> a resolver is configured. You can
+also use resolvers like <code class="docutils literal notranslate"><span class="pre">!substitute</span></code> to interpolate resolved values when Jinja isn’t available.</p>
 <p>For example, you <strong>can</strong> do something like this:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span>parameters:
   {% if var.use_my_parameter %}
     my_parameter: !stack_output {{ var.stack_name }}::{{ var.output_name }}
   {% endif %}
+    # !substitute will let you combine outputs of multiple resolvers into a single string
+    my_combined_parameter: !substitute
+      - &quot;{fist_part} - {second_part}&quot;
+      - first_part: !stack_output my/stack/name.yaml::Output
+      - second_part: {{ var.second_part }}
 </pre></div>
 </div>
 </div>
 <div class="section" id="accessing-resolved-values-in-other-fields">
 <h3>Accessing resolved values in other fields<a class="headerlink" href="#accessing-resolved-values-in-other-fields" title="Permalink to this heading">¶</a></h3>
 <p>Sometimes you might want to reference the resolved value of one field in another field. Since you cannot
-use Jinja to access resolved values, there is another way to this. The <a class="reference internal" href="resolvers.html#stack-attr-resolver"><span class="std std-ref">stack_attr</span></a>
+use Jinja to access resolved values, there is another way to this. The <a class="reference internal" href="resolvers.html#stack-attr-resolver"><span class="std std-ref">select</span></a>
 resolver is meant for addressing just this need. It’s a resolver that will resolve to the value of
 another Stack Config field value. See the linked documentation for more details on that resolver and
 its use.</p>
