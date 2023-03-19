@@ -222,19 +222,12 @@
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>A base class for custom Yaml Elements (i.e. hooks and resolvers).</p>
 <p>This base class takes care of common functionality needed by subclasses:
-* logging setup (associated with stacks)
-* Creating unique clones associated with individual stacks (applied recursively down to all</p>
-<blockquote>
-<div><p>resolvers in the argument)</p>
-</div></blockquote>
-<ul class="simple">
-<li><dl class="simple">
-<dt>On-stack-connect setup that might be needed once connected to a Stack (applied recursively down to</dt><dd><p>all resolvers in the argument)</p>
-</dd>
-</dl>
-</li>
-<li><p>Automatically resolving resolvers in the argument when accessing self.argument</p></li>
-</ul>
+| * logging setup (associated with stacks)
+| * Creating unique clones associated with individual stacks (applied recursively down to all
+|   resolvers in the argument)
+| * On-stack-connect setup that might be needed once connected to a Stack (applied recursively down to
+|   all resolvers in the argument)
+| * Automatically resolving resolvers in the argument when accessing self.argument</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="sceptre.resolvers.CustomYamlTagBase.argument">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">argument</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a></em><a class="headerlink" href="#sceptre.resolvers.CustomYamlTagBase.argument" title="Permalink to this definition">¶</a></dt>
@@ -457,6 +450,11 @@ instance with their resolved value to avoid redundant resolutions.</p>
 <dd><p>Bases: <a class="reference internal" href="#sceptre.resolvers.CustomYamlTagBase" title="sceptre.resolvers.CustomYamlTagBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomYamlTagBase</span></code></a></p>
 <p>Resolver is an abstract base class that should be subclassed by all Resolvers.</p>
 <dl class="py method">
+<dt class="sig sig-object py" id="sceptre.resolvers.Resolver.raise_invalid_argument_error">
+<span class="sig-name descname"><span class="pre">raise_invalid_argument_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">from_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/resolvers.html#Resolver.raise_invalid_argument_error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.resolvers.Resolver.raise_invalid_argument_error" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="sceptre.resolvers.Resolver.resolve">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">resolve</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/resolvers.html#Resolver.resolve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.resolvers.Resolver.resolve" title="Permalink to this definition">¶</a></dt>
 <dd><p>An abstract method which must be overwritten by all inheriting classes.
@@ -657,13 +655,15 @@ resolvers, especially in the sceptre_user_data.</p>
 <dt class="sig sig-object py" id="sceptre.resolvers.select.Select">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.resolvers.select.</span></span><span class="sig-name descname"><span class="pre">Select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">argument</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/resolvers/select.html#Select"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.resolvers.select.Select" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#sceptre.resolvers.Resolver" title="sceptre.resolvers.Resolver"><code class="xref py py-class docutils literal notranslate"><span class="pre">Resolver</span></code></a></p>
-<p>This resolver allows you to select a specific index of a list of items. This is great for combining
-with the <code class="docutils literal notranslate"><span class="pre">!split</span></code> resolver to obtain part of a string. This function works almost the same as
-CloudFormation’s <code class="docutils literal notranslate"><span class="pre">!Select</span></code> intrinsic function, <strong>except you can use this with negative indexes to
-select with a reverse index</strong>.</p>
-<p>The argument for this resolver should be a list with two elements: (1) A numerical index and (2) a
-list of items to select out of. If the index is negative, it will select from the end of the list.
-For example, “-1” would select the last element and “-2” would select the second-to-last element.</p>
+<p>This resolver allows you to select a specific index from a list of items or a specific key
+from a dict.. This is great for combining with the <code class="docutils literal notranslate"><span class="pre">!split</span></code> resolver to obtain part of a
+string. This function works almost the same as CloudFormation’s <code class="docutils literal notranslate"><span class="pre">!Select</span></code> intrinsic function,
+<strong>except (1) you can use this with negative indexes to select with a reverse index</strong> and (2)
+you can select keys from a dict.</p>
+<p>The argument for this resolver should be a list with two elements: (1) A numerical index or
+string key and (2) a list or dict of items to select out of. If the index is negative,
+it will select from the end of the list. For example, “-1” would select the last element and
+“-2” would select the second-to-last element.</p>
 <p>Example:</p>
 <blockquote>
 <div><dl>
@@ -837,11 +837,11 @@ current Sceptre stack_group’s account and region.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-sceptre.resolvers.substitute">
-<span id="sceptre-resolvers-substitute-module"></span><h2>sceptre.resolvers.substitute module<a class="headerlink" href="#module-sceptre.resolvers.substitute" title="Permalink to this heading">¶</a></h2>
+<div class="section" id="module-sceptre.resolvers.sub">
+<span id="sceptre-resolvers-sub-module"></span><h2>sceptre.resolvers.sub module<a class="headerlink" href="#module-sceptre.resolvers.sub" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="sceptre.resolvers.substitute.Substitute">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.resolvers.substitute.</span></span><span class="sig-name descname"><span class="pre">Substitute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">argument</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/resolvers/substitute.html#Substitute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.resolvers.substitute.Substitute" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sceptre.resolvers.sub.Sub">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.resolvers.sub.</span></span><span class="sig-name descname"><span class="pre">Sub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">argument</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/resolvers/sub.html#Sub"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.resolvers.sub.Sub" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#sceptre.resolvers.Resolver" title="sceptre.resolvers.Resolver"><code class="xref py py-class docutils literal notranslate"><span class="pre">Resolver</span></code></a></p>
 <p>This resolver allows you to create a string using Python string format syntax. This is a
 great way to combine together a number of resolver outputs into a single string. This functions
@@ -853,7 +853,7 @@ string’s variable names and the values are the variable values.</p>
 <blockquote>
 <div><dl class="simple">
 <dt>parameters:</dt><dd><dl class="simple">
-<dt>ConnectionString: !substitute</dt><dd><ul class="simple">
+<dt>ConnectionString: !sub</dt><dd><ul class="simple">
 <li><p>“postgres://{username}:{password}&#64;{hostname}:{port}/{database}”</p></li>
 <li><p>username: {{ var.username }}
 password: !ssm /my/ssm/password
@@ -867,8 +867,8 @@ database: {{var.database}}</p></li>
 </dl>
 </div></blockquote>
 <dl class="py method">
-<dt class="sig sig-object py" id="sceptre.resolvers.substitute.Substitute.resolve">
-<span class="sig-name descname"><span class="pre">resolve</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/resolvers/substitute.html#Substitute.resolve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.resolvers.substitute.Substitute.resolve" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sceptre.resolvers.sub.Sub.resolve">
+<span class="sig-name descname"><span class="pre">resolve</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/resolvers/sub.html#Sub.resolve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.resolvers.sub.Sub.resolve" title="Permalink to this definition">¶</a></dt>
 <dd><p>An abstract method which must be overwritten by all inheriting classes.
 This method is called to retrieve the final desired value.
 Implementation of this method in subclasses must return a suitable

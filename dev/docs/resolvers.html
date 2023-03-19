@@ -120,7 +120,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#stack-attr">stack_attr</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stack-output">stack_output</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stack-output-external">stack_output_external</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#substitute">substitute</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sub">sub</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#custom-resolvers">Custom Resolvers</a><ul>
@@ -294,11 +294,11 @@ the CloudFormation template for <code class="docutils literal notranslate"><span
 <p>Refer to <a class="reference external" href="https://github.com/Sceptre/sceptre-resolver-cmd/">sceptre-resolver-cmd</a> for documentation.</p>
 </div>
 <div class="section" id="select">
-<span id="stack-attr-resolver"></span><h3>select<a class="headerlink" href="#select" title="Permalink to this heading">¶</a></h3>
+<h3>select<a class="headerlink" href="#select" title="Permalink to this heading">¶</a></h3>
 <p>This resolver allows you to select a specific index of a list of items. This is great for combining
 with the <code class="docutils literal notranslate"><span class="pre">!split</span></code> resolver to obtain part of a string. This function works almost the same as
-CloudFormation’s <code class="docutils literal notranslate"><span class="pre">!Select</span></code> intrinsic function, <strong>except you can use this with negative indexes to
-select with a reverse index</strong>.</p>
+CloudFormation’s <code class="docutils literal notranslate"><span class="pre">!Select</span></code> intrinsic function, <strong>except you can use this with negative indices to
+select from the end of a list</strong>.</p>
 <p>The argument for this resolver should be a list with two elements: (1) A numerical index and (2) a
 list of items to select out of. If the index is negative, it will select from the end of the list.
 For example, “-1” would select the last element and “-2” would select the second-to-last element.</p>
@@ -327,7 +327,7 @@ configurations that expect strings, but it WILL work to set Stack configurations
 </div>
 </div>
 <div class="section" id="stack-attr">
-<h3>stack_attr<a class="headerlink" href="#stack-attr" title="Permalink to this heading">¶</a></h3>
+<span id="stack-attr-resolver"></span><h3>stack_attr<a class="headerlink" href="#stack-attr" title="Permalink to this heading">¶</a></h3>
 <p>This resolver resolves to the values of other fields on the same Stack Config or those
 inherited from StackGroups in which the current Stack Config exists, even when those other fields are
 also resolvers.</p>
@@ -408,23 +408,53 @@ basename of that Stack can be used.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="substitute">
-<h3>substitute<a class="headerlink" href="#substitute" title="Permalink to this heading">¶</a></h3>
+<div class="section" id="sub">
+<h3>sub<a class="headerlink" href="#sub" title="Permalink to this heading">¶</a></h3>
 <p>This resolver allows you to create a string using Python string format syntax. This functions as a
-great way to combine together a number of resolver outputs into a single string. This functions very
+great way to combine together a number of resolver outputs into a single string. This functions
 similarly to Cloudformation’s <code class="docutils literal notranslate"><span class="pre">!Sub</span></code> intrinsic function.</p>
+<p>It should be noted that Jinja2 syntax is far more capable of interpolating values than this resolver,
+so you should use Jinja2 if all you need is to interpolate raw values from environment variables,
+variables from stack group configs, var files, and <code class="docutils literal notranslate"><span class="pre">--var</span></code> arguments. <strong>The one thing that Jinja2
+interpolation can’t do is interpolate resolver arguments into a string.</strong> And that’s what <code class="docutils literal notranslate"><span class="pre">!sub</span></code>
+can do. For more information on why Jinja2 can’t reference resolvers directly, see
+<a class="reference internal" href="stack_config.html#resolution-order"><span class="std std-ref">Resolution order of values</span></a>.</p>
 <p>The argument to this resolver should be a two-element list: (1) Is the format string, using
 curly-brace templates to indicate variables, and (2) a dictionary where the keys are the format
 string’s variable names and the values are the variable values.</p>
 <p>Example:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">ConnectionString</span><span class="p">:</span><span class="w"> </span><span class="kt">!substitute</span>
+<span class="w">  </span><span class="nt">ConnectionString</span><span class="p">:</span><span class="w"> </span><span class="kt">!sub</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;postgres://{username}:{password}@{hostname}:{port}/{database}&quot;</span>
+<span class="w">    </span><span class="c1"># Notice how we&#39;re interpolating a username and database via Jinja2? Technically it&#39;s not</span>
+<span class="w">    </span><span class="c1"># necessary to pass them this way. They could be interpolated directly. But it might be</span>
+<span class="w">    </span><span class="c1"># easier to read this way if you pass them explicitly like this. See example below for the</span>
+<span class="w">    </span><span class="c1"># other way this can be done.</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">var.username</span><span class="w"> </span><span class="p p-Indicator">}}</span>
 <span class="w">      </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="kt">!ssm</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/my/ssm/password</span>
 <span class="w">      </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_output</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my/database/stack.yaml::HostName</span>
 <span class="w">      </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_output</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my/database/stack.yaml::Port</span>
 <span class="w">      </span><span class="nt">database</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="nv">var.database</span><span class="p p-Indicator">}}</span>
+</pre></div>
+</div>
+<p>It’s relevant to note that this functions similarly to the <em>more verbose</em> form of CloudFormation’s
+<code class="docutils literal notranslate"><span class="pre">!Sub</span></code> intrinsic function, where you use a list argument and supply the interpolated values as a
+second list item in a dictionary. <strong>Important</strong>: Sceptre’s <code class="docutils literal notranslate"><span class="pre">!sub</span></code> resolver will not work without
+a list argument. It does <strong>not</strong> directly reference variables without you directly passing them
+in the second list item in its argument.</p>
+<p>You <em>can</em> combine Jinja2 syntax with this resolver if you want to interpolate in other variables
+that Jinja2 has access to.</p>
+<p>Example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ConnectionString</span><span class="p">:</span><span class="w"> </span><span class="kt">!sub</span>
+<span class="w">    </span><span class="c1"># Notice the double-curly braces. That&#39;s Jinja2 syntax. Jinja2 will render the username into</span>
+<span class="w">    </span><span class="c1"># the string even before the yaml is loaded. If you use Jinja2 to interpolate the value, then</span>
+<span class="w">    </span><span class="c1"># it&#39;s not a template string variable you need to pass in the second list item passed to</span>
+<span class="w">    </span><span class="c1"># !sub.</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;postgres://{{</span><span class="nv"> </span><span class="s">var.username</span><span class="nv"> </span><span class="s">}}:{password}@{hostname}:{port}/{{</span><span class="nv"> </span><span class="s">stack_group_config.database</span><span class="nv"> </span><span class="s">}}&quot;</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="kt">!ssm</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/my/ssm/password</span>
+<span class="w">      </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_output</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my/database/stack.yaml::HostName</span>
+<span class="w">      </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_output</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my/database/stack.yaml::Port</span>
 </pre></div>
 </div>
 </div>

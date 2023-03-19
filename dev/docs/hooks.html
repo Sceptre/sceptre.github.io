@@ -371,8 +371,9 @@ In case you are not familiar with python packaging, <a class="reference external
 </div>
 <div class="section" id="hook-arguments">
 <h4>hook arguments<a class="headerlink" href="#hook-arguments" title="Permalink to this heading">¶</a></h4>
-<p>Hook arguments can be a simple string or a complex data structure.
-Assume a Sceptre <cite>copy</cite> hook that calls the <a class="reference external" href="http://man7.org/linux/man-pages/man1/cp.1.html">cp command</a>:</p>
+<p>Hook arguments can be a simple string or a complex data structure. You can even use resolvers in
+hook arguments, so long as they’re nested in a list or a dict.</p>
+<p>Assume a Sceptre <cite>copy</cite> hook that calls the <a class="reference external" href="http://man7.org/linux/man-pages/man1/cp.1.html">cp command</a>:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;...&gt;</span>
 <span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;...&gt;</span>
@@ -385,7 +386,7 @@ Assume a Sceptre <cite>copy</cite> hook that calls the <a class="reference exter
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!copy</span>
 <span class="w">        </span><span class="nt">options</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;-r&quot;</span>
 <span class="w">        </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;from_dir&quot;</span>
-<span class="w">        </span><span class="nt">destination</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;to_dir&quot;</span>
+<span class="w">        </span><span class="nt">destination</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_output</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my/other/stack::CopyDestination</span>
 </pre></div>
 </div>
 </div>

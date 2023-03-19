@@ -81,10 +81,10 @@ sceptre.resolvers.stack\_output module
    :undoc-members:
    :show-inheritance:
 
-sceptre.resolvers.substitute module
------------------------------------
+sceptre.resolvers.sub module
+----------------------------
 
-.. automodule:: sceptre.resolvers.substitute
+.. automodule:: sceptre.resolvers.sub
    :members:
    :undoc-members:
    :show-inheritance:
