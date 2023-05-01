@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sceptre.config.reader &mdash; Sceptre 4.1.0 documentation</title>
+  <title>sceptre.config.reader &mdash; Sceptre 4.0.2 documentation</title>
   
 
   
@@ -290,6 +290,14 @@
     <span class="p">},</span>
 <span class="p">)</span>
 
+<span class="n">INTERNAL_CONFIG_ATTRIBUTES</span> <span class="o">=</span> <span class="n">ConfigAttributes</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;project_path&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;stack_group_path&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">{},</span>
+<span class="p">)</span>
+
 <span class="n">REQUIRED_KEYS</span> <span class="o">=</span> <span class="n">STACK_GROUP_CONFIG_ATTRIBUTES</span><span class="o">.</span><span class="n">required</span><span class="o">.</span><span class="n">union</span><span class="p">(</span>
     <span class="n">STACK_CONFIG_ATTRIBUTES</span><span class="o">.</span><span class="n">required</span>
 <span class="p">)</span>
@@ -431,7 +439,7 @@
             <span class="k">if</span> <span class="n">directory</span> <span class="ow">in</span> <span class="n">stack_group_configs</span><span class="p">:</span>
                 <span class="n">stack_group_config</span> <span class="o">=</span> <span class="n">stack_group_configs</span><span class="p">[</span><span class="n">directory</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">stack_group_config</span> <span class="o">=</span> <span class="n">stack_group_configs</span><span class="p">[</span><span class="n">directory</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_read</span><span class="p">(</span>
+                <span class="n">stack_group_config</span> <span class="o">=</span> <span class="n">stack_group_configs</span><span class="p">[</span><span class="n">directory</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read</span><span class="p">(</span>
                     <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">config_file</span><span class="p">)</span>
                 <span class="p">)</span>
 
@@ -503,7 +511,7 @@
             <span class="n">stacks</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">stacks</span></div>
 
-    <span class="k">def</span> <span class="nf">_read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rel_path</span><span class="p">,</span> <span class="n">base_config</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="ConfigReader.read"><a class="viewcode-back" href="../../../apidoc/sceptre.config.html#sceptre.config.reader.ConfigReader.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rel_path</span><span class="p">,</span> <span class="n">base_config</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Reads in configuration from one or more YAML files</span>
 <span class="sd">        within the Sceptre project folder.</span>
@@ -549,7 +557,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_version</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Config: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">config</span>
+        <span class="k">return</span> <span class="n">config</span></div>
 
     <span class="k">def</span> <span class="nf">_recursive_read</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">directory_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">stack_group_config</span><span class="p">:</span> <span class="nb">dict</span>
@@ -739,7 +747,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">templating_vars</span><span class="p">[</span><span class="s2">&quot;stack_group_config&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stack_group_config</span>
         <span class="n">parsed_stack_group_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parsed_stack_group_config</span><span class="p">(</span><span class="n">stack_group_config</span><span class="p">)</span>
-        <span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_read</span><span class="p">(</span><span class="n">rel_path</span><span class="p">,</span> <span class="n">stack_group_config</span><span class="p">)</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">rel_path</span><span class="p">,</span> <span class="n">stack_group_config</span><span class="p">)</span>
         <span class="n">stack_name</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">rel_path</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
         <span class="c1"># Check for missing mandatory attributes</span>
@@ -789,7 +797,6 @@
             <span class="n">ignore</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
             <span class="n">obsolete</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;obsolete&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
             <span class="n">stack_group_config</span><span class="o">=</span><span class="n">parsed_stack_group_config</span><span class="p">,</span>
-            <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">templating_vars</span><span class="p">[</span><span class="s2">&quot;stack_group_config&quot;</span><span class="p">]</span>
