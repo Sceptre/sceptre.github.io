@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sceptre.cli.helpers &mdash; Sceptre 4.0.2 documentation</title>
+  <title>sceptre.cli.helpers &mdash; Sceptre 4.1.0 documentation</title>
   
 
   
@@ -198,6 +198,7 @@
 <span class="kn">from</span> <span class="nn">botocore.exceptions</span> <span class="kn">import</span> <span class="n">BotoCoreError</span><span class="p">,</span> <span class="n">ClientError</span>
 <span class="kn">from</span> <span class="nn">jinja2.exceptions</span> <span class="kn">import</span> <span class="n">TemplateError</span>
 
+<span class="kn">from</span> <span class="nn">sceptre.helpers</span> <span class="kn">import</span> <span class="n">logging_level</span>
 <span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">SceptreException</span>
 <span class="kn">from</span> <span class="nn">sceptre.stack_status</span> <span class="kn">import</span> <span class="n">StackStatus</span>
 <span class="kn">from</span> <span class="nn">sceptre.stack_status_colourer</span> <span class="kn">import</span> <span class="n">StackStatusColourer</span>
@@ -213,10 +214,6 @@
 <span class="sd">        simplified.</span>
 <span class="sd">    :returns: The decorated function.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="nf">logging_level</span><span class="p">():</span>
-        <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">logger</span><span class="o">.</span><span class="n">getEffectiveLevel</span><span class="p">()</span>
 
     <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">decorated</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
