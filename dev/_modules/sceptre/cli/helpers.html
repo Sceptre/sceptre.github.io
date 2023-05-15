@@ -186,8 +186,12 @@
   <h1>Source code for sceptre.cli.helpers</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">sys</span>
+
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">cycle</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span><span class="p">,</span> <span class="n">wraps</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">click</span>
@@ -198,9 +202,12 @@
 <span class="kn">from</span> <span class="nn">botocore.exceptions</span> <span class="kn">import</span> <span class="n">BotoCoreError</span><span class="p">,</span> <span class="n">ClientError</span>
 <span class="kn">from</span> <span class="nn">jinja2.exceptions</span> <span class="kn">import</span> <span class="n">TemplateError</span>
 
+<span class="kn">from</span> <span class="nn">sceptre.helpers</span> <span class="kn">import</span> <span class="n">logging_level</span>
 <span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">SceptreException</span>
 <span class="kn">from</span> <span class="nn">sceptre.stack_status</span> <span class="kn">import</span> <span class="n">StackStatus</span>
 <span class="kn">from</span> <span class="nn">sceptre.stack_status_colourer</span> <span class="kn">import</span> <span class="n">StackStatusColourer</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="catch_exceptions"><a class="viewcode-back" href="../../../apidoc/sceptre.cli.html#sceptre.cli.helpers.catch_exceptions">[docs]</a><span class="k">def</span> <span class="nf">catch_exceptions</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
@@ -213,10 +220,6 @@
 <span class="sd">        simplified.</span>
 <span class="sd">    :returns: The decorated function.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="nf">logging_level</span><span class="p">():</span>
-        <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">logger</span><span class="o">.</span><span class="n">getEffectiveLevel</span><span class="p">()</span>
 
     <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">decorated</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -252,18 +255,21 @@
         <span class="n">click</span><span class="o">.</span><span class="n">confirm</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">abort</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="write"><a class="viewcode-back" href="../../../apidoc/sceptre.cli.html#sceptre.cli.helpers.write">[docs]</a><span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">output_format</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">,</span> <span class="n">no_colour</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="write"><a class="viewcode-back" href="../../../apidoc/sceptre.cli.html#sceptre.cli.helpers.write">[docs]</a><span class="k">def</span> <span class="nf">write</span><span class="p">(</span>
+    <span class="n">var</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="n">output_format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;json&quot;</span><span class="p">,</span>
+    <span class="n">no_colour</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">file_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Writes ``var`` to stdout. If output_format is set to &quot;json&quot; or &quot;yaml&quot;,</span>
 <span class="sd">    write ``var`` as a JSON or YAML string.</span>
 
 <span class="sd">    :param var: The object to print</span>
-<span class="sd">    :type var: object</span>
 <span class="sd">    :param output_format: The format to print the output as. Allowed values: \</span>
 <span class="sd">    &quot;text&quot;, &quot;json&quot;, &quot;yaml&quot;</span>
-<span class="sd">    :type output_format: str</span>
 <span class="sd">    :param no_colour: Whether to colour stack statuses</span>
-<span class="sd">    :type no_colour: bool</span>
+<span class="sd">    :param file_path: Optional path to a file to save the output</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">output</span> <span class="o">=</span> <span class="n">var</span>
 
@@ -273,6 +279,16 @@
         <span class="n">output</span> <span class="o">=</span> <span class="n">_generate_yaml</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">output_format</span> <span class="o">==</span> <span class="s2">&quot;text&quot;</span><span class="p">:</span>
         <span class="n">output</span> <span class="o">=</span> <span class="n">_generate_text</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">file_path</span><span class="p">:</span>
+        <span class="n">dir_path</span> <span class="o">=</span> <span class="n">file_path</span><span class="o">.</span><span class="n">parent</span>
+        <span class="n">dir_path</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+
+        <span class="k">return</span>
+
     <span class="k">if</span> <span class="ow">not</span> <span class="n">no_colour</span><span class="p">:</span>
         <span class="n">stack_status_colourer</span> <span class="o">=</span> <span class="n">StackStatusColourer</span><span class="p">()</span>
         <span class="n">output</span> <span class="o">=</span> <span class="n">stack_status_colourer</span><span class="o">.</span><span class="n">colour</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">output</span><span class="p">))</span>

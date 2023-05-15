@@ -200,15 +200,16 @@
 <span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">import</span> <span class="nn">typing</span>
 <span class="kn">import</span> <span class="nn">urllib</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
-<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
-
 <span class="kn">import</span> <span class="nn">botocore</span>
-<span class="kn">from</span> <span class="nn">dateutil.tz</span> <span class="kn">import</span> <span class="n">tzutc</span>
 
-<span class="kn">from</span> <span class="nn">sceptre.config.reader</span> <span class="kn">import</span> <span class="n">ConfigReader</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+<span class="kn">from</span> <span class="nn">dateutil.tz</span> <span class="kn">import</span> <span class="n">tzutc</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
+<span class="kn">from</span> <span class="nn">deprecation</span> <span class="kn">import</span> <span class="n">deprecated</span>
+
+<span class="kn">from</span> <span class="nn">sceptre</span> <span class="kn">import</span> <span class="n">__version__</span>
 <span class="kn">from</span> <span class="nn">sceptre.connection_manager</span> <span class="kn">import</span> <span class="n">ConnectionManager</span>
+
 <span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">CannotUpdateFailedStackError</span><span class="p">,</span>
     <span class="n">ProtectedStackError</span><span class="p">,</span>
@@ -216,10 +217,12 @@
     <span class="n">UnknownStackChangeSetStatusError</span><span class="p">,</span>
     <span class="n">UnknownStackStatusError</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">sceptre.helpers</span> <span class="kn">import</span> <span class="n">extract_datetime_from_aws_response_headers</span><span class="p">,</span> <span class="n">normalise_path</span>
+<span class="kn">from</span> <span class="nn">sceptre.helpers</span> <span class="kn">import</span> <span class="n">extract_datetime_from_aws_response_headers</span>
 <span class="kn">from</span> <span class="nn">sceptre.hooks</span> <span class="kn">import</span> <span class="n">add_stack_hooks</span>
 <span class="kn">from</span> <span class="nn">sceptre.stack</span> <span class="kn">import</span> <span class="n">Stack</span>
 <span class="kn">from</span> <span class="nn">sceptre.stack_status</span> <span class="kn">import</span> <span class="n">StackChangeSetStatus</span><span class="p">,</span> <span class="n">StackStatus</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="k">if</span> <span class="n">typing</span><span class="o">.</span><span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">sceptre.diffing.stack_differ</span> <span class="kn">import</span> <span class="n">StackDiff</span><span class="p">,</span> <span class="n">StackDiffer</span>
@@ -812,12 +815,12 @@
 
         <span class="k">return</span> <span class="n">new_summaries</span>
 
-<div class="viewcode-block" id="StackActions.generate"><a class="viewcode-back" href="../../../apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.generate">[docs]</a>    <span class="nd">@add_stack_hooks</span>
+<div class="viewcode-block" id="StackActions.generate"><a class="viewcode-back" href="../../../apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.generate">[docs]</a>    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;4.2.0&quot;</span><span class="p">,</span> <span class="s2">&quot;5.0.0&quot;</span><span class="p">,</span> <span class="n">__version__</span><span class="p">,</span> <span class="s2">&quot;Use dump template instead.&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the Template for the Stack</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">template</span><span class="o">.</span><span class="n">body</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dump_template</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="StackActions.validate"><a class="viewcode-back" href="../../../apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.validate">[docs]</a>    <span class="nd">@add_stack_hooks</span>
     <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1334,12 +1337,18 @@
         <span class="k">return</span> <span class="n">result</span>
 
 <div class="viewcode-block" id="StackActions.dump_config"><a class="viewcode-back" href="../../../apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.dump_config">[docs]</a>    <span class="nd">@add_stack_hooks</span>
-    <span class="k">def</span> <span class="nf">dump_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config_reader</span><span class="p">:</span> <span class="n">ConfigReader</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">dump_config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Dump the config for a stack.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">stack_path</span> <span class="o">=</span> <span class="n">normalise_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;.yaml&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">config_reader</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">stack_path</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">config</span></div>
+
+<div class="viewcode-block" id="StackActions.dump_template"><a class="viewcode-back" href="../../../apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.dump_template">[docs]</a>    <span class="nd">@add_stack_hooks</span>
+    <span class="k">def</span> <span class="nf">dump_template</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the Template for the Stack</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">template</span><span class="o">.</span><span class="n">body</span></div></div>
 </pre></div>
 
            </div>
