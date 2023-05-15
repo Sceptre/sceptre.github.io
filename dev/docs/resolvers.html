@@ -603,7 +603,7 @@ have not yet been deployed. During normal deployment operations (using the <code
 <code class="docutils literal notranslate"><span class="pre">update</span></code>, and <code class="docutils literal notranslate"><span class="pre">delete</span></code> commands), Sceptre knows the correct order to resolve dependencies in and will
 ensure that order is followed, so everything works as expected.</p>
 <p>But there are other commands that will not actually deploy dependencies of a stack config before
-operating on that Stack Config. These commands include <code class="docutils literal notranslate"><span class="pre">dump</span> <span class="pre">template</span></code>, <code class="docutils literal notranslate"><span class="pre">validate</span></code>, and <code class="docutils literal notranslate"><span class="pre">diff</span></code>.
+operating on that Stack Config. These commands include <code class="docutils literal notranslate"><span class="pre">generate</span></code>, <code class="docutils literal notranslate"><span class="pre">validate</span></code>, and <code class="docutils literal notranslate"><span class="pre">diff</span></code>.
 If you have used resolvers to reverence other stacks, it is possible that a resolver might not be able
 to be resolved when performing that command’s operations and will trigger an error. This is not likely
 to happen when you have only used resolvers in a stack’s <code class="docutils literal notranslate"><span class="pre">parameters</span></code>, but it is much more likely
@@ -617,7 +617,7 @@ command may or may not actually succeed using that placeholder value.</p>
 and you run the <code class="docutils literal notranslate"><span class="pre">diff</span></code> command before other_stack.yaml has been deployed, the diff output will
 show the value of that parameter to be <code class="docutils literal notranslate"><span class="pre">&quot;{</span> <span class="pre">!StackOutput(other_stack.yaml::OutputName)</span> <span class="pre">}&quot;</span></code>.</p></li>
 <li><p>If you have a <code class="docutils literal notranslate"><span class="pre">sceptre_user_data</span></code> value used in a Jinja template referencing
-<code class="docutils literal notranslate"><span class="pre">!stack_output</span> <span class="pre">other_stack.yaml::OutputName</span></code> and you run the <code class="docutils literal notranslate"><span class="pre">dump</span> <span class="pre">template</span></code> command, the generated
+<code class="docutils literal notranslate"><span class="pre">!stack_output</span> <span class="pre">other_stack.yaml::OutputName</span></code> and you run the <code class="docutils literal notranslate"><span class="pre">generate</span></code> command, the generated
 template will replace that value with <code class="docutils literal notranslate"><span class="pre">&quot;StackOutputotherstackyamlOutputName&quot;</span></code>. This isn’t as
 “pretty” as the sort of placeholder used for stack parameters, but the use of sceptre_user_data is
 broader, so it placeholder values can only be alphanumeric to reduce chances of it breaking the

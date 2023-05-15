@@ -353,6 +353,12 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">formatted_parameters</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">stack</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="c1"># When boto3 receives &quot;None&quot; for a cloudformation parameter, it treats it as if the</span>
+            <span class="c1"># value is not passed at all. To be consistent in our diffing, we need to skip Nones</span>
+            <span class="c1"># altogether.</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">continue</span>
+
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
                 <span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">value</span><span class="p">)</span>
             <span class="n">formatted_parameters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -405,6 +411,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_remove_deployed_default_parameters_that_arent_passed</span><span class="p">(</span>
                 <span class="n">deployed_template_summary</span><span class="p">,</span> <span class="n">generated_config</span><span class="p">,</span> <span class="n">deployed_config</span>
             <span class="p">)</span>
+
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_no_echo</span><span class="p">:</span>
             <span class="c1"># We don&#39;t actually want to show parameters Sceptre is passing that the local template</span>
             <span class="c1"># marks as NoEcho parameters (unless show_no_echo is set to true). Therefore those</span>

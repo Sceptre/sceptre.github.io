@@ -715,43 +715,6 @@ a StackResourceDriftStatus of TIMED_OUT.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sceptre<span class="w"> </span>dump<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>COMMAND<span class="w"> </span><span class="o">[</span>ARGS<span class="o">]</span>...
 </pre></div>
 </div>
-<div class="section" id="sceptre-dump-all">
-<h5>all<a class="headerlink" href="#sceptre-dump-all" title="Permalink to this heading">¶</a></h5>
-<blockquote>
-<div><p>Dumps both the rendered (post-Jinja) Stack Configs and the template used for stack in PATH.</p>
-<dl class="field-list simple">
-<dt class="field-odd">param path</dt>
-<dd class="field-odd"><p>Path to execute the command on.</p>
-</dd>
-<dt class="field-even">type path</dt>
-<dd class="field-even"><p>str</p>
-</dd>
-</dl>
-</div></blockquote>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sceptre<span class="w"> </span>dump<span class="w"> </span>all<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>PATH
-</pre></div>
-</div>
-<p class="rubric">Options</p>
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-sceptre-dump-all-n">
-<span id="cmdoption-sceptre-dump-all-no-placeholders"></span><span class="sig-name descname"><span class="pre">-n</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-placeholders</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-dump-all-n" title="Permalink to this definition">¶</a></dt>
-<dd><p>If True, no placeholder values will be supplied for resolvers that cannot be resolved.</p>
-</dd></dl>
-
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-sceptre-dump-all-to-file">
-<span class="sig-name descname"><span class="pre">--to-file</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-dump-all-to-file" title="Permalink to this definition">¶</a></dt>
-<dd><p>If True, also dump the template to a local file.</p>
-</dd></dl>
-
-<p class="rubric">Arguments</p>
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-sceptre-dump-all-arg-PATH">
-<span id="cmdoption-sceptre-dump-all-arg-path"></span><span class="sig-name descname"><span class="pre">PATH</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-dump-all-arg-PATH" title="Permalink to this definition">¶</a></dt>
-<dd><p>Required argument</p>
-</dd></dl>
-
-</div>
 <div class="section" id="sceptre-dump-config">
 <h5>config<a class="headerlink" href="#sceptre-dump-config" title="Permalink to this heading">¶</a></h5>
 <blockquote>
@@ -765,54 +728,10 @@ a StackResourceDriftStatus of TIMED_OUT.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sceptre<span class="w"> </span>dump<span class="w"> </span>config<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>PATH
 </pre></div>
 </div>
-<p class="rubric">Options</p>
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-sceptre-dump-config-to-file">
-<span class="sig-name descname"><span class="pre">--to-file</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-dump-config-to-file" title="Permalink to this definition">¶</a></dt>
-<dd><p>If True, also dump the template to a local file.</p>
-</dd></dl>
-
 <p class="rubric">Arguments</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-sceptre-dump-config-arg-PATH">
 <span id="cmdoption-sceptre-dump-config-arg-path"></span><span class="sig-name descname"><span class="pre">PATH</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-dump-config-arg-PATH" title="Permalink to this definition">¶</a></dt>
-<dd><p>Required argument</p>
-</dd></dl>
-
-</div>
-<div class="section" id="sceptre-dump-template">
-<h5>template<a class="headerlink" href="#sceptre-dump-template" title="Permalink to this heading">¶</a></h5>
-<blockquote>
-<div><p>Prints the template used for stack in PATH.</p>
-<dl class="field-list simple">
-<dt class="field-odd">param path</dt>
-<dd class="field-odd"><p>Path to execute the command on.</p>
-</dd>
-<dt class="field-even">type path</dt>
-<dd class="field-even"><p>str</p>
-</dd>
-</dl>
-</div></blockquote>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sceptre<span class="w"> </span>dump<span class="w"> </span>template<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>PATH
-</pre></div>
-</div>
-<p class="rubric">Options</p>
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-sceptre-dump-template-n">
-<span id="cmdoption-sceptre-dump-template-no-placeholders"></span><span class="sig-name descname"><span class="pre">-n</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-placeholders</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-dump-template-n" title="Permalink to this definition">¶</a></dt>
-<dd><p>If True, no placeholder values will be supplied for resolvers that cannot be resolved.</p>
-</dd></dl>
-
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-sceptre-dump-template-to-file">
-<span class="sig-name descname"><span class="pre">--to-file</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-dump-template-to-file" title="Permalink to this definition">¶</a></dt>
-<dd><p>If True, also dump the template to a local file.</p>
-</dd></dl>
-
-<p class="rubric">Arguments</p>
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-sceptre-dump-template-arg-PATH">
-<span id="cmdoption-sceptre-dump-template-arg-path"></span><span class="sig-name descname"><span class="pre">PATH</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-dump-template-arg-PATH" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required argument</p>
 </dd></dl>
 
