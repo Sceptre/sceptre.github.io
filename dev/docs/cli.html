@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Command Line Interface &mdash; Sceptre 4.1.0 documentation</title>
+  <title>Command Line Interface &mdash; Sceptre 4.2.0 documentation</title>
   
 
   
@@ -925,8 +925,7 @@ browser with the returned URI.</p>
 </div>
 <div class="section" id="sceptre-generate">
 <h4>generate<a class="headerlink" href="#sceptre-generate" title="Permalink to this heading">¶</a></h4>
-<blockquote>
-<div><p>Prints the template used for stack in PATH.</p>
+<p>Prints the template used for stack in PATH.</p>
 <dl class="field-list simple">
 <dt class="field-odd">param path</dt>
 <dd class="field-odd"><p>Path to execute the command on.</p>
@@ -935,7 +934,9 @@ browser with the returned URI.</p>
 <dd class="field-even"><p>str</p>
 </dd>
 </dl>
-</div></blockquote>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 4.2.0: </span>This will be removed in 5.0.0. Use dump template instead.</p>
+</div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sceptre<span class="w"> </span>generate<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>PATH
 </pre></div>
 </div>
