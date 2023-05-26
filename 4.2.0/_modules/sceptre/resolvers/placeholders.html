@@ -1,0 +1,373 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>sceptre.resolvers.placeholders &mdash; Sceptre 4.2.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Sceptre
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/get_started.html">Get Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/terminology.html">Terminology</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/cli.html">Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/stack_group_config.html">StackGroup Config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/stack_config.html">Stack Config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/templates.html">Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/template_handlers.html">Template Handlers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/hooks.html">Hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/resolvers.html">Resolvers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/architecture.html">Architecting Sceptre</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/permissions.html">Sceptre and IAM</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Support</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../apidoc/modules.html">sceptre</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Sceptre</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../sceptre.html">sceptre</a> &raquo;</li>
+        
+          <li><a href="../resolvers.html">sceptre.resolvers</a> &raquo;</li>
+        
+      <li>sceptre.resolvers.placeholders</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for sceptre.resolvers.placeholders</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Lock</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Any</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">sceptre</span> <span class="kn">import</span> <span class="n">resolvers</span>
+
+<span class="c1"># This is a toggle used for globally enabling placeholder values out of resolvers when they error</span>
+<span class="c1"># while resolving. This is important when performing actions on stacks like validation or generation</span>
+<span class="c1"># when their dependencies have not been deployed yet and those dependencies are expressed in stack</span>
+<span class="c1"># resolvers that are used in those actions, especially sceptre_user_data.</span>
+<span class="n">_RESOLVE_PLACEHOLDER_ON_ERROR</span> <span class="o">=</span> <span class="kc">False</span>
+
+
+<div class="viewcode-block" id="PlaceholderType"><a class="viewcode-back" href="../../../apidoc/sceptre.resolvers.html#sceptre.resolvers.placeholders.PlaceholderType">[docs]</a><span class="k">class</span> <span class="nc">PlaceholderType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">explicit</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Looks like &quot;{ !MyClass(argument) }&quot;</span>
+    <span class="n">alphanum</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># Looks like MyClassargument</span>
+    <span class="n">none</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># Resolves to None</span></div>
+
+
+<span class="n">_placeholder_lock</span> <span class="o">=</span> <span class="n">Lock</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="use_resolver_placeholders_on_error"><a class="viewcode-back" href="../../../apidoc/sceptre.resolvers.html#sceptre.resolvers.placeholders.use_resolver_placeholders_on_error">[docs]</a><span class="nd">@contextmanager</span>
+<span class="k">def</span> <span class="nf">use_resolver_placeholders_on_error</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A context manager that toggles on placeholders for resolvers that error out. This should NOT</span>
+<span class="sd">    be used while creating/launching stacks, but it is often required when validating or diffing</span>
+<span class="sd">    stacks whose dependencies haven&#39;t yet been deployed and that reference those dependencies with</span>
+<span class="sd">    resolvers, especially in the sceptre_user_data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">_RESOLVE_PLACEHOLDER_ON_ERROR</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">_placeholder_lock</span><span class="p">:</span>
+            <span class="n">_RESOLVE_PLACEHOLDER_ON_ERROR</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">yield</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">_placeholder_lock</span><span class="p">:</span>
+            <span class="n">_RESOLVE_PLACEHOLDER_ON_ERROR</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="are_placeholders_enabled"><a class="viewcode-back" href="../../../apidoc/sceptre.resolvers.html#sceptre.resolvers.placeholders.are_placeholders_enabled">[docs]</a><span class="k">def</span> <span class="nf">are_placeholders_enabled</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Indicates whether placeholders have been globally enabled or not.&quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">_placeholder_lock</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_RESOLVE_PLACEHOLDER_ON_ERROR</span></div>
+
+
+<div class="viewcode-block" id="create_placeholder_value"><a class="viewcode-back" href="../../../apidoc/sceptre.resolvers.html#sceptre.resolvers.placeholders.create_placeholder_value">[docs]</a><span class="k">def</span> <span class="nf">create_placeholder_value</span><span class="p">(</span>
+    <span class="n">resolver</span><span class="p">:</span> <span class="s2">&quot;resolvers.Resolver&quot;</span><span class="p">,</span> <span class="n">placeholder_type</span><span class="p">:</span> <span class="n">PlaceholderType</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="n">placeholder_func</span> <span class="o">=</span> <span class="n">_placeholders</span><span class="p">[</span><span class="n">placeholder_type</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">placeholder_func</span><span class="p">(</span><span class="n">resolver</span><span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">_create_explicit_resolver_placeholder</span><span class="p">(</span><span class="n">resolver</span><span class="p">:</span> <span class="s2">&quot;resolvers.Resolver&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Creates a placeholder value to be substituted for the resolved value when placeholders are</span>
+<span class="sd">    allowed and the value cannot be resolved.</span>
+
+<span class="sd">    The placeholder will look like one of:</span>
+<span class="sd">      * { !ClassName } -&gt; used when there is no argument</span>
+<span class="sd">      * { !ClassName(argument) } -&gt; used when there is a string argument</span>
+<span class="sd">      * { !ClassName({&#39;key&#39;: &#39;value&#39;}) } -&gt; used when there is a dict argument</span>
+
+<span class="sd">    :param resolver: The resolver to create a placeholder for</span>
+<span class="sd">    :return: The placeholder value</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">{{</span><span class="s2"> </span><span class="si">{</span><span class="n">resolver</span><span class="si">}</span><span class="s2"> </span><span class="se">}}</span><span class="s2">&quot;</span>
+
+
+<span class="k">def</span> <span class="nf">_create_alphanumeric_placeholder</span><span class="p">(</span><span class="n">resolver</span><span class="p">:</span> <span class="s2">&quot;resolvers.Resolver&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Creates a placeholder value that is only composed of alphanumeric characters. This is more</span>
+<span class="sd">    useful when performing operations that send a template to CloudFormation, which will have stricter</span>
+<span class="sd">    requirements for values in templates.</span>
+
+<span class="sd">    Values from this function will not be as readable, but they are more likely to be valid when passed</span>
+<span class="sd">    to a template.</span>
+
+<span class="sd">    The placeholder will look like one of:</span>
+<span class="sd">    * ClassName -&gt; used when there is no argument</span>
+<span class="sd">    * ClassNameargument -&gt; used when there is a string argument</span>
+<span class="sd">    * ClassNamekeyvalue -&gt; used when there is a dict argument</span>
+
+<span class="sd">    :param resolver: The resolver to create a placeholder for</span>
+<span class="sd">    :return: The placeholder value</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">explicit_placeholder</span> <span class="o">=</span> <span class="n">_create_explicit_resolver_placeholder</span><span class="p">(</span><span class="n">resolver</span><span class="p">)</span>
+    <span class="n">alphanum_placeholder</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">explicit_placeholder</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">isalnum</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">alphanum_placeholder</span>
+
+
+<span class="n">_placeholders</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">PlaceholderType</span><span class="o">.</span><span class="n">explicit</span><span class="p">:</span> <span class="n">_create_explicit_resolver_placeholder</span><span class="p">,</span>
+    <span class="n">PlaceholderType</span><span class="o">.</span><span class="n">alphanum</span><span class="p">:</span> <span class="n">_create_alphanumeric_placeholder</span><span class="p">,</span>
+    <span class="n">PlaceholderType</span><span class="o">.</span><span class="n">none</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">resolver</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2018, Cloudreach.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+    <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: 4.2.0
+      <span class="fa fa-caret-down"></span>
+    </span>
+
+        <div class="rst-other-versions">
+            <dl id="other-versions">
+                <dt>Versions</dt>
+            </dl>
+            <dl>
+                
+                <dt>Other Links</dt>
+                
+
+                    <dd>
+                        <a href="https://www.cloudreach.com">Cloudreach</a>
+                    </dd>
+                
+
+                    <dd>
+                        <a href="https://docs.sceptre-project.org">Sceptre Home</a>
+                    </dd>
+                
+            </dl>
+            <hr/>
+            Original template provided by <a href="http://www.readthedocs.org">Read the Docs</a>.
+        </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                $.getScript("../../../../version-helper.js").done(
+                    function () {
+                        versions.forEach(function (item, index) {
+                            if (item !== "4.2.0") {
+                                $('#other-versions').append('<dd><a href="'+ window.location.origin + '/' + item +'">' + item + "<a/></dd>");
+                            }
+                        })
+                    });
+            });
+        </script>
+    </div>
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

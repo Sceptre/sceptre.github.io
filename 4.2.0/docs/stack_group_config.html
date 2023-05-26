@@ -1,0 +1,653 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>StackGroup Config &mdash; Sceptre 4.2.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Stack Config" href="stack_config.html" />
+    <link rel="prev" title="Command Line Interface" href="cli.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Sceptre
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_started.html">Get Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="terminology.html">Terminology</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Command Line Interface</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">StackGroup Config</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#structure">Structure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#profile">profile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#project-code">project_code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#region">region</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#template-bucket-name">template_bucket_name</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#template-key-prefix">template_key_prefix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#j2-environment">j2_environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#http-template-handler">http_template_handler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#require-version">require_version</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#cascading-config">Cascading Config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setting-dependencies-for-stackgroups">Setting Dependencies for StackGroups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#templating">Templating</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#var">Var</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#environment-variables">Environment Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#command-path">Command Path</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#template-defaults">Template Defaults</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="stack_config.html">Stack Config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="template_handlers.html">Template Handlers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hooks.html">Hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resolvers.html">Resolvers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecting Sceptre</a></li>
+<li class="toctree-l1"><a class="reference internal" href="permissions.html">Sceptre and IAM</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Support</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../apidoc/modules.html">sceptre</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Sceptre</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>StackGroup Config</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/docs/stack_group_config.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="stackgroup-config">
+<h1>StackGroup Config<a class="headerlink" href="#stackgroup-config" title="Permalink to this heading">¶</a></h1>
+<p>StackGroup config stores information related to the StackGroup, such as a
+particular profile to use, the name of the S3 bucket in which to store
+templates, and the target region in which to build resources. StackGroup config
+is stored in various files around the directory structure, all with the name
+<code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>.</p>
+<div class="section" id="structure">
+<h2>Structure<a class="headerlink" href="#structure" title="Permalink to this heading">¶</a></h2>
+<p>An StackGroup config file is a yaml object of key-value pairs configuring
+Sceptre. The available keys are listed below.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="#project_code">project_code</a> <em>(required)</em></p></li>
+<li><p><a class="reference external" href="#region">region</a> <em>(required)</em></p></li>
+<li><p><a class="reference external" href="#profile">profile</a> <em>optional</em></p></li>
+<li><p><a class="reference external" href="#required_version">required_version</a> <em>(optional)</em></p></li>
+<li><p><a class="reference external" href="#template_bucket_name">template_bucket_name</a> <em>(optional)</em></p></li>
+<li><p><a class="reference external" href="#template_key_prefix">template_key_prefix</a> <em>(optional)</em></p></li>
+<li><p><a class="reference internal" href="#j2-environment">j2_environment</a> <em>(optional)</em></p></li>
+<li><p><a class="reference internal" href="#http-template-handler">http_template_handler</a> <em>(optional)</em></p></li>
+</ul>
+<p>Sceptre will only check for and uses the above keys in StackGroup config files
+and are directly accessible from Stack(). Any other keys added by the user are
+made available via <code class="docutils literal notranslate"><span class="pre">stack_group_config</span></code> attribute on <code class="docutils literal notranslate"><span class="pre">Stack()</span></code>.</p>
+<div class="section" id="profile">
+<h3>profile<a class="headerlink" href="#profile" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Resolvable: No</p></li>
+<li><p>Inheritance strategy: Overrides parent if set by child</p></li>
+</ul>
+<p>The name of the profile as defined in <code class="docutils literal notranslate"><span class="pre">~/.aws/config</span></code> and <code class="docutils literal notranslate"><span class="pre">~/.aws/credentials</span></code>. Use the
+<cite>aws configure –profile &lt;profile_id&gt;</cite> command form the AWS CLI to add profiles to these files.</p>
+<p>For more information on this configuration, its implications, and its uses, see
+<a class="reference internal" href="permissions.html#profile-permissions"><span class="std std-ref">Sceptre and IAM: profile</span></a>.</p>
+<p>Reference: <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html">AWS_CLI_Configure</a></p>
+</div>
+<div class="section" id="project-code">
+<h3>project_code<a class="headerlink" href="#project-code" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Resolvable: No</p></li>
+<li><p>Inheritance strategy: Overrides parent if set by child</p></li>
+</ul>
+<p>A string which is prepended to the Stack names of all Stacks built by Sceptre.</p>
+</div>
+<div class="section" id="region">
+<h3>region<a class="headerlink" href="#region" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Resolvable: No</p></li>
+<li><p>Inheritance strategy: Overrides parent if set by child</p></li>
+</ul>
+<p>The AWS region to build Stacks in. Sceptre should work in any <a class="reference external" href="http://docs.aws.amazon.com/general/latest/gr/rande.html#cfn_region">region which
+supports CloudFormation</a>.</p>
+</div>
+<div class="section" id="template-bucket-name">
+<h3>template_bucket_name<a class="headerlink" href="#template-bucket-name" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Resolvable: Yes</p></li>
+<li><p>Inheritance strategy: Overrides parent if set by child</p></li>
+</ul>
+<p>The name of an S3 bucket to upload CloudFormation Templates to. Note that S3
+bucket names must be globally unique. If the bucket does not exist, Sceptre
+creates one using the given name, in the AWS region specified by <code class="docutils literal notranslate"><span class="pre">region</span></code>.</p>
+<p>If this parameter is not added, Sceptre does not upload the template to S3, but
+supplies the template to Boto3 via the <code class="docutils literal notranslate"><span class="pre">TemplateBody</span></code> argument. Templates
+supplied in this way have a lower maximum length, so using the
+<code class="docutils literal notranslate"><span class="pre">template_bucket_name</span></code> parameter is recommended.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you resolve <code class="docutils literal notranslate"><span class="pre">template_bucket_name</span></code> using the <code class="docutils literal notranslate"><span class="pre">!stack_output</span></code>
+resolver on a StackGroup, the stack that outputs that bucket name <em>cannot</em> be
+defined in that StackGroup. Otherwise, a circular dependency will exist and Sceptre
+will raise an error when attempting any Stack action. There are two ways to avoid this situation:</p>
+<ol class="arabic">
+<li><p>Set the <code class="docutils literal notranslate"><span class="pre">template_bucket_name</span></code> to <code class="docutils literal notranslate"><span class="pre">!no_value</span></code> in on the StackConfig that creates your
+template bucket. This will override the inherited value to prevent them from having
+dependencies on themselves.</p></li>
+<li><p>Define all your project stacks inside a StackGroup and then your template bucket
+stack <em>outside</em> that StackGroup. Here’s an example project structure for something like
+this:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">config/</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">- config.yaml</span><span class="w">           </span><span class="c1"># This is the StackGroup Config for your whole project.</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template-bucket.yaml</span><span class="w">  </span><span class="c1"># The template for this stack outputs the bucket name</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">project/</span><span class="w">              </span><span class="c1"># You can put all your other stacks in this StackGroup</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">config.yaml</span><span class="w">       </span><span class="c1"># In this StackGroup Config is...</span>
+<span class="w">                          </span><span class="c1">#  template_bucket_name: !stack_output template-bucket.yaml::BucketName</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vpc.yaml</span><span class="w">          </span><span class="c1"># Put all your other project stacks inside project/</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">other-stack.yaml</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="section" id="template-key-prefix">
+<h3>template_key_prefix<a class="headerlink" href="#template-key-prefix" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Resolvable: No</p></li>
+<li><p>Inheritance strategy: Overrides parent if set by child</p></li>
+</ul>
+<p>A string which is prefixed onto the key used to store templates uploaded to S3.
+Templates are stored using the key:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&lt;template_key_prefix&gt;/&lt;region&gt;/&lt;stack_group&gt;/&lt;stack_name&gt;-&lt;timestamp&gt;.&lt;extension&gt;
+</pre></div>
+</div>
+<p>Template key prefix can contain slashes (“/”), which are displayed as
+directories in the S3 console.</p>
+<p>Extension can be <code class="docutils literal notranslate"><span class="pre">json</span></code> or <code class="docutils literal notranslate"><span class="pre">yaml</span></code>.</p>
+<p>Note that if <code class="docutils literal notranslate"><span class="pre">template_bucket_name</span></code> is not supplied, this parameter is
+ignored.</p>
+</div>
+<div class="section" id="j2-environment">
+<h3>j2_environment<a class="headerlink" href="#j2-environment" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Resolvable: No</p></li>
+<li><p>Inheritance strategy: Child configs will be merged with parent configs</p></li>
+</ul>
+<p>A dictionary that is combined with the default jinja2 environment.
+It’s converted to keyword arguments then passed to [jinja2.Environment](<a class="reference external" href="https://jinja.palletsprojects.com/en/2.11.x/api/#jinja2.Environment">https://jinja.palletsprojects.com/en/2.11.x/api/#jinja2.Environment</a>).
+This will impact the templating of stacks by modifying the behavior of jinja.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">j2_environment</span><span class="p">:</span>
+<span class="w">   </span><span class="nt">extensions</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jinja2.ext.i18n</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jinja2.ext.do</span>
+<span class="w">   </span><span class="nt">lstrip_blocks</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
+<span class="w">   </span><span class="nt">trim_blocks</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
+<span class="w">   </span><span class="nt">newline_sequence</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">\n</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="http-template-handler">
+<h3>http_template_handler<a class="headerlink" href="#http-template-handler" title="Permalink to this heading">¶</a></h3>
+<dl class="simple">
+<dt>Options passed to the <a class="reference external" href="template_handlers.html#http">http template handler</a>.</dt><dd><ul class="simple">
+<li><p>retries - The number of retry attempts (default is 5)</p></li>
+<li><p>timeout - The timeout for the session in seconds (default is 5)</p></li>
+</ul>
+</dd>
+</dl>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">http_template_handler</span><span class="p">:</span>
+<span class="w">   </span><span class="nt">retries</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">   </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="require-version">
+<h3>require_version<a class="headerlink" href="#require-version" title="Permalink to this heading">¶</a></h3>
+<p>A <a class="reference external" href="https://www.python.org/dev/peps/pep-0440/#version-specifiers">PEP 440</a> compatible version specifier. If the Sceptre version does not fall
+within the given version requirement it will abort.</p>
+</div>
+</div>
+<div class="section" id="cascading-config">
+<span id="stack-group-config-cascading-config"></span><h2>Cascading Config<a class="headerlink" href="#cascading-config" title="Permalink to this heading">¶</a></h2>
+<p>Using Sceptre, config files are cascaded. Given the following sceptre directory
+structure:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>.
+└── config
+    ├── account-1
+    │   ├── config.yaml
+    │   └── dev
+    │       └── config.yaml
+    └── config.yaml
+</pre></div>
+</div>
+<p>General configurations should be defined at a high level, and more specific
+configurations should be defined at a lower directory level.</p>
+<p>YAML files that define configuration settings with conflicting keys, the child
+configuration file will usually take precedence (see the specific config keys as documented
+for the inheritance strategy employed).</p>
+<p>In the above directory structure, <code class="docutils literal notranslate"><span class="pre">config/config.yaml</span></code> will be read in first,
+followed by <code class="docutils literal notranslate"><span class="pre">config/account-1/config.yaml</span></code>, followed by
+<code class="docutils literal notranslate"><span class="pre">config/account-1/dev/config.yaml</span></code>.</p>
+<p>For example, if you wanted the <code class="docutils literal notranslate"><span class="pre">dev</span></code> StackGroup to build to a different
+region, this setting could be specified in the <code class="docutils literal notranslate"><span class="pre">config/dev/config.yaml</span></code> file,
+and would only be applied to builds in the <code class="docutils literal notranslate"><span class="pre">dev</span></code> StackGroup.</p>
+</div>
+<div class="section" id="setting-dependencies-for-stackgroups">
+<span id="setting-dependencies-for-stack-groups"></span><h2>Setting Dependencies for StackGroups<a class="headerlink" href="#setting-dependencies-for-stackgroups" title="Permalink to this heading">¶</a></h2>
+<p>There are a few pieces of AWS infrastructure that Sceptre can (optionally) use to support the needs
+and concerns of the project. These include:</p>
+<ul class="simple">
+<li><p>The S3 bucket where templates are uploaded to and then referenced from for stack actions (i.e. the
+<code class="docutils literal notranslate"><span class="pre">template_bucket_name</span></code> config key).</p></li>
+<li><p>The CloudFormation service role added to the stack(s) that CloudFormation uses to execute stack
+actions (i.e. the <code class="docutils literal notranslate"><span class="pre">cloudformation_service_role</span></code> config key).</p></li>
+<li><p>The role that Sceptre will assume to execute stack actions (i.e. the <code class="docutils literal notranslate"><span class="pre">sceptre_role</span></code> config key).</p></li>
+<li><p>SNS topics that cloudformation will notify with the results of stack actions (i.e. the
+<code class="docutils literal notranslate"><span class="pre">notifications</span></code> config key).</p></li>
+</ul>
+<p>These sorts of dependencies CAN be defined in Sceptre and added at the StackGroup level, referenced
+using <code class="docutils literal notranslate"><span class="pre">!stack_output</span></code>. Doing so will make it so that every stack in the StackGroup will have those
+dependencies and get those values from Sceptre-managed stacks.</p>
+<p>Beyond the above mentioned config keys, it is possible to set the <code class="docutils literal notranslate"><span class="pre">dependencies</span></code> config key in a
+StackGroup config to be inherited by all Stack configs in that group. All dependencies in child
+stacks will be added to their inherited StackGroup dependencies, so be careful how you structure
+dependencies.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>You might have already considered that this might cause a circular dependency for those
+dependency stacks, the ones that output the template bucket name, role arn, sceptre_role, or topic arns.
+In order to avoid the circular dependency issue, you can either:</p>
+<ol class="arabic">
+<li><p>Set the value of those configurations to <code class="docutils literal notranslate"><span class="pre">!no_value</span></code> in the actual stacks that define those
+items so they don’t inherit a dependency on themselves.</p></li>
+<li><p>Define those stacks <em>outside</em> the StackGroup you reference them in. Here’s an example project
+structure that would support doing this:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">config/</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">- config.yaml</span><span class="w">               </span><span class="c1"># This is the StackGroup Config for your whole project.</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sceptre-dependencies.yaml</span><span class="w"> </span><span class="c1"># This stack defines your template bucket, iam role, topics, etc...</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">project/</span><span class="w">                  </span><span class="c1"># You can put all your other stacks in this StackGroup</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">config.yaml</span><span class="w">           </span><span class="c1"># In this StackGroup Config you can use !stack_output to</span>
+<span class="w">                              </span><span class="c1"># reference outputs from sceptre-dependencies.yaml.</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vpc.yaml</span><span class="w">              </span><span class="c1"># Put all your other project stacks inside project/</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">other-stack.yaml</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="section" id="templating">
+<span id="stack-group-config-templating"></span><h2>Templating<a class="headerlink" href="#templating" title="Permalink to this heading">¶</a></h2>
+<p>Sceptre supports the use of templating in config files. Templating allows
+config files to be further configured using values from the command line,
+environment variables, files or parts of the <code class="docutils literal notranslate"><span class="pre">command_path</span></code>.</p>
+<p>Internally, Sceptre uses Jinja2 for templating, so any valid Jinja2 syntax
+should work with Sceptre templating.</p>
+<p>Templating can be used for any values in the config files, not just those that
+are used by Sceptre.</p>
+<div class="section" id="var">
+<h3>Var<a class="headerlink" href="#var" title="Permalink to this heading">¶</a></h3>
+<p>User variables are used to replace the value of any item in a config file with
+a value defined by a CLI flag or in a YAML variable file:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">profile</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">var.profile</span><span class="w"> </span><span class="p p-Indicator">}}</span>
+<span class="nt">region</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eu-west-1</span>
+</pre></div>
+</div>
+<p>This item can be set using either a command line flag:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sceptre --var &quot;profile=&lt;your profile&gt;&quot; &lt;COMMAND&gt;
+</pre></div>
+</div>
+<p>Or from a YAML variable file:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sceptre --var-file=variables.yaml &lt;COMMAND&gt;
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">variables.yaml</span></code> contains:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">profile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;your profile&gt;</span>
+</pre></div>
+</div>
+<p>Both the <code class="docutils literal notranslate"><span class="pre">--var</span></code> and <code class="docutils literal notranslate"><span class="pre">--var-file</span></code> flags can be used multiple times. If
+multiple <code class="docutils literal notranslate"><span class="pre">--var-file</span></code> options are supplied, the variables from these files
+will be merged, with a higher precedence given to options specified later in
+the command. Values supplied using <code class="docutils literal notranslate"><span class="pre">--var</span></code> take the highest precedence and
+will overwrite any value defined in the variable files.</p>
+<p>For example if we have the following variable files:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># default.yaml</span>
+<span class="nt">region</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eu-west-1</span>
+<span class="nt">profile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dev</span>
+<span class="nt">project_code</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api</span>
+</pre></div>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># prod.yaml</span>
+<span class="nt">profile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prod</span>
+</pre></div>
+</div>
+<p>The following sceptre command:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sceptre --var-file=default.yaml --var-file=prod.yaml --var region=us-east-1 &lt;COMMAND&gt;
+</pre></div>
+</div>
+<p>Will result in the following variables being available to the jinja templating:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">region</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">us-east-1</span>
+<span class="nt">profile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prod</span>
+<span class="nt">project_code</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api</span>
+</pre></div>
+</div>
+<p>Note that by default, dictionaries are not merged. If the variable appearing in
+the last variable file is a dictionary, and the same variable is defined in an
+earlier variable file, that whole dictionary will be overwritten. For example,
+this would not work as intended:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># default.yaml</span>
+<span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="s">&quot;Env&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;dev&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;Project&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;Widget&quot;</span><span class="p p-Indicator">}</span>
+</pre></div>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># prod.yaml</span>
+<span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="s">&quot;Env&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;prod&quot;</span><span class="p p-Indicator">}</span>
+</pre></div>
+</div>
+<p>Rather, the final dictionary would only contain the <code class="docutils literal notranslate"><span class="pre">Env</span></code> key.</p>
+<p>By using the <code class="docutils literal notranslate"><span class="pre">--merge-vars</span></code> option, these tags can be merged as intended:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sceptre --merge-vars --var-file=default.yaml --var-file=prod.yaml --var region=us-east-1 &lt;COMMAND&gt;
+</pre></div>
+</div>
+<p>This will result in the following:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="s">&quot;Env&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;prod&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;Project&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;Widget&quot;</span><span class="p p-Indicator">}</span>
+</pre></div>
+</div>
+<p>For command line flags, Sceptre splits the string on the first equals sign “=”,
+and sets the key to be the first substring, and the value to be the second. Due
+to the large number of possible user inputs, no error checking is performed on
+the value of the –var flag, and it is the user’s responsibility to make sure
+that the value is correctly formatted.</p>
+<p>All user variables are supplied to all config files, so users must be careful
+to make sure that user variable names do not unintentionally clash.</p>
+</div>
+<div class="section" id="environment-variables">
+<h3>Environment Variables<a class="headerlink" href="#environment-variables" title="Permalink to this heading">¶</a></h3>
+<p>Config item values can be replaced with environment variables:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">profile</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">environment_variable.PROFILE</span><span class="w"> </span><span class="p p-Indicator">}}</span>
+<span class="nt">region</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eu-west-1</span>
+</pre></div>
+</div>
+<p>Where <code class="docutils literal notranslate"><span class="pre">PROFILE</span></code> is the name of an environment variable.</p>
+</div>
+<div class="section" id="command-path">
+<h3>Command Path<a class="headerlink" href="#command-path" title="Permalink to this heading">¶</a></h3>
+<p>Config item values can be replaced with parts of the <code class="docutils literal notranslate"><span class="pre">command_path</span></code></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">region</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">command_path.0</span><span class="w"> </span><span class="p p-Indicator">}}</span>
+<span class="nt">profile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
+</pre></div>
+</div>
+<p>Where the value is taken from the first part of the <code class="docutils literal notranslate"><span class="pre">command_path</span></code> from the
+invoking sceptre command:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sceptre launch eu-west-1/dev/vpc.yaml
+</pre></div>
+</div>
+</div>
+<div class="section" id="template-defaults">
+<h3>Template Defaults<a class="headerlink" href="#template-defaults" title="Permalink to this heading">¶</a></h3>
+<p>Any templated value can be supplied with a default value with the syntax:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{{ var.value | default(&quot;default_value&quot;) }}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">profile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">profile</span>
+<span class="nt">project_code</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prj</span>
+<span class="nt">region</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eu-west-1</span>
+<span class="nt">template_bucket_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sceptre-artifacts</span>
+<span class="nt">template_key_prefix</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my/prefix</span>
+</pre></div>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">profile</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">var.profile</span><span class="w"> </span><span class="p p-Indicator">}}</span>
+<span class="nt">project_code</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">var.project_code | default(&quot;prj&quot;)</span><span class="w"> </span><span class="p p-Indicator">}}</span>
+<span class="nt">region</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">command_path.2</span><span class="w"> </span><span class="p p-Indicator">}}</span>
+<span class="nt">template_bucket_name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">environment_variable.TEMPLATE_BUCKET_NAME</span><span class="w"> </span><span class="p p-Indicator">}}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="stack_config.html" class="btn btn-neutral float-right" title="Stack Config" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="cli.html" class="btn btn-neutral float-left" title="Command Line Interface" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2018, Cloudreach.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+    <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: 4.2.0
+      <span class="fa fa-caret-down"></span>
+    </span>
+
+        <div class="rst-other-versions">
+            <dl id="other-versions">
+                <dt>Versions</dt>
+            </dl>
+            <dl>
+                
+                <dt>Other Links</dt>
+                
+
+                    <dd>
+                        <a href="https://www.cloudreach.com">Cloudreach</a>
+                    </dd>
+                
+
+                    <dd>
+                        <a href="https://docs.sceptre-project.org">Sceptre Home</a>
+                    </dd>
+                
+            </dl>
+            <hr/>
+            Original template provided by <a href="http://www.readthedocs.org">Read the Docs</a>.
+        </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                $.getScript("../../version-helper.js").done(
+                    function () {
+                        versions.forEach(function (item, index) {
+                            if (item !== "4.2.0") {
+                                $('#other-versions').append('<dd><a href="'+ window.location.origin + '/' + item +'">' + item + "<a/></dd>");
+                            }
+                        })
+                    });
+            });
+        </script>
+    </div>
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
