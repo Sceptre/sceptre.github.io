@@ -206,20 +206,30 @@
             
   <div class="section" id="hooks">
 <h1>Hooks<a class="headerlink" href="#hooks" title="Permalink to this heading">¶</a></h1>
-<p>Hooks allows the ability for custom commands to be run when Sceptre actions
-occur.</p>
+<p>Hooks allows the ability for actions to be run when Sceptre actions occur.</p>
 <p>A hook is executed at a particular hook point when Sceptre is run.</p>
-<p>If required, users can create their own <code class="docutils literal notranslate"><span class="pre">hooks</span></code>, as described in the section
-<a class="reference external" href="#custom-hooks">Custom Hooks</a>.</p>
+<p>If required, users can create their own <code class="docutils literal notranslate"><span class="pre">hooks</span></code>, as described in the section <a class="reference external" href="#custom-hooks">Custom Hooks</a>.</p>
 <div class="section" id="hook-points">
 <h2>Hook points<a class="headerlink" href="#hook-points" title="Permalink to this heading">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">before_generate</span></code> or <code class="docutils literal notranslate"><span class="pre">after_generate</span></code> - run hook before or after generating stack template.</p>
-<p><code class="docutils literal notranslate"><span class="pre">before_create</span></code> or <code class="docutils literal notranslate"><span class="pre">after_create</span></code> - run hook before or after Stack creation.</p>
-<p><code class="docutils literal notranslate"><span class="pre">before_update</span></code> or <code class="docutils literal notranslate"><span class="pre">after_update</span></code> - run hook before or after Stack update.</p>
-<p><code class="docutils literal notranslate"><span class="pre">before_delete</span></code> or <code class="docutils literal notranslate"><span class="pre">after_delete</span></code> - run hook before or after Stack deletion.</p>
-<p><code class="docutils literal notranslate"><span class="pre">before_launch</span></code> or <code class="docutils literal notranslate"><span class="pre">after_launch</span></code> - run hook before or after Stack launch.</p>
-<p><code class="docutils literal notranslate"><span class="pre">before_validate</span></code> or <code class="docutils literal notranslate"><span class="pre">after_validate</span></code> - run hook before or after Stack validation.</p>
-<p><code class="docutils literal notranslate"><span class="pre">before_create_change_set</span></code> or <code class="docutils literal notranslate"><span class="pre">after_create_change_set</span></code> - run hook before or after create change set.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">before_create</span></code>/<code class="docutils literal notranslate"><span class="pre">after_create</span></code> - Runs before/after Stack creation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">before_update</span></code>/<code class="docutils literal notranslate"><span class="pre">after_update</span></code> - Runs before/after Stack update.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">before_delete</span></code>/<code class="docutils literal notranslate"><span class="pre">after_delete</span></code> - Runs before/after Stack deletion.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">before_launch</span></code>/<code class="docutils literal notranslate"><span class="pre">after_launch</span></code> - Runs before/after Stack launch.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">before_create_change_set</span></code>/<code class="docutils literal notranslate"><span class="pre">after_create_change_set</span></code> - Runs before/after create change set.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">before_validate</span></code>/<code class="docutils literal notranslate"><span class="pre">after_validate</span></code> - Runs before/after Stack validation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">before_diff</span></code>/<code class="docutils literal notranslate"><span class="pre">after_diff</span></code> - Runs before/after diffing the deployed stack with the local
+configuration.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">before_drift_detect</span></code>/<code class="docutils literal notranslate"><span class="pre">after_drift_detect</span></code> - Runs before/after detecting drift on the stack.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">before_drift_show</span></code>/<code class="docutils literal notranslate"><span class="pre">after_drift_show</span></code> - Runs before/after showing detected drift on the stack.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">before_dump_config</span></code>/<code class="docutils literal notranslate"><span class="pre">after_dump_config</span></code> - Runs before/after dumpint the Stack Config.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">before_dump_template</span></code>/<code class="docutils literal notranslate"><span class="pre">after_dump_template</span></code> - Runs before/after rendering the stack template.
+This hook point is aliased to <code class="docutils literal notranslate"><span class="pre">before/generate</span></code>/<code class="docutils literal notranslate"><span class="pre">after_generate</span></code>. This hook point will also
+be triggered when diffing, since the template needs to be generated to diff the template.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">before_generate</span></code>/<code class="docutils literal notranslate"><span class="pre">after_generate</span></code> - Runs before/after rendering the stack template. This
+hook point is aliased to <code class="docutils literal notranslate"><span class="pre">before_dump_template</span></code>/<code class="docutils literal notranslate"><span class="pre">after_dump_template</span></code>. <em>Note:</em> <code class="docutils literal notranslate"><span class="pre">generate</span></code> <em>is
+a deprecated command and will be removed in a future release.</em></p></li>
+</ul>
 <p>Syntax:</p>
 <p>Hooks are specified in a Stack’s config file, using the following syntax:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">hooks</span><span class="p">:</span>

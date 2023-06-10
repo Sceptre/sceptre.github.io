@@ -259,6 +259,16 @@ to the decorated function’s name.
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="sceptre.hooks.add_stack_hooks_with_aliases">
+<span class="sig-prename descclassname"><span class="pre">sceptre.hooks.</span></span><span class="sig-name descname"><span class="pre">add_stack_hooks_with_aliases</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function_aliases</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/hooks.html#add_stack_hooks_with_aliases"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.hooks.add_stack_hooks_with_aliases" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a decorator to trigger the before and after hooks, relative to the decorated function’s
+name AS WELL AS the passed function alias names.
+:type function_aliases: <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]
+:param function_aliases: The list of OTHER functions to trigger hooks around.
+:return: The hook-triggering decorator.</p>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="sceptre.hooks.execute_hooks">
 <span class="sig-prename descclassname"><span class="pre">sceptre.hooks.</span></span><span class="sig-name descname"><span class="pre">execute_hooks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hooks</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/hooks.html#execute_hooks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.hooks.execute_hooks" title="Permalink to this definition">¶</a></dt>
 <dd><p>Searches through dictionary or list for Resolver objects and replaces

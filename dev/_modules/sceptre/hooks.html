@@ -187,7 +187,7 @@
 <span></span><span class="kn">import</span> <span class="nn">abc</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">List</span>
 
 <span class="kn">from</span> <span class="nn">sceptre.helpers</span> <span class="kn">import</span> <span class="n">_call_func_on_values</span>
 <span class="kn">from</span> <span class="nn">sceptre.resolvers</span> <span class="kn">import</span> <span class="n">CustomYamlTagBase</span>
@@ -284,6 +284,36 @@
         <span class="k">return</span> <span class="n">response</span>
 
     <span class="k">return</span> <span class="n">decorated</span></div>
+
+
+<div class="viewcode-block" id="add_stack_hooks_with_aliases"><a class="viewcode-back" href="../../apidoc/sceptre.hooks.html#sceptre.hooks.add_stack_hooks_with_aliases">[docs]</a><span class="k">def</span> <span class="nf">add_stack_hooks_with_aliases</span><span class="p">(</span><span class="n">function_aliases</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a decorator to trigger the before and after hooks, relative to the decorated function&#39;s</span>
+<span class="sd">    name AS WELL AS the passed function alias names.</span>
+<span class="sd">    :param function_aliases: The list of OTHER functions to trigger hooks around.</span>
+<span class="sd">    :return: The hook-triggering decorator.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+        <span class="n">all_hook_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">+</span> <span class="n">function_aliases</span>
+
+        <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">decorated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">hook</span> <span class="ow">in</span> <span class="n">all_hook_names</span><span class="p">:</span>
+                <span class="n">before_hook_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;before_</span><span class="si">{</span><span class="n">hook</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="n">execute_hooks</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">hooks</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">before_hook_name</span><span class="p">))</span>
+
+            <span class="n">response</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">hook</span> <span class="ow">in</span> <span class="n">all_hook_names</span><span class="p">:</span>
+                <span class="n">after_hook_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;after_</span><span class="si">{</span><span class="n">hook</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="n">execute_hooks</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">hooks</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">after_hook_name</span><span class="p">))</span>
+
+            <span class="k">return</span> <span class="n">response</span>
+
+        <span class="k">return</span> <span class="n">decorated</span>
+
+    <span class="k">return</span> <span class="n">decorator</span></div>
 </pre></div>
 
            </div>

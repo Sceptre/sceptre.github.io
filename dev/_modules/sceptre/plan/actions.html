@@ -218,7 +218,7 @@
     <span class="n">UnknownStackStatusError</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">sceptre.helpers</span> <span class="kn">import</span> <span class="n">extract_datetime_from_aws_response_headers</span>
-<span class="kn">from</span> <span class="nn">sceptre.hooks</span> <span class="kn">import</span> <span class="n">add_stack_hooks</span>
+<span class="kn">from</span> <span class="nn">sceptre.hooks</span> <span class="kn">import</span> <span class="n">add_stack_hooks</span><span class="p">,</span> <span class="n">add_stack_hooks_with_aliases</span>
 <span class="kn">from</span> <span class="nn">sceptre.stack</span> <span class="kn">import</span> <span class="n">Stack</span>
 <span class="kn">from</span> <span class="nn">sceptre.stack_status</span> <span class="kn">import</span> <span class="n">StackChangeSetStatus</span><span class="p">,</span> <span class="n">StackStatus</span>
 
@@ -1343,7 +1343,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">config</span></div>
 
-<div class="viewcode-block" id="StackActions.dump_template"><a class="viewcode-back" href="../../../apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.dump_template">[docs]</a>    <span class="nd">@add_stack_hooks</span>
+<div class="viewcode-block" id="StackActions.dump_template"><a class="viewcode-back" href="../../../apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.dump_template">[docs]</a>    <span class="nd">@add_stack_hooks_with_aliases</span><span class="p">([</span><span class="n">generate</span><span class="o">.</span><span class="vm">__name__</span><span class="p">])</span>
     <span class="k">def</span> <span class="nf">dump_template</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the Template for the Stack</span>
