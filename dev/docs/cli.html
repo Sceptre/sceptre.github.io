@@ -925,18 +925,20 @@ browser with the returned URI.</p>
 </div>
 <div class="section" id="sceptre-generate">
 <h4>generate<a class="headerlink" href="#sceptre-generate" title="Permalink to this heading">¶</a></h4>
-<p>Prints the template used for stack in PATH.</p>
+<blockquote>
+<div><p>Prints the template used for stack in PATH.</p>
+<p>This command is aliased to the dump template command for legacy support reasons. It’s the same
+as running <cite>sceptre dump template</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">param path</dt>
-<dd class="field-odd"><p>Path to execute the command on.</p>
+<dt class="field-odd">param no_placeholders</dt>
+<dd class="field-odd"><p>If True, will disable placeholders for unresolvable resolvers. By
+default, placeholders will be active.</p>
 </dd>
-<dt class="field-even">type path</dt>
-<dd class="field-even"><p>str</p>
+<dt class="field-even">param path</dt>
+<dd class="field-even"><p>Path to execute the command on.</p>
 </dd>
 </dl>
-<div class="deprecated">
-<p><span class="versionmodified deprecated">Deprecated since version 4.2.0: </span>This will be removed in 5.0.0. Use dump template instead.</p>
-</div>
+</div></blockquote>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sceptre<span class="w"> </span>generate<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>PATH
 </pre></div>
 </div>

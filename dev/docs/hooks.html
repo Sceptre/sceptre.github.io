@@ -226,9 +226,8 @@ configuration.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">before_dump_template</span></code>/<code class="docutils literal notranslate"><span class="pre">after_dump_template</span></code> - Runs before/after rendering the stack template.
 This hook point is aliased to <code class="docutils literal notranslate"><span class="pre">before/generate</span></code>/<code class="docutils literal notranslate"><span class="pre">after_generate</span></code>. This hook point will also
 be triggered when diffing, since the template needs to be generated to diff the template.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">before_generate</span></code>/<code class="docutils literal notranslate"><span class="pre">after_generate</span></code> - Runs before/after rendering the stack template. This
-hook point is aliased to <code class="docutils literal notranslate"><span class="pre">before_dump_template</span></code>/<code class="docutils literal notranslate"><span class="pre">after_dump_template</span></code>. <em>Note:</em> <code class="docutils literal notranslate"><span class="pre">generate</span></code> <em>is
-a deprecated command and will be removed in a future release.</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">before_generate</span></code>/<code class="docutils literal notranslate"><span class="pre">after_generate</span></code> - Runs before/after rendering the stack template. This hook
+point is aliased to <code class="docutils literal notranslate"><span class="pre">before_dump_template</span></code>/<code class="docutils literal notranslate"><span class="pre">after_dump_template</span></code>.</p></li>
 </ul>
 <p>Syntax:</p>
 <p>Hooks are specified in a Stack’s config file, using the following syntax:</p>

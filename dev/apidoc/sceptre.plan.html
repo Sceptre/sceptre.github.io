@@ -470,7 +470,8 @@ TIMED_OUT.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="sceptre.plan.actions.StackActions.dump_template">
 <span class="sig-name descname"><span class="pre">dump_template</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/actions.html#StackActions.dump_template"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.plan.actions.StackActions.dump_template" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the Template for the Stack</p>
+<dd><p>Dump the template for the Stack. An alias for generate
+for historical reasons.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -534,10 +535,8 @@ TIMED_OUT.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="sceptre.plan.actions.StackActions.generate">
 <span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/actions.html#StackActions.generate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.plan.actions.StackActions.generate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the Template for the Stack</p>
-<div class="deprecated">
-<p><span class="versionmodified deprecated">Deprecated since version 4.2.0: </span>This will be removed in 5.0.0. Use dump template instead.</p>
-</div>
+<dd><p>Returns the Template for the Stack. An alias for
+dump_template for historical reasons.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -927,7 +926,8 @@ UPDATE_ROLLBACK_COMPLETE.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="sceptre.plan.plan.SceptrePlan.dump_template">
 <span class="sig-name descname"><span class="pre">dump_template</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/plan.html#SceptrePlan.dump_template"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.plan.plan.SceptrePlan.dump_template" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a generated Template for a given Stack</p>
+<dd><p>Dump the template for a stack. An alias
+for generate for historical reasons.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -993,7 +993,8 @@ in the launch_order or False if it should be filtered out.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="sceptre.plan.plan.SceptrePlan.generate">
 <span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/plan/plan.html#SceptrePlan.generate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.plan.plan.SceptrePlan.generate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a generated Template for a given Stack</p>
+<dd><p>Returns a generated Template for a given Stack. An alias for
+dump_template for historical reasons.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A dictionary of Stacks and their template body.</p>
@@ -1002,9 +1003,6 @@ in the launch_order or False if it should be filtered out.</p>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a></p>
 </dd>
 </dl>
-<div class="deprecated">
-<p><span class="versionmodified deprecated">Deprecated since version 4.2.0: </span>This will be removed in 5.0.0. Use dump template instead.</p>
-</div>
 </dd></dl>
 
 <dl class="py method">
