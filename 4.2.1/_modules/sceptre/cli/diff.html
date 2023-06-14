@@ -1,0 +1,478 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>sceptre.cli.diff &mdash; Sceptre 4.2.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Sceptre
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.2.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/get_started.html">Get Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/terminology.html">Terminology</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/cli.html">Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/stack_group_config.html">StackGroup Config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/stack_config.html">Stack Config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/templates.html">Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/template_handlers.html">Template Handlers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/hooks.html">Hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/resolvers.html">Resolvers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/architecture.html">Architecting Sceptre</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/permissions.html">Sceptre and IAM</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Support</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../apidoc/modules.html">sceptre</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Sceptre</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../sceptre.html">sceptre</a> &raquo;</li>
+        
+      <li>sceptre.cli.diff</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for sceptre.cli.diff</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">logging</span> <span class="kn">import</span> <span class="n">getLogger</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">TextIO</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Iterable</span>
+
+<span class="kn">import</span> <span class="nn">click</span>
+<span class="kn">from</span> <span class="nn">click</span> <span class="kn">import</span> <span class="n">Context</span>
+
+<span class="kn">from</span> <span class="nn">sceptre.cli.helpers</span> <span class="kn">import</span> <span class="n">catch_exceptions</span>
+<span class="kn">from</span> <span class="nn">sceptre.context</span> <span class="kn">import</span> <span class="n">SceptreContext</span>
+<span class="kn">from</span> <span class="nn">sceptre.diffing.diff_writer</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">DeepDiffWriter</span><span class="p">,</span>
+    <span class="n">DiffLibWriter</span><span class="p">,</span>
+    <span class="n">ColouredDiffLibWriter</span><span class="p">,</span>
+    <span class="n">DiffWriter</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">sceptre.diffing.stack_differ</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">DeepDiffStackDiffer</span><span class="p">,</span>
+    <span class="n">DifflibStackDiffer</span><span class="p">,</span>
+    <span class="n">StackDiff</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">sceptre.helpers</span> <span class="kn">import</span> <span class="n">null_context</span>
+<span class="kn">from</span> <span class="nn">sceptre.plan.plan</span> <span class="kn">import</span> <span class="n">SceptrePlan</span>
+<span class="kn">from</span> <span class="nn">sceptre.resolvers.placeholders</span> <span class="kn">import</span> <span class="n">use_resolver_placeholders_on_error</span>
+<span class="kn">from</span> <span class="nn">sceptre.stack</span> <span class="kn">import</span> <span class="n">Stack</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;diff&quot;</span><span class="p">,</span>
+    <span class="n">short_help</span><span class="o">=</span><span class="s2">&quot;Compares deployed infrastructure with current configurations&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
+    <span class="s2">&quot;-t&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--type&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;differ&quot;</span><span class="p">,</span>
+    <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Choice</span><span class="p">([</span><span class="s2">&quot;deepdiff&quot;</span><span class="p">,</span> <span class="s2">&quot;difflib&quot;</span><span class="p">]),</span>
+    <span class="n">default</span><span class="o">=</span><span class="s2">&quot;deepdiff&quot;</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s1">&#39;The type of differ to use. Use &quot;deepdiff&quot; for recursive key/value comparison. &quot;difflib&quot; &#39;</span>
+    <span class="s1">&#39;produces a more traditional &quot;diff&quot; result. Defaults to deepdiff.&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
+    <span class="s2">&quot;-s&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--show-no-echo&quot;</span><span class="p">,</span>
+    <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;If set, will display the unmasked values of NoEcho parameters generated LOCALLY (NoEcho &quot;</span>
+    <span class="s2">&quot;parameters for deployed stacks will always be masked when retrieved from CloudFormation.). &quot;</span>
+    <span class="s2">&quot;If not set (the default), parameters identified as NoEcho on the local template will be &quot;</span>
+    <span class="s2">&quot;masked when presented in the diff.&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
+    <span class="s2">&quot;-n&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--no-placeholders&quot;</span><span class="p">,</span>
+    <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;If set, no placeholder values will be supplied for resolvers that cannot be resolved.&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
+    <span class="s2">&quot;-a&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--all&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;all_&quot;</span><span class="p">,</span>
+    <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="p">(</span>
+        <span class="s2">&quot;If set, will perform diffing on ALL stacks, including ignored and obsolete ones; Otherwise, &quot;</span>
+        <span class="s2">&quot;it will diff only stacks that would be created or updated when running the launch command.&quot;</span>
+    <span class="p">),</span>
+<span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s2">&quot;path&quot;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">pass_context</span>
+<span class="nd">@catch_exceptions</span>
+<span class="k">def</span> <span class="nf">diff_command</span><span class="p">(</span>
+    <span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span>
+    <span class="n">differ</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">show_no_echo</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">no_placeholders</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">all_</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Indicates the difference between the currently DEPLOYED stacks in the command path and</span>
+<span class="sd">    the stacks configured in Sceptre right now. This command will compare both the templates as well</span>
+<span class="sd">    as the subset of stack configurations that can be compared. By default, only stacks that would</span>
+<span class="sd">    be launched via the launch command will be diffed, but you can diff ALL stacks relevant to the</span>
+<span class="sd">    passed command path if you pass the --all flag.</span>
+
+<span class="sd">    Some settings (such as sceptre_user_data) are not available in a CloudFormation stack</span>
+<span class="sd">    description, so the diff will not be indicated. Currently compared stack configurations are:</span>
+
+<span class="sd">    \b</span>
+<span class="sd">      * parameters</span>
+<span class="sd">      * notifications</span>
+<span class="sd">      * cloudformation_service_role</span>
+<span class="sd">      * stack_tags</span>
+
+<span class="sd">    Important: There are resolvers (notably !stack_output) that rely on other stacks</span>
+<span class="sd">    to be already deployed when they are resolved. When producing a diff on Stack Configs that have</span>
+<span class="sd">    such resolvers that point to non-deployed stacks, this presents a challenge, since this means</span>
+<span class="sd">    those resolvers cannot be resolved. This particularly applies to stack parameters and when a</span>
+<span class="sd">    stack&#39;s template uses sceptre_user_data with resolvers in it. In order to continue to be useful</span>
+<span class="sd">    when producing a diff in these conditions, this command will do the following:</span>
+
+<span class="sd">    1. If the resolver CAN be resolved, it will be resolved and the resolved value will be in the</span>
+<span class="sd">    diff results.</span>
+<span class="sd">    2. If the resolver CANNOT be resolved, it will be replaced with a string that represents the</span>
+<span class="sd">    resolver and its arguments. For example: !stack_output my_stack.yaml::MyOutput will resolve in</span>
+<span class="sd">    the parameters to &quot;{ !StackOutput(my_stack.yaml::MyOutput) }&quot;.</span>
+
+<span class="sd">    Particularly in cases where the replaced value doesn&#39;t work in the template as the template logic</span>
+<span class="sd">    requires and causes an error, there is nothing further Sceptre can do and diffing will fail.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">no_colour</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;no_colour&quot;</span><span class="p">)</span>
+
+    <span class="n">context</span> <span class="o">=</span> <span class="n">SceptreContext</span><span class="p">(</span>
+        <span class="n">command_path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
+        <span class="n">command_params</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">params</span><span class="p">,</span>
+        <span class="n">project_path</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;project_path&quot;</span><span class="p">),</span>
+        <span class="n">user_variables</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;user_variables&quot;</span><span class="p">),</span>
+        <span class="n">options</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;options&quot;</span><span class="p">),</span>
+        <span class="n">ignore_dependencies</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ignore_dependencies&quot;</span><span class="p">),</span>
+        <span class="n">output_format</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;output_format&quot;</span><span class="p">),</span>
+        <span class="n">no_colour</span><span class="o">=</span><span class="n">no_colour</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">output_format</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">output_format</span>
+    <span class="n">plan</span> <span class="o">=</span> <span class="n">SceptrePlan</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">all_</span><span class="p">:</span>
+        <span class="n">filter_plan_for_launchable</span><span class="p">(</span><span class="n">plan</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">differ</span> <span class="o">==</span> <span class="s2">&quot;deepdiff&quot;</span><span class="p">:</span>
+        <span class="n">stack_differ</span> <span class="o">=</span> <span class="n">DeepDiffStackDiffer</span><span class="p">(</span><span class="n">show_no_echo</span><span class="p">)</span>
+        <span class="n">writer_class</span> <span class="o">=</span> <span class="n">DeepDiffWriter</span>
+    <span class="k">elif</span> <span class="n">differ</span> <span class="o">==</span> <span class="s2">&quot;difflib&quot;</span><span class="p">:</span>
+        <span class="n">stack_differ</span> <span class="o">=</span> <span class="n">DifflibStackDiffer</span><span class="p">(</span><span class="n">show_no_echo</span><span class="p">)</span>
+        <span class="n">writer_class</span> <span class="o">=</span> <span class="n">DiffLibWriter</span> <span class="k">if</span> <span class="n">no_colour</span> <span class="k">else</span> <span class="n">ColouredDiffLibWriter</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unexpected differ type: </span><span class="si">{</span><span class="n">differ</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">execution_context</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">null_context</span><span class="p">()</span> <span class="k">if</span> <span class="n">no_placeholders</span> <span class="k">else</span> <span class="n">use_resolver_placeholders_on_error</span><span class="p">()</span>
+    <span class="p">)</span>
+    <span class="k">with</span> <span class="n">execution_context</span><span class="p">:</span>
+        <span class="n">diffs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Stack</span><span class="p">,</span> <span class="n">StackDiff</span><span class="p">]</span> <span class="o">=</span> <span class="n">plan</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">stack_differ</span><span class="p">)</span>
+
+    <span class="n">num_stacks_with_diff</span> <span class="o">=</span> <span class="n">output_diffs</span><span class="p">(</span>
+        <span class="n">diffs</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">writer_class</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">output_format</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">num_stacks_with_diff</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">num_stacks_with_diff</span><span class="si">}</span><span class="s2"> stacks with differences detected.&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="output_diffs"><a class="viewcode-back" href="../../../apidoc/sceptre.cli.html#sceptre.cli.diff.output_diffs">[docs]</a><span class="k">def</span> <span class="nf">output_diffs</span><span class="p">(</span>
+    <span class="n">diffs</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">StackDiff</span><span class="p">],</span>
+    <span class="n">writer_class</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">DiffWriter</span><span class="p">],</span>
+    <span class="n">output_buffer</span><span class="p">:</span> <span class="n">TextIO</span><span class="p">,</span>
+    <span class="n">output_format</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Outputs the diff results to the output_buffer.</span>
+
+<span class="sd">    :param diffs: The differences computed</span>
+<span class="sd">    :param writer_class: The DiffWriter class to be instantiated for each StackDiff</span>
+<span class="sd">    :param output_buffer: The buffer to write the diff results to</span>
+<span class="sd">    :param output_format: The format to output the results in</span>
+<span class="sd">    :return: The number of stacks that had a difference</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">line_buffer</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">()</span>
+
+    <span class="n">num_stacks_with_diff</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">stack_diff</span> <span class="ow">in</span> <span class="n">diffs</span><span class="p">:</span>
+        <span class="n">writer</span> <span class="o">=</span> <span class="n">writer_class</span><span class="p">(</span><span class="n">stack_diff</span><span class="p">,</span> <span class="n">line_buffer</span><span class="p">,</span> <span class="n">output_format</span><span class="p">)</span>
+        <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">writer</span><span class="o">.</span><span class="n">has_difference</span><span class="p">:</span>
+            <span class="n">num_stacks_with_diff</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="n">output_buffer_with_normalized_bar_lengths</span><span class="p">(</span><span class="n">line_buffer</span><span class="p">,</span> <span class="n">output_buffer</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">num_stacks_with_diff</span></div>
+
+
+<div class="viewcode-block" id="output_buffer_with_normalized_bar_lengths"><a class="viewcode-back" href="../../../apidoc/sceptre.cli.html#sceptre.cli.diff.output_buffer_with_normalized_bar_lengths">[docs]</a><span class="k">def</span> <span class="nf">output_buffer_with_normalized_bar_lengths</span><span class="p">(</span>
+    <span class="n">buffer</span><span class="p">:</span> <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">,</span> <span class="n">output_stream</span><span class="p">:</span> <span class="n">TextIO</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Takes the output from a buffer and ensures that the star and line bars are the same length</span>
+<span class="sd">    across the entire buffer and that their length is the full width of longest line.</span>
+
+<span class="sd">    :param buffer: The input stream to normalize bar lengths for</span>
+<span class="sd">    :param output_stream: The stream to output the normalized buffer into</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">buffer</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">max_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">))</span>
+    <span class="n">buffer</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">full_length_star_bar</span> <span class="o">=</span> <span class="s2">&quot;*&quot;</span> <span class="o">*</span> <span class="n">max_length</span>
+    <span class="n">full_length_line_bar</span> <span class="o">=</span> <span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="n">max_length</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">buffer</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">DiffWriter</span><span class="o">.</span><span class="n">STAR_BAR</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">DiffWriter</span><span class="o">.</span><span class="n">STAR_BAR</span><span class="p">,</span> <span class="n">full_length_star_bar</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">DiffWriter</span><span class="o">.</span><span class="n">LINE_BAR</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">DiffWriter</span><span class="o">.</span><span class="n">LINE_BAR</span><span class="p">,</span> <span class="n">full_length_line_bar</span><span class="p">)</span>
+        <span class="n">output_stream</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="filter_plan_for_launchable"><a class="viewcode-back" href="../../../apidoc/sceptre.cli.html#sceptre.cli.diff.filter_plan_for_launchable">[docs]</a><span class="k">def</span> <span class="nf">filter_plan_for_launchable</span><span class="p">(</span><span class="n">plan</span><span class="p">:</span> <span class="n">SceptrePlan</span><span class="p">):</span>
+    <span class="n">plan</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">plan</span><span class="o">.</span><span class="n">diff</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+    <span class="n">plan</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">stack</span><span class="p">:</span> <span class="ow">not</span> <span class="n">stack</span><span class="o">.</span><span class="n">ignore</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">stack</span><span class="o">.</span><span class="n">obsolete</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2018, Cloudreach.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+    <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: 4.2.1
+      <span class="fa fa-caret-down"></span>
+    </span>
+
+        <div class="rst-other-versions">
+            <dl id="other-versions">
+                <dt>Versions</dt>
+            </dl>
+            <dl>
+                
+                <dt>Other Links</dt>
+                
+
+                    <dd>
+                        <a href="https://www.cloudreach.com">Cloudreach</a>
+                    </dd>
+                
+
+                    <dd>
+                        <a href="https://docs.sceptre-project.org">Sceptre Home</a>
+                    </dd>
+                
+            </dl>
+            <hr/>
+            Original template provided by <a href="http://www.readthedocs.org">Read the Docs</a>.
+        </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                $.getScript("../../../../version-helper.js").done(
+                    function () {
+                        versions.forEach(function (item, index) {
+                            if (item !== "4.2.1") {
+                                $('#other-versions').append('<dd><a href="'+ window.location.origin + '/' + item +'">' + item + "<a/></dd>");
+                            }
+                        })
+                    });
+            });
+        </script>
+    </div>
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
