@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sceptre.hooks.cmd &mdash; Sceptre 4.2.2 documentation</title>
+  <title>sceptre.hooks.cmd &mdash; Sceptre 3.2.1 documentation</title>
   
 
   
@@ -206,13 +206,12 @@
 <span class="sd">        :raises: sceptre.exceptions.InvalidTaskArgumentTypeException</span>
 <span class="sd">        :raises: subprocess.CalledProcessError</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">envs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">connection_manager</span><span class="o">.</span><span class="n">create_session_environment_variables</span><span class="p">()</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">argument</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">envs</span><span class="p">)</span>
+            <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">argument</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">InvalidHookArgumentTypeError</span><span class="p">(</span>
                 <span class="s1">&#39;The argument &quot;</span><span class="si">{0}</span><span class="s1">&quot; is the wrong type - cmd hooks require &#39;</span>
-                <span class="s2">&quot;arguments of type string.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">argument</span><span class="p">)</span>
+                <span class="s1">&#39;arguments of type string.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">argument</span><span class="p">)</span>
             <span class="p">)</span></div></div>
 </pre></div>
 

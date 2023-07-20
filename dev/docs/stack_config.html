@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Stack Config &mdash; Sceptre 4.2.2 documentation</title>
+  <title>Stack Config &mdash; Sceptre 3.2.1 documentation</title>
   
 
   
@@ -113,15 +113,11 @@
 <li class="toctree-l3"><a class="reference internal" href="#notifications">notifications</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#obsolete">obsolete</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#on-failure">on_failure</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#disable-rollback">disable_rollback</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#parameters">parameters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#protected">protected</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#role-arn">role_arn</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#cloudformation-service-role">cloudformation_service_role</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#iam-role">iam_role</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#sceptre-role">sceptre_role</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#iam-role-session-duration">iam_role_session_duration</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#sceptre-role-session-duration">sceptre_role_session_duration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#sceptre-user-data">sceptre_user_data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stack-name">stack_name</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stack-tags">stack_tags</a></li>
@@ -241,15 +237,11 @@ particular Stack. The available keys are listed below.</p>
 <li><p><a class="reference external" href="#notifications">notifications</a> <em>(optional)</em></p></li>
 <li><p><a class="reference internal" href="#obsolete">obsolete</a> <em>(optional)</em></p></li>
 <li><p><a class="reference external" href="#on-failure">on_failure</a> <em>(optional)</em></p></li>
-<li><p><a class="reference external" href="#disable-rollback">disable_rollback</a> <em>(optional)</em></p></li>
 <li><p><a class="reference external" href="#parameters">parameters</a> <em>(optional)</em></p></li>
 <li><p><a class="reference external" href="#protected">protected</a> <em>(optional)</em></p></li>
 <li><p><a class="reference external" href="#role-arn">role_arn</a> <em>(optional)</em></p></li>
-<li><p><a class="reference internal" href="#cloudformation-service-role">cloudformation_service_role</a> <em>(optional)</em></p></li>
 <li><p><a class="reference internal" href="#iam-role">iam_role</a> <em>(optional)</em></p></li>
-<li><p><a class="reference internal" href="#sceptre-role">sceptre_role</a> (<em>optional)</em></p></li>
 <li><p><a class="reference internal" href="#iam-role-session-duration">iam_role_session_duration</a> <em>(optional)</em></p></li>
-<li><p><a class="reference internal" href="#sceptre-role-session-duration">sceptre_role_session_duration</a> <em>(optional)</em></p></li>
 <li><p><a class="reference external" href="#sceptre-user-data">sceptre_user_data</a> <em>(optional)</em></p></li>
 <li><p><a class="reference external" href="#stack-name">stack_name</a> <em>(optional)</em></p></li>
 <li><p><a class="reference external" href="#stack-tags">stack_tags</a> <em>(optional)</em></p></li>
@@ -270,7 +262,7 @@ the template’s file extension. Note that the template filename may be differen
 from the Stack config filename.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>This key is deprecated in favor of the <a class="reference external" href="#template">template</a> key. It will be removed in version 5.0.0.</p>
+<p>This key is deprecated in favor of the <a class="reference external" href="#template">template</a> key.</p>
 </div>
 </div>
 <div class="section" id="template">
@@ -321,7 +313,7 @@ the StackGroup Config, or (b) moving those dependency stacks outside of the Stac
 <div class="section" id="hooks">
 <h3>hooks<a class="headerlink" href="#hooks" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>Resolvable: No (but you can use resolvers _in_ hook arguments!)</p></li>
+<li><p>Resolvable: No</p></li>
 <li><p>Can be inherited from StackGroup: Yes</p></li>
 <li><p>Inheritance strategy: Overrides parent if set</p></li>
 </ul>
@@ -422,23 +414,6 @@ to create. For more information and valid values see the <a class="reference ext
 <p><code class="docutils literal notranslate"><span class="pre">on_failure:</span> <span class="pre">&quot;ROLLBACK&quot;</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">on_failure:</span> <span class="pre">&quot;DELETE&quot;</span></code></p>
 </div>
-<div class="section" id="disable-rollback">
-<h3>disable_rollback<a class="headerlink" href="#disable-rollback" title="Permalink to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>Resolvable: No</p></li>
-<li><p>Can be inherited from StackGroup: Yes</p></li>
-<li><p>Inheritance strategy: Overrides parent if set</p></li>
-</ul>
-<p>This parameter describes the action taken by CloudFormation when a Stack fails
-to create or update, default is False. This option can be set from the stack
-config or from the Sceptre CLI commands to deploy stacks. The disable_rollback
-CLI option (i.e. sceptre launch –disable-rollback) disables cloudformation
-rollback globally for all stacks. This option overrides on_failure since
-Cloudformation does not allow setting both on deployment. For more information
-and valid values see the <a class="reference external" href="http://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateStack.html">AWS Documentation</a>.</p>
-<p>Examples:</p>
-<p><code class="docutils literal notranslate"><span class="pre">disable_rollback:</span> <span class="pre">&quot;True&quot;</span></code></p>
-</div>
 <div class="section" id="parameters">
 <h3>parameters<a class="headerlink" href="#parameters" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
@@ -525,22 +500,9 @@ throw an error.</p>
 <li><p>Can be inherited from StackGroup: Yes</p></li>
 <li><p>Inheritance strategy: Overrides parent if set</p></li>
 </ul>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This field is deprecated as of v4.0.0 and will be removed in v5.0.0. It has been renamed to
-<a class="reference internal" href="#cloudformation-service-role">cloudformation_service_role</a> as a clearer name for its purpose.</p>
-</div>
-</div>
-<div class="section" id="cloudformation-service-role">
-<h3>cloudformation_service_role<a class="headerlink" href="#cloudformation-service-role" title="Permalink to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>Resolvable: Yes</p></li>
-<li><p>Can be inherited from StackGroup: Yes</p></li>
-<li><p>Inheritance strategy: Overrides parent if set</p></li>
-</ul>
 <p>The ARN of a <a class="reference external" href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-servicerole.html">CloudFormation Service Role</a> that is assumed by <em>CloudFormation</em> (not Sceptre)
 to create, update or delete resources. For more information on this configuration, its implications,
-and its uses see <a class="reference internal" href="permissions.html#cloudformation-service-role-permissions"><span class="std std-ref">Sceptre and IAM: cloudformation_service_role</span></a>.</p>
+and its uses see <a class="reference internal" href="permissions.html#role-arn-permissions"><span class="std std-ref">Sceptre and IAM: role_arn</span></a>.</p>
 </div>
 <div class="section" id="iam-role">
 <h3>iam_role<a class="headerlink" href="#iam-role" title="Permalink to this heading">¶</a></h3>
@@ -549,33 +511,19 @@ and its uses see <a class="reference internal" href="permissions.html#cloudforma
 <li><p>Can be inherited from StackGroup: Yes</p></li>
 <li><p>Inheritance strategy: Overrides parent if set</p></li>
 </ul>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This field is deprecated as of v4.0.0 and will be removed in v5.0.0. It has been renamed to
-<a class="reference internal" href="#sceptre-role">sceptre_role</a> as a clearer name for its purpose.</p>
-</div>
-</div>
-<div class="section" id="sceptre-role">
-<h3>sceptre_role<a class="headerlink" href="#sceptre-role" title="Permalink to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>Resolvable: Yes</p></li>
-<li><p>Can be inherited from StackGroup: Yes</p></li>
-<li><p>Inheritance strategy: Overrides parent if set</p></li>
-</ul>
 <p>This is the IAM Role ARN that <strong>Sceptre</strong> should <em>assume</em> using AWS STS when executing any actions
 on the Stack.</p>
-<p>This is different from the <code class="docutils literal notranslate"><span class="pre">cloudformation_service_role</span></code> option, which sets a CloudFormation
-service role for the stack. The <code class="docutils literal notranslate"><span class="pre">sceptre_role</span></code> configuration does not configure anything on the
-stack itself.</p>
+<p>This is different from the <code class="docutils literal notranslate"><span class="pre">role_arn</span></code> option, which sets a CloudFormation service role for the
+stack. The <code class="docutils literal notranslate"><span class="pre">iam_role</span></code> configuration does not configure anything on the stack itself.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>If you set the value of <code class="docutils literal notranslate"><span class="pre">sceptre_role</span></code> with <code class="docutils literal notranslate"><span class="pre">!stack_output</span></code>, that <code class="docutils literal notranslate"><span class="pre">sceptre_role</span></code>
+<p>If you set the value of <code class="docutils literal notranslate"><span class="pre">iam_role</span></code> with <code class="docutils literal notranslate"><span class="pre">!stack_output</span></code>, that <code class="docutils literal notranslate"><span class="pre">iam_role</span></code>
 will not actually be used to obtain the stack_output, but it <em>WILL</em> be used for all subsequent stack
 actions. Therefore, it is important that the user executing the stack action have permissions to get
-stack outputs for the stack outputting the <code class="docutils literal notranslate"><span class="pre">sceptre_role</span></code>.</p>
+stack outputs for the stack outputting the <code class="docutils literal notranslate"><span class="pre">iam_role</span></code>.</p>
 </div>
 <p>For more information on this configuration, its implications, and its uses, see
-<a class="reference internal" href="permissions.html#sceptre-role-permissions"><span class="std std-ref">Sceptre and IAM: sceptre_role</span></a>.</p>
+<a class="reference internal" href="permissions.html#iam-role-permissions"><span class="std std-ref">Sceptre and IAM: iam_role</span></a>.</p>
 </div>
 <div class="section" id="iam-role-session-duration">
 <h3>iam_role_session_duration<a class="headerlink" href="#iam-role-session-duration" title="Permalink to this heading">¶</a></h3>
@@ -584,27 +532,16 @@ stack outputs for the stack outputting the <code class="docutils literal notrans
 <li><p>Can be inherited from StackGroup: Yes</p></li>
 <li><p>Inheritance strategy: Overrides parent if set</p></li>
 </ul>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This field is deprecated as of v4.0.0 and will be removed in v5.0.0. It has been renamed to
-<a class="reference internal" href="#sceptre-role-session-duration">sceptre_role_session_duration</a> as a clearer name for its purpose.</p>
-</div>
-</div>
-<div class="section" id="sceptre-role-session-duration">
-<h3>sceptre_role_session_duration<a class="headerlink" href="#sceptre-role-session-duration" title="Permalink to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>Resolvable: No</p></li>
-<li><p>Can be inherited from StackGroup: Yes</p></li>
-<li><p>Inheritance strategy: Overrides parent if set</p></li>
-</ul>
-<p>This is the session duration when <strong>Sceptre</strong> <em>assumes</em> the <strong>sceptre_role</strong> IAM Role using AWS STS when
+<p>This is the session duration when <strong>Sceptre</strong> <em>assumes</em> the <strong>iam_role</strong> IAM Role using AWS STS when
 executing any actions on the Stack.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>If you set the value of <code class="docutils literal notranslate"><span class="pre">sceptre_role_session_duration</span></code> to a number that <em>GREATER</em> than 3600, you
-will need to make sure that the <code class="docutils literal notranslate"><span class="pre">sceptre_role</span></code> has a configuration of <code class="docutils literal notranslate"><span class="pre">MaxSessionDuration</span></code>, and
-its value is <em>GREATER</em> than or equal to the value of <code class="docutils literal notranslate"><span class="pre">sceptre_role_session_duration</span></code>.</p>
+<p>If you set the value of <code class="docutils literal notranslate"><span class="pre">iam_role_session_duration</span></code> to a number that <em>GREATER</em> than 3600, you
+will need to make sure that the <code class="docutils literal notranslate"><span class="pre">iam_role</span></code> has a configuration of <code class="docutils literal notranslate"><span class="pre">MaxSessionDuration</span></code>, and
+its value is <em>GREATER</em> than or equal to the value of <code class="docutils literal notranslate"><span class="pre">iam_role_session_duration</span></code>.</p>
 </div>
+<p>For more information on this configuration, its implications, and its uses, see
+<a class="reference internal" href="permissions.html#iam-role-permissions"><span class="std std-ref">Sceptre and IAM: iam_role_session_duration</span></a>.</p>
 </div>
 <div class="section" id="sceptre-user-data">
 <h3>sceptre_user_data<a class="headerlink" href="#sceptre-user-data" title="Permalink to this heading">¶</a></h3>
@@ -760,18 +697,12 @@ the very last moment, right when it is needed (and not before).</p></li>
 <p>A common point of confusion tends to be around the distinction between <strong>“render time”</strong> (phase 3, when
 Jinja logic is applied) and <strong>“resolve time”</strong> (phase 6, when resolvers are resolved). You cannot use
 a resolver via Jinja during “render time”, since the resolver won’t exist or be ready to use yet. You can,
-however, use Jinja logic to indicate <em>whether</em>, <em>which</em>, or <em>how</em> a resolver is configured. You can
-also use resolvers like <code class="docutils literal notranslate"><span class="pre">!sub</span></code> to interpolate resolved values when Jinja isn’t available.</p>
+however, use Jinja logic to indicate <em>whether</em>, <em>which</em>, or <em>how</em> a resolver is configured.</p>
 <p>For example, you <strong>can</strong> do something like this:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span>parameters:
   {% if var.use_my_parameter %}
     my_parameter: !stack_output {{ var.stack_name }}::{{ var.output_name }}
   {% endif %}
-    # !sub will let you combine outputs of multiple resolvers into a single string
-    my_combined_parameter: !sub
-      - &quot;{fist_part} - {second_part}&quot;
-      - first_part: !stack_output my/stack/name.yaml::Output
-      - second_part: {{ var.second_part }}
 </pre></div>
 </div>
 </div>

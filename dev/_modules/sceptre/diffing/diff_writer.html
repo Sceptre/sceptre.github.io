@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sceptre.diffing.diff_writer &mdash; Sceptre 4.2.2 documentation</title>
+  <title>sceptre.diffing.diff_writer &mdash; Sceptre 3.2.1 documentation</title>
   
 
   
@@ -189,7 +189,6 @@
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">abstractmethod</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TextIO</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">List</span>
-<span class="kn">from</span> <span class="nn">colorama</span> <span class="kn">import</span> <span class="n">Fore</span>
 
 <span class="kn">import</span> <span class="nn">cfn_flip</span>
 <span class="kn">import</span> <span class="nn">yaml</span>
@@ -200,7 +199,7 @@
 
 <span class="n">deepdiff_json_defaults</span> <span class="o">=</span> <span class="p">{</span>
     <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(),</span>
-    <span class="n">StackConfiguration</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">_asdict</span><span class="p">()),</span>
+    <span class="n">StackConfiguration</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">_asdict</span><span class="p">())</span>
 <span class="p">}</span>
 
 
@@ -209,13 +208,10 @@
 <span class="sd">    readable. This is an abstract base class, so the abstract methods need to be implemented to</span>
 <span class="sd">    create a DiffWriter for a given DiffType.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">STAR_BAR</span> <span class="o">=</span> <span class="s1">&#39;*&#39;</span> <span class="o">*</span> <span class="mi">80</span>
+    <span class="n">LINE_BAR</span> <span class="o">=</span> <span class="s1">&#39;-&#39;</span> <span class="o">*</span> <span class="mi">80</span>
 
-    <span class="n">STAR_BAR</span> <span class="o">=</span> <span class="s2">&quot;*&quot;</span> <span class="o">*</span> <span class="mi">80</span>
-    <span class="n">LINE_BAR</span> <span class="o">=</span> <span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">80</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">stack_diff</span><span class="p">:</span> <span class="n">StackDiff</span><span class="p">,</span> <span class="n">output_stream</span><span class="p">:</span> <span class="n">TextIO</span><span class="p">,</span> <span class="n">output_format</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack_diff</span><span class="p">:</span> <span class="n">StackDiff</span><span class="p">,</span> <span class="n">output_stream</span><span class="p">:</span> <span class="n">TextIO</span><span class="p">,</span> <span class="n">output_format</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initializes the DiffWriter</span>
 
 <span class="sd">        :param stack_diff: The diff this writer will be outputting</span>
@@ -259,20 +255,20 @@
     <span class="k">def</span> <span class="nf">_write_new_stack_details</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">stack_config_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dump_stack_config</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stack_diff</span><span class="o">.</span><span class="n">generated_config</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="p">(</span>
-            <span class="s2">&quot;This stack is not deployed yet!&quot;</span><span class="p">,</span>
+            <span class="s1">&#39;This stack is not deployed yet!&#39;</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">LINE_BAR</span><span class="p">,</span>
-            <span class="s2">&quot;New Config:&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s1">&#39;New Config:&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;&#39;</span><span class="p">,</span>
             <span class="n">stack_config_text</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">LINE_BAR</span><span class="p">,</span>
-            <span class="s2">&quot;New Template:&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;&quot;</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">stack_diff</span><span class="o">.</span><span class="n">generated_template</span><span class="p">,</span>
+            <span class="s1">&#39;New Template:&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;&#39;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stack_diff</span><span class="o">.</span><span class="n">generated_template</span>
         <span class="p">)</span>
         <span class="k">return</span>
 
     <span class="k">def</span> <span class="nf">_output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">lines</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="n">lines_with_breaks</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">line</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">]</span>
+        <span class="n">lines_with_breaks</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">line</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">output_stream</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">lines_with_breaks</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_dump_stack_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack_config</span><span class="p">:</span> <span class="n">StackConfiguration</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -296,19 +292,27 @@
             <span class="k">return</span>
 
         <span class="n">diff_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dump_diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_diff</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Config difference for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stack_name</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">diff_text</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s1">&#39;Config difference for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stack_name</span><span class="si">}</span><span class="s1">:&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;&#39;</span><span class="p">,</span>
+            <span class="n">diff_text</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_write_template_difference</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_template_difference</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="p">(</span><span class="s2">&quot;No template difference&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="p">(</span><span class="s1">&#39;No template difference&#39;</span><span class="p">)</span>
             <span class="k">return</span>
 
         <span class="n">diff_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dump_diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">template_diff</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Template difference for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stack_name</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">diff_text</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s1">&#39;Template difference for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stack_name</span><span class="si">}</span><span class="s1">:&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;&#39;</span><span class="p">,</span>
+            <span class="n">diff_text</span>
+        <span class="p">)</span>
 
 <div class="viewcode-block" id="DiffWriter.dump_diff"><a class="viewcode-back" href="../../../apidoc/sceptre.diffing.html#sceptre.diffing.diff_writer.DiffWriter.dump_diff">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">dump_diff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">diff</span><span class="p">:</span> <span class="n">DiffType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; &quot;Implement this method to write the DiffType to string&quot;&quot;&quot;</span></div>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;&quot;Implement this method to write the DiffType to string&quot;&quot;&quot;</span></div>
 
     <span class="nd">@property</span>
     <span class="nd">@abstractmethod</span>
@@ -334,11 +338,11 @@
 
 <div class="viewcode-block" id="DeepDiffWriter.dump_diff"><a class="viewcode-back" href="../../../apidoc/sceptre.diffing.html#sceptre.diffing.diff_writer.DeepDiffWriter.dump_diff">[docs]</a>    <span class="k">def</span> <span class="nf">dump_diff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">diff</span><span class="p">:</span> <span class="n">DeepDiff</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="n">as_diff_dict</span> <span class="o">=</span> <span class="n">diff</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_format</span> <span class="o">==</span> <span class="s2">&quot;json&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_format</span> <span class="o">==</span> <span class="s1">&#39;json&#39;</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
                 <span class="n">as_diff_dict</span><span class="p">,</span>
                 <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
-                <span class="n">default</span><span class="o">=</span><span class="n">json_convertor_default</span><span class="p">(</span><span class="n">default_mapping</span><span class="o">=</span><span class="n">deepdiff_json_defaults</span><span class="p">),</span>
+                <span class="n">default</span><span class="o">=</span><span class="n">json_convertor_default</span><span class="p">(</span><span class="n">default_mapping</span><span class="o">=</span><span class="n">deepdiff_json_defaults</span><span class="p">)</span>
             <span class="p">)</span>
 
         <span class="n">compatible</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_strings_block_compatible</span><span class="p">(</span><span class="n">as_diff_dict</span><span class="p">)</span>
@@ -369,7 +373,7 @@
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
             <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_make_strings_block_compatible</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">]</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;[ ]*</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;[ ]*</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">obj</span></div>
 
@@ -388,26 +392,7 @@
 <div class="viewcode-block" id="DiffLibWriter.dump_diff"><a class="viewcode-back" href="../../../apidoc/sceptre.diffing.html#sceptre.diffing.diff_writer.DiffLibWriter.dump_diff">[docs]</a>    <span class="k">def</span> <span class="nf">dump_diff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">diff</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="c1"># Difflib doesn&#39;t care about the output format since it only outputs strings. We would have</span>
         <span class="c1"># accounted for the output format in the differ itself rather than here.</span>
-        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">diff</span><span class="p">)</span></div></div>
-
-
-<div class="viewcode-block" id="ColouredDiffLibWriter"><a class="viewcode-back" href="../../../apidoc/sceptre.diffing.html#sceptre.diffing.diff_writer.ColouredDiffLibWriter">[docs]</a><span class="k">class</span> <span class="nc">ColouredDiffLibWriter</span><span class="p">(</span><span class="n">DiffLibWriter</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A DiffWriter for StackDiffs where the DiffType is a a list of strings with coloured diffs.&quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="nf">_colour_diff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">diff</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
-        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">diff</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;+&quot;</span><span class="p">):</span>
-                <span class="k">yield</span> <span class="n">Fore</span><span class="o">.</span><span class="n">GREEN</span> <span class="o">+</span> <span class="n">line</span> <span class="o">+</span> <span class="n">Fore</span><span class="o">.</span><span class="n">RESET</span>
-            <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">):</span>
-                <span class="k">yield</span> <span class="n">Fore</span><span class="o">.</span><span class="n">RED</span> <span class="o">+</span> <span class="n">line</span> <span class="o">+</span> <span class="n">Fore</span><span class="o">.</span><span class="n">RESET</span>
-            <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;^&quot;</span><span class="p">):</span>
-                <span class="k">yield</span> <span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span> <span class="o">+</span> <span class="n">line</span> <span class="o">+</span> <span class="n">Fore</span><span class="o">.</span><span class="n">RESET</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">yield</span> <span class="n">line</span>
-
-<div class="viewcode-block" id="ColouredDiffLibWriter.dump_diff"><a class="viewcode-back" href="../../../apidoc/sceptre.diffing.html#sceptre.diffing.diff_writer.ColouredDiffLibWriter.dump_diff">[docs]</a>    <span class="k">def</span> <span class="nf">dump_diff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">diff</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="n">coloured_diff</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_colour_diff</span><span class="p">(</span><span class="n">diff</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">dump_diff</span><span class="p">(</span><span class="n">coloured_diff</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">diff</span><span class="p">)</span></div></div>
 </pre></div>
 
            </div>

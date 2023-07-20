@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sceptre.template_handlers &mdash; Sceptre 4.2.2 documentation</title>
+  <title>sceptre.template_handlers &mdash; Sceptre 3.2.1 documentation</title>
   
 
   
@@ -192,7 +192,6 @@
 <span class="kn">from</span> <span class="nn">jsonschema</span> <span class="kn">import</span> <span class="n">validate</span><span class="p">,</span> <span class="n">ValidationError</span>
 
 <span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">TemplateHandlerArgumentsInvalidError</span>
-<span class="kn">from</span> <span class="nn">sceptre.logging</span> <span class="kn">import</span> <span class="n">StackLoggerAdapter</span>
 
 
 <div class="viewcode-block" id="TemplateHandler"><a class="viewcode-back" href="../../apidoc/sceptre.template_handlers.html#sceptre.template_handlers.TemplateHandler">[docs]</a><span class="nd">@six</span><span class="o">.</span><span class="n">add_metaclass</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span><span class="p">)</span>
@@ -222,21 +221,11 @@
     <span class="n">standard_template_extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;.json&quot;</span><span class="p">,</span> <span class="s2">&quot;.yaml&quot;</span><span class="p">,</span> <span class="s2">&quot;.template&quot;</span><span class="p">]</span>
     <span class="n">jinja_template_extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;.j2&quot;</span><span class="p">]</span>
     <span class="n">python_template_extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;.py&quot;</span><span class="p">]</span>
-    <span class="n">supported_template_extensions</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">standard_template_extensions</span>
-        <span class="o">+</span> <span class="n">jinja_template_extensions</span>
-        <span class="o">+</span> <span class="n">python_template_extensions</span>
-    <span class="p">)</span>
+    <span class="n">supported_template_extensions</span> <span class="o">=</span> <span class="n">standard_template_extensions</span> <span class="o">+</span> \
+        <span class="n">jinja_template_extensions</span> <span class="o">+</span> <span class="n">python_template_extensions</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">name</span><span class="p">,</span>
-        <span class="n">arguments</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">sceptre_user_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">connection_manager</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">stack_group_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">StackLoggerAdapter</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">),</span> <span class="n">name</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">arguments</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sceptre_user_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">connection_manager</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">stack_group_config</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">arguments</span> <span class="o">=</span> <span class="n">arguments</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sceptre_user_data</span> <span class="o">=</span> <span class="n">sceptre_user_data</span>

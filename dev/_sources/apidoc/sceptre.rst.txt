@@ -55,14 +55,6 @@ sceptre.helpers module
    :undoc-members:
    :show-inheritance:
 
-sceptre.logging module
-----------------------
-
-.. automodule:: sceptre.logging
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 sceptre.stack module
 --------------------
 

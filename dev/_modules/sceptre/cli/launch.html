@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sceptre.cli.launch &mdash; Sceptre 4.2.2 documentation</title>
+  <title>sceptre.cli.launch &mdash; Sceptre 3.2.1 documentation</title>
   
 
   
@@ -185,7 +185,7 @@
             
   <h1>Source code for sceptre.cli.launch</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
 
 <span class="kn">import</span> <span class="nn">click</span>
 <span class="kn">from</span> <span class="nn">click</span> <span class="kn">import</span> <span class="n">Context</span>
@@ -208,18 +208,11 @@
     <span class="s2">&quot;-p&quot;</span><span class="p">,</span>
     <span class="s2">&quot;--prune&quot;</span><span class="p">,</span>
     <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;If set, will delete all stacks in the command path marked as obsolete.&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
-    <span class="s2">&quot;--disable-rollback/--enable-rollback&quot;</span><span class="p">,</span>
-    <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Disable or enable the cloudformation automatic rollback&quot;</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;If set, will delete all stacks in the command path marked as obsolete.&quot;</span>
 <span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">pass_context</span>
 <span class="nd">@catch_exceptions</span>
-<span class="k">def</span> <span class="nf">launch_command</span><span class="p">(</span>
-    <span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">yes</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">prune</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">disable_rollback</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span>
-<span class="p">):</span>
+<span class="k">def</span> <span class="nf">launch_command</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">yes</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">prune</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Launch a Stack or StackGroup for a given config PATH. This command is intended as a catch-all</span>
 <span class="sd">    command that will apply any changes from Stack Configs indicated via the path.</span>
@@ -229,16 +222,15 @@
 <span class="sd">    * Any stacks that already exist will be updated (if there are any changes)</span>
 <span class="sd">    * If any stacks are marked with &quot;ignore: True&quot;, those stacks will neither be created nor updated</span>
 <span class="sd">    * If any stacks are marked with &quot;obsolete: True&quot;, those stacks will neither be created nor updated.</span>
-<span class="sd">    * Furthermore, if the &quot;-p&quot;/&quot;--prune&quot; flag is used, these stacks will be deleted prior to any</span>
+<span class="sd">      Furthermore, if the &quot;-p&quot;/&quot;--prune&quot; flag is used, these stacks will be deleted prior to any</span>
 <span class="sd">      other launch commands</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">context</span> <span class="o">=</span> <span class="n">SceptreContext</span><span class="p">(</span>
         <span class="n">command_path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
-        <span class="n">command_params</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">params</span><span class="p">,</span>
         <span class="n">project_path</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;project_path&quot;</span><span class="p">),</span>
         <span class="n">user_variables</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;user_variables&quot;</span><span class="p">),</span>
         <span class="n">options</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;options&quot;</span><span class="p">),</span>
-        <span class="n">ignore_dependencies</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ignore_dependencies&quot;</span><span class="p">),</span>
+        <span class="n">ignore_dependencies</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ignore_dependencies&quot;</span><span class="p">)</span>
     <span class="p">)</span>
     <span class="n">launcher</span> <span class="o">=</span> <span class="n">Launcher</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
     <span class="n">launcher</span><span class="o">.</span><span class="n">print_operations</span><span class="p">(</span><span class="n">prune</span><span class="p">)</span>
@@ -255,10 +247,7 @@
 <span class="sd">    :param context: The Sceptre context to use for launching</span>
 <span class="sd">    :param plan_factory: A callable with the signature of (SceptreContext) -&gt; SceptrePlan</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">SceptreContext</span><span class="p">,</span> <span class="n">plan_factory</span><span class="o">=</span><span class="n">SceptrePlan</span><span class="p">,</span> <span class="n">pruner_factory</span><span class="o">=</span><span class="n">Pruner</span>
-    <span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">SceptreContext</span><span class="p">,</span> <span class="n">plan_factory</span><span class="o">=</span><span class="n">SceptrePlan</span><span class="p">,</span> <span class="n">pruner_factory</span><span class="o">=</span><span class="n">Pruner</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_context</span> <span class="o">=</span> <span class="n">context</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_make_plan</span> <span class="o">=</span> <span class="n">plan_factory</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_make_pruner</span> <span class="o">=</span> <span class="n">pruner_factory</span>
@@ -300,24 +289,16 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plan</span>
 
     <span class="k">def</span> <span class="nf">_get_stacks_to_skip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deploy_plan</span><span class="p">:</span> <span class="n">SceptrePlan</span><span class="p">,</span> <span class="n">prune</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Stack</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="p">[</span>
-            <span class="n">stack</span>
-            <span class="k">for</span> <span class="n">stack</span> <span class="ow">in</span> <span class="n">deploy_plan</span>
-            <span class="k">if</span> <span class="n">stack</span><span class="o">.</span><span class="n">ignore</span> <span class="ow">or</span> <span class="p">(</span><span class="n">stack</span><span class="o">.</span><span class="n">obsolete</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">prune</span><span class="p">)</span>
-        <span class="p">]</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">stack</span> <span class="k">for</span> <span class="n">stack</span> <span class="ow">in</span> <span class="n">deploy_plan</span> <span class="k">if</span> <span class="n">stack</span><span class="o">.</span><span class="n">ignore</span> <span class="ow">or</span> <span class="p">(</span><span class="n">stack</span><span class="o">.</span><span class="n">obsolete</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">prune</span><span class="p">)]</span>
 
-    <span class="k">def</span> <span class="nf">_get_stacks_to_prune</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">deploy_plan</span><span class="p">:</span> <span class="n">SceptrePlan</span><span class="p">,</span> <span class="n">prune</span><span class="p">:</span> <span class="nb">bool</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Stack</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">_get_stacks_to_prune</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deploy_plan</span><span class="p">:</span> <span class="n">SceptrePlan</span><span class="p">,</span> <span class="n">prune</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Stack</span><span class="p">]:</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">stack</span> <span class="k">for</span> <span class="n">stack</span> <span class="ow">in</span> <span class="n">deploy_plan</span> <span class="k">if</span> <span class="n">prune</span> <span class="ow">and</span> <span class="n">stack</span><span class="o">.</span><span class="n">obsolete</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">_exclude_stacks_from_plan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deployment_plan</span><span class="p">:</span> <span class="n">SceptrePlan</span><span class="p">,</span> <span class="o">*</span><span class="n">stacks</span><span class="p">:</span> <span class="n">Stack</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">stack</span> <span class="ow">in</span> <span class="n">stacks</span><span class="p">:</span>
             <span class="n">deployment_plan</span><span class="o">.</span><span class="n">remove_stack_from_plan</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_validate_launch_for_missing_dependencies</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">deploy_plan</span><span class="p">:</span> <span class="n">SceptrePlan</span><span class="p">,</span> <span class="n">prune</span><span class="p">:</span> <span class="nb">bool</span>
-    <span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_validate_launch_for_missing_dependencies</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deploy_plan</span><span class="p">:</span> <span class="n">SceptrePlan</span><span class="p">,</span> <span class="n">prune</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
         <span class="n">validated_stacks</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="n">skipped_dependencies</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
 
@@ -356,7 +337,7 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">stacks</span><span class="p">):</span>
             <span class="k">return</span>
 
-        <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;* </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;* </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>
         <span class="k">for</span> <span class="n">stack</span> <span class="ow">in</span> <span class="n">stacks</span><span class="p">:</span>
             <span class="n">message</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">YELLOW</span><span class="si">}{</span><span class="n">stack</span><span class="o">.</span><span class="n">name</span><span class="si">}{</span><span class="n">Style</span><span class="o">.</span><span class="n">RESET_ALL</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
 
