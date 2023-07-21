@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sceptre.config.reader &mdash; Sceptre 3.3.1 documentation</title>
+  <title>sceptre.config.reader &mdash; Sceptre 3.2.2 documentation</title>
   
 
   
@@ -214,7 +214,6 @@
 <span class="kn">from</span> <span class="nn">packaging.version</span> <span class="kn">import</span> <span class="n">Version</span>
 
 <span class="kn">from</span> <span class="nn">sceptre</span> <span class="kn">import</span> <span class="n">__version__</span>
-<span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">SceptreException</span>
 <span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">DependencyDoesNotExistError</span>
 <span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">InvalidConfigFileError</span>
 <span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">InvalidSceptreDirectoryError</span>
@@ -249,17 +248,20 @@
     <span class="s2">&quot;template_path&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
     <span class="s2">&quot;template&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
     <span class="s2">&quot;ignore&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
-    <span class="s2">&quot;obsolete&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span><span class="p">,</span>
+    <span class="s2">&quot;obsolete&quot;</span><span class="p">:</span> <span class="n">strategies</span><span class="o">.</span><span class="n">child_wins</span>
 <span class="p">}</span>
 
 <span class="n">STACK_GROUP_CONFIG_ATTRIBUTES</span> <span class="o">=</span> <span class="n">ConfigAttributes</span><span class="p">(</span>
-    <span class="p">{</span><span class="s2">&quot;project_code&quot;</span><span class="p">,</span> <span class="s2">&quot;region&quot;</span><span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;project_code&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;region&quot;</span>
+    <span class="p">},</span>
     <span class="p">{</span>
         <span class="s2">&quot;template_bucket_name&quot;</span><span class="p">,</span>
         <span class="s2">&quot;template_key_prefix&quot;</span><span class="p">,</span>
         <span class="s2">&quot;required_version&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;j2_environment&quot;</span><span class="p">,</span>
-    <span class="p">},</span>
+        <span class="s2">&quot;j2_environment&quot;</span>
+    <span class="p">}</span>
 <span class="p">)</span>
 
 <span class="n">STACK_CONFIG_ATTRIBUTES</span> <span class="o">=</span> <span class="n">ConfigAttributes</span><span class="p">(</span>
@@ -280,8 +282,8 @@
         <span class="s2">&quot;sceptre_user_data&quot;</span><span class="p">,</span>
         <span class="s2">&quot;stack_name&quot;</span><span class="p">,</span>
         <span class="s2">&quot;stack_tags&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;stack_timeout&quot;</span><span class="p">,</span>
-    <span class="p">},</span>
+        <span class="s2">&quot;stack_timeout&quot;</span>
+    <span class="p">}</span>
 <span class="p">)</span>
 
 <span class="n">INTERNAL_CONFIG_ATTRIBUTES</span> <span class="o">=</span> <span class="n">ConfigAttributes</span><span class="p">(</span>
@@ -289,7 +291,8 @@
         <span class="s2">&quot;project_path&quot;</span><span class="p">,</span>
         <span class="s2">&quot;stack_group_path&quot;</span><span class="p">,</span>
     <span class="p">},</span>
-    <span class="p">{},</span>
+    <span class="p">{</span>
+    <span class="p">}</span>
 <span class="p">)</span>
 
 <span class="n">REQUIRED_KEYS</span> <span class="o">=</span> <span class="n">STACK_GROUP_CONFIG_ATTRIBUTES</span><span class="o">.</span><span class="n">required</span><span class="o">.</span><span class="n">union</span><span class="p">(</span>
@@ -331,11 +334,9 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
             <span class="kn">from</span> <span class="nn">pkg_resources</span> <span class="kn">import</span> <span class="n">iter_entry_points</span>
-
             <span class="k">return</span> <span class="n">iter_entry_points</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="kn">from</span> <span class="nn">importlib.metadata</span> <span class="kn">import</span> <span class="n">entry_points</span>
-
             <span class="k">return</span> <span class="n">entry_points</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">group</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_add_yaml_constructors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entry_point_groups</span><span class="p">):</span>
@@ -363,7 +364,6 @@
 <span class="sd">            :returns: Class initialiser.</span>
 <span class="sd">            :rtype: func</span>
 <span class="sd">            &quot;&quot;&quot;</span>
-
             <span class="c1"># This function signture is required by PyYAML</span>
             <span class="k">def</span> <span class="nf">class_constructor</span><span class="p">(</span><span class="n">loader</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
                 <span class="k">return</span> <span class="n">node_class</span><span class="p">(</span>
@@ -373,9 +373,10 @@
             <span class="k">return</span> <span class="n">class_constructor</span>
 
         <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">entry_point_groups</span><span class="p">:</span>
+
             <span class="k">for</span> <span class="n">entry_point</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iterate_entry_points</span><span class="p">(</span><span class="n">group</span><span class="p">):</span>
                 <span class="c1"># Retrieve name and class from entry point</span>
-                <span class="n">node_tag</span> <span class="o">=</span> <span class="s2">&quot;!&quot;</span> <span class="o">+</span> <span class="n">entry_point</span><span class="o">.</span><span class="n">name</span>
+                <span class="n">node_tag</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;!&#39;</span> <span class="o">+</span> <span class="n">entry_point</span><span class="o">.</span><span class="n">name</span>
                 <span class="n">node_class</span> <span class="o">=</span> <span class="n">entry_point</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
 
                 <span class="c1"># Add constructor to PyYAML loader</span>
@@ -384,8 +385,7 @@
                 <span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
                     <span class="s2">&quot;Added constructor for </span><span class="si">%s</span><span class="s2"> with node tag </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
-                    <span class="nb">str</span><span class="p">(</span><span class="n">node_class</span><span class="p">),</span>
-                    <span class="n">node_tag</span><span class="p">,</span>
+                    <span class="nb">str</span><span class="p">(</span><span class="n">node_class</span><span class="p">),</span> <span class="n">node_tag</span>
                 <span class="p">)</span>
 
 <div class="viewcode-block" id="ConfigReader.resolve_node_tag"><a class="viewcode-back" href="../../../apidoc/sceptre.config.html#sceptre.config.reader.ConfigReader.resolve_node_tag">[docs]</a>    <span class="k">def</span> <span class="nf">resolve_node_tag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">loader</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
@@ -415,8 +415,8 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">todo</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
             <span class="k">for</span> <span class="n">directory_name</span><span class="p">,</span> <span class="n">sub_directories</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">walk</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">followlinks</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-                <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">fnmatch</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="s2">&quot;*.yaml&quot;</span><span class="p">):</span>
-                    <span class="k">if</span> <span class="n">filename</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;config.&quot;</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">fnmatch</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="s1">&#39;*.yaml&#39;</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">filename</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;config.&#39;</span><span class="p">):</span>
                         <span class="k">continue</span>
 
                     <span class="n">todo</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory_name</span><span class="p">,</span> <span class="n">filename</span><span class="p">))</span>
@@ -427,15 +427,15 @@
 
         <span class="k">while</span> <span class="n">todo</span><span class="p">:</span>
             <span class="n">abs_path</span> <span class="o">=</span> <span class="n">todo</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-            <span class="n">rel_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">relpath</span><span class="p">(</span><span class="n">abs_path</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">full_config_path</span><span class="p">())</span>
+            <span class="n">rel_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">relpath</span><span class="p">(</span>
+                <span class="n">abs_path</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">full_config_path</span><span class="p">())</span>
             <span class="n">directory</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">rel_path</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">directory</span> <span class="ow">in</span> <span class="n">stack_group_configs</span><span class="p">:</span>
                 <span class="n">stack_group_config</span> <span class="o">=</span> <span class="n">stack_group_configs</span><span class="p">[</span><span class="n">directory</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">stack_group_config</span> <span class="o">=</span> <span class="n">stack_group_configs</span><span class="p">[</span><span class="n">directory</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read</span><span class="p">(</span>
-                    <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">config_file</span><span class="p">)</span>
-                <span class="p">)</span>
+                <span class="n">stack_group_config</span> <span class="o">=</span> <span class="n">stack_group_configs</span><span class="p">[</span><span class="n">directory</span><span class="p">]</span> <span class="o">=</span> \
+                    <span class="bp">self</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">config_file</span><span class="p">))</span>
 
             <span class="n">stack</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_construct_stack</span><span class="p">(</span><span class="n">rel_path</span><span class="p">,</span> <span class="n">stack_group_config</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">dep</span> <span class="ow">in</span> <span class="n">stack</span><span class="o">.</span><span class="n">dependencies</span><span class="p">:</span>
@@ -444,10 +444,8 @@
                     <span class="k">raise</span> <span class="n">DependencyDoesNotExistError</span><span class="p">(</span>
                         <span class="s2">&quot;</span><span class="si">{stackname}</span><span class="s2">: Dependency </span><span class="si">{dep}</span><span class="s2"> not found. &quot;</span>
                         <span class="s2">&quot;Please make sure that your dependencies stack_outputs &quot;</span>
-                        <span class="s2">&quot;have their full path from `config` defined.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                            <span class="n">stackname</span><span class="o">=</span><span class="n">stack</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">dep</span><span class="o">=</span><span class="n">dep</span>
-                        <span class="p">)</span>
-                    <span class="p">)</span>
+                        <span class="s2">&quot;have their full path from `config` defined.&quot;</span>
+                        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stackname</span><span class="o">=</span><span class="n">stack</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">dep</span><span class="o">=</span><span class="n">dep</span><span class="p">))</span>
 
                 <span class="k">if</span> <span class="n">full_dep</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">full_todo</span> <span class="ow">and</span> <span class="n">full_dep</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">deps_todo</span><span class="p">:</span>
                     <span class="n">todo</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">full_dep</span><span class="p">)</span>
@@ -456,9 +454,8 @@
             <span class="n">stack_map</span><span class="p">[</span><span class="n">sceptreise_path</span><span class="p">(</span><span class="n">rel_path</span><span class="p">)]</span> <span class="o">=</span> <span class="n">stack</span>
 
             <span class="n">full_command_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">full_command_path</span><span class="p">()</span>
-            <span class="k">if</span> <span class="n">abs_path</span> <span class="o">==</span> <span class="n">full_command_path</span> <span class="ow">or</span> <span class="n">abs_path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span>
-                <span class="n">full_command_path</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span><span class="p">)</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">sep</span>
-            <span class="p">):</span>
+            <span class="k">if</span> <span class="n">abs_path</span> <span class="o">==</span> <span class="n">full_command_path</span>\
+                    <span class="ow">or</span> <span class="n">abs_path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">full_command_path</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span><span class="p">)</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">sep</span><span class="p">):</span>
                 <span class="n">command_stacks</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span>
 
         <span class="n">stacks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">resolve_stacks</span><span class="p">(</span><span class="n">stack_map</span><span class="p">)</span>
@@ -491,12 +488,9 @@
                             <span class="s2">&quot;Valid dependency names are: &quot;</span>
                             <span class="s2">&quot;</span><span class="si">{stackkeys}</span><span class="s2">. &quot;</span>
                             <span class="s2">&quot;Please make sure that your dependencies stack_outputs &quot;</span>
-                            <span class="s2">&quot;have their full path from `config` defined.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                                <span class="n">stackname</span><span class="o">=</span><span class="n">stack</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-                                <span class="n">dep</span><span class="o">=</span><span class="n">dep</span><span class="p">,</span>
-                                <span class="n">stackkeys</span><span class="o">=</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">stack_map</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span>
-                            <span class="p">)</span>
-                        <span class="p">)</span>
+                            <span class="s2">&quot;have their full path from `config` defined.&quot;</span>
+                            <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stackname</span><span class="o">=</span><span class="n">stack</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">dep</span><span class="o">=</span><span class="n">dep</span><span class="p">,</span>
+                                    <span class="n">stackkeys</span><span class="o">=</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">stack_map</span><span class="o">.</span><span class="n">keys</span><span class="p">())))</span>
                 <span class="c1"># We deduplicate the dependencies using a set here, since it&#39;s possible that a given</span>
                 <span class="c1"># dependency ends up in the list multiple times.</span>
                 <span class="n">stack</span><span class="o">.</span><span class="n">dependencies</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">stack</span><span class="o">.</span><span class="n">dependencies</span><span class="p">))</span>
@@ -524,7 +518,7 @@
         <span class="c1"># Adding properties from class</span>
         <span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;project_path&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">project_path</span><span class="p">,</span>
-            <span class="s2">&quot;stack_group_path&quot;</span><span class="p">:</span> <span class="n">directory_path</span><span class="p">,</span>
+            <span class="s2">&quot;stack_group_path&quot;</span><span class="p">:</span> <span class="n">directory_path</span>
         <span class="p">}</span>
 
         <span class="c1"># Adding defaults from base config.</span>
@@ -532,19 +526,20 @@
             <span class="n">config</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">base_config</span><span class="p">)</span>
 
         <span class="c1"># Check if file exists, but ignore config.yaml as can be inherited.</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">abs_path</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">config_file</span>
-        <span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">abs_path</span><span class="p">)</span>\
+                <span class="ow">and</span> <span class="ow">not</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">config_file</span><span class="p">):</span>
             <span class="k">raise</span> <span class="n">ConfigFileNotFoundError</span><span class="p">(</span>
-                <span class="s1">&#39;Config file &quot;</span><span class="si">{0}</span><span class="s1">&quot; not found.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rel_path</span><span class="p">)</span>
+                <span class="s2">&quot;Config file </span><span class="se">\&quot;</span><span class="si">{0}</span><span class="se">\&quot;</span><span class="s2"> not found.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rel_path</span><span class="p">)</span>
             <span class="p">)</span>
 
         <span class="c1"># Parse and read in the config files.</span>
         <span class="n">this_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_recursive_read</span><span class="p">(</span><span class="n">directory_path</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="s2">&quot;dependencies&quot;</span> <span class="ow">in</span> <span class="n">config</span> <span class="ow">or</span> <span class="s2">&quot;dependencies&quot;</span> <span class="ow">in</span> <span class="n">this_config</span><span class="p">:</span>
-            <span class="n">this_config</span><span class="p">[</span><span class="s2">&quot;dependencies&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">CONFIG_MERGE_STRATEGIES</span><span class="p">[</span><span class="s2">&quot;dependencies&quot;</span><span class="p">](</span>
-                <span class="n">this_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;dependencies&quot;</span><span class="p">),</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;dependencies&quot;</span><span class="p">)</span>
+            <span class="n">this_config</span><span class="p">[</span><span class="s1">&#39;dependencies&#39;</span><span class="p">]</span> <span class="o">=</span> \
+                <span class="n">CONFIG_MERGE_STRATEGIES</span><span class="p">[</span><span class="s1">&#39;dependencies&#39;</span><span class="p">](</span>
+                    <span class="n">this_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;dependencies&quot;</span><span class="p">),</span>
+                    <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;dependencies&quot;</span><span class="p">)</span>
             <span class="p">)</span>
         <span class="n">config</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">this_config</span><span class="p">)</span>
 
@@ -553,9 +548,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Config: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">config</span></div>
 
-    <span class="k">def</span> <span class="nf">_recursive_read</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">directory_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">stack_group_config</span><span class="p">:</span> <span class="nb">dict</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_recursive_read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">stack_group_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Traverses the directory_path, from top to bottom, reading in all</span>
 <span class="sd">        relevant config files. If config attributes are encountered further</span>
@@ -574,9 +567,7 @@
         <span class="n">config</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="k">if</span> <span class="n">directory_path</span><span class="p">:</span>
-            <span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_recursive_read</span><span class="p">(</span>
-                <span class="n">parent_directory</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">stack_group_config</span>
-            <span class="p">)</span>
+            <span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_recursive_read</span><span class="p">(</span><span class="n">parent_directory</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">stack_group_config</span><span class="p">)</span>
 
         <span class="c1"># Combine the stack_group_config with the nested config dict</span>
         <span class="n">config_group</span> <span class="o">=</span> <span class="n">stack_group_config</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -586,7 +577,9 @@
         <span class="n">child_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_render</span><span class="p">(</span><span class="n">directory_path</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">config_group</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
 
         <span class="k">for</span> <span class="n">config_key</span><span class="p">,</span> <span class="n">strategy</span> <span class="ow">in</span> <span class="n">CONFIG_MERGE_STRATEGIES</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">value</span> <span class="o">=</span> <span class="n">strategy</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">config_key</span><span class="p">),</span> <span class="n">child_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">config_key</span><span class="p">))</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">strategy</span><span class="p">(</span>
+                <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">config_key</span><span class="p">),</span> <span class="n">child_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">config_key</span><span class="p">)</span>
+            <span class="p">)</span>
 
             <span class="k">if</span> <span class="n">value</span><span class="p">:</span>
                 <span class="n">child_config</span><span class="p">[</span><span class="n">config_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
@@ -614,37 +607,23 @@
         <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">abs_directory_path</span><span class="p">,</span> <span class="n">basename</span><span class="p">)):</span>
             <span class="n">default_j2_environment_config</span> <span class="o">=</span> <span class="p">{</span>
                 <span class="s2">&quot;autoescape&quot;</span><span class="p">:</span> <span class="n">select_autoescape</span><span class="p">(</span>
-                    <span class="n">disabled_extensions</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;yaml&quot;</span><span class="p">,),</span>
+                    <span class="n">disabled_extensions</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;yaml&#39;</span><span class="p">,),</span>
                     <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="p">),</span>
                 <span class="s2">&quot;loader&quot;</span><span class="p">:</span> <span class="n">FileSystemLoader</span><span class="p">(</span><span class="n">abs_directory_path</span><span class="p">),</span>
-                <span class="s2">&quot;undefined&quot;</span><span class="p">:</span> <span class="n">StrictUndefined</span><span class="p">,</span>
+                <span class="s2">&quot;undefined&quot;</span><span class="p">:</span> <span class="n">StrictUndefined</span>
             <span class="p">}</span>
             <span class="n">j2_environment_config</span> <span class="o">=</span> <span class="n">strategies</span><span class="o">.</span><span class="n">dict_merge</span><span class="p">(</span>
                 <span class="n">default_j2_environment_config</span><span class="p">,</span>
-                <span class="n">stack_group_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;j2_environment&quot;</span><span class="p">,</span> <span class="p">{}),</span>
-            <span class="p">)</span>
+                <span class="n">stack_group_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;j2_environment&quot;</span><span class="p">,</span> <span class="p">{}))</span>
             <span class="n">j2_environment</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">(</span><span class="o">**</span><span class="n">j2_environment_config</span><span class="p">)</span>
-
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">template</span> <span class="o">=</span> <span class="n">j2_environment</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="n">basename</span><span class="p">)</span>
-            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">SceptreException</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Path</span><span class="p">(</span><span class="n">directory_path</span><span class="p">,</span><span class="w"> </span><span class="n">basename</span><span class="p">)</span><span class="o">.</span><span class="n">as_posix</span><span class="p">()</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">err</span><span class="si">}</span><span class="s2">&quot;</span>
-                <span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span>
-
+            <span class="n">template</span> <span class="o">=</span> <span class="n">j2_environment</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="n">basename</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">templating_vars</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">stack_group_config</span><span class="p">)</span>
-
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">rendered_template</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">templating_vars</span><span class="p">,</span>
-                    <span class="n">command_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">command_path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span><span class="p">),</span>
-                    <span class="n">environment_variable</span><span class="o">=</span><span class="n">environ</span><span class="p">,</span>
-                <span class="p">)</span>
-            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">SceptreException</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Path</span><span class="p">(</span><span class="n">directory_path</span><span class="p">,</span><span class="w"> </span><span class="n">basename</span><span class="p">)</span><span class="o">.</span><span class="n">as_posix</span><span class="p">()</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">err</span><span class="si">}</span><span class="s2">&quot;</span>
-                <span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span>
+            <span class="n">rendered_template</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">templating_vars</span><span class="p">,</span>
+                <span class="n">command_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">command_path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span><span class="p">),</span>
+                <span class="n">environment_variable</span><span class="o">=</span><span class="n">environ</span>
+            <span class="p">)</span>
 
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">config</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">rendered_template</span><span class="p">)</span>
@@ -677,12 +656,14 @@
 <span class="sd">        :raises: sceptre.exceptions.VersionIncompatibleException</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">sceptre_version</span> <span class="o">=</span> <span class="n">__version__</span>
-        <span class="k">if</span> <span class="s2">&quot;required_version&quot;</span> <span class="ow">in</span> <span class="n">config</span><span class="p">:</span>
-            <span class="n">required_version</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;required_version&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s1">&#39;required_version&#39;</span> <span class="ow">in</span> <span class="n">config</span><span class="p">:</span>
+            <span class="n">required_version</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;required_version&#39;</span><span class="p">]</span>
             <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">sceptre_version</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">SpecifierSet</span><span class="p">(</span><span class="n">required_version</span><span class="p">,</span> <span class="kc">True</span><span class="p">):</span>
                 <span class="k">raise</span> <span class="n">VersionIncompatibleError</span><span class="p">(</span>
                     <span class="s2">&quot;Current sceptre version (</span><span class="si">{0}</span><span class="s2">) does not meet version &quot;</span>
-                    <span class="s2">&quot;requirements: </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sceptre_version</span><span class="p">,</span> <span class="n">required_version</span><span class="p">)</span>
+                    <span class="s2">&quot;requirements: </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">sceptre_version</span><span class="p">,</span> <span class="n">required_version</span>
+                    <span class="p">)</span>
                 <span class="p">)</span>
 
     <span class="nd">@staticmethod</span>
@@ -701,16 +682,13 @@
         <span class="c1"># If the config explicitly sets the template_bucket_name to None, we don&#39;t want to enter</span>
         <span class="c1"># this conditional block.</span>
         <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;template_bucket_name&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">template_key</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                <span class="p">[</span>
-                    <span class="n">sceptreise_path</span><span class="p">(</span><span class="n">stack_name</span><span class="p">),</span>
-                    <span class="s2">&quot;</span><span class="si">{time_stamp}</span><span class="s2">.json&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                        <span class="n">time_stamp</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span>
-                            <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">-%H-%M-%S-</span><span class="si">%f</span><span class="s2">Z&quot;</span>
-                        <span class="p">)</span>
-                    <span class="p">),</span>
-                <span class="p">]</span>
-            <span class="p">)</span>
+            <span class="n">template_key</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span>
+                <span class="n">sceptreise_path</span><span class="p">(</span><span class="n">stack_name</span><span class="p">),</span> <span class="s2">&quot;</span><span class="si">{time_stamp}</span><span class="s2">.json&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">time_stamp</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span>
+                        <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">-%H-%M-%S-</span><span class="si">%f</span><span class="s2">Z&quot;</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+            <span class="p">])</span>
 
             <span class="k">if</span> <span class="s2">&quot;template_key_prefix&quot;</span> <span class="ow">in</span> <span class="n">config</span><span class="p">:</span>
                 <span class="n">prefix</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;template_key_prefix&quot;</span><span class="p">]</span>
@@ -718,7 +696,7 @@
 
             <span class="n">s3_details</span> <span class="o">=</span> <span class="p">{</span>
                 <span class="s2">&quot;bucket_name&quot;</span><span class="p">:</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;template_bucket_name&quot;</span><span class="p">],</span>
-                <span class="s2">&quot;bucket_key&quot;</span><span class="p">:</span> <span class="n">template_key</span><span class="p">,</span>
+                <span class="s2">&quot;bucket_key&quot;</span><span class="p">:</span> <span class="n">template_key</span>
             <span class="p">}</span>
         <span class="k">return</span> <span class="n">s3_details</span>
 
@@ -753,12 +731,9 @@
                     <span class="p">)</span>
                 <span class="p">)</span>
 
-        <span class="n">s3_details</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collect_s3_details</span><span class="p">(</span><span class="n">stack_name</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
-        <span class="c1"># If disable/enable rollback was specified on the command line, use that. Otherwise,</span>
-        <span class="c1"># fall back to the stack config.</span>
-        <span class="n">disable_rollback</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">command_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;disable_rollback&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">disable_rollback</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">disable_rollback</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;disable_rollback&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="n">s3_details</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collect_s3_details</span><span class="p">(</span>
+            <span class="n">stack_name</span><span class="p">,</span> <span class="n">config</span>
+        <span class="p">)</span>
 
         <span class="n">stack</span> <span class="o">=</span> <span class="n">Stack</span><span class="p">(</span>
             <span class="n">name</span><span class="o">=</span><span class="n">stack_name</span><span class="p">,</span>
@@ -783,11 +758,10 @@
             <span class="n">external_name</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;stack_name&quot;</span><span class="p">),</span>
             <span class="n">notifications</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;notifications&quot;</span><span class="p">),</span>
             <span class="n">on_failure</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;on_failure&quot;</span><span class="p">),</span>
-            <span class="n">disable_rollback</span><span class="o">=</span><span class="n">disable_rollback</span><span class="p">,</span>
             <span class="n">stack_timeout</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;stack_timeout&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
             <span class="n">ignore</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
             <span class="n">obsolete</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;obsolete&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
-            <span class="n">stack_group_config</span><span class="o">=</span><span class="n">parsed_stack_group_config</span><span class="p">,</span>
+            <span class="n">stack_group_config</span><span class="o">=</span><span class="n">parsed_stack_group_config</span>
         <span class="p">)</span>
 
         <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">templating_vars</span><span class="p">[</span><span class="s2">&quot;stack_group_config&quot;</span><span class="p">]</span>
@@ -801,7 +775,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">parsed_config</span> <span class="o">=</span> <span class="p">{</span>
             <span class="n">key</span><span class="p">:</span> <span class="n">stack_group_config</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">stack_group_config</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">CONFIG_MERGE_STRATEGIES</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span>
+            <span class="nb">set</span><span class="p">(</span><span class="n">stack_group_config</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">CONFIG_MERGE_STRATEGIES</span><span class="p">)</span>
         <span class="p">}</span>
         <span class="n">parsed_config</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;stack_group_path&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">parsed_config</span></div>

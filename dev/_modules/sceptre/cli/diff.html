@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sceptre.cli.diff &mdash; Sceptre 3.3.1 documentation</title>
+  <title>sceptre.cli.diff &mdash; Sceptre 3.2.2 documentation</title>
   
 
   
@@ -194,17 +194,8 @@
 
 <span class="kn">from</span> <span class="nn">sceptre.cli.helpers</span> <span class="kn">import</span> <span class="n">catch_exceptions</span>
 <span class="kn">from</span> <span class="nn">sceptre.context</span> <span class="kn">import</span> <span class="n">SceptreContext</span>
-<span class="kn">from</span> <span class="nn">sceptre.diffing.diff_writer</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">DeepDiffWriter</span><span class="p">,</span>
-    <span class="n">DiffLibWriter</span><span class="p">,</span>
-    <span class="n">ColouredDiffLibWriter</span><span class="p">,</span>
-    <span class="n">DiffWriter</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="kn">from</span> <span class="nn">sceptre.diffing.stack_differ</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">DeepDiffStackDiffer</span><span class="p">,</span>
-    <span class="n">DifflibStackDiffer</span><span class="p">,</span>
-    <span class="n">StackDiff</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">sceptre.diffing.diff_writer</span> <span class="kn">import</span> <span class="n">DeepDiffWriter</span><span class="p">,</span> <span class="n">DiffLibWriter</span><span class="p">,</span> <span class="n">DiffWriter</span>
+<span class="kn">from</span> <span class="nn">sceptre.diffing.stack_differ</span> <span class="kn">import</span> <span class="n">DeepDiffStackDiffer</span><span class="p">,</span> <span class="n">DifflibStackDiffer</span><span class="p">,</span> <span class="n">StackDiff</span>
 <span class="kn">from</span> <span class="nn">sceptre.helpers</span> <span class="kn">import</span> <span class="n">null_context</span>
 <span class="kn">from</span> <span class="nn">sceptre.plan.plan</span> <span class="kn">import</span> <span class="n">SceptrePlan</span>
 <span class="kn">from</span> <span class="nn">sceptre.resolvers.placeholders</span> <span class="kn">import</span> <span class="n">use_resolver_placeholders_on_error</span>
@@ -213,45 +204,42 @@
 <span class="n">logger</span> <span class="o">=</span> <span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
-<span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;diff&quot;</span><span class="p">,</span>
-    <span class="n">short_help</span><span class="o">=</span><span class="s2">&quot;Compares deployed infrastructure with current configurations&quot;</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;diff&quot;</span><span class="p">,</span> <span class="n">short_help</span><span class="o">=</span><span class="s2">&quot;Compares deployed infrastructure with current configurations&quot;</span><span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
-    <span class="s2">&quot;-t&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;--type&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;differ&quot;</span><span class="p">,</span>
-    <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Choice</span><span class="p">([</span><span class="s2">&quot;deepdiff&quot;</span><span class="p">,</span> <span class="s2">&quot;difflib&quot;</span><span class="p">]),</span>
-    <span class="n">default</span><span class="o">=</span><span class="s2">&quot;deepdiff&quot;</span><span class="p">,</span>
+    <span class="s1">&#39;-t&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;--type&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;differ&#39;</span><span class="p">,</span>
+    <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Choice</span><span class="p">([</span><span class="s1">&#39;deepdiff&#39;</span><span class="p">,</span> <span class="s1">&#39;difflib&#39;</span><span class="p">]),</span>
+    <span class="n">default</span><span class="o">=</span><span class="s1">&#39;deepdiff&#39;</span><span class="p">,</span>
     <span class="n">help</span><span class="o">=</span><span class="s1">&#39;The type of differ to use. Use &quot;deepdiff&quot; for recursive key/value comparison. &quot;difflib&quot; &#39;</span>
-    <span class="s1">&#39;produces a more traditional &quot;diff&quot; result. Defaults to deepdiff.&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;produces a more traditional &quot;diff&quot; result. Defaults to deepdiff.&#39;</span>
 <span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
-    <span class="s2">&quot;-s&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;--show-no-echo&quot;</span><span class="p">,</span>
+    <span class="s1">&#39;-s&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;--show-no-echo&#39;</span><span class="p">,</span>
     <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;If set, will display the unmasked values of NoEcho parameters generated LOCALLY (NoEcho &quot;</span>
-    <span class="s2">&quot;parameters for deployed stacks will always be masked when retrieved from CloudFormation.). &quot;</span>
-    <span class="s2">&quot;If not set (the default), parameters identified as NoEcho on the local template will be &quot;</span>
-    <span class="s2">&quot;masked when presented in the diff.&quot;</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s1">&#39;If set, will display the unmasked values of NoEcho parameters generated LOCALLY (NoEcho &#39;</span>
+         <span class="s1">&#39;parameters for deployed stacks will always be masked when retrieved from CloudFormation.). &#39;</span>
+         <span class="s1">&#39;If not set (the default), parameters identified as NoEcho on the local template will be &#39;</span>
+         <span class="s1">&#39;masked when presented in the diff.&#39;</span>
 <span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
-    <span class="s2">&quot;-n&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;--no-placeholders&quot;</span><span class="p">,</span>
+    <span class="s1">&#39;-n&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;--no-placeholders&#39;</span><span class="p">,</span>
     <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;If set, no placeholder values will be supplied for resolvers that cannot be resolved.&quot;</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;If set, no placeholder values will be supplied for resolvers that cannot be resolved.&quot;</span>
 <span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
-    <span class="s2">&quot;-a&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;--all&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;all_&quot;</span><span class="p">,</span>
+    <span class="s1">&#39;-a&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;--all&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;all_&#39;</span><span class="p">,</span>
     <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">help</span><span class="o">=</span><span class="p">(</span>
-        <span class="s2">&quot;If set, will perform diffing on ALL stacks, including ignored and obsolete ones; Otherwise, &quot;</span>
-        <span class="s2">&quot;it will diff only stacks that would be created or updated when running the launch command.&quot;</span>
-    <span class="p">),</span>
+         <span class="s2">&quot;If set, will perform diffing on ALL stacks, including ignored and obsolete ones; Otherwise, &quot;</span>
+         <span class="s2">&quot;it will diff only stacks that would be created or updated when running the launch command.&quot;</span>
+    <span class="p">)</span>
 <span class="p">)</span>
-<span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s2">&quot;path&quot;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">pass_context</span>
 <span class="nd">@catch_exceptions</span>
 <span class="k">def</span> <span class="nf">diff_command</span><span class="p">(</span>
@@ -260,7 +248,7 @@
     <span class="n">show_no_echo</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
     <span class="n">no_placeholders</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
     <span class="n">all_</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
-    <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">path</span><span class="p">:</span> <span class="nb">str</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Indicates the difference between the currently DEPLOYED stacks in the command path and</span>
 <span class="sd">    the stacks configured in Sceptre right now. This command will compare both the templates as well</span>
@@ -293,17 +281,14 @@
 <span class="sd">    Particularly in cases where the replaced value doesn&#39;t work in the template as the template logic</span>
 <span class="sd">    requires and causes an error, there is nothing further Sceptre can do and diffing will fail.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">no_colour</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;no_colour&quot;</span><span class="p">)</span>
-
     <span class="n">context</span> <span class="o">=</span> <span class="n">SceptreContext</span><span class="p">(</span>
         <span class="n">command_path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
-        <span class="n">command_params</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">params</span><span class="p">,</span>
         <span class="n">project_path</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;project_path&quot;</span><span class="p">),</span>
         <span class="n">user_variables</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;user_variables&quot;</span><span class="p">),</span>
         <span class="n">options</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;options&quot;</span><span class="p">),</span>
         <span class="n">ignore_dependencies</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ignore_dependencies&quot;</span><span class="p">),</span>
-        <span class="n">output_format</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;output_format&quot;</span><span class="p">),</span>
-        <span class="n">no_colour</span><span class="o">=</span><span class="n">no_colour</span><span class="p">,</span>
+        <span class="n">output_format</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;output_format&#39;</span><span class="p">),</span>
+        <span class="n">no_colour</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;no_colour&#39;</span><span class="p">)</span>
     <span class="p">)</span>
     <span class="n">output_format</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">output_format</span>
     <span class="n">plan</span> <span class="o">=</span> <span class="n">SceptrePlan</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
@@ -313,24 +298,22 @@
     <span class="k">if</span> <span class="n">differ</span> <span class="o">==</span> <span class="s2">&quot;deepdiff&quot;</span><span class="p">:</span>
         <span class="n">stack_differ</span> <span class="o">=</span> <span class="n">DeepDiffStackDiffer</span><span class="p">(</span><span class="n">show_no_echo</span><span class="p">)</span>
         <span class="n">writer_class</span> <span class="o">=</span> <span class="n">DeepDiffWriter</span>
-    <span class="k">elif</span> <span class="n">differ</span> <span class="o">==</span> <span class="s2">&quot;difflib&quot;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">differ</span> <span class="o">==</span> <span class="s1">&#39;difflib&#39;</span><span class="p">:</span>
         <span class="n">stack_differ</span> <span class="o">=</span> <span class="n">DifflibStackDiffer</span><span class="p">(</span><span class="n">show_no_echo</span><span class="p">)</span>
-        <span class="n">writer_class</span> <span class="o">=</span> <span class="n">DiffLibWriter</span> <span class="k">if</span> <span class="n">no_colour</span> <span class="k">else</span> <span class="n">ColouredDiffLibWriter</span>
+        <span class="n">writer_class</span> <span class="o">=</span> <span class="n">DiffLibWriter</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unexpected differ type: </span><span class="si">{</span><span class="n">differ</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    <span class="n">execution_context</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">null_context</span><span class="p">()</span> <span class="k">if</span> <span class="n">no_placeholders</span> <span class="k">else</span> <span class="n">use_resolver_placeholders_on_error</span><span class="p">()</span>
-    <span class="p">)</span>
+    <span class="n">execution_context</span> <span class="o">=</span> <span class="n">null_context</span><span class="p">()</span> <span class="k">if</span> <span class="n">no_placeholders</span> <span class="k">else</span> <span class="n">use_resolver_placeholders_on_error</span><span class="p">()</span>
     <span class="k">with</span> <span class="n">execution_context</span><span class="p">:</span>
         <span class="n">diffs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Stack</span><span class="p">,</span> <span class="n">StackDiff</span><span class="p">]</span> <span class="o">=</span> <span class="n">plan</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">stack_differ</span><span class="p">)</span>
 
-    <span class="n">num_stacks_with_diff</span> <span class="o">=</span> <span class="n">output_diffs</span><span class="p">(</span>
-        <span class="n">diffs</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">writer_class</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">output_format</span>
-    <span class="p">)</span>
+    <span class="n">num_stacks_with_diff</span> <span class="o">=</span> <span class="n">output_diffs</span><span class="p">(</span><span class="n">diffs</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">writer_class</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">output_format</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">num_stacks_with_diff</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">num_stacks_with_diff</span><span class="si">}</span><span class="s2"> stacks with differences detected.&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">num_stacks_with_diff</span><span class="si">}</span><span class="s2"> stacks with differences detected.&quot;</span>
+        <span class="p">)</span>
 
 
 <div class="viewcode-block" id="output_diffs"><a class="viewcode-back" href="../../../apidoc/sceptre.cli.html#sceptre.cli.diff.output_diffs">[docs]</a><span class="k">def</span> <span class="nf">output_diffs</span><span class="p">(</span>
@@ -362,9 +345,7 @@
     <span class="k">return</span> <span class="n">num_stacks_with_diff</span></div>
 
 
-<div class="viewcode-block" id="output_buffer_with_normalized_bar_lengths"><a class="viewcode-back" href="../../../apidoc/sceptre.cli.html#sceptre.cli.diff.output_buffer_with_normalized_bar_lengths">[docs]</a><span class="k">def</span> <span class="nf">output_buffer_with_normalized_bar_lengths</span><span class="p">(</span>
-    <span class="n">buffer</span><span class="p">:</span> <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">,</span> <span class="n">output_stream</span><span class="p">:</span> <span class="n">TextIO</span>
-<span class="p">):</span>
+<div class="viewcode-block" id="output_buffer_with_normalized_bar_lengths"><a class="viewcode-back" href="../../../apidoc/sceptre.cli.html#sceptre.cli.diff.output_buffer_with_normalized_bar_lengths">[docs]</a><span class="k">def</span> <span class="nf">output_buffer_with_normalized_bar_lengths</span><span class="p">(</span><span class="n">buffer</span><span class="p">:</span> <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">,</span> <span class="n">output_stream</span><span class="p">:</span> <span class="n">TextIO</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Takes the output from a buffer and ensures that the star and line bars are the same length</span>
 <span class="sd">    across the entire buffer and that their length is the full width of longest line.</span>
 
@@ -374,8 +355,8 @@
     <span class="n">buffer</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">max_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">))</span>
     <span class="n">buffer</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">full_length_star_bar</span> <span class="o">=</span> <span class="s2">&quot;*&quot;</span> <span class="o">*</span> <span class="n">max_length</span>
-    <span class="n">full_length_line_bar</span> <span class="o">=</span> <span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="n">max_length</span>
+    <span class="n">full_length_star_bar</span> <span class="o">=</span> <span class="s1">&#39;*&#39;</span> <span class="o">*</span> <span class="n">max_length</span>
+    <span class="n">full_length_line_bar</span> <span class="o">=</span> <span class="s1">&#39;-&#39;</span> <span class="o">*</span> <span class="n">max_length</span>
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">buffer</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">DiffWriter</span><span class="o">.</span><span class="n">STAR_BAR</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
             <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">DiffWriter</span><span class="o">.</span><span class="n">STAR_BAR</span><span class="p">,</span> <span class="n">full_length_star_bar</span><span class="p">)</span>

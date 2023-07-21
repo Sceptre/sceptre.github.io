@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sceptre.template_handlers.file &mdash; Sceptre 3.3.1 documentation</title>
+  <title>sceptre.template_handlers.file &mdash; Sceptre 3.2.2 documentation</title>
   
 
   
@@ -211,7 +211,7 @@
             <span class="s2">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">},</span>
             <span class="p">},</span>
-            <span class="s2">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">]</span>
         <span class="p">}</span></div>
 
 <div class="viewcode-block" id="File.handle"><a class="viewcode-back" href="../../../apidoc/sceptre.template_handlers.html#sceptre.template_handlers.file.File.handle">[docs]</a>    <span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -221,8 +221,7 @@
         <span class="k">if</span> <span class="n">input_path</span><span class="o">.</span><span class="n">suffix</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">supported_template_extensions</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">UnsupportedTemplateFileTypeError</span><span class="p">(</span>
                 <span class="s2">&quot;Template has file extension </span><span class="si">%s</span><span class="s2">. Only </span><span class="si">%s</span><span class="s2"> are supported.&quot;</span><span class="p">,</span>
-                <span class="n">input_path</span><span class="o">.</span><span class="n">suffix</span><span class="p">,</span>
-                <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">supported_template_extensions</span><span class="p">),</span>
+                <span class="n">input_path</span><span class="o">.</span><span class="n">suffix</span><span class="p">,</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">supported_template_extensions</span><span class="p">)</span>
             <span class="p">)</span>
 
         <span class="k">try</span><span class="p">:</span>
@@ -230,13 +229,12 @@
                 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">as</span> <span class="n">template_file</span><span class="p">:</span>
                     <span class="k">return</span> <span class="n">template_file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
             <span class="k">elif</span> <span class="n">input_path</span><span class="o">.</span><span class="n">suffix</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">jinja_template_extensions</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">helper</span><span class="o">.</span><span class="n">render_jinja_template</span><span class="p">(</span>
-                    <span class="n">path</span><span class="p">,</span>
-                    <span class="p">{</span><span class="s2">&quot;sceptre_user_data&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">sceptre_user_data</span><span class="p">},</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">stack_group_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;j2_environment&quot;</span><span class="p">,</span> <span class="p">{}),</span>
-                <span class="p">)</span>
+                <span class="k">return</span> <span class="n">helper</span><span class="o">.</span><span class="n">render_jinja_template</span><span class="p">(</span><span class="n">path</span><span class="p">,</span>
+                                                    <span class="p">{</span><span class="s2">&quot;sceptre_user_data&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">sceptre_user_data</span><span class="p">},</span>
+                                                    <span class="bp">self</span><span class="o">.</span><span class="n">stack_group_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;j2_environment&quot;</span><span class="p">,</span> <span class="p">{}))</span>
             <span class="k">elif</span> <span class="n">input_path</span><span class="o">.</span><span class="n">suffix</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">python_template_extensions</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">helper</span><span class="o">.</span><span class="n">call_sceptre_handler</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sceptre_user_data</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">helper</span><span class="o">.</span><span class="n">call_sceptre_handler</span><span class="p">(</span><span class="n">path</span><span class="p">,</span>
+                                                   <span class="bp">self</span><span class="o">.</span><span class="n">sceptre_user_data</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="n">helper</span><span class="o">.</span><span class="n">print_template_traceback</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
             <span class="k">raise</span> <span class="n">e</span></div>
@@ -250,9 +248,8 @@
 <span class="sd">        if the input is absolute.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">stack_group_config</span><span class="p">[</span><span class="s2">&quot;project_path&quot;</span><span class="p">],</span>
-            <span class="s2">&quot;templates&quot;</span><span class="p">,</span>
-            <span class="n">normalise_path</span><span class="p">(</span><span class="n">template_path</span><span class="p">),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stack_group_config</span><span class="p">[</span><span class="s2">&quot;project_path&quot;</span><span class="p">],</span> <span class="s2">&quot;templates&quot;</span><span class="p">,</span>
+            <span class="n">normalise_path</span><span class="p">(</span><span class="n">template_path</span><span class="p">)</span>
         <span class="p">)</span></div>
 </pre></div>
 

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sceptre.cli.prune &mdash; Sceptre 3.3.1 documentation</title>
+  <title>sceptre.cli.prune &mdash; Sceptre 3.2.2 documentation</title>
   
 
   
@@ -197,7 +197,9 @@
 
 
 <span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;prune&quot;</span><span class="p">,</span> <span class="n">short_help</span><span class="o">=</span><span class="s2">&quot;Deletes all obsolete stacks in the project&quot;</span><span class="p">)</span>
-<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;-y&quot;</span><span class="p">,</span> <span class="s2">&quot;--yes&quot;</span><span class="p">,</span> <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Assume yes to all questions.&quot;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
+    <span class="s2">&quot;-y&quot;</span><span class="p">,</span> <span class="s2">&quot;--yes&quot;</span><span class="p">,</span> <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Assume yes to all questions.&quot;</span>
+<span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s2">&quot;path&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">PATH_FOR_WHOLE_PROJECT</span><span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">pass_context</span>
 <span class="nd">@catch_exceptions</span>
@@ -209,7 +211,6 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">context</span> <span class="o">=</span> <span class="n">SceptreContext</span><span class="p">(</span>
         <span class="n">command_path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
-        <span class="n">command_params</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">params</span><span class="p">,</span>
         <span class="n">project_path</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;project_path&quot;</span><span class="p">),</span>
         <span class="n">user_variables</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;user_variables&quot;</span><span class="p">),</span>
         <span class="n">options</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;options&quot;</span><span class="p">),</span>
@@ -235,8 +236,7 @@
 <span class="sd">    :param context: The Sceptre context to use for pruning</span>
 <span class="sd">    :param plan_factory: A callable with the signature of (SceptreContext) -&gt; SceptrePlan</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">SceptreContext</span><span class="p">,</span> <span class="n">plan_factory</span><span class="o">=</span><span class="n">SceptrePlan</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span>  <span class="n">SceptreContext</span><span class="p">,</span> <span class="n">plan_factory</span><span class="o">=</span><span class="n">SceptrePlan</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_context</span> <span class="o">=</span> <span class="n">context</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_make_plan</span> <span class="o">=</span> <span class="n">plan_factory</span>
 
@@ -283,7 +283,9 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">stacks</span> <span class="o">=</span> <span class="n">plan</span><span class="o">.</span><span class="n">command_stacks</span>
 
-            <span class="n">plan</span><span class="o">.</span><span class="n">command_stacks</span> <span class="o">=</span> <span class="p">{</span><span class="n">stack</span> <span class="k">for</span> <span class="n">stack</span> <span class="ow">in</span> <span class="n">stacks</span> <span class="k">if</span> <span class="n">stack</span><span class="o">.</span><span class="n">obsolete</span><span class="p">}</span>
+            <span class="n">plan</span><span class="o">.</span><span class="n">command_stacks</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">stack</span> <span class="k">for</span> <span class="n">stack</span> <span class="ow">in</span> <span class="n">stacks</span> <span class="k">if</span> <span class="n">stack</span><span class="o">.</span><span class="n">obsolete</span>
+            <span class="p">}</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_plan</span><span class="p">(</span><span class="n">plan</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_plan</span> <span class="o">=</span> <span class="n">plan</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plan</span>
@@ -292,9 +294,7 @@
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">plan</span><span class="o">.</span><span class="n">command_stacks</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
 
     <span class="k">def</span> <span class="nf">_print_no_obsolete_stacks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span>
-            <span class="s2">&quot;* There are no stacks marked obsolete, so there is nothing to prune.&quot;</span>
-        <span class="p">)</span>
+        <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="s2">&quot;* There are no stacks marked obsolete, so there is nothing to prune.&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_resolve_plan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plan</span><span class="p">:</span> <span class="n">SceptrePlan</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">plan</span><span class="o">.</span><span class="n">command_stacks</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -335,11 +335,9 @@
             <span class="n">check_for_non_obsolete_dependencies</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_print_stacks_to_be_deleted</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plan</span><span class="p">:</span> <span class="n">SceptrePlan</span><span class="p">):</span>
-        <span class="n">delete_msg</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="s2">&quot;* The following obsolete stacks will be deleted (if they exist on AWS):</span><span class="se">\n</span><span class="s2">&quot;</span>
-        <span class="p">)</span>
+        <span class="n">delete_msg</span> <span class="o">=</span> <span class="s2">&quot;* The following obsolete stacks will be deleted (if they exist on AWS):</span><span class="se">\n</span><span class="s2">&quot;</span>
 
-        <span class="n">stacks_list</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">stacks_list</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
         <span class="k">for</span> <span class="n">stack</span> <span class="ow">in</span> <span class="n">plan</span><span class="p">:</span>
             <span class="c1"># It&#39;s possible there could be stacks in the plan that aren&#39;t obsolete because those</span>
             <span class="c1"># stacks depend on obsolete stacks. They won&#39;t pass validation, but that&#39;s not the</span>
