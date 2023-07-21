@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sceptre.template_handlers.s3 &mdash; Sceptre 3.2.1 documentation</title>
+  <title>sceptre.template_handlers.s3 &mdash; Sceptre 3.3.1 documentation</title>
   
 
   
@@ -209,10 +209,8 @@
 <div class="viewcode-block" id="S3.schema"><a class="viewcode-back" href="../../../apidoc/sceptre.template_handlers.html#sceptre.template_handlers.s3.S3.schema">[docs]</a>    <span class="k">def</span> <span class="nf">schema</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">{</span>
             <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">}</span>
-            <span class="p">},</span>
-            <span class="s2">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">]</span>
+            <span class="s2">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">}},</span>
+            <span class="s2">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">],</span>
         <span class="p">}</span></div>
 
 <div class="viewcode-block" id="S3.handle"><a class="viewcode-back" href="../../../apidoc/sceptre.template_handlers.html#sceptre.template_handlers.s3.S3.handle">[docs]</a>    <span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -225,12 +223,15 @@
         <span class="n">standard_template_suffix</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;.json&quot;</span><span class="p">,</span> <span class="s2">&quot;.yaml&quot;</span><span class="p">,</span> <span class="s2">&quot;.template&quot;</span><span class="p">]</span>
         <span class="n">jinja_template_suffix</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;.j2&quot;</span><span class="p">]</span>
         <span class="n">python_template_suffix</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;.py&quot;</span><span class="p">]</span>
-        <span class="n">supported_suffix</span> <span class="o">=</span> <span class="n">standard_template_suffix</span> <span class="o">+</span> <span class="n">jinja_template_suffix</span> <span class="o">+</span> <span class="n">python_template_suffix</span>
+        <span class="n">supported_suffix</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">standard_template_suffix</span> <span class="o">+</span> <span class="n">jinja_template_suffix</span> <span class="o">+</span> <span class="n">python_template_suffix</span>
+        <span class="p">)</span>
 
         <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">suffix</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">supported_suffix</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">UnsupportedTemplateFileTypeError</span><span class="p">(</span>
                 <span class="s2">&quot;Template has file extension </span><span class="si">%s</span><span class="s2">. Only </span><span class="si">%s</span><span class="s2"> are supported.&quot;</span><span class="p">,</span>
-                <span class="n">path</span><span class="o">.</span><span class="n">suffix</span><span class="p">,</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">supported_suffix</span><span class="p">)</span>
+                <span class="n">path</span><span class="o">.</span><span class="n">suffix</span><span class="p">,</span>
+                <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">supported_suffix</span><span class="p">),</span>
             <span class="p">)</span>
 
         <span class="k">try</span><span class="p">:</span>
@@ -242,13 +243,14 @@
                     <span class="n">f</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
                     <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
                     <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">suffix</span> <span class="ow">in</span> <span class="n">jinja_template_suffix</span><span class="p">:</span>
-                        <span class="n">template</span> <span class="o">=</span> <span class="n">helper</span><span class="o">.</span><span class="n">render_jinja_template</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-                                                                <span class="p">{</span><span class="s2">&quot;sceptre_user_data&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">sceptre_user_data</span><span class="p">},</span>
-                                                                <span class="bp">self</span><span class="o">.</span><span class="n">stack_group_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;j2_environment&quot;</span><span class="p">,</span> <span class="p">{}))</span>
+                        <span class="n">template</span> <span class="o">=</span> <span class="n">helper</span><span class="o">.</span><span class="n">render_jinja_template</span><span class="p">(</span>
+                            <span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                            <span class="p">{</span><span class="s2">&quot;sceptre_user_data&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">sceptre_user_data</span><span class="p">},</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">stack_group_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;j2_environment&quot;</span><span class="p">,</span> <span class="p">{}),</span>
+                        <span class="p">)</span>
                     <span class="k">elif</span> <span class="n">path</span><span class="o">.</span><span class="n">suffix</span> <span class="ow">in</span> <span class="n">python_template_suffix</span><span class="p">:</span>
                         <span class="n">template</span> <span class="o">=</span> <span class="n">helper</span><span class="o">.</span><span class="n">call_sceptre_handler</span><span class="p">(</span>
-                            <span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">sceptre_user_data</span>
+                            <span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sceptre_user_data</span>
                         <span class="p">)</span>
 
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
@@ -274,10 +276,7 @@
             <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection_manager</span><span class="o">.</span><span class="n">call</span><span class="p">(</span>
                 <span class="n">service</span><span class="o">=</span><span class="s2">&quot;s3&quot;</span><span class="p">,</span>
                 <span class="n">command</span><span class="o">=</span><span class="s2">&quot;get_object&quot;</span><span class="p">,</span>
-                <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span>
-                    <span class="s2">&quot;Bucket&quot;</span><span class="p">:</span> <span class="n">bucket</span><span class="p">,</span>
-                    <span class="s2">&quot;Key&quot;</span><span class="p">:</span> <span class="n">key</span>
-                <span class="p">}</span>
+                <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Bucket&quot;</span><span class="p">:</span> <span class="n">bucket</span><span class="p">,</span> <span class="s2">&quot;Key&quot;</span><span class="p">:</span> <span class="n">key</span><span class="p">},</span>
             <span class="p">)</span>
             <span class="k">return</span> <span class="n">response</span><span class="p">[</span><span class="s2">&quot;Body&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>

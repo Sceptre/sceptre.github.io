@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Index &mdash; Sceptre 3.2.1 documentation</title>
+  <title>Index &mdash; Sceptre 3.3.1 documentation</title>
   
 
   
@@ -249,10 +249,36 @@
 </li>
       </ul></li>
       <li>
+    --disable-rollback
+
+      <ul>
+        <li><a href="docs/cli.html#cmdoption-sceptre-create-disable-rollback">sceptre-create command line option</a>
+</li>
+        <li><a href="docs/cli.html#cmdoption-sceptre-execute-disable-rollback">sceptre-execute command line option</a>
+</li>
+        <li><a href="docs/cli.html#cmdoption-sceptre-launch-disable-rollback">sceptre-launch command line option</a>
+</li>
+        <li><a href="docs/cli.html#cmdoption-sceptre-update-disable-rollback">sceptre-update command line option</a>
+</li>
+      </ul></li>
+      <li>
     --drifted
 
       <ul>
         <li><a href="docs/cli.html#cmdoption-sceptre-drift-show-D">sceptre-drift-show command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --enable-rollback
+
+      <ul>
+        <li><a href="docs/cli.html#cmdoption-sceptre-create-disable-rollback">sceptre-create command line option</a>
+</li>
+        <li><a href="docs/cli.html#cmdoption-sceptre-execute-disable-rollback">sceptre-execute command line option</a>
+</li>
+        <li><a href="docs/cli.html#cmdoption-sceptre-launch-disable-rollback">sceptre-launch command line option</a>
+</li>
+        <li><a href="docs/cli.html#cmdoption-sceptre-update-disable-rollback">sceptre-update command line option</a>
 </li>
       </ul></li>
       <li>
@@ -336,6 +362,8 @@
         <li><a href="docs/cli.html#cmdoption-sceptre-var">sceptre command line option</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     --var-file
 
@@ -352,8 +380,6 @@
         <li><a href="docs/cli.html#cmdoption-sceptre-update-v">sceptre-update command line option</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     --version
 
@@ -563,6 +589,8 @@
 </li>
       <li><a href="apidoc/sceptre.html#sceptre.stack_status_colourer.StackStatusColourer.colour">colour() (sceptre.stack_status_colourer.StackStatusColourer method)</a>
 </li>
+      <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.diff_writer.ColouredDiffLibWriter">ColouredDiffLibWriter (class in sceptre.diffing.diff_writer)</a>
+</li>
       <li><a href="apidoc/sceptre.cli.html#sceptre.cli.helpers.ColouredFormatter">ColouredFormatter (class in sceptre.cli.helpers)</a>
 </li>
       <li><a href="apidoc/sceptre.html#sceptre.context.SceptreContext.command_path_is_stack">command_path_is_stack() (sceptre.context.SceptreContext method)</a>
@@ -733,9 +761,11 @@
         <li><a href="apidoc/sceptre.plan.html#sceptre.plan.plan.SceptrePlan.dump_config">(sceptre.plan.plan.SceptrePlan method)</a>
 </li>
       </ul></li>
-      <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.diff_writer.DeepDiffWriter.dump_diff">dump_diff() (sceptre.diffing.diff_writer.DeepDiffWriter method)</a>
+      <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.diff_writer.ColouredDiffLibWriter.dump_diff">dump_diff() (sceptre.diffing.diff_writer.ColouredDiffLibWriter method)</a>
 
       <ul>
+        <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.diff_writer.DeepDiffWriter.dump_diff">(sceptre.diffing.diff_writer.DeepDiffWriter method)</a>
+</li>
         <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.diff_writer.DiffLibWriter.dump_diff">(sceptre.diffing.diff_writer.DiffLibWriter method)</a>
 </li>
         <li><a href="apidoc/sceptre.diffing.html#sceptre.diffing.diff_writer.DiffWriter.dump_diff">(sceptre.diffing.diff_writer.DiffWriter method)</a>
@@ -776,6 +806,8 @@
       <li><a href="apidoc/sceptre.hooks.html#sceptre.hooks.execute_hooks">execute_hooks() (in module sceptre.hooks)</a>
 </li>
       <li><a href="apidoc/sceptre.resolvers.html#sceptre.resolvers.placeholders.PlaceholderType.explicit">explicit (sceptre.resolvers.placeholders.PlaceholderType attribute)</a>
+</li>
+      <li><a href="apidoc/sceptre.html#sceptre.helpers.extract_datetime_from_aws_response_headers">extract_datetime_from_aws_response_headers() (in module sceptre.helpers)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -821,6 +853,8 @@
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="apidoc/sceptre.html#sceptre.helpers.gen_repr">gen_repr() (in module sceptre.helpers)</a>
+</li>
       <li><a href="apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.generate">generate() (sceptre.plan.actions.StackActions method)</a>
 
       <ul>
@@ -835,14 +869,14 @@
 </li>
       <li><a href="apidoc/sceptre.html#sceptre.helpers.get_external_stack_name">get_external_stack_name() (in module sceptre.helpers)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="apidoc/sceptre.plan.html#sceptre.plan.actions.StackActions.get_policy">get_policy() (sceptre.plan.actions.StackActions method)</a>
 
       <ul>
         <li><a href="apidoc/sceptre.plan.html#sceptre.plan.plan.SceptrePlan.get_policy">(sceptre.plan.plan.SceptrePlan method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="apidoc/sceptre.resolvers.html#sceptre.resolvers.ResolvableContainerProperty.get_resolved_value">get_resolved_value() (sceptre.resolvers.ResolvableContainerProperty method)</a>
 
       <ul>
@@ -1361,6 +1395,10 @@
     sceptre-create command line option
 
       <ul>
+        <li><a href="docs/cli.html#cmdoption-sceptre-create-disable-rollback">--disable-rollback</a>
+</li>
+        <li><a href="docs/cli.html#cmdoption-sceptre-create-disable-rollback">--enable-rollback</a>
+</li>
         <li><a href="docs/cli.html#cmdoption-sceptre-create-y">--yes</a>
 </li>
         <li><a href="docs/cli.html#cmdoption-sceptre-create-y">-y</a>
@@ -1462,6 +1500,10 @@
     sceptre-execute command line option
 
       <ul>
+        <li><a href="docs/cli.html#cmdoption-sceptre-execute-disable-rollback">--disable-rollback</a>
+</li>
+        <li><a href="docs/cli.html#cmdoption-sceptre-execute-disable-rollback">--enable-rollback</a>
+</li>
         <li><a href="docs/cli.html#cmdoption-sceptre-execute-y">--yes</a>
 </li>
         <li><a href="docs/cli.html#cmdoption-sceptre-execute-y">-y</a>
@@ -1493,6 +1535,10 @@
     sceptre-launch command line option
 
       <ul>
+        <li><a href="docs/cli.html#cmdoption-sceptre-launch-disable-rollback">--disable-rollback</a>
+</li>
+        <li><a href="docs/cli.html#cmdoption-sceptre-launch-disable-rollback">--enable-rollback</a>
+</li>
         <li><a href="docs/cli.html#cmdoption-sceptre-launch-p">--prune</a>
 </li>
         <li><a href="docs/cli.html#cmdoption-sceptre-launch-y">--yes</a>
@@ -1591,6 +1637,10 @@
       <ul>
         <li><a href="docs/cli.html#cmdoption-sceptre-update-c">--change-set</a>
 </li>
+        <li><a href="docs/cli.html#cmdoption-sceptre-update-disable-rollback">--disable-rollback</a>
+</li>
+        <li><a href="docs/cli.html#cmdoption-sceptre-update-disable-rollback">--enable-rollback</a>
+</li>
         <li><a href="docs/cli.html#cmdoption-sceptre-update-v">--verbose</a>
 </li>
         <li><a href="docs/cli.html#cmdoption-sceptre-update-y">--yes</a>
@@ -1671,6 +1721,8 @@
         <li><a href="apidoc/sceptre.cli.html#module-sceptre.cli.execute">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     sceptre.cli.helpers
 
@@ -1685,8 +1737,6 @@
         <li><a href="apidoc/sceptre.cli.html#module-sceptre.cli.launch">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     sceptre.cli.list
 

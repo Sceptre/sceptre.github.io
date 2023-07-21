@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sceptre.plan.executor &mdash; Sceptre 3.2.1 documentation</title>
+  <title>sceptre.plan.executor &mdash; Sceptre 3.3.1 documentation</title>
   
 
   
@@ -203,7 +203,6 @@
 
 
 <div class="viewcode-block" id="SceptrePlanExecutor"><a class="viewcode-back" href="../../../apidoc/sceptre.plan.html#sceptre.plan.executor.SceptrePlanExecutor">[docs]</a><span class="k">class</span> <span class="nc">SceptrePlanExecutor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">launch_order</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Set</span><span class="p">[</span><span class="n">Stack</span><span class="p">]]):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialises a SceptrePlanExecutor, generates the launch order, threads</span>
@@ -233,8 +232,9 @@
 
         <span class="k">with</span> <span class="n">ThreadPoolExecutor</span><span class="p">(</span><span class="n">max_workers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">num_threads</span><span class="p">)</span> <span class="k">as</span> <span class="n">executor</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">launch_order</span><span class="p">:</span>
-                <span class="n">futures</span> <span class="o">=</span> <span class="p">[</span><span class="n">executor</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">,</span> <span class="n">stack</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
-                           <span class="k">for</span> <span class="n">stack</span> <span class="ow">in</span> <span class="n">batch</span><span class="p">]</span>
+                <span class="n">futures</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="n">executor</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">,</span> <span class="n">stack</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="k">for</span> <span class="n">stack</span> <span class="ow">in</span> <span class="n">batch</span>
+                <span class="p">]</span>
 
                 <span class="k">for</span> <span class="n">future</span> <span class="ow">in</span> <span class="n">as_completed</span><span class="p">(</span><span class="n">futures</span><span class="p">):</span>
                     <span class="n">stack</span><span class="p">,</span> <span class="n">status</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>

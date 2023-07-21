@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sceptre.stack_status_colourer &mdash; Sceptre 3.2.1 documentation</title>
+  <title>sceptre.stack_status_colourer &mdash; Sceptre 3.3.1 documentation</title>
   
 
   
@@ -200,6 +200,8 @@
 <div class="viewcode-block" id="StackStatusColourer"><a class="viewcode-back" href="../../apidoc/sceptre.html#sceptre.stack_status_colourer.StackStatusColourer">[docs]</a><span class="k">class</span> <span class="nc">StackStatusColourer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    StackStatusColourer adds colours to stack statuses.</span>
+<span class="sd">    These are documented here:</span>
+<span class="sd">    https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-describing-stacks.html</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">STACK_STATUS_CODES</span> <span class="o">=</span> <span class="p">{</span>
@@ -210,6 +212,12 @@
         <span class="s2">&quot;DELETE_COMPLETE&quot;</span><span class="p">:</span> <span class="n">Fore</span><span class="o">.</span><span class="n">GREEN</span><span class="p">,</span>
         <span class="s2">&quot;DELETE_FAILED&quot;</span><span class="p">:</span> <span class="n">Fore</span><span class="o">.</span><span class="n">RED</span><span class="p">,</span>
         <span class="s2">&quot;DELETE_IN_PROGRESS&quot;</span><span class="p">:</span> <span class="n">Fore</span><span class="o">.</span><span class="n">YELLOW</span><span class="p">,</span>
+        <span class="s2">&quot;IMPORT_COMPLETE&quot;</span><span class="p">:</span> <span class="n">Fore</span><span class="o">.</span><span class="n">GREEN</span><span class="p">,</span>
+        <span class="s2">&quot;IMPORT_IN_PROGRESS&quot;</span><span class="p">:</span> <span class="n">Fore</span><span class="o">.</span><span class="n">YELLOW</span><span class="p">,</span>
+        <span class="s2">&quot;IMPORT_ROLLBACK_COMPLETE&quot;</span><span class="p">:</span> <span class="n">Fore</span><span class="o">.</span><span class="n">GREEN</span><span class="p">,</span>
+        <span class="s2">&quot;IMPORT_ROLLBACK_FAILED&quot;</span><span class="p">:</span> <span class="n">Fore</span><span class="o">.</span><span class="n">RED</span><span class="p">,</span>
+        <span class="s2">&quot;IMPORT_ROLLBACK_IN_PROGRESS&quot;</span><span class="p">:</span> <span class="n">Fore</span><span class="o">.</span><span class="n">YELLOW</span><span class="p">,</span>
+        <span class="s2">&quot;REVIEW_IN_PROGRESS&quot;</span><span class="p">:</span> <span class="n">Fore</span><span class="o">.</span><span class="n">YELLOW</span><span class="p">,</span>
         <span class="s2">&quot;ROLLBACK_COMPLETE&quot;</span><span class="p">:</span> <span class="n">Fore</span><span class="o">.</span><span class="n">RED</span><span class="p">,</span>
         <span class="s2">&quot;ROLLBACK_FAILED&quot;</span><span class="p">:</span> <span class="n">Fore</span><span class="o">.</span><span class="n">RED</span><span class="p">,</span>
         <span class="s2">&quot;ROLLBACK_IN_PROGRESS&quot;</span><span class="p">:</span> <span class="n">Fore</span><span class="o">.</span><span class="n">YELLOW</span><span class="p">,</span>
@@ -220,12 +228,10 @@
         <span class="s2">&quot;UPDATE_ROLLBACK_COMPLETE&quot;</span><span class="p">:</span> <span class="n">Fore</span><span class="o">.</span><span class="n">GREEN</span><span class="p">,</span>
         <span class="s2">&quot;UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS&quot;</span><span class="p">:</span> <span class="n">Fore</span><span class="o">.</span><span class="n">YELLOW</span><span class="p">,</span>
         <span class="s2">&quot;UPDATE_ROLLBACK_FAILED&quot;</span><span class="p">:</span> <span class="n">Fore</span><span class="o">.</span><span class="n">RED</span><span class="p">,</span>
-        <span class="s2">&quot;UPDATE_ROLLBACK_IN_PROGRESS&quot;</span><span class="p">:</span> <span class="n">Fore</span><span class="o">.</span><span class="n">YELLOW</span>
+        <span class="s2">&quot;UPDATE_ROLLBACK_IN_PROGRESS&quot;</span><span class="p">:</span> <span class="n">Fore</span><span class="o">.</span><span class="n">YELLOW</span><span class="p">,</span>
     <span class="p">}</span>
 
-    <span class="n">STACK_STATUS_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
-        <span class="sa">r</span><span class="s2">&quot;\b(</span><span class="si">{0}</span><span class="s2">)\b&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">STACK_STATUS_CODES</span><span class="p">))</span>
-    <span class="p">)</span>
+    <span class="n">STACK_STATUS_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\b(</span><span class="si">{0}</span><span class="s2">)\b&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">STACK_STATUS_CODES</span><span class="p">)))</span>
 
 <div class="viewcode-block" id="StackStatusColourer.colour"><a class="viewcode-back" href="../../apidoc/sceptre.html#sceptre.stack_status_colourer.StackStatusColourer.colour">[docs]</a>    <span class="k">def</span> <span class="nf">colour</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -246,7 +252,7 @@
                 <span class="s2">&quot;</span><span class="si">{0}{1}{2}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">STACK_STATUS_CODES</span><span class="p">[</span><span class="n">status</span><span class="p">],</span> <span class="n">status</span><span class="p">,</span> <span class="n">Style</span><span class="o">.</span><span class="n">RESET_ALL</span>
                 <span class="p">),</span>
-                <span class="n">string</span>
+                <span class="n">string</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="k">return</span> <span class="n">string</span></div></div>
 </pre></div>
