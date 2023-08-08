@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sceptre.config.graph &mdash; Sceptre 3.2.2 documentation</title>
+  <title>sceptre.config.graph &mdash; Sceptre 4.2.2 documentation</title>
   
 
   
@@ -278,9 +278,7 @@
 <span class="sd">        :param stack: A Sceptre Stack</span>
 <span class="sd">        :param dependencies: a collection of dependency paths</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-            <span class="s2">&quot;Generate dependencies for stack </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span>
-        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Generate dependencies for stack </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stack</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">dependency</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">dependencies</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">dependency</span><span class="p">,</span> <span class="n">stack</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">nx</span><span class="o">.</span><span class="n">is_directed_acyclic_graph</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">):</span>

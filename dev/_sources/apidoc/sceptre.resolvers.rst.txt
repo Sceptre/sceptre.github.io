@@ -25,6 +25,14 @@ sceptre.resolvers.file\_contents module
    :undoc-members:
    :show-inheritance:
 
+sceptre.resolvers.join module
+-----------------------------
+
+.. automodule:: sceptre.resolvers.join
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 sceptre.resolvers.no\_value module
 ----------------------------------
 
@@ -41,6 +49,22 @@ sceptre.resolvers.placeholders module
    :undoc-members:
    :show-inheritance:
 
+sceptre.resolvers.select module
+-------------------------------
+
+.. automodule:: sceptre.resolvers.select
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+sceptre.resolvers.split module
+------------------------------
+
+.. automodule:: sceptre.resolvers.split
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 sceptre.resolvers.stack\_attr module
 ------------------------------------
 
@@ -53,6 +77,14 @@ sceptre.resolvers.stack\_output module
 --------------------------------------
 
 .. automodule:: sceptre.resolvers.stack_output
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+sceptre.resolvers.sub module
+----------------------------
+
+.. automodule:: sceptre.resolvers.sub
    :members:
    :undoc-members:
    :show-inheritance:

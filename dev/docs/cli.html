@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Command Line Interface &mdash; Sceptre 3.2.2 documentation</title>
+  <title>Command Line Interface &mdash; Sceptre 4.2.2 documentation</title>
   
 
   
@@ -408,6 +408,9 @@ creates a change set for stack in PATH.</p>
 <dt class="field-even">type yes</dt>
 <dd class="field-even"><p>bool</p>
 </dd>
+<dt class="field-odd">param disable_rollback</dt>
+<dd class="field-odd"><p>A flag to disable cloudformation rollback.</p>
+</dd>
 </dl>
 </div></blockquote>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sceptre<span class="w"> </span>create<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>PATH<span class="w"> </span><span class="o">[</span>CHANGE_SET_NAME<span class="o">]</span>
@@ -418,6 +421,12 @@ creates a change set for stack in PATH.</p>
 <dt class="sig sig-object std" id="cmdoption-sceptre-create-y">
 <span id="cmdoption-sceptre-create-yes"></span><span class="sig-name descname"><span class="pre">-y</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--yes</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-create-y" title="Permalink to this definition">¶</a></dt>
 <dd><p>Assume yes to all questions.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-create-disable-rollback">
+<span id="cmdoption-sceptre-create-enable-rollback"></span><span class="sig-name descname"><span class="pre">--disable-rollback</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--enable-rollback</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-create-disable-rollback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disable or enable the cloudformation automatic rollback</p>
 </dd></dl>
 
 <p class="rubric">Arguments</p>
@@ -517,8 +526,7 @@ deletes a change set for stack in PATH.</p>
 </dd>
 </dl>
 </div></blockquote>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sceptre<span class="w"> </span>describe<span class="w"> </span>change-set<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>PATH
-<span class="w">                            </span>CHANGE_SET_NAME
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sceptre<span class="w"> </span>describe<span class="w"> </span>change-set<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>PATH<span class="w"> </span>CHANGE_SET_NAME
 </pre></div>
 </div>
 <p class="rubric">Options</p>
@@ -580,7 +588,7 @@ description, so the diff will not be indicated. Currently compared stack configu
 <dt></dt><dd><ul class="simple">
 <li><p>parameters</p></li>
 <li><p>notifications</p></li>
-<li><p>role_arn</p></li>
+<li><p>cloudformation_service_role</p></li>
 <li><p>stack_tags</p></li>
 </ul>
 </dd>
@@ -707,6 +715,43 @@ a StackResourceDriftStatus of TIMED_OUT.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sceptre<span class="w"> </span>dump<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>COMMAND<span class="w"> </span><span class="o">[</span>ARGS<span class="o">]</span>...
 </pre></div>
 </div>
+<div class="section" id="sceptre-dump-all">
+<h5>all<a class="headerlink" href="#sceptre-dump-all" title="Permalink to this heading">¶</a></h5>
+<blockquote>
+<div><p>Dumps both the rendered (post-Jinja) Stack Configs and the template used for stack in PATH.</p>
+<dl class="field-list simple">
+<dt class="field-odd">param path</dt>
+<dd class="field-odd"><p>Path to execute the command on.</p>
+</dd>
+<dt class="field-even">type path</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</div></blockquote>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sceptre<span class="w"> </span>dump<span class="w"> </span>all<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>PATH
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-dump-all-n">
+<span id="cmdoption-sceptre-dump-all-no-placeholders"></span><span class="sig-name descname"><span class="pre">-n</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-placeholders</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-dump-all-n" title="Permalink to this definition">¶</a></dt>
+<dd><p>If True, no placeholder values will be supplied for resolvers that cannot be resolved.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-dump-all-to-file">
+<span class="sig-name descname"><span class="pre">--to-file</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-dump-all-to-file" title="Permalink to this definition">¶</a></dt>
+<dd><p>If True, also dump the template to a local file.</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-dump-all-arg-PATH">
+<span id="cmdoption-sceptre-dump-all-arg-path"></span><span class="sig-name descname"><span class="pre">PATH</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-dump-all-arg-PATH" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</div>
 <div class="section" id="sceptre-dump-config">
 <h5>config<a class="headerlink" href="#sceptre-dump-config" title="Permalink to this heading">¶</a></h5>
 <blockquote>
@@ -720,10 +765,54 @@ a StackResourceDriftStatus of TIMED_OUT.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sceptre<span class="w"> </span>dump<span class="w"> </span>config<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>PATH
 </pre></div>
 </div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-dump-config-to-file">
+<span class="sig-name descname"><span class="pre">--to-file</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-dump-config-to-file" title="Permalink to this definition">¶</a></dt>
+<dd><p>If True, also dump the template to a local file.</p>
+</dd></dl>
+
 <p class="rubric">Arguments</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-sceptre-dump-config-arg-PATH">
 <span id="cmdoption-sceptre-dump-config-arg-path"></span><span class="sig-name descname"><span class="pre">PATH</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-dump-config-arg-PATH" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</div>
+<div class="section" id="sceptre-dump-template">
+<h5>template<a class="headerlink" href="#sceptre-dump-template" title="Permalink to this heading">¶</a></h5>
+<blockquote>
+<div><p>Prints the template used for stack in PATH.</p>
+<dl class="field-list simple">
+<dt class="field-odd">param path</dt>
+<dd class="field-odd"><p>Path to execute the command on.</p>
+</dd>
+<dt class="field-even">type path</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</div></blockquote>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sceptre<span class="w"> </span>dump<span class="w"> </span>template<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>PATH
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-dump-template-n">
+<span id="cmdoption-sceptre-dump-template-no-placeholders"></span><span class="sig-name descname"><span class="pre">-n</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-placeholders</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-dump-template-n" title="Permalink to this definition">¶</a></dt>
+<dd><p>If True, no placeholder values will be supplied for resolvers that cannot be resolved.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-dump-template-to-file">
+<span class="sig-name descname"><span class="pre">--to-file</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-dump-template-to-file" title="Permalink to this definition">¶</a></dt>
+<dd><p>If True, also dump the template to a local file.</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-dump-template-arg-PATH">
+<span id="cmdoption-sceptre-dump-template-arg-path"></span><span class="sig-name descname"><span class="pre">PATH</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-dump-template-arg-PATH" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required argument</p>
 </dd></dl>
 
@@ -790,6 +879,12 @@ browser with the returned URI.</p>
 <dd><p>Assume yes to all questions.</p>
 </dd></dl>
 
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-execute-disable-rollback">
+<span id="cmdoption-sceptre-execute-enable-rollback"></span><span class="sig-name descname"><span class="pre">--disable-rollback</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--enable-rollback</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-execute-disable-rollback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disable or enable the cloudformation automatic rollback</p>
+</dd></dl>
+
 <p class="rubric">Arguments</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-sceptre-execute-arg-PATH">
@@ -832,12 +927,15 @@ browser with the returned URI.</p>
 <h4>generate<a class="headerlink" href="#sceptre-generate" title="Permalink to this heading">¶</a></h4>
 <blockquote>
 <div><p>Prints the template used for stack in PATH.</p>
+<p>This command is aliased to the dump template command for legacy support reasons. It’s the same
+as running <cite>sceptre dump template</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">param path</dt>
-<dd class="field-odd"><p>Path to execute the command on.</p>
+<dt class="field-odd">param no_placeholders</dt>
+<dd class="field-odd"><p>If True, will disable placeholders for unresolvable resolvers. By
+default, placeholders will be active.</p>
 </dd>
-<dt class="field-even">type path</dt>
-<dd class="field-even"><p>str</p>
+<dt class="field-even">param path</dt>
+<dd class="field-even"><p>Path to execute the command on.</p>
 </dd>
 </dl>
 </div></blockquote>
@@ -868,10 +966,10 @@ command that will apply any changes from Stack Configs indicated via the path.</
 * Any Stacks that do not exist will be created
 * Any stacks that already exist will be updated (if there are any changes)
 * If any stacks are marked with “ignore: True”, those stacks will neither be created nor updated
-* If any stacks are marked with “obsolete: True”, those stacks will neither be created nor updated.</p>
+* If any stacks are marked with “obsolete: True”, those stacks will neither be created nor updated.
+* Furthermore, if the “-p”/”–prune” flag is used, these stacks will be deleted prior to any</p>
 <blockquote>
-<div><p>Furthermore, if the “-p”/”–prune” flag is used, these stacks will be deleted prior to any
-other launch commands</p>
+<div><p>other launch commands</p>
 </div></blockquote>
 </div></blockquote>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sceptre<span class="w"> </span>launch<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>PATH
@@ -888,6 +986,12 @@ other launch commands</p>
 <dt class="sig sig-object std" id="cmdoption-sceptre-launch-p">
 <span id="cmdoption-sceptre-launch-prune"></span><span class="sig-name descname"><span class="pre">-p</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--prune</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-launch-p" title="Permalink to this definition">¶</a></dt>
 <dd><p>If set, will delete all stacks in the command path marked as obsolete.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-launch-disable-rollback">
+<span id="cmdoption-sceptre-launch-enable-rollback"></span><span class="sig-name descname"><span class="pre">--disable-rollback</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--enable-rollback</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-launch-disable-rollback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disable or enable the cloudformation automatic rollback</p>
 </dd></dl>
 
 <p class="rubric">Arguments</p>
@@ -1246,6 +1350,12 @@ change-set when the change-set flag is set.</p>
 <dt class="sig sig-object std" id="cmdoption-sceptre-update-y">
 <span id="cmdoption-sceptre-update-yes"></span><span class="sig-name descname"><span class="pre">-y</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--yes</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-update-y" title="Permalink to this definition">¶</a></dt>
 <dd><p>Assume yes to all questions.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sceptre-update-disable-rollback">
+<span id="cmdoption-sceptre-update-enable-rollback"></span><span class="sig-name descname"><span class="pre">--disable-rollback</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--enable-rollback</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sceptre-update-disable-rollback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disable or enable the cloudformation automatic rollback</p>
 </dd></dl>
 
 <p class="rubric">Arguments</p>

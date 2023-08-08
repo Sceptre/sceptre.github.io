@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Resolvers &mdash; Sceptre 3.2.2 documentation</title>
+  <title>Resolvers &mdash; Sceptre 4.2.2 documentation</title>
   
 
   
@@ -112,17 +112,22 @@
 <li class="toctree-l3"><a class="reference internal" href="#environment-variable">environment_variable</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#file">file</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#file-contents">file_contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#join">join</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#no-value">no_value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#rcmd">rcmd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#select">select</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#split">split</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stack-attr">stack_attr</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stack-output">stack_output</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stack-output-external">stack_output_external</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sub">sub</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#custom-resolvers">Custom Resolvers</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#example">Example</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#custom-resolver-py">custom_resolver.py</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#setup-py">setup.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#calling-aws-services-in-your-custom-resolver">Calling AWS services in your custom resolver</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#resolver-arguments">Resolver arguments</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#resolving-to-nothing">Resolving to nothing</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#resolver-placeholders">Resolver placeholders</a></li>
@@ -214,6 +219,8 @@
 <p>Sceptre implements resolvers, which can be used to resolve a value of a
 CloudFormation <code class="docutils literal notranslate"><span class="pre">parameter</span></code> or <code class="docutils literal notranslate"><span class="pre">sceptre_user_data</span></code> value at runtime. This is
 most commonly used to chain the outputs of one Stack to the inputs of another.</p>
+<p>You can use resolvers with any resolvable property on a StackConfig, as well as in the arguments
+of hooks and other resolvers.</p>
 <p>If required, users can create their own resolvers, as described in the section
 on <a class="reference external" href="#custom-resolvers">Custom Resolvers</a>.</p>
 <p>Syntax:</p>
@@ -249,6 +256,22 @@ a string, json, or yaml object.</p>
 <h3>file_contents<a class="headerlink" href="#file-contents" title="Permalink to this heading">¶</a></h3>
 <p><strong>deprecated</strong>: Consider using the <a class="reference internal" href="#file">file</a> resolver instead.</p>
 </div>
+<div class="section" id="join">
+<h3>join<a class="headerlink" href="#join" title="Permalink to this heading">¶</a></h3>
+<p>This resolver allows you to join multiple strings together to form a single string. This is great
+for combining the outputs of multiple resolvers. This resolver works just like CloudFormation’s
+<code class="docutils literal notranslate"><span class="pre">!Join</span></code> intrinsic function.</p>
+<p>The argument for this resolver should be a list with two elements: (1) A string to join the elements
+on and (2) a list of items to join.</p>
+<p>Example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">BaseUrl</span><span class="p">:</span><span class="w"> </span><span class="kt">!join</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;:&quot;</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!stack_output</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my/app/stack.yaml::HostName</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!stack_output</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my/other/stack.yaml::Port</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="no-value">
 <h3>no_value<a class="headerlink" href="#no-value" title="Permalink to this heading">¶</a></h3>
 <p>This resolver “resolves to nothing”, functioning just as if it was not set at all. This works just
@@ -269,6 +292,39 @@ the CloudFormation template for <code class="docutils literal notranslate"><span
 <h3>rcmd<a class="headerlink" href="#rcmd" title="Permalink to this heading">¶</a></h3>
 <p>A resolver to execute any shell command.</p>
 <p>Refer to <a class="reference external" href="https://github.com/Sceptre/sceptre-resolver-cmd/">sceptre-resolver-cmd</a> for documentation.</p>
+</div>
+<div class="section" id="select">
+<h3>select<a class="headerlink" href="#select" title="Permalink to this heading">¶</a></h3>
+<p>This resolver allows you to select a specific index of a list of items. This is great for combining
+with the <code class="docutils literal notranslate"><span class="pre">!split</span></code> resolver to obtain part of a string. This function works almost the same as
+CloudFormation’s <code class="docutils literal notranslate"><span class="pre">!Select</span></code> intrinsic function, <strong>except you can use this with negative indices to
+select from the end of a list</strong>.</p>
+<p>The argument for this resolver should be a list with two elements: (1) A numerical index and (2) a
+list of items to select out of. If the index is negative, it will select from the end of the list.
+For example, “-1” would select the last element and “-2” would select the second-to-last element.</p>
+<p>Example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sceptre_user_data</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># This selects the last element after you split the connection string on &quot;/&quot;</span>
+<span class="w">  </span><span class="nt">DatabaseName</span><span class="p">:</span><span class="w"> </span><span class="kt">!select</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-1</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!split</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;/&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="kt">!stack_output</span><span class="w"> </span><span class="nv">my/database/stack.yaml</span><span class="p p-Indicator">::</span><span class="nv">ConnectionString</span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="split">
+<h3>split<a class="headerlink" href="#split" title="Permalink to this heading">¶</a></h3>
+<p>This resolver will split a value on a given delimiter string. This is great when combining with the
+<code class="docutils literal notranslate"><span class="pre">!select</span></code> resolver. This function works the same as CloudFormation’s <code class="docutils literal notranslate"><span class="pre">!Split</span></code> intrinsic function.</p>
+<p>Note: The return value of this resolver is a <em>list</em>, not a string. This will not work to set Stack
+configurations that expect strings, but it WILL work to set Stack configurations that expect lists.</p>
+<p>The argument for this resolver should be a list with two elements: (1) The delimiter to split on and
+(2) a string to split.</p>
+<p>Example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">notifications</span><span class="p">:</span><span class="w"> </span><span class="kt">!split</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;;&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!stack_output</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my/sns/topics.yaml::SemicolonDelimitedArns</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="stack-attr">
 <span id="stack-attr-resolver"></span><h3>stack_attr<a class="headerlink" href="#stack-attr" title="Permalink to this heading">¶</a></h3>
@@ -298,13 +354,13 @@ nested values in dicts and lists using “.” to separate key/index segments. F
 <span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;some</span><span class="nv"> </span><span class="s">random</span><span class="nv"> </span><span class="s">value&quot;</span>
 <span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;the</span><span class="nv"> </span><span class="s">value</span><span class="nv"> </span><span class="s">we</span><span class="nv"> </span><span class="s">want</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">select&quot;</span>
 
-<span class="nt">iam_role</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_output</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">roles.yaml::RoleArn</span>
+<span class="nt">sceptre_role</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_output</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">roles.yaml::RoleArn</span>
 
 <span class="nt">parameters</span><span class="p">:</span>
 <span class="w">    </span><span class="c1"># This will pass the value of &quot;the value we want to select&quot; for my_parameter</span>
 <span class="w">    </span><span class="nt">my_parameter</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_attr</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sceptre_user_data.key.1</span>
 <span class="w">    </span><span class="c1"># You can also access the value of another resolvable property like this:</span>
-<span class="w">    </span><span class="nt">use_role_arn</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_attr</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">iam_role</span>
+<span class="w">    </span><span class="nt">use_role</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_attr</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sceptre_role</span>
 </pre></div>
 </div>
 </div>
@@ -349,6 +405,56 @@ basename of that Stack can be used.</p>
 <p>Example:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">VpcIdParameter</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_output_external</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prj-network-vpc::VpcIdOutput prod</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="sub">
+<h3>sub<a class="headerlink" href="#sub" title="Permalink to this heading">¶</a></h3>
+<p>This resolver allows you to create a string using Python string format syntax. This functions as a
+great way to combine together a number of resolver outputs into a single string. This functions
+similarly to Cloudformation’s <code class="docutils literal notranslate"><span class="pre">!Sub</span></code> intrinsic function.</p>
+<p>It should be noted that Jinja2 syntax is far more capable of interpolating values than this resolver,
+so you should use Jinja2 if all you need is to interpolate raw values from environment variables,
+variables from stack group configs, var files, and <code class="docutils literal notranslate"><span class="pre">--var</span></code> arguments. <strong>The one thing that Jinja2
+interpolation can’t do is interpolate resolver arguments into a string.</strong> And that’s what <code class="docutils literal notranslate"><span class="pre">!sub</span></code>
+can do. For more information on why Jinja2 can’t reference resolvers directly, see
+<a class="reference internal" href="stack_config.html#resolution-order"><span class="std std-ref">Resolution order of values</span></a>.</p>
+<p>The argument to this resolver should be a two-element list: (1) Is the format string, using
+curly-brace templates to indicate variables, and (2) a dictionary where the keys are the format
+string’s variable names and the values are the variable values.</p>
+<p>Example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ConnectionString</span><span class="p">:</span><span class="w"> </span><span class="kt">!sub</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;postgres://{username}:{password}@{hostname}:{port}/{database}&quot;</span>
+<span class="w">    </span><span class="c1"># Notice how we&#39;re interpolating a username and database via Jinja2? Technically it&#39;s not</span>
+<span class="w">    </span><span class="c1"># necessary to pass them this way. They could be interpolated directly. But it might be</span>
+<span class="w">    </span><span class="c1"># easier to read this way if you pass them explicitly like this. See example below for the</span>
+<span class="w">    </span><span class="c1"># other way this can be done.</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">var.username</span><span class="w"> </span><span class="p p-Indicator">}}</span>
+<span class="w">      </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="kt">!ssm</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/my/ssm/password</span>
+<span class="w">      </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_output</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my/database/stack.yaml::HostName</span>
+<span class="w">      </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_output</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my/database/stack.yaml::Port</span>
+<span class="w">      </span><span class="nt">database</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="nv">var.database</span><span class="p p-Indicator">}}</span>
+</pre></div>
+</div>
+<p>It’s relevant to note that this functions similarly to the <em>more verbose</em> form of CloudFormation’s
+<code class="docutils literal notranslate"><span class="pre">!Sub</span></code> intrinsic function, where you use a list argument and supply the interpolated values as a
+second list item in a dictionary. <strong>Important</strong>: Sceptre’s <code class="docutils literal notranslate"><span class="pre">!sub</span></code> resolver will not work without
+a list argument. It does <strong>not</strong> directly reference variables without you directly passing them
+in the second list item in its argument.</p>
+<p>You <em>can</em> combine Jinja2 syntax with this resolver if you want to interpolate in other variables
+that Jinja2 has access to.</p>
+<p>Example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ConnectionString</span><span class="p">:</span><span class="w"> </span><span class="kt">!sub</span>
+<span class="w">    </span><span class="c1"># Notice the double-curly braces. That&#39;s Jinja2 syntax. Jinja2 will render the username into</span>
+<span class="w">    </span><span class="c1"># the string even before the yaml is loaded. If you use Jinja2 to interpolate the value, then</span>
+<span class="w">    </span><span class="c1"># it&#39;s not a template string variable you need to pass in the second list item passed to</span>
+<span class="w">    </span><span class="c1"># !sub.</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;postgres://{{</span><span class="nv"> </span><span class="s">var.username</span><span class="nv"> </span><span class="s">}}:{password}@{hostname}:{port}/{{</span><span class="nv"> </span><span class="s">stack_group_config.database</span><span class="nv"> </span><span class="s">}}&quot;</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="kt">!ssm</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/my/ssm/password</span>
+<span class="w">      </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_output</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my/database/stack.yaml::HostName</span>
+<span class="w">      </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_output</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my/database/stack.yaml::Port</span>
 </pre></div>
 </div>
 </div>
@@ -453,24 +559,33 @@ In case you are not familiar with python packaging, <a class="reference external
 </pre></div>
 </div>
 </div>
+<div class="section" id="calling-aws-services-in-your-custom-resolver">
+<h4>Calling AWS services in your custom resolver<a class="headerlink" href="#calling-aws-services-in-your-custom-resolver" title="Permalink to this heading">¶</a></h4>
+<p>For details on calling AWS services or invoking AWS-related third party tools in your resolver, see
+<a class="reference internal" href="faq.html#using-connection-manager"><span class="std std-ref">How do I call AWS services or use AWS-based tools in my custom hook/resolver/template handler?</span></a></p>
+</div>
 <div class="section" id="resolver-arguments">
 <h4>Resolver arguments<a class="headerlink" href="#resolver-arguments" title="Permalink to this heading">¶</a></h4>
-<p>Resolver arguments can be a simple string or a complex data structure.</p>
+<p>Resolver arguments can be a simple string or a complex data structure. You can even use
+other resolvers in the arguments to resolvers! (Note: Other resolvers can only be passed in
+arguments when they’re passed in lists and dicts.)</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;...&gt;</span>
 <span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;...&gt;</span>
-<span class="w w-Error"> </span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">   </span><span class="nt">Param1</span><span class="p">:</span><span class="w"> </span><span class="kt">!ssm</span><span class="w"> </span><span class="s">&quot;/dev/DbPassword&quot;</span>
-<span class="w">   </span><span class="nt">Param2</span><span class="p">:</span><span class="w"> </span><span class="kt">!ssm</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;/dev/DbPassword&quot;</span><span class="p p-Indicator">}</span>
-<span class="w">   </span><span class="nt">Param3</span><span class="p">:</span><span class="w"> </span><span class="kt">!ssm</span>
-<span class="w">     </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/dev/DbPassword&quot;</span>
+<span class="nt">parameters</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">Param1</span><span class="p">:</span><span class="w"> </span><span class="kt">!ssm</span><span class="w"> </span><span class="s">&quot;/dev/DbPassword&quot;</span>
+<span class="w">  </span><span class="nt">Param2</span><span class="p">:</span><span class="w"> </span><span class="kt">!ssm</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;/dev/DbPassword&quot;</span><span class="p p-Indicator">}</span>
+<span class="w">  </span><span class="nt">Param3</span><span class="p">:</span><span class="w"> </span><span class="kt">!ssm</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/dev/DbPassword&quot;</span>
+<span class="w">  </span><span class="nt">Param4</span><span class="p">:</span><span class="w"> </span><span class="kt">!ssm</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="kt">!stack_output</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my/other/stack.yaml::MySsmParameterName</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="resolving-to-nothing">
 <h4>Resolving to nothing<a class="headerlink" href="#resolving-to-nothing" title="Permalink to this heading">¶</a></h4>
 <p>When a resolver returns <code class="docutils literal notranslate"><span class="pre">None</span></code>, this means that it resolves to “nothing”. For resolvers set for
-single values (such as for <code class="docutils literal notranslate"><span class="pre">template_bucket_name</span></code> or <code class="docutils literal notranslate"><span class="pre">role_arn</span></code>), this just means the value is
+single values (such as for <code class="docutils literal notranslate"><span class="pre">template_bucket_name</span></code> or <code class="docutils literal notranslate"><span class="pre">cloudformation_service_role</span></code>), this just means the value is
 <code class="docutils literal notranslate"><span class="pre">None</span></code> and treated like those values aren’t actually set. But for resolvers inside of containers
 like lists or dicts, when they resolve to “nothing”, that item gets completely removed from their
 containing list or dict.</p>
@@ -488,7 +603,7 @@ have not yet been deployed. During normal deployment operations (using the <code
 <code class="docutils literal notranslate"><span class="pre">update</span></code>, and <code class="docutils literal notranslate"><span class="pre">delete</span></code> commands), Sceptre knows the correct order to resolve dependencies in and will
 ensure that order is followed, so everything works as expected.</p>
 <p>But there are other commands that will not actually deploy dependencies of a stack config before
-operating on that Stack Config. These commands include <code class="docutils literal notranslate"><span class="pre">generate</span></code>, <code class="docutils literal notranslate"><span class="pre">validate</span></code>, and <code class="docutils literal notranslate"><span class="pre">diff</span></code>.
+operating on that Stack Config. These commands include <code class="docutils literal notranslate"><span class="pre">dump</span> <span class="pre">template</span></code>, <code class="docutils literal notranslate"><span class="pre">validate</span></code>, and <code class="docutils literal notranslate"><span class="pre">diff</span></code>.
 If you have used resolvers to reverence other stacks, it is possible that a resolver might not be able
 to be resolved when performing that command’s operations and will trigger an error. This is not likely
 to happen when you have only used resolvers in a stack’s <code class="docutils literal notranslate"><span class="pre">parameters</span></code>, but it is much more likely
@@ -502,12 +617,12 @@ command may or may not actually succeed using that placeholder value.</p>
 and you run the <code class="docutils literal notranslate"><span class="pre">diff</span></code> command before other_stack.yaml has been deployed, the diff output will
 show the value of that parameter to be <code class="docutils literal notranslate"><span class="pre">&quot;{</span> <span class="pre">!StackOutput(other_stack.yaml::OutputName)</span> <span class="pre">}&quot;</span></code>.</p></li>
 <li><p>If you have a <code class="docutils literal notranslate"><span class="pre">sceptre_user_data</span></code> value used in a Jinja template referencing
-<code class="docutils literal notranslate"><span class="pre">!stack_output</span> <span class="pre">other_stack.yaml::OutputName</span></code> and you run the <code class="docutils literal notranslate"><span class="pre">generate</span></code> command, the generated
+<code class="docutils literal notranslate"><span class="pre">!stack_output</span> <span class="pre">other_stack.yaml::OutputName</span></code> and you run the <code class="docutils literal notranslate"><span class="pre">dump</span> <span class="pre">template</span></code> command, the generated
 template will replace that value with <code class="docutils literal notranslate"><span class="pre">&quot;StackOutputotherstackyamlOutputName&quot;</span></code>. This isn’t as
 “pretty” as the sort of placeholder used for stack parameters, but the use of sceptre_user_data is
 broader, so it placeholder values can only be alphanumeric to reduce chances of it breaking the
 template.</p></li>
-<li><p>Resolvable properties that are <em>always</em> used when performing template operations (like <code class="docutils literal notranslate"><span class="pre">iam_role</span></code>
+<li><p>Resolvable properties that are <em>always</em> used when performing template operations (like <code class="docutils literal notranslate"><span class="pre">sceptre_role</span></code>
 and <code class="docutils literal notranslate"><span class="pre">template_bucket_name</span></code>) will resolve to <code class="docutils literal notranslate"><span class="pre">None</span></code> and not be used for those operations if they
 cannot be resolved.</p></li>
 </ul>

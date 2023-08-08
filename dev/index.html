@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>About &mdash; Sceptre 3.2.2 documentation</title>
+  <title>About &mdash; Sceptre 4.2.2 documentation</title>
   
 
   
@@ -306,11 +306,15 @@ account and join the #sceptre channel.</p>
 <li class="toctree-l3"><a class="reference internal" href="docs/stack_config.html#notifications">notifications</a></li>
 <li class="toctree-l3"><a class="reference internal" href="docs/stack_config.html#obsolete">obsolete</a></li>
 <li class="toctree-l3"><a class="reference internal" href="docs/stack_config.html#on-failure">on_failure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docs/stack_config.html#disable-rollback">disable_rollback</a></li>
 <li class="toctree-l3"><a class="reference internal" href="docs/stack_config.html#parameters">parameters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="docs/stack_config.html#protected">protected</a></li>
 <li class="toctree-l3"><a class="reference internal" href="docs/stack_config.html#role-arn">role_arn</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docs/stack_config.html#cloudformation-service-role">cloudformation_service_role</a></li>
 <li class="toctree-l3"><a class="reference internal" href="docs/stack_config.html#iam-role">iam_role</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docs/stack_config.html#sceptre-role">sceptre_role</a></li>
 <li class="toctree-l3"><a class="reference internal" href="docs/stack_config.html#iam-role-session-duration">iam_role_session_duration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docs/stack_config.html#sceptre-role-session-duration">sceptre_role_session_duration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="docs/stack_config.html#sceptre-user-data">sceptre_user_data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="docs/stack_config.html#stack-name">stack_name</a></li>
 <li class="toctree-l3"><a class="reference internal" href="docs/stack_config.html#stack-tags">stack_tags</a></li>
@@ -376,11 +380,15 @@ account and join the #sceptre channel.</p>
 <li class="toctree-l3"><a class="reference internal" href="docs/resolvers.html#environment-variable">environment_variable</a></li>
 <li class="toctree-l3"><a class="reference internal" href="docs/resolvers.html#file">file</a></li>
 <li class="toctree-l3"><a class="reference internal" href="docs/resolvers.html#file-contents">file_contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docs/resolvers.html#join">join</a></li>
 <li class="toctree-l3"><a class="reference internal" href="docs/resolvers.html#no-value">no_value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="docs/resolvers.html#rcmd">rcmd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docs/resolvers.html#select">select</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docs/resolvers.html#split">split</a></li>
 <li class="toctree-l3"><a class="reference internal" href="docs/resolvers.html#stack-attr">stack_attr</a></li>
 <li class="toctree-l3"><a class="reference internal" href="docs/resolvers.html#stack-output">stack_output</a></li>
 <li class="toctree-l3"><a class="reference internal" href="docs/resolvers.html#stack-output-external">stack_output_external</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docs/resolvers.html#sub">sub</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="docs/resolvers.html#custom-resolvers">Custom Resolvers</a><ul>
@@ -398,8 +406,8 @@ account and join the #sceptre channel.</p>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="docs/permissions.html">Sceptre and IAM</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="docs/permissions.html#permissions-configurations">Permissions Configurations</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="docs/permissions.html#role-arn">role_arn</a></li>
-<li class="toctree-l3"><a class="reference internal" href="docs/permissions.html#iam-role">iam_role</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docs/permissions.html#cloudformation-service-role">cloudformation_service_role</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docs/permissions.html#sceptre-role">sceptre_role</a></li>
 <li class="toctree-l3"><a class="reference internal" href="docs/permissions.html#profile">profile</a></li>
 </ul>
 </li>
@@ -416,7 +424,7 @@ account and join the #sceptre channel.</p>
 <li class="toctree-l2"><a class="reference internal" href="docs/faq.html#how-do-i-set-aws-region-or-profile-via-the-cli">How do I set AWS Region or Profile via the CLI?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="docs/faq.html#should-i-use-a-parameter-or-sceptre-user-data">Should I use a Parameter or Sceptre User Data?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="docs/faq.html#why-are-there-two-ways-to-supply-environment-variables-in-stack-config-files">Why are there two ways to supply environment variables in stack config files?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="docs/faq.html#how-do-i-build-a-serverless-application-using-sceptre-and-sam">How do I build a Serverless application using Sceptre and SAM?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="docs/faq.html#how-do-i-call-aws-services-or-use-aws-based-tools-in-my-custom-hook-resolver-template-handler">How do I call AWS services or use AWS-based tools in my custom hook/resolver/template handler?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="docs/faq.html#my-ci-cd-process-uses-sceptre-launch-how-do-i-delete-stacks-that-aren-t-needed-anymore">My CI/CD process uses <code class="docutils literal notranslate"><span class="pre">sceptre</span> <span class="pre">launch</span></code>. How do I delete stacks that aren’t needed anymore?</a></li>
 </ul>
 </li>
@@ -433,6 +441,7 @@ account and join the #sceptre channel.</p>
 <li class="toctree-l3"><a class="reference internal" href="apidoc/sceptre.html#module-sceptre.context">sceptre.context module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="apidoc/sceptre.html#module-sceptre.exceptions">sceptre.exceptions module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="apidoc/sceptre.html#module-sceptre.helpers">sceptre.helpers module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="apidoc/sceptre.html#module-sceptre.logging">sceptre.logging module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="apidoc/sceptre.html#module-sceptre.stack">sceptre.stack module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="apidoc/sceptre.html#module-sceptre.stack_status">sceptre.stack_status module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="apidoc/sceptre.html#module-sceptre.stack_status_colourer">sceptre.stack_status_colourer module</a></li>

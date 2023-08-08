@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sceptre.resolvers.stack_attr &mdash; Sceptre 3.2.2 documentation</title>
+  <title>sceptre.resolvers.stack_attr &mdash; Sceptre 4.2.2 documentation</title>
   
 
   
@@ -210,15 +210,15 @@
     <span class="c1"># These are all the attributes on Stack Configs whose names are changed when they are assigned</span>
     <span class="c1"># to the Stack instance.</span>
     <span class="n">STACK_ATTR_MAP</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;template&#39;</span><span class="p">:</span> <span class="s1">&#39;template_handler_config&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;protect&#39;</span><span class="p">:</span> <span class="s1">&#39;protected&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;stack_name&#39;</span><span class="p">:</span> <span class="s1">&#39;external_name&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;stack_tags&#39;</span><span class="p">:</span> <span class="s1">&#39;tags&#39;</span>
+        <span class="s2">&quot;template&quot;</span><span class="p">:</span> <span class="s2">&quot;template_handler_config&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;protect&quot;</span><span class="p">:</span> <span class="s2">&quot;protected&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;stack_name&quot;</span><span class="p">:</span> <span class="s2">&quot;external_name&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;stack_tags&quot;</span><span class="p">:</span> <span class="s2">&quot;tags&quot;</span><span class="p">,</span>
     <span class="p">}</span>
 
 <div class="viewcode-block" id="StackAttr.resolve"><a class="viewcode-back" href="../../../apidoc/sceptre.resolvers.html#sceptre.resolvers.stack_attr.StackAttr.resolve">[docs]</a>    <span class="k">def</span> <span class="nf">resolve</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the resolved value of the field referenced by the resolver&#39;s argument.&quot;&quot;&quot;</span>
-        <span class="n">segments</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">argument</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+        <span class="n">segments</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">argument</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
 
         <span class="c1"># Remap top-level attributes to match stack config</span>
         <span class="n">first_segment</span> <span class="o">=</span> <span class="n">segments</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>

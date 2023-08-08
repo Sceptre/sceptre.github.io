@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Sceptre and IAM &mdash; Sceptre 3.2.2 documentation</title>
+  <title>Sceptre and IAM &mdash; Sceptre 4.2.2 documentation</title>
   
 
   
@@ -111,8 +111,8 @@
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecting Sceptre</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Sceptre and IAM</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#permissions-configurations">Permissions Configurations</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#role-arn">role_arn</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#iam-role">iam_role</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cloudformation-service-role">cloudformation_service_role</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sceptre-role">sceptre_role</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#profile">profile</a></li>
 </ul>
 </li>
@@ -212,11 +212,11 @@ tends to be a much narrower scope than admin-level.</p>
 <div class="section" id="permissions-configurations">
 <h2>Permissions Configurations<a class="headerlink" href="#permissions-configurations" title="Permalink to this heading">¶</a></h2>
 <p>There are three main configurations for Sceptre that can modify default permissions behavior to
-provide more flexibility, control, and safety within an organization: <strong>role_arn</strong>, <strong>iam_role</strong>, and
-<strong>profile</strong>. These can be applied in a very targeted way, on a stack by stack basis or can be applied
-broadly to a whole StackGroup.</p>
-<div class="section" id="role-arn">
-<span id="role-arn-permissions"></span><h3>role_arn<a class="headerlink" href="#role-arn" title="Permalink to this heading">¶</a></h3>
+provide more flexibility, control, and safety within an organization: <strong>cloudformation_service_role</strong>,
+<strong>sceptre_role</strong>, and <strong>profile</strong>. These can be applied in a very targeted way, on a stack by stack
+basis or can be applied broadly to a whole StackGroup.</p>
+<div class="section" id="cloudformation-service-role">
+<span id="cloudformation-service-role-permissions"></span><h3>cloudformation_service_role<a class="headerlink" href="#cloudformation-service-role" title="Permalink to this heading">¶</a></h3>
 <p>This is the <strong>CloudFormation service role</strong> that will be attached to a given CloudFormation stack.
 This IAM role needs to be able to be assumed by <strong>CloudFormation</strong>, and must provide all the
 necessary permissions for all create/read/update/delete operations for all resources defined in that
@@ -238,12 +238,12 @@ stack can be removed.</p></li>
 that a stack can utilize, but the rigidity of using it might prove overly burdensome, depending on
 the use case.</p>
 <p>For more information on using CloudFormation service roles, see the <a class="reference external" href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-servicerole.html">AWS documentation</a>.</p>
-<p>As a resolvable property, Sceptre allows you to use a resolver to populate the <code class="docutils literal notranslate"><span class="pre">role_arn</span></code> for a
+<p>As a resolvable property, Sceptre allows you to use a resolver to populate the <code class="docutils literal notranslate"><span class="pre">cloudformation_service_role</span></code> for a
 Stack or StackGroup Config. This means you could define that role within your project, output its
 ARN, and then reference it using <cite>!stack_output</cite>.</p>
 </div>
-<div class="section" id="iam-role">
-<span id="iam-role-permissions"></span><h3>iam_role<a class="headerlink" href="#iam-role" title="Permalink to this heading">¶</a></h3>
+<div class="section" id="sceptre-role">
+<span id="sceptre-role-permissions"></span><h3>sceptre_role<a class="headerlink" href="#sceptre-role" title="Permalink to this heading">¶</a></h3>
 <p>This is a <strong>role that Sceptre will assume</strong> when taking any actions on the Stack. It is not a service
 role for CloudFormation. Instead, this is simply a role that the current user assumes to execute
 any Sceptre actions on that stack. This has some benefits over a CloudFormation service role:</p>
@@ -251,24 +251,24 @@ any Sceptre actions on that stack. This has some benefits over a CloudFormation 
 <li><p>This is not permanently attached to the Stack after you’ve used it once. If you ever <em>don’t</em> want
 to assume this role, you could comment it out or remove it from the Stack Config and Sceptre simply
 won’t use it. This is useful if the user executing Sceptre already has the right permissions to
-take those actions. In other words, it doesn’t lock you in (unlike using <code class="docutils literal notranslate"><span class="pre">role_arn</span></code>).</p></li>
+take those actions. In other words, it doesn’t lock you in (unlike using <code class="docutils literal notranslate"><span class="pre">cloudformation_service_role</span></code>).</p></li>
 <li><p>CloudFormation can continue to use it’s default behavior of executing Stack actions with the
-permissions of the current user, but it interprets the current user to hold the indicated <code class="docutils literal notranslate"><span class="pre">iam_role</span></code>,
+permissions of the current user, but it interprets the current user to hold the indicated <code class="docutils literal notranslate"><span class="pre">sceptre_role</span></code>,
 which could grant additional permissions.</p></li>
 </ul>
-<p>Using the <code class="docutils literal notranslate"><span class="pre">iam_role</span></code> configuration on a Stack or StackGroup Config allows the user to <em>temporarily</em>
+<p>Using the <code class="docutils literal notranslate"><span class="pre">sceptre_role</span></code> configuration on a Stack or StackGroup Config allows the user to <em>temporarily</em>
 “step into” a different set of permissions in order to execute Sceptre actions on Stack(s) in the
 project without having to permanently hold those permissions.</p>
-<p>In order to use an <code class="docutils literal notranslate"><span class="pre">iam_role</span></code> on a Sceptre Stack Config, that role needs to have an
+<p>In order to use an <code class="docutils literal notranslate"><span class="pre">sceptre_role</span></code> on a Sceptre Stack Config, that role needs to have an
 AssumeRolePolicyDocument that allows the current user to assume it and permissions to perform all
 deployment actions on the stack and all its resources.</p>
-<p>As a resolvable property, Sceptre allows you to use a resolver to populate the <code class="docutils literal notranslate"><span class="pre">iam_role</span></code> for a
+<p>As a resolvable property, Sceptre allows you to use a resolver to populate the <code class="docutils literal notranslate"><span class="pre">sceptre_role</span></code> for a
 Stack or StackGroup Config. This means you could define that role within your project, output its
 ARN, and then reference it using <cite>!stack_output</cite>.</p>
 </div>
 <div class="section" id="profile">
 <span id="profile-permissions"></span><h3>profile<a class="headerlink" href="#profile" title="Permalink to this heading">¶</a></h3>
-<p>This is different from <code class="docutils literal notranslate"><span class="pre">role_arn</span></code> and <code class="docutils literal notranslate"><span class="pre">iam_role</span></code>, as both of those cause CloudFormation or
+<p>This is different from <code class="docutils literal notranslate"><span class="pre">cloudformation_service_role</span></code> and <code class="docutils literal notranslate"><span class="pre">sceptre_role</span></code>, as both of those cause CloudFormation or
 Sceptre to <em>assume</em> a different role with different permissions than the permissions the current
 user has.</p>
 <p>In contrast, the <code class="docutils literal notranslate"><span class="pre">profile</span></code> is simply an instruction for the underlying AWS SDK to reference that
@@ -283,7 +283,7 @@ variable, which has the same effect.</p>
 <ul class="simple">
 <li><p>Rather than giving your CI/CD system blanket, admin-level permissions, you can define an IAM role
 with Sceptre to use for deploying the rest of your infrastructure, outputing its ARN in the template.
-Then, in the rest of your project’s stacks, you can set the <code class="docutils literal notranslate"><span class="pre">iam_role</span></code> using <code class="docutils literal notranslate"><span class="pre">!stack_output</span></code>
+Then, in the rest of your project’s stacks, you can set the <code class="docutils literal notranslate"><span class="pre">sceptre_role</span></code> using <code class="docutils literal notranslate"><span class="pre">!stack_output</span></code>
 to get that role’s arn. This will mean your CI/CD system will temporarily “step into” that role
 when using Sceptre to interact with those specific stacks. It will also establish a dependency on
 your deployment role stack with every other stack in your project.</p></li>
@@ -306,7 +306,7 @@ condition applied.</p></li>
 </ul>
 </li>
 <li><p>If you define your deployment role (and any other related resources) using Sceptre and then
-reference it on all <em>other</em> stacks using <code class="docutils literal notranslate"><span class="pre">iam_role:</span> <span class="pre">!stack_output</span> <span class="pre">...</span></code>, this means that your
+reference it on all <em>other</em> stacks using <code class="docutils literal notranslate"><span class="pre">sceptre_role:</span> <span class="pre">!stack_output</span> <span class="pre">...</span></code>, this means that your
 CI/CD system will not be able to deploy changes to the deployment role or its resources, but that
 every deployment will depend on those. This is good! It means that, so long as those resources
 remain unchanged, automated deployment can proceed without issue. It also means that the scope of
