@@ -219,8 +219,6 @@
 <p>Sceptre can be used as a command line tool.
 Running Sceptre without a sub-command will display help, showing a list of the
 available commands.</p>
-<p>Running Sceptre without a subcommand will display help, showing a list of the
-available commands.</p>
 <div class="section" id="autocomplete">
 <h2>Autocomplete<a class="headerlink" href="#autocomplete" title="Permalink to this heading">¶</a></h2>
 <p>To enable CLI autocomplete for subcommands and parameters execute the
@@ -237,7 +235,7 @@ following command:</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>bash</p></td>
-<td><p>eval “$(_SCEPTRE_COMPLETE=source sceptre)”</p></td>
+<td><p>eval “$(_SCEPTRE_COMPLETE=source_bash sceptre)”</p></td>
 </tr>
 <tr class="row-odd"><td><p>zsh</p></td>
 <td><p>eval “$(_SCEPTRE_COMPLETE=source_zsh sceptre)”</p></td>
@@ -259,7 +257,7 @@ SCEPTRE_&lt;output_name&gt;=&lt;output_value&gt;
 <div class="section" id="variable-handling">
 <h2>Variable Handling<a class="headerlink" href="#variable-handling" title="Permalink to this heading">¶</a></h2>
 <p>You can pass variables into your project using <code class="docutils literal notranslate"><span class="pre">--var-file</span></code> and <code class="docutils literal notranslate"><span class="pre">--var</span></code>.</p>
-<p>Varibles passed in with <code class="docutils literal notranslate"><span class="pre">--var</span></code> will overwrite any matching variables specified in
+<p>Variables passed in with <code class="docutils literal notranslate"><span class="pre">--var</span></code> will overwrite any matching variables specified in
 <code class="docutils literal notranslate"><span class="pre">--var-file</span></code>. If you use multiple <code class="docutils literal notranslate"><span class="pre">--var</span></code> flags then the right-most <code class="docutils literal notranslate"><span class="pre">--var</span></code> will
 overwrite any matching <code class="docutils literal notranslate"><span class="pre">--vars</span></code> to the left. For example, in the following command</p>
 <p><code class="docutils literal notranslate"><span class="pre">sceptre</span> <span class="pre">--var</span> <span class="pre">var1=one</span> <span class="pre">--var</span> <span class="pre">var2=two</span> <span class="pre">--var</span> <span class="pre">var1=three</span> <span class="pre">launch</span> <span class="pre">stack</span></code></p>
