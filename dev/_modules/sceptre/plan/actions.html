@@ -1028,17 +1028,23 @@
         <span class="n">events</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
         <span class="n">new_events</span> <span class="o">=</span> <span class="p">[</span><span class="n">event</span> <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span> <span class="k">if</span> <span class="n">event</span><span class="p">[</span><span class="s2">&quot;Timestamp&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">after_datetime</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">new_events</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-                <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="n">stack_event_status</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                <span class="n">event</span><span class="p">[</span><span class="s2">&quot;LogicalResourceId&quot;</span><span class="p">],</span>
+                <span class="n">event</span><span class="p">[</span><span class="s2">&quot;ResourceType&quot;</span><span class="p">],</span>
+                <span class="n">event</span><span class="p">[</span><span class="s2">&quot;ResourceStatus&quot;</span><span class="p">],</span>
+                <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ResourceStatusReason&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+            <span class="p">]</span>
+            <span class="k">if</span> <span class="s2">&quot;HookStatus&quot;</span> <span class="ow">in</span> <span class="n">event</span><span class="p">:</span>
+                <span class="n">stack_event_status</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
                     <span class="p">[</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-                        <span class="n">event</span><span class="p">[</span><span class="s2">&quot;LogicalResourceId&quot;</span><span class="p">],</span>
-                        <span class="n">event</span><span class="p">[</span><span class="s2">&quot;ResourceType&quot;</span><span class="p">],</span>
-                        <span class="n">event</span><span class="p">[</span><span class="s2">&quot;ResourceStatus&quot;</span><span class="p">],</span>
-                        <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ResourceStatusReason&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+                        <span class="n">event</span><span class="p">[</span><span class="s2">&quot;HookType&quot;</span><span class="p">],</span>
+                        <span class="n">event</span><span class="p">[</span><span class="s2">&quot;HookStatus&quot;</span><span class="p">],</span>
+                        <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;HookStatusReason&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+                        <span class="n">event</span><span class="p">[</span><span class="s2">&quot;HookFailureMode&quot;</span><span class="p">],</span>
                     <span class="p">]</span>
                 <span class="p">)</span>
-            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">stack_event_status</span><span class="p">))</span>
             <span class="n">after_datetime</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="s2">&quot;Timestamp&quot;</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">after_datetime</span>
 
