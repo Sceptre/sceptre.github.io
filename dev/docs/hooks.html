@@ -242,56 +242,16 @@ point is aliased to <code class="docutils literal notranslate"><span class="pre"
 <h2>Available Hooks<a class="headerlink" href="#available-hooks" title="Permalink to this heading">¶</a></h2>
 <div class="section" id="cmd">
 <h3>cmd<a class="headerlink" href="#cmd" title="Permalink to this heading">¶</a></h3>
-<p>Executes a command through the shell.</p>
+<p>Executes the argument string in the shell as a Python subprocess.</p>
+<p>For more information about how this works, see the <a class="reference external" href="https://docs.python.org/3/library/subprocess.html">subprocess documentation</a></p>
 <p>Syntax:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Default shell.</span>
-<span class="nt">&lt;hook_point&gt;</span><span class="p">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;hook_point&gt;</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!cmd</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;shell_command&gt;</span>
-
-<span class="c1"># Another shell.</span>
-<span class="nt">&lt;hook_point&gt;</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!cmd</span>
-<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;shell_command&gt;</span>
-<span class="w">      </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;shell_name_or_path&gt;</span>
 </pre></div>
 </div>
-<p>Pass the command string as the only argument to use the default shell.</p>
-<p>On POSIX the default shell is <code class="docutils literal notranslate"><span class="pre">sh</span></code>. On Windows it’s usually <code class="docutils literal notranslate"><span class="pre">cmd.exe</span></code>, but <code class="docutils literal notranslate"><span class="pre">%ComSpec%</span></code> may
-override that.</p>
-<p>Format the command string exactly as you would type it at the shell prompt. This includes
-quotes and backslashes to escape filenames with spaces in them.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">hooks</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">before_update</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!cmd</span><span class="w"> </span><span class="s">&quot;echo</span><span class="nv"> </span><span class="s">&#39;Hello,</span><span class="nv"> </span><span class="s">world!&#39;&quot;</span>
-</pre></div>
-</div>
-<p>This example succeeds. Its standard output messages appear between status messages from Sceptre.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[2023-09-03 01:06:28] - test - Launching Stack
-[2023-09-03 01:06:29] - test - Stack is in the CREATE_COMPLETE state
-Hello, world!
-[2023-09-03 01:06:31] - test - Updating Stack
-[2023-09-03 01:06:31] - test - No updates to perform.
-</pre></div>
-</div>
-<p>Pass named arguments <code class="docutils literal notranslate"><span class="pre">args</span></code> and <code class="docutils literal notranslate"><span class="pre">executable</span></code> to use a different shell.</p>
-<p>Format the executable name exactly as you would type it to start the shell. For example, if Bash is
-in system path, you can write <code class="docutils literal notranslate"><span class="pre">bash</span></code>; otherwise, you need to write the absolute path such as
-<code class="docutils literal notranslate"><span class="pre">/bin/bash</span></code>.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">hooks</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">before_update</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!cmd</span>
-<span class="w">        </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;if</span><span class="nv"> </span><span class="s">foo;</span><span class="nv"> </span><span class="s">then</span><span class="nv"> </span><span class="s">baz;</span><span class="nv"> </span><span class="s">else</span><span class="nv"> </span><span class="s">qux;</span><span class="nv"> </span><span class="s">fi&quot;</span>
-<span class="w">        </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;bash&quot;</span>
-</pre></div>
-</div>
-<p>This example fails because none of the <code class="docutils literal notranslate"><span class="pre">foo</span></code>, <code class="docutils literal notranslate"><span class="pre">baz</span></code>, and <code class="docutils literal notranslate"><span class="pre">quz</span></code> commands exist. Its standard error messages sit between Sceptre’s status messages and a Python traceback.</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[2023-09-03 02:00:21] - test - Launching Stack
-[2023-09-03 02:00:22] - test - Stack is in the CREATE_COMPLETE state
-bash: foo: command not found
-bash: qux: command not found
-Traceback (most recent call last):
-&lt;snip&gt;
-subprocess.CalledProcessError: Command &#39;if foo; then baz; else qux; fi&#39; returned non-zero exit status 127.
+<p>Example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">before_create</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!cmd</span><span class="w"> </span><span class="s">&quot;echo</span><span class="nv"> </span><span class="s">hello&quot;</span>
 </pre></div>
 </div>
 </div>
