@@ -242,85 +242,16 @@ point is aliased to <code class="docutils literal notranslate"><span class="pre"
 <h2>Available Hooks<a class="headerlink" href="#available-hooks" title="Permalink to this heading">¶</a></h2>
 <div class="section" id="cmd">
 <h3>cmd<a class="headerlink" href="#cmd" title="Permalink to this heading">¶</a></h3>
-<p>Executes a command through the shell.</p>
+<p>Executes the argument string in the shell as a Python subprocess.</p>
+<p>For more information about how this works, see the <a class="reference external" href="https://docs.python.org/3/library/subprocess.html">subprocess documentation</a></p>
 <p>Syntax:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Default shell.</span>
-<span class="nt">&lt;hook_point&gt;</span><span class="p">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;hook_point&gt;</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!cmd</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;shell_command&gt;</span>
-
-<span class="c1"># Another shell.</span>
-<span class="nt">&lt;hook_point&gt;</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!cmd</span>
-<span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;shell_command&gt;</span>
-<span class="w">      </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;shell_name_or_path&gt;</span>
 </pre></div>
 </div>
-<p>Pass the command string as the only argument to use the default shell.</p>
-<p>On POSIX the default shell is <code class="docutils literal notranslate"><span class="pre">sh</span></code>. On Windows it’s usually <code class="docutils literal notranslate"><span class="pre">cmd.exe</span></code>, but <code class="docutils literal notranslate"><span class="pre">%ComSpec%</span></code> may
-override that.</p>
-<p>Write the command string as you would type it at the shell prompt. This includes quotes and
-backslashes to escape filenames with spaces in them. To minimize escaping, you can use YAML plain
-strings like the following examples.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">hooks</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">before_update</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!cmd</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">echo &quot;Hello, world!&quot;</span>
-</pre></div>
-</div>
-<p>A successful command prints its standard output messages between status messages from Sceptre.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[2023-09-03 01:06:28] - test - Launching Stack
-[2023-09-03 01:06:29] - test - Stack is in the CREATE_COMPLETE state
-Hello, world!
-[2023-09-03 01:06:31] - test - Updating Stack
-[2023-09-03 01:06:31] - test - No updates to perform.
-</pre></div>
-</div>
-<p>Pass named arguments to use a different shell. Here the command string is called <code class="docutils literal notranslate"><span class="pre">run</span></code> and the
-shell executable is called <code class="docutils literal notranslate"><span class="pre">shell</span></code>.</p>
-<p>Write the executable name as you would type it at an interactive prompt to start the shell. For
-example, if Bash is in the system path, you can write <code class="docutils literal notranslate"><span class="pre">bash</span></code>; otherwise, you need to write the
-absolute path such as <code class="docutils literal notranslate"><span class="pre">/bin/bash</span></code>.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">hooks</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">before_update</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!cmd</span>
-<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">echo &quot;Hello, $0!&quot;</span>
-<span class="w">        </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bash</span>
-</pre></div>
-</div>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[2023-09-04 00:29:42] - test - Launching Stack
-[2023-09-04 00:29:43] - test - Stack is in the CREATE_COMPLETE state
-Hello, bash!
-[2023-09-04 00:29:43] - test - Updating Stack
-[2023-09-04 00:29:43] - test - No updates to perform.
-</pre></div>
-</div>
-<p>You can use PowerShell in the same way.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">hooks</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">before_update</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!cmd</span>
-<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Write-Output &quot;Hello, Posh!&quot;</span>
-<span class="w">        </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pwsh</span>
-</pre></div>
-</div>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[2023-09-04 00:44:32] - test - Launching Stack
-[2023-09-04 00:44:33] - test - Stack is in the CREATE_COMPLETE state
-Hello, Posh!
-[2023-09-04 00:44:34] - test - Updating Stack
-[2023-09-04 00:44:34] - test - No updates to perform.
-</pre></div>
-</div>
-<p>If the shell command fails, so does Sceptre. Its output sits between Sceptre’s status
-messages and a Python traceback.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">hooks</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">before_update</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!cmd</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">missing_command</span>
-</pre></div>
-</div>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[2023-09-04 00:46:25] - test - Launching Stack
-[2023-09-04 00:46:26] - test - Stack is in the CREATE_COMPLETE state
-/bin/sh: 1: missing_command: not found
-Traceback (most recent call last):
-&lt;snip&gt;
-subprocess.CalledProcessError: Command &#39;missing_command&#39; returned non-zero exit status 127.
+<p>Example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">before_create</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!cmd</span><span class="w"> </span><span class="s">&quot;echo</span><span class="nv"> </span><span class="s">hello&quot;</span>
 </pre></div>
 </div>
 </div>

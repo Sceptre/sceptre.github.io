@@ -201,40 +201,19 @@
 
 <div class="viewcode-block" id="Cmd.run"><a class="viewcode-back" href="../../../apidoc/sceptre.hooks.html#sceptre.hooks.cmd.Cmd.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Executes a command through the shell.</span>
+<span class="sd">        Runs the argument string in a subprocess.</span>
 
-<span class="sd">        See hooks documentation for details.</span>
-
-<span class="sd">        :raises: sceptre.exceptions.InvalidHookArgumentTypeError invalid input</span>
-<span class="sd">        :raises: CalledProcessError failed command</span>
-<span class="sd">        :raises: FileNotFoundError missing shell</span>
-<span class="sd">        :raises: PermissionError non-executable shell</span>
+<span class="sd">        :raises: sceptre.exceptions.InvalidTaskArgumentTypeException</span>
+<span class="sd">        :raises: subprocess.CalledProcessError</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">envs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">connection_manager</span><span class="o">.</span><span class="n">create_session_environment_variables</span><span class="p">()</span>
-
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">argument</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">argument</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
-            <span class="n">command_to_run</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">argument</span>
-            <span class="n">shell</span> <span class="o">=</span> <span class="kc">None</span>
-
-        <span class="k">elif</span> <span class="p">(</span>
-            <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">argument</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
-            <span class="ow">and</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">argument</span><span class="p">)</span> <span class="o">==</span> <span class="p">{</span><span class="s2">&quot;run&quot;</span><span class="p">,</span> <span class="s2">&quot;shell&quot;</span><span class="p">}</span>
-            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">argument</span><span class="p">[</span><span class="s2">&quot;run&quot;</span><span class="p">],</span> <span class="nb">str</span><span class="p">)</span>
-            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">argument</span><span class="p">[</span><span class="s2">&quot;shell&quot;</span><span class="p">],</span> <span class="nb">str</span><span class="p">)</span>
-            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">argument</span><span class="p">[</span><span class="s2">&quot;run&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span>
-            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">argument</span><span class="p">[</span><span class="s2">&quot;shell&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span>
-        <span class="p">):</span>
-            <span class="n">command_to_run</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">argument</span><span class="p">[</span><span class="s2">&quot;run&quot;</span><span class="p">]</span>
-            <span class="n">shell</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">argument</span><span class="p">[</span><span class="s2">&quot;shell&quot;</span><span class="p">]</span>
-
-        <span class="k">else</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">argument</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">envs</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">InvalidHookArgumentTypeError</span><span class="p">(</span>
-                <span class="s2">&quot;A cmd hook requires either a string argument or an object with &quot;</span>
-                <span class="s2">&quot;`run` and `shell` keys with string values. &quot;</span>
-                <span class="sa">f</span><span class="s2">&quot;You gave `</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">argument</span><span class="si">!r}</span><span class="s2">`.&quot;</span>
-            <span class="p">)</span>
-
-        <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span><span class="n">command_to_run</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">envs</span><span class="p">,</span> <span class="n">executable</span><span class="o">=</span><span class="n">shell</span><span class="p">)</span></div></div>
+                <span class="s1">&#39;The argument &quot;</span><span class="si">{0}</span><span class="s1">&quot; is the wrong type - cmd hooks require &#39;</span>
+                <span class="s2">&quot;arguments of type string.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">argument</span><span class="p">)</span>
+            <span class="p">)</span></div></div>
 </pre></div>
 
            </div>
