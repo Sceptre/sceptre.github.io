@@ -459,7 +459,7 @@ v5.0.0.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/core/session.html#boto3.session.Session" title="(in Boto3 v1.28.47)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Session</span></code></a></p>
+<dd class="field-even"><p><a class="reference external" href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/core/session.html#boto3.session.Session" title="(in Boto3 v1.28.49)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Session</span></code></a></p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The Boto3 session.</p>
@@ -928,6 +928,23 @@ trailing slash.
 :raises: sceptre.exceptions.PathConversionError
 :returns: A normalised path with forward slashes.
 :returns: string</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sceptre.helpers.write_debug_file">
+<span class="sig-prename descclassname"><span class="pre">sceptre.helpers.</span></span><span class="sig-name descname"><span class="pre">write_debug_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/helpers.html#write_debug_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.helpers.write_debug_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write some content to a temp file for debug purposes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>content</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – the file content to write.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the full path to the temp file.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>

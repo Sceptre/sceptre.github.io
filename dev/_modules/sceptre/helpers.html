@@ -185,6 +185,7 @@
             
   <h1>Source code for sceptre.helpers</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
 <span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">sep</span>
@@ -193,6 +194,7 @@
 <span class="kn">import</span> <span class="nn">dateutil.parser</span>
 <span class="kn">import</span> <span class="nn">deprecation</span>
 <span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
 
 <span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">PathConversionError</span>
 <span class="kn">from</span> <span class="nn">sceptre</span> <span class="kn">import</span> <span class="n">__version__</span>
@@ -204,6 +206,22 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">logger</span><span class="o">.</span><span class="n">getEffectiveLevel</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="write_debug_file"><a class="viewcode-back" href="../../apidoc/sceptre.html#sceptre.helpers.write_debug_file">[docs]</a><span class="k">def</span> <span class="nf">write_debug_file</span><span class="p">(</span><span class="n">content</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Write some content to a temp file for debug purposes.</span>
+
+<span class="sd">    :param content: the file content to write.</span>
+<span class="sd">    :returns: the full path to the temp file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span>
+        <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">delete</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span>
+    <span class="p">)</span> <span class="k">as</span> <span class="n">temp_file</span><span class="p">:</span>
+        <span class="n">temp_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+        <span class="n">temp_file</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">temp_file</span><span class="o">.</span><span class="n">name</span></div>
 
 
 <div class="viewcode-block" id="get_external_stack_name"><a class="viewcode-back" href="../../apidoc/sceptre.html#sceptre.helpers.get_external_stack_name">[docs]</a><span class="k">def</span> <span class="nf">get_external_stack_name</span><span class="p">(</span><span class="n">project_code</span><span class="p">,</span> <span class="n">stack_name</span><span class="p">):</span>

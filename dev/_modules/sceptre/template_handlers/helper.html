@@ -190,11 +190,18 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">traceback</span>
+<span class="kn">import</span> <span class="nn">json</span>
 
 <span class="kn">from</span> <span class="nn">importlib.machinery</span> <span class="kn">import</span> <span class="n">SourceFileLoader</span>
 <span class="kn">from</span> <span class="nn">jinja2</span> <span class="kn">import</span> <span class="n">Environment</span><span class="p">,</span> <span class="n">select_autoescape</span><span class="p">,</span> <span class="n">FileSystemLoader</span><span class="p">,</span> <span class="n">StrictUndefined</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">TemplateSceptreHandlerError</span><span class="p">,</span> <span class="n">TemplateNotFoundError</span>
+
+<span class="kn">from</span> <span class="nn">sceptre.helpers</span> <span class="kn">import</span> <span class="n">logging_level</span><span class="p">,</span> <span class="n">write_debug_file</span>
+<span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">TemplateSceptreHandlerError</span><span class="p">,</span>
+    <span class="n">TemplateNotFoundError</span><span class="p">,</span>
+    <span class="n">SceptreException</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">sceptre.config</span> <span class="kn">import</span> <span class="n">strategies</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
@@ -330,7 +337,19 @@
 
     <span class="n">template</span> <span class="o">=</span> <span class="n">j2_environment</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
-    <span class="n">body</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="o">**</span><span class="n">jinja_vars</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">body</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="o">**</span><span class="n">jinja_vars</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">err</span><span class="si">}</span><span class="s2">&quot;</span>
+
+        <span class="k">if</span> <span class="n">logging_level</span><span class="p">()</span> <span class="o">==</span> <span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">:</span>
+            <span class="n">debug_file_path</span> <span class="o">=</span> <span class="n">write_debug_file</span><span class="p">(</span>
+                <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">jinja_vars</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">),</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;vars_&quot;</span>
+            <span class="p">)</span>
+            <span class="n">message</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Templating vars saved to: </span><span class="si">{</span><span class="n">debug_file_path</span><span class="si">}</span><span class="s2">&quot;</span>
+
+        <span class="k">raise</span> <span class="n">SceptreException</span><span class="p">(</span><span class="n">message</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span>
+
     <span class="k">return</span> <span class="n">body</span></div>
 </pre></div>
 
