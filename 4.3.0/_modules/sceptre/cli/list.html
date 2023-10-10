@@ -1,0 +1,476 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>sceptre.cli.list &mdash; Sceptre 4.3.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Sceptre
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/get_started.html">Get Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/terminology.html">Terminology</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/cli.html">Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/stack_group_config.html">StackGroup Config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/stack_config.html">Stack Config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/templates.html">Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/template_handlers.html">Template Handlers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/hooks.html">Hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/resolvers.html">Resolvers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/architecture.html">Architecting Sceptre</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/permissions.html">Sceptre and IAM</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Support</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../apidoc/modules.html">sceptre</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Sceptre</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../sceptre.html">sceptre</a> &raquo;</li>
+        
+      <li>sceptre.cli.list</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for sceptre.cli.list</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">click</span>
+
+<span class="kn">from</span> <span class="nn">sceptre.context</span> <span class="kn">import</span> <span class="n">SceptreContext</span>
+<span class="kn">from</span> <span class="nn">sceptre.cli.helpers</span> <span class="kn">import</span> <span class="n">catch_exceptions</span><span class="p">,</span> <span class="n">write</span>
+<span class="kn">from</span> <span class="nn">sceptre.plan.plan</span> <span class="kn">import</span> <span class="n">SceptrePlan</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<span class="nd">@click</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;list&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">list_group</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Commands for listing attributes of stacks.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+
+<span class="nd">@list_group</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;resources&quot;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s2">&quot;path&quot;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">pass_context</span>
+<span class="nd">@catch_exceptions</span>
+<span class="k">def</span> <span class="nf">list_resources</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    List resources for stack or stack_group.</span>
+<span class="sd">    \f</span>
+
+<span class="sd">    :param path: Path to execute the command on.</span>
+<span class="sd">    :type path: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="n">SceptreContext</span><span class="p">(</span>
+        <span class="n">command_path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
+        <span class="n">command_params</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">params</span><span class="p">,</span>
+        <span class="n">project_path</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;project_path&quot;</span><span class="p">),</span>
+        <span class="n">user_variables</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;user_variables&quot;</span><span class="p">),</span>
+        <span class="n">options</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;options&quot;</span><span class="p">),</span>
+        <span class="n">output_format</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;output_format&quot;</span><span class="p">),</span>
+        <span class="n">ignore_dependencies</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ignore_dependencies&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">plan</span> <span class="o">=</span> <span class="n">SceptrePlan</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+
+    <span class="n">responses</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">response</span> <span class="k">for</span> <span class="n">response</span> <span class="ow">in</span> <span class="n">plan</span><span class="o">.</span><span class="n">describe_resources</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">if</span> <span class="n">response</span>
+    <span class="p">]</span>
+
+    <span class="n">write</span><span class="p">(</span><span class="n">responses</span><span class="p">,</span> <span class="n">context</span><span class="o">.</span><span class="n">output_format</span><span class="p">)</span>
+
+
+<span class="c1"># flake8: noqa: C901</span>
+<div class="viewcode-block" id="write_outputs"><a class="viewcode-back" href="../../../apidoc/sceptre.cli.html#sceptre.cli.list.write_outputs">[docs]</a><span class="k">def</span> <span class="nf">write_outputs</span><span class="p">(</span><span class="n">export</span><span class="p">,</span> <span class="n">responses</span><span class="p">,</span> <span class="n">plan</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Helper function for list outputs.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Legacy. This option was added in the initial commit of the project,</span>
+    <span class="c1"># although its intended use case is unclear. It may relate to a feature</span>
+    <span class="c1"># that had been removed prior to the initial commit.</span>
+    <span class="k">if</span> <span class="n">export</span> <span class="o">==</span> <span class="s2">&quot;envvar&quot;</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">response</span> <span class="ow">in</span> <span class="n">responses</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">stack</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="k">for</span> <span class="n">output</span> <span class="ow">in</span> <span class="n">stack</span><span class="p">:</span>
+                    <span class="n">write</span><span class="p">(</span>
+                        <span class="s2">&quot;export SCEPTRE_</span><span class="si">{0}</span><span class="s2">=&#39;</span><span class="si">{1}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                            <span class="n">output</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;OutputKey&quot;</span><span class="p">),</span> <span class="n">output</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;OutputValue&quot;</span><span class="p">)</span>
+                        <span class="p">),</span>
+                        <span class="s2">&quot;text&quot;</span><span class="p">,</span>
+                    <span class="p">)</span>
+
+    <span class="c1"># Format outputs as !stack_output references.</span>
+    <span class="k">elif</span> <span class="n">export</span> <span class="o">==</span> <span class="s2">&quot;stackoutput&quot;</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">response</span> <span class="ow">in</span> <span class="n">responses</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">stack_name</span><span class="p">,</span> <span class="n">stack</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">for</span> <span class="n">output</span> <span class="ow">in</span> <span class="n">stack</span><span class="p">:</span>
+                    <span class="n">write</span><span class="p">(</span>
+                        <span class="s2">&quot;!stack_output </span><span class="si">{0}</span><span class="s2">.yaml::</span><span class="si">{1}</span><span class="s2"> [</span><span class="si">{2}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                            <span class="n">stack_name</span><span class="p">,</span>
+                            <span class="n">output</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;OutputKey&quot;</span><span class="p">),</span>
+                            <span class="n">output</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;OutputValue&quot;</span><span class="p">),</span>
+                        <span class="p">),</span>
+                        <span class="s2">&quot;text&quot;</span><span class="p">,</span>
+                    <span class="p">)</span>
+
+    <span class="c1"># Format outputs as !stack_output_external references.</span>
+    <span class="k">elif</span> <span class="n">export</span> <span class="o">==</span> <span class="s2">&quot;stackoutputexternal&quot;</span><span class="p">:</span>
+        <span class="n">stack_names</span> <span class="o">=</span> <span class="p">{</span><span class="n">stack</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">stack</span><span class="o">.</span><span class="n">external_name</span> <span class="k">for</span> <span class="n">stack</span> <span class="ow">in</span> <span class="n">plan</span><span class="o">.</span><span class="n">graph</span><span class="p">}</span>
+        <span class="k">for</span> <span class="n">response</span> <span class="ow">in</span> <span class="n">responses</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">stack_name</span><span class="p">,</span> <span class="n">stack</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">for</span> <span class="n">output</span> <span class="ow">in</span> <span class="n">stack</span><span class="p">:</span>
+                    <span class="n">write</span><span class="p">(</span>
+                        <span class="s2">&quot;!stack_output_external </span><span class="si">{0}</span><span class="s2">::</span><span class="si">{1}</span><span class="s2"> [</span><span class="si">{2}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                            <span class="n">stack_names</span><span class="p">[</span><span class="n">stack_name</span><span class="p">],</span>
+                            <span class="n">output</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;OutputKey&quot;</span><span class="p">),</span>
+                            <span class="n">output</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;OutputValue&quot;</span><span class="p">),</span>
+                        <span class="p">),</span>
+                        <span class="s2">&quot;text&quot;</span><span class="p">,</span>
+                    <span class="p">)</span>
+
+    <span class="c1"># Legacy. The output here is somewhat confusing in that</span>
+    <span class="c1"># outputs are organised in keys that only have meaning inside</span>
+    <span class="c1"># Sceptre.</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">write</span><span class="p">(</span><span class="n">responses</span><span class="p">,</span> <span class="n">context</span><span class="o">.</span><span class="n">output_format</span><span class="p">)</span></div>
+
+
+<span class="nd">@list_group</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;outputs&quot;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s2">&quot;path&quot;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
+    <span class="s2">&quot;-e&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--export&quot;</span><span class="p">,</span>
+    <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Choice</span><span class="p">([</span><span class="s2">&quot;envvar&quot;</span><span class="p">,</span> <span class="s2">&quot;stackoutput&quot;</span><span class="p">,</span> <span class="s2">&quot;stackoutputexternal&quot;</span><span class="p">]),</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Specify the export formatting.&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">pass_context</span>
+<span class="nd">@catch_exceptions</span>
+<span class="k">def</span> <span class="nf">list_outputs</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">export</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    List outputs for stack.</span>
+<span class="sd">    \f</span>
+<span class="sd">    :param path: Path to execute the command on.</span>
+<span class="sd">    :type path: str</span>
+<span class="sd">    :param export: Specify the export formatting.</span>
+<span class="sd">    :type export: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="n">SceptreContext</span><span class="p">(</span>
+        <span class="n">command_path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
+        <span class="n">command_params</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">params</span><span class="p">,</span>
+        <span class="n">project_path</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;project_path&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+        <span class="n">user_variables</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;user_variables&quot;</span><span class="p">,</span> <span class="p">{}),</span>
+        <span class="n">options</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;options&quot;</span><span class="p">,</span> <span class="p">{}),</span>
+        <span class="n">output_format</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;output_format&quot;</span><span class="p">),</span>
+        <span class="n">ignore_dependencies</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ignore_dependencies&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">plan</span> <span class="o">=</span> <span class="n">SceptrePlan</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+    <span class="n">responses</span> <span class="o">=</span> <span class="p">[</span><span class="n">response</span> <span class="k">for</span> <span class="n">response</span> <span class="ow">in</span> <span class="n">plan</span><span class="o">.</span><span class="n">describe_outputs</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">if</span> <span class="n">response</span><span class="p">]</span>
+
+    <span class="n">write_outputs</span><span class="p">(</span><span class="n">export</span><span class="p">,</span> <span class="n">responses</span><span class="p">,</span> <span class="n">plan</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+
+
+<span class="nd">@list_group</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;change-sets&quot;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;-U&quot;</span><span class="p">,</span> <span class="s2">&quot;--url&quot;</span><span class="p">,</span> <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Instead write a URL.&quot;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s2">&quot;path&quot;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">pass_context</span>
+<span class="nd">@catch_exceptions</span>
+<span class="k">def</span> <span class="nf">list_change_sets</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    List change sets for stack.</span>
+<span class="sd">    \f</span>
+
+<span class="sd">    :param path: Path to execute the command on.</span>
+<span class="sd">    :type path: str</span>
+<span class="sd">    :param url: Write out a console URL instead.</span>
+<span class="sd">    :type url: bool</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="n">SceptreContext</span><span class="p">(</span>
+        <span class="n">command_path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
+        <span class="n">command_params</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">params</span><span class="p">,</span>
+        <span class="n">project_path</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;project_path&quot;</span><span class="p">),</span>
+        <span class="n">user_variables</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;user_variables&quot;</span><span class="p">),</span>
+        <span class="n">output_format</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;output_format&quot;</span><span class="p">),</span>
+        <span class="n">options</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;options&quot;</span><span class="p">),</span>
+        <span class="n">ignore_dependencies</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ignore_dependencies&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">plan</span> <span class="o">=</span> <span class="n">SceptrePlan</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+
+    <span class="n">responses</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">response</span> <span class="k">for</span> <span class="n">response</span> <span class="ow">in</span> <span class="n">plan</span><span class="o">.</span><span class="n">list_change_sets</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">if</span> <span class="n">response</span>
+    <span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">response</span> <span class="ow">in</span> <span class="n">responses</span><span class="p">:</span>
+        <span class="n">write</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">context</span><span class="o">.</span><span class="n">output_format</span><span class="p">)</span>
+
+
+<span class="nd">@list_group</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;stacks&quot;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s2">&quot;path&quot;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">pass_context</span>
+<span class="nd">@catch_exceptions</span>
+<span class="k">def</span> <span class="nf">list_stacks</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    List sceptre stack config attributes,</span>
+<span class="sd">    \f</span>
+
+<span class="sd">    :param path: Path to execute the command on or path to stack group</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="n">SceptreContext</span><span class="p">(</span>
+        <span class="n">command_path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
+        <span class="n">command_params</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">params</span><span class="p">,</span>
+        <span class="n">project_path</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;project_path&quot;</span><span class="p">),</span>
+        <span class="n">user_variables</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;user_variables&quot;</span><span class="p">),</span>
+        <span class="n">output_format</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;output_format&quot;</span><span class="p">),</span>
+        <span class="n">options</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;options&quot;</span><span class="p">),</span>
+        <span class="n">ignore_dependencies</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ignore_dependencies&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">plan</span> <span class="o">=</span> <span class="n">SceptrePlan</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+
+    <span class="n">output</span> <span class="o">=</span> <span class="p">{</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">stack</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">.yaml&quot;</span><span class="p">:</span> <span class="n">stack</span><span class="o">.</span><span class="n">external_name</span> <span class="k">for</span> <span class="n">stack</span> <span class="ow">in</span> <span class="n">plan</span><span class="o">.</span><span class="n">graph</span><span class="p">}</span>
+    <span class="n">output_format</span> <span class="o">=</span> <span class="s2">&quot;json&quot;</span> <span class="k">if</span> <span class="n">context</span><span class="o">.</span><span class="n">output_format</span> <span class="o">==</span> <span class="s2">&quot;json&quot;</span> <span class="k">else</span> <span class="s2">&quot;yaml&quot;</span>
+    <span class="n">write</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">output_format</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2018, Cloudreach.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+    <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: 4.3.0
+      <span class="fa fa-caret-down"></span>
+    </span>
+
+        <div class="rst-other-versions">
+            <dl id="other-versions">
+                <dt>Versions</dt>
+            </dl>
+            <dl>
+                
+                <dt>Other Links</dt>
+                
+
+                    <dd>
+                        <a href="https://www.cloudreach.com">Cloudreach</a>
+                    </dd>
+                
+
+                    <dd>
+                        <a href="https://docs.sceptre-project.org">Sceptre Home</a>
+                    </dd>
+                
+            </dl>
+            <hr/>
+            Original template provided by <a href="http://www.readthedocs.org">Read the Docs</a>.
+        </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                $.getScript("../../../../version-helper.js").done(
+                    function () {
+                        versions.forEach(function (item, index) {
+                            if (item !== "4.3.0") {
+                                $('#other-versions').append('<dd><a href="'+ window.location.origin + '/' + item +'">' + item + "<a/></dd>");
+                            }
+                        })
+                    });
+            });
+        </script>
+    </div>
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

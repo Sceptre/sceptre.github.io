@@ -1,0 +1,711 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>sceptre.stack &mdash; Sceptre 4.3.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Sceptre
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../docs/install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docs/get_started.html">Get Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docs/terminology.html">Terminology</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../docs/cli.html">Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docs/stack_group_config.html">StackGroup Config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docs/stack_config.html">Stack Config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docs/templates.html">Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docs/template_handlers.html">Template Handlers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docs/hooks.html">Hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docs/resolvers.html">Resolvers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docs/architecture.html">Architecting Sceptre</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docs/permissions.html">Sceptre and IAM</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Support</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../docs/faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../apidoc/modules.html">sceptre</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Sceptre</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../sceptre.html">sceptre</a> &raquo;</li>
+        
+      <li>sceptre.stack</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for sceptre.stack</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">sceptre.stack</span>
+
+<span class="sd">This module implements a Stack class, which stores a Stack&#39;s data.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">deprecation</span> <span class="kn">import</span> <span class="n">deprecated</span>
+
+<span class="kn">from</span> <span class="nn">sceptre</span> <span class="kn">import</span> <span class="n">__version__</span>
+<span class="kn">from</span> <span class="nn">sceptre.connection_manager</span> <span class="kn">import</span> <span class="n">ConnectionManager</span>
+<span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">InvalidConfigFileError</span>
+<span class="kn">from</span> <span class="nn">sceptre.helpers</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">get_external_stack_name</span><span class="p">,</span>
+    <span class="n">sceptreise_path</span><span class="p">,</span>
+    <span class="n">create_deprecated_alias_property</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">sceptre.hooks</span> <span class="kn">import</span> <span class="n">Hook</span><span class="p">,</span> <span class="n">HookProperty</span>
+<span class="kn">from</span> <span class="nn">sceptre.resolvers</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ResolvableContainerProperty</span><span class="p">,</span>
+    <span class="n">ResolvableValueProperty</span><span class="p">,</span>
+    <span class="n">RecursiveResolve</span><span class="p">,</span>
+    <span class="n">PlaceholderType</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">sceptre.template</span> <span class="kn">import</span> <span class="n">Template</span>
+
+
+<div class="viewcode-block" id="Stack"><a class="viewcode-back" href="../../apidoc/sceptre.html#sceptre.stack.Stack">[docs]</a><span class="k">class</span> <span class="nc">Stack</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Stack stores information about a particular CloudFormation Stack.</span>
+
+<span class="sd">    :param name: The name of the Stack.</span>
+
+<span class="sd">    :param project_code: A code which is prepended to the Stack names\</span>
+<span class="sd">            of all Stacks built by Sceptre.</span>
+
+<span class="sd">    :param template_path: The relative path to the CloudFormation, Jinja2,</span>
+<span class="sd">            or Python template to build the Stack from. If this is filled,</span>
+<span class="sd">            `template_handler_config` should not be filled. This field has been deprecated since</span>
+<span class="sd">            version 4.0.0 and will be removed in version 5.0.0.</span>
+
+<span class="sd">    :param template_handler_config: Configuration for a Template Handler that can resolve</span>
+<span class="sd">            its arguments to a template string. Should contain the `type` property to specify</span>
+<span class="sd">            the type of template handler to load. Conflicts with `template_path`.</span>
+
+<span class="sd">    :param region: The AWS region to build Stacks in.</span>
+
+<span class="sd">    :param template_bucket_name: The name of the S3 bucket the Template is uploaded to.</span>
+
+<span class="sd">    :param template_key_prefix: A prefix to the key used to store templates uploaded to S3</span>
+
+<span class="sd">    :param required_version: A PEP 440 compatible version specifier. If the Sceptre version does\</span>
+<span class="sd">            not fall within the given version requirement it will abort.</span>
+
+<span class="sd">    :param parameters: The keys must match up with the name of the parameter.\</span>
+<span class="sd">            The value must be of the type as defined in the template.</span>
+
+<span class="sd">    :param sceptre_user_data: Data passed into\</span>
+<span class="sd">            `sceptre_handler(sceptre_user_data)` function in Python templates\</span>
+<span class="sd">            or accessible under `sceptre_user_data` variable within Jinja2\</span>
+<span class="sd">            templates.</span>
+
+<span class="sd">    :param hooks: A list of arbitrary shell or python commands or scripts to\</span>
+<span class="sd">            run.</span>
+
+<span class="sd">    :param s3_details: Details used for uploading templates to S3.</span>
+
+<span class="sd">    :param dependencies: The relative path to the Stack, including the file\</span>
+<span class="sd">            extension of the Stack.</span>
+
+<span class="sd">    :param cloudformation_service_role: The ARN of a CloudFormation Service Role that is assumed\</span>
+<span class="sd">            by CloudFormation to create, update or delete resources.</span>
+
+<span class="sd">    :param protected: Stack protection against execution.</span>
+
+<span class="sd">    :param tags: CloudFormation Tags to be applied to the Stack.</span>
+
+<span class="sd">    :param external_name: The real stack name used for CloudFormation</span>
+
+<span class="sd">    :param notifications: SNS topic ARNs to publish Stack related events to.\</span>
+<span class="sd">            A maximum of 5 ARNs can be specified per Stack.</span>
+
+<span class="sd">    :param on_failure: This parameter describes the action taken by\</span>
+<span class="sd">            CloudFormation when a Stack fails to create.</span>
+
+<span class="sd">    :param disable_rollback: If True, cloudformation will not rollback on deployment failures</span>
+
+<span class="sd">    :param iam_role: The ARN of a role for Sceptre to assume before interacting</span>
+<span class="sd">            with the environment. If not supplied, Sceptre uses the user&#39;s AWS CLI</span>
+<span class="sd">            credentials. This field has been deprecated since version 4.0.0 and will be removed in</span>
+<span class="sd">            version 5.0.0.</span>
+
+<span class="sd">    :param sceptre_role: The ARN of a role for Sceptre to assume before interacting\</span>
+<span class="sd">            with the environment. If not supplied, Sceptre uses the user&#39;s AWS CLI\</span>
+<span class="sd">            credentials.</span>
+
+<span class="sd">    :param iam_role_session_duration: The duration in seconds of the assumed IAM role session.</span>
+<span class="sd">            This field has been deprecated since version 4.0.0 and will be removed in version 5.0.0.</span>
+
+<span class="sd">    :param sceptre_role_session_duration: The duration in seconds of the assumed IAM role session.</span>
+
+<span class="sd">    :param profile: The name of the profile as defined in ~/.aws/config and\</span>
+<span class="sd">            ~/.aws/credentials.</span>
+
+<span class="sd">    :param stack_timeout: A timeout in minutes before considering the Stack\</span>
+<span class="sd">            deployment as failed. After the specified timeout, the Stack will\</span>
+<span class="sd">            be rolled back. Specifying zero, as well as omitting the field,\</span>
+<span class="sd">            will result in no timeout. Supports only positive integer value.</span>
+
+<span class="sd">    :param ignore: If True, this stack will be ignored during launches (but it can be explicitly</span>
+<span class="sd">            deployed with create, update, and delete commands.</span>
+
+<span class="sd">    :param obsolete: If True, this stack will operate the same as if ignore was set, but it will</span>
+<span class="sd">            also be deleted if the prune command is invoked or the --prune option is used with the</span>
+<span class="sd">            launch command.</span>
+
+<span class="sd">    :param sceptre_role_session_duration: The session duration when Scetre assumes a role.\</span>
+<span class="sd">           If not supplied, Sceptre uses default value (3600 seconds)</span>
+
+<span class="sd">    :param stack_group_config: The StackGroup config for the Stack</span>
+
+<span class="sd">    :param config: The complete config for the stack. Used by dump config.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">parameters</span> <span class="o">=</span> <span class="n">ResolvableContainerProperty</span><span class="p">(</span><span class="s2">&quot;parameters&quot;</span><span class="p">)</span>
+    <span class="n">sceptre_user_data</span> <span class="o">=</span> <span class="n">ResolvableContainerProperty</span><span class="p">(</span>
+        <span class="s2">&quot;sceptre_user_data&quot;</span><span class="p">,</span> <span class="n">PlaceholderType</span><span class="o">.</span><span class="n">alphanum</span>
+    <span class="p">)</span>
+    <span class="n">notifications</span> <span class="o">=</span> <span class="n">ResolvableContainerProperty</span><span class="p">(</span><span class="s2">&quot;notifications&quot;</span><span class="p">)</span>
+    <span class="n">tags</span> <span class="o">=</span> <span class="n">ResolvableContainerProperty</span><span class="p">(</span><span class="s2">&quot;tags&quot;</span><span class="p">)</span>
+    <span class="c1"># placeholder_override=None here means that if the template_bucket_name is a resolver,</span>
+    <span class="c1"># placeholders have been enabled, and that stack hasn&#39;t been deployed yet, commands that would</span>
+    <span class="c1"># otherwise attempt to upload the template (like validate) won&#39;t actually use the template bucket</span>
+    <span class="c1"># and will act as if there was no template bucket set.</span>
+    <span class="n">s3_details</span> <span class="o">=</span> <span class="n">ResolvableContainerProperty</span><span class="p">(</span><span class="s2">&quot;s3_details&quot;</span><span class="p">,</span> <span class="n">PlaceholderType</span><span class="o">.</span><span class="n">none</span><span class="p">)</span>
+    <span class="n">template_handler_config</span> <span class="o">=</span> <span class="n">ResolvableContainerProperty</span><span class="p">(</span>
+        <span class="s2">&quot;template_handler_config&quot;</span><span class="p">,</span> <span class="n">PlaceholderType</span><span class="o">.</span><span class="n">alphanum</span>
+    <span class="p">)</span>
+
+    <span class="n">template_bucket_name</span> <span class="o">=</span> <span class="n">ResolvableValueProperty</span><span class="p">(</span>
+        <span class="s2">&quot;template_bucket_name&quot;</span><span class="p">,</span> <span class="n">PlaceholderType</span><span class="o">.</span><span class="n">none</span>
+    <span class="p">)</span>
+    <span class="c1"># Similarly, the placeholder_override=None for sceptre_role means that actions that would otherwise</span>
+    <span class="c1"># use the sceptre_role will act as if there was no iam role when the sceptre_role stack has not been</span>
+    <span class="c1"># deployed for commands that allow placeholders (like validate).</span>
+    <span class="n">sceptre_role</span> <span class="o">=</span> <span class="n">ResolvableValueProperty</span><span class="p">(</span><span class="s2">&quot;sceptre_role&quot;</span><span class="p">,</span> <span class="n">PlaceholderType</span><span class="o">.</span><span class="n">none</span><span class="p">)</span>
+    <span class="n">cloudformation_service_role</span> <span class="o">=</span> <span class="n">ResolvableValueProperty</span><span class="p">(</span><span class="s2">&quot;cloudformation_service_role&quot;</span><span class="p">)</span>
+
+    <span class="n">hooks</span> <span class="o">=</span> <span class="n">HookProperty</span><span class="p">(</span><span class="s2">&quot;hooks&quot;</span><span class="p">)</span>
+
+    <span class="n">iam_role</span> <span class="o">=</span> <span class="n">create_deprecated_alias_property</span><span class="p">(</span>
+        <span class="s2">&quot;iam_role&quot;</span><span class="p">,</span> <span class="s2">&quot;sceptre_role&quot;</span><span class="p">,</span> <span class="s2">&quot;4.0.0&quot;</span><span class="p">,</span> <span class="s2">&quot;5.0.0&quot;</span>
+    <span class="p">)</span>
+    <span class="n">role_arn</span> <span class="o">=</span> <span class="n">create_deprecated_alias_property</span><span class="p">(</span>
+        <span class="s2">&quot;role_arn&quot;</span><span class="p">,</span> <span class="s2">&quot;cloudformation_service_role&quot;</span><span class="p">,</span> <span class="s2">&quot;4.0.0&quot;</span><span class="p">,</span> <span class="s2">&quot;5.0.0&quot;</span>
+    <span class="p">)</span>
+    <span class="n">sceptre_role_session_duration</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">iam_role_session_duration</span> <span class="o">=</span> <span class="n">create_deprecated_alias_property</span><span class="p">(</span>
+        <span class="s2">&quot;iam_role_session_duration&quot;</span><span class="p">,</span> <span class="s2">&quot;sceptre_role_session_duration&quot;</span><span class="p">,</span> <span class="s2">&quot;4.0.0&quot;</span><span class="p">,</span> <span class="s2">&quot;5.0.0&quot;</span>
+    <span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">project_code</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">region</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">template_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">template_handler_config</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">template_bucket_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">template_key_prefix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">required_version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">parameters</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">sceptre_user_data</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">hooks</span><span class="p">:</span> <span class="n">Hook</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">s3_details</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">sceptre_role</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">iam_role</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">dependencies</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="s2">&quot;Stack&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">cloudformation_service_role</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">role_arn</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">protected</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">tags</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">external_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">notifications</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">on_failure</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">disable_rollback</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">profile</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">stack_timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">sceptre_role_session_duration</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">iam_role_session_duration</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">ignore</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">obsolete</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">stack_group_config</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">sceptreise_path</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project_code</span> <span class="o">=</span> <span class="n">project_code</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">region</span> <span class="o">=</span> <span class="n">region</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">required_version</span> <span class="o">=</span> <span class="n">required_version</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">external_name</span> <span class="o">=</span> <span class="n">external_name</span> <span class="ow">or</span> <span class="n">get_external_stack_name</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">project_code</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dependencies</span> <span class="o">=</span> <span class="n">dependencies</span> <span class="ow">or</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">protected</span> <span class="o">=</span> <span class="n">protected</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">on_failure</span> <span class="o">=</span> <span class="n">on_failure</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">disable_rollback</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_boolean</span><span class="p">(</span>
+            <span class="s2">&quot;disable_rollback&quot;</span><span class="p">,</span> <span class="n">disable_rollback</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stack_group_config</span> <span class="o">=</span> <span class="n">stack_group_config</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stack_timeout</span> <span class="o">=</span> <span class="n">stack_timeout</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">profile</span> <span class="o">=</span> <span class="n">profile</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">template_key_prefix</span> <span class="o">=</span> <span class="n">template_key_prefix</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_field_with_deprecated_alias</span><span class="p">(</span>
+            <span class="s2">&quot;sceptre_role_session_duration&quot;</span><span class="p">,</span>
+            <span class="n">sceptre_role_session_duration</span><span class="p">,</span>
+            <span class="s2">&quot;iam_role_session_duration&quot;</span><span class="p">,</span>
+            <span class="n">iam_role_session_duration</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ignore</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_boolean</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">ignore</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">obsolete</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_boolean</span><span class="p">(</span><span class="s2">&quot;obsolete&quot;</span><span class="p">,</span> <span class="n">obsolete</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_template</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connection_manager</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># Resolvers and hooks need to be assigned last</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">s3_details</span> <span class="o">=</span> <span class="n">s3_details</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_field_with_deprecated_alias</span><span class="p">(</span>
+            <span class="s2">&quot;sceptre_role&quot;</span><span class="p">,</span> <span class="n">sceptre_role</span><span class="p">,</span> <span class="s2">&quot;iam_role&quot;</span><span class="p">,</span> <span class="n">iam_role</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tags</span> <span class="o">=</span> <span class="n">tags</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_field_with_deprecated_alias</span><span class="p">(</span>
+            <span class="s2">&quot;cloudformation_service_role&quot;</span><span class="p">,</span>
+            <span class="n">cloudformation_service_role</span><span class="p">,</span>
+            <span class="s2">&quot;role_arn&quot;</span><span class="p">,</span>
+            <span class="n">role_arn</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">template_bucket_name</span> <span class="o">=</span> <span class="n">template_bucket_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_field_with_deprecated_alias</span><span class="p">(</span>
+            <span class="s2">&quot;template_handler_config&quot;</span><span class="p">,</span>
+            <span class="n">template_handler_config</span><span class="p">,</span>
+            <span class="s2">&quot;template_path&quot;</span><span class="p">,</span>
+            <span class="n">template_path</span><span class="p">,</span>
+            <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">preferred_config_name</span><span class="o">=</span><span class="s2">&quot;template&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">s3_details</span> <span class="o">=</span> <span class="n">s3_details</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span> <span class="o">=</span> <span class="n">parameters</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sceptre_user_data</span> <span class="o">=</span> <span class="n">sceptre_user_data</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">notifications</span> <span class="o">=</span> <span class="n">notifications</span> <span class="ow">or</span> <span class="p">[]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">hooks</span> <span class="o">=</span> <span class="n">hooks</span> <span class="ow">or</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">_ensure_boolean</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">InvalidConfigFileError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: Value for </span><span class="si">{</span><span class="n">config_name</span><span class="si">}</span><span class="s2"> must be a boolean, not a </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="s2">&quot;sceptre.stack.Stack(&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;name=&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;project_code=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">project_code</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;template_handler_config=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">template_handler_config</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;region=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">region</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;template_bucket_name=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">template_bucket_name</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;template_key_prefix=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">template_key_prefix</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;required_version=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">required_version</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;sceptre_role=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">sceptre_role</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;sceptre_role_session_duration=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">sceptre_role_session_duration</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;profile=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">profile</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;sceptre_user_data=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">sceptre_user_data</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;parameters=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;hooks=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">hooks</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;s3_details=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">s3_details</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;dependencies=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dependencies</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;cloudformation_service_role=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">cloudformation_service_role</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;protected=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">protected</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;tags=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">tags</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;external_name=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">external_name</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;notifications=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">notifications</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;on_failure=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">on_failure</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;disable_rollback=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">disable_rollback</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;stack_timeout=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stack_timeout</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;stack_group_config=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stack_group_config</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;ignore=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ignore</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;obsolete=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">obsolete</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;)&quot;</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack</span><span class="p">):</span>
+        <span class="c1"># We should not use any resolvable properties in __eq__, since it is used when adding the</span>
+        <span class="c1"># Stack to a set, which is done very early in plan resolution. Trying to reference resolvers</span>
+        <span class="c1"># before the plan is fully resolved can potentially blow up.</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">name</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">external_name</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">external_name</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">project_code</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">project_code</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_path</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">template_path</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">region</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">region</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_key_prefix</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">template_key_prefix</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">required_version</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">required_version</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">sceptre_role_session_duration</span>
+            <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">sceptre_role_session_duration</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">profile</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">profile</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">dependencies</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">dependencies</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">protected</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">protected</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_failure</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">on_failure</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">disable_rollback</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">disable_rollback</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack_timeout</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">stack_timeout</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">ignore</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">ignore</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">obsolete</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">obsolete</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">connection_manager</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConnectionManager</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the ConnectionManager for the stack, creating it if it has not yet been created.</span>
+
+<span class="sd">        :returns: ConnectionManager.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connection_manager</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">cache_connection_manager</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">sceptre_role</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sceptre_role</span>
+            <span class="k">except</span> <span class="n">RecursiveResolve</span><span class="p">:</span>
+                <span class="c1"># This would be the case when sceptre_role is set with a resolver (especially stack_output)</span>
+                <span class="c1"># that uses the stack&#39;s connection manager. This creates a temporary condition where</span>
+                <span class="c1"># you need the iam role to get the iam role. To get around this, it will temporarily</span>
+                <span class="c1"># use None as the sceptre_role but will re-attempt to resolve the value in future accesses.</span>
+                <span class="c1"># Since the Stack Output resolver (the most likely culprit) uses the target stack&#39;s</span>
+                <span class="c1"># sceptre_role rather than the current stack&#39;s one anyway, it actually doesn&#39;t matter,</span>
+                <span class="c1"># since the stack defining that sceptre_role won&#39;t actually be using that sceptre_role.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                    <span class="s2">&quot;Resolving sceptre_role requires the Stack connection manager. Temporarily setting &quot;</span>
+                    <span class="s2">&quot;the sceptre_role to None until it can be fully resolved.&quot;</span>
+                <span class="p">)</span>
+                <span class="n">sceptre_role</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="n">cache_connection_manager</span> <span class="o">=</span> <span class="kc">False</span>
+
+            <span class="n">connection_manager</span> <span class="o">=</span> <span class="n">ConnectionManager</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">region</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">profile</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">external_name</span><span class="p">,</span>
+                <span class="n">sceptre_role</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">sceptre_role_session_duration</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">cache_connection_manager</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_connection_manager</span> <span class="o">=</span> <span class="n">connection_manager</span>
+            <span class="k">else</span><span class="p">:</span>  <span class="c1"># Return early without caching the connection manager.</span>
+                <span class="k">return</span> <span class="n">connection_manager</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connection_manager</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">template</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the CloudFormation Template used to create the Stack.</span>
+
+<span class="sd">        :returns: The Stack&#39;s template.</span>
+<span class="sd">        :rtype: Template</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_template</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_template</span> <span class="o">=</span> <span class="n">Template</span><span class="p">(</span>
+                <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                <span class="n">handler_config</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">template_handler_config</span><span class="p">,</span>
+                <span class="n">sceptre_user_data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sceptre_user_data</span><span class="p">,</span>
+                <span class="n">stack_group_config</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">stack_group_config</span><span class="p">,</span>
+                <span class="n">s3_details</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">s3_details</span><span class="p">,</span>
+                <span class="n">connection_manager</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">connection_manager</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_template</span>
+
+    <span class="nd">@property</span>
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;4.0.0&quot;</span><span class="p">,</span> <span class="s2">&quot;5.0.0&quot;</span><span class="p">,</span> <span class="n">__version__</span><span class="p">,</span> <span class="s2">&quot;Use the template Stack Config key instead.&quot;</span>
+    <span class="p">)</span>
+    <span class="k">def</span> <span class="nf">template_path</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The path argument from the template_handler config. This field is deprecated as of v4.0.0</span>
+<span class="sd">        and will be removed in v5.0.0.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_handler_config</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">]</span>
+
+    <span class="nd">@template_path</span><span class="o">.</span><span class="n">setter</span>
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;4.0.0&quot;</span><span class="p">,</span> <span class="s2">&quot;5.0.0&quot;</span><span class="p">,</span> <span class="n">__version__</span><span class="p">,</span> <span class="s2">&quot;Use the template Stack Config key instead.&quot;</span>
+    <span class="p">)</span>
+    <span class="k">def</span> <span class="nf">template_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">template_handler_config</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span> <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="n">value</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">_set_field_with_deprecated_alias</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">preferred_attribute_name</span><span class="p">,</span>
+        <span class="n">preferred_value</span><span class="p">,</span>
+        <span class="n">deprecated_attribute_name</span><span class="p">,</span>
+        <span class="n">deprecated_value</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">required</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">preferred_config_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">deprecated_config_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="c1"># This is a generic truthiness check. All current default values are falsy, so this should work.</span>
+        <span class="c1"># If we ever use this function where the default value is NOT falsy, this will be a problem.</span>
+        <span class="n">preferred_config_name</span> <span class="o">=</span> <span class="n">preferred_config_name</span> <span class="ow">or</span> <span class="n">preferred_attribute_name</span>
+        <span class="n">deprecated_config_name</span> <span class="o">=</span> <span class="n">deprecated_config_name</span> <span class="ow">or</span> <span class="n">deprecated_attribute_name</span>
+
+        <span class="k">if</span> <span class="n">preferred_value</span> <span class="ow">and</span> <span class="n">deprecated_value</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">InvalidConfigFileError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Both &#39;</span><span class="si">{</span><span class="n">preferred_config_name</span><span class="si">}</span><span class="s2">&#39; and &#39;</span><span class="si">{</span><span class="n">deprecated_config_name</span><span class="si">}</span><span class="s2">&#39; are set; You should only set a &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;value for </span><span class="si">{</span><span class="n">preferred_config_name</span><span class="si">}</span><span class="s2"> because </span><span class="si">{</span><span class="n">deprecated_config_name</span><span class="si">}</span><span class="s2"> is deprecated.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">preferred_value</span><span class="p">:</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">preferred_attribute_name</span><span class="p">,</span> <span class="n">preferred_value</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">deprecated_value</span><span class="p">:</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deprecated_attribute_name</span><span class="p">,</span> <span class="n">deprecated_value</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">required</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">InvalidConfigFileError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">preferred_config_name</span><span class="si">}</span><span class="s2"> is a required Stack Config.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># In case they&#39;re both falsy, we should just set the value using the preferred value.</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">preferred_attribute_name</span><span class="p">,</span> <span class="n">preferred_value</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2018, Cloudreach.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+    <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: 4.3.0
+      <span class="fa fa-caret-down"></span>
+    </span>
+
+        <div class="rst-other-versions">
+            <dl id="other-versions">
+                <dt>Versions</dt>
+            </dl>
+            <dl>
+                
+                <dt>Other Links</dt>
+                
+
+                    <dd>
+                        <a href="https://www.cloudreach.com">Cloudreach</a>
+                    </dd>
+                
+
+                    <dd>
+                        <a href="https://docs.sceptre-project.org">Sceptre Home</a>
+                    </dd>
+                
+            </dl>
+            <hr/>
+            Original template provided by <a href="http://www.readthedocs.org">Read the Docs</a>.
+        </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                $.getScript("../../../version-helper.js").done(
+                    function () {
+                        versions.forEach(function (item, index) {
+                            if (item !== "4.3.0") {
+                                $('#other-versions').append('<dd><a href="'+ window.location.origin + '/' + item +'">' + item + "<a/></dd>");
+                            }
+                        })
+                    });
+            });
+        </script>
+    </div>
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

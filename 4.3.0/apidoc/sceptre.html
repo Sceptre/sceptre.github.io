@@ -1,0 +1,1521 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>sceptre package &mdash; Sceptre 4.3.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="sceptre.cli package" href="sceptre.cli.html" />
+    <link rel="prev" title="sceptre" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Sceptre
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../docs/install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/get_started.html">Get Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/terminology.html">Terminology</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../docs/cli.html">Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/stack_group_config.html">StackGroup Config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/stack_config.html">Stack Config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/templates.html">Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/template_handlers.html">Template Handlers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/hooks.html">Hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/resolvers.html">Resolvers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/architecture.html">Architecting Sceptre</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/permissions.html">Sceptre and IAM</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Support</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../docs/faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">sceptre</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">sceptre package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sceptre.cli.html">sceptre.cli package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sceptre.config.html">sceptre.config package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sceptre.diffing.html">sceptre.diffing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sceptre.hooks.html">sceptre.hooks package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sceptre.plan.html">sceptre.plan package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sceptre.resolvers.html">sceptre.resolvers package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sceptre.template_handlers.html">sceptre.template_handlers package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-sceptre.connection_manager">sceptre.connection_manager module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-sceptre.context">sceptre.context module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-sceptre.exceptions">sceptre.exceptions module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-sceptre.helpers">sceptre.helpers module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-sceptre.logging">sceptre.logging module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-sceptre.stack">sceptre.stack module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-sceptre.stack_status">sceptre.stack_status module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-sceptre.stack_status_colourer">sceptre.stack_status_colourer module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-sceptre.template">sceptre.template module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Sceptre</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="modules.html">sceptre</a> &raquo;</li>
+        
+      <li>sceptre package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/apidoc/sceptre.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-sceptre">
+<span id="sceptre-package"></span><h1>sceptre package<a class="headerlink" href="#module-sceptre" title="Permalink to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="sceptre.NullHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.</span></span><span class="sig-name descname"><span class="pre">NullHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre.html#NullHandler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.NullHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Handler" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Handler</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="sceptre.NullHandler.emit">
+<span class="sig-name descname"><span class="pre">emit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre.html#NullHandler.emit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.NullHandler.emit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do whatever it takes to actually log the specified logging record.</p>
+<p>This version is intended to be implemented by subclasses and so
+raises a NotImplementedError.</p>
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="sceptre.cli.html">sceptre.cli package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.cli.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.cli.html#module-sceptre.cli.create">sceptre.cli.create module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.cli.html#module-sceptre.cli.delete">sceptre.cli.delete module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.cli.html#module-sceptre.cli.describe">sceptre.cli.describe module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.cli.html#module-sceptre.cli.diff">sceptre.cli.diff module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.cli.html#module-sceptre.cli.drift">sceptre.cli.drift module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.cli.html#module-sceptre.cli.dump">sceptre.cli.dump module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.cli.html#module-sceptre.cli.execute">sceptre.cli.execute module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.cli.html#module-sceptre.cli.helpers">sceptre.cli.helpers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.cli.html#module-sceptre.cli.launch">sceptre.cli.launch module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.cli.html#module-sceptre.cli.list">sceptre.cli.list module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.cli.html#module-sceptre.cli.new">sceptre.cli.new module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.cli.html#module-sceptre.cli.policy">sceptre.cli.policy module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.cli.html#module-sceptre.cli.prune">sceptre.cli.prune module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.cli.html#module-sceptre.cli.status">sceptre.cli.status module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.cli.html#module-sceptre.cli.template">sceptre.cli.template module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.cli.html#module-sceptre.cli.update">sceptre.cli.update module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sceptre.config.html">sceptre.config package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.config.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.config.html#module-sceptre.config.graph">sceptre.config.graph module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.config.html#module-sceptre.config.reader">sceptre.config.reader module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.config.html#module-sceptre.config.strategies">sceptre.config.strategies module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sceptre.diffing.html">sceptre.diffing package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.diffing.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.diffing.html#module-sceptre.diffing.diff_writer">sceptre.diffing.diff_writer module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.diffing.html#module-sceptre.diffing.stack_differ">sceptre.diffing.stack_differ module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sceptre.hooks.html">sceptre.hooks package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.hooks.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.hooks.html#module-sceptre.hooks.asg_scaling_processes">sceptre.hooks.asg_scaling_processes module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.hooks.html#module-sceptre.hooks.cmd">sceptre.hooks.cmd module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sceptre.plan.html">sceptre.plan package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.plan.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.plan.html#module-sceptre.plan.actions">sceptre.plan.actions module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.plan.html#module-sceptre.plan.executor">sceptre.plan.executor module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.plan.html#module-sceptre.plan.plan">sceptre.plan.plan module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sceptre.resolvers.html">sceptre.resolvers package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.resolvers.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.resolvers.html#module-sceptre.resolvers.environment_variable">sceptre.resolvers.environment_variable module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.resolvers.html#module-sceptre.resolvers.file_contents">sceptre.resolvers.file_contents module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.resolvers.html#module-sceptre.resolvers.join">sceptre.resolvers.join module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.resolvers.html#module-sceptre.resolvers.no_value">sceptre.resolvers.no_value module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.resolvers.html#module-sceptre.resolvers.placeholders">sceptre.resolvers.placeholders module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.resolvers.html#module-sceptre.resolvers.select">sceptre.resolvers.select module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.resolvers.html#module-sceptre.resolvers.split">sceptre.resolvers.split module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.resolvers.html#module-sceptre.resolvers.stack_attr">sceptre.resolvers.stack_attr module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.resolvers.html#module-sceptre.resolvers.stack_output">sceptre.resolvers.stack_output module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.resolvers.html#module-sceptre.resolvers.sub">sceptre.resolvers.sub module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sceptre.template_handlers.html">sceptre.template_handlers package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.template_handlers.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.template_handlers.html#module-sceptre.template_handlers.file">sceptre.template_handlers.file module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.template_handlers.html#module-sceptre.template_handlers.helper">sceptre.template_handlers.helper module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.template_handlers.html#module-sceptre.template_handlers.http">sceptre.template_handlers.http module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sceptre.template_handlers.html#module-sceptre.template_handlers.s3">sceptre.template_handlers.s3 module</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
+</div>
+<div class="section" id="module-sceptre.connection_manager">
+<span id="sceptre-connection-manager-module"></span><h2>sceptre.connection_manager module<a class="headerlink" href="#module-sceptre.connection_manager" title="Permalink to this heading">¶</a></h2>
+<p>sceptre.connection_manager</p>
+<p>This module implements a ConnectionManager class, which simplifies and manages
+Boto3 calls.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="sceptre.connection_manager.ConnectionManager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.connection_manager.</span></span><span class="sig-name descname"><span class="pre">ConnectionManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack_name=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sceptre_role=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sceptre_role_session_duration=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session_class=&lt;class</span> <span class="pre">'boto3.session.Session'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_envs_func=&lt;function</span> <span class="pre">ConnectionManager.&lt;lambda&gt;&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/connection_manager.html#ConnectionManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.connection_manager.ConnectionManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>The Connection Manager is used to create boto3 clients for
+the various AWS services that Sceptre needs to interact with.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>profile</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – The AWS credentials profile that should be used.</p></li>
+<li><p><strong>sceptre_role</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – The sceptre_role that should be assumed in the account.</p></li>
+<li><p><strong>stack_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – The CloudFormation stack name for this connection.</p></li>
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The region to use.</p></li>
+<li><p><strong>sceptre_role_session_duration</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]) – The duration to assume the specified sceptre_role per session.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sceptre.connection_manager.ConnectionManager.STACK_DEFAULT">
+<span class="sig-name descname"><span class="pre">STACK_DEFAULT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'[STACK</span> <span class="pre">DEFAULT]'</span></em><a class="headerlink" href="#sceptre.connection_manager.ConnectionManager.STACK_DEFAULT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sceptre.connection_manager.ConnectionManager.call">
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">service</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">command</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'[STACK</span> <span class="pre">DEFAULT]'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'[STACK</span> <span class="pre">DEFAULT]'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sceptre_role</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'[STACK</span> <span class="pre">DEFAULT]'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iam_role</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'[STACK</span> <span class="pre">DEFAULT]'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/connection_manager.html#ConnectionManager.call"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.connection_manager.ConnectionManager.call" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes a thread-safe Boto3 client call.</p>
+<p>Equivalent to <code class="docutils literal notranslate"><span class="pre">boto3.client(&lt;service&gt;).&lt;command&gt;(**kwargs)</span></code>.</p>
+<div class="line-block">
+<div class="line">Note regarding the profile, region, and sceptre_role parameters:</div>
+<div class="line-block">
+<div class="line">We will interpret each parameter individually this way:</div>
+<div class="line-block">
+<div class="line">* If the value passed is the STACK_DEFAULT constant, we’ll assume it to mean we ought</div>
+<div class="line-block">
+<div class="line">to use the target stack’s value of that parameter.</div>
+</div>
+<div class="line">* If the value passed is None, we will interpret that as an explicit request to nullify</div>
+<div class="line-block">
+<div class="line">the target stack’s setting. Note: While this is valid for profile and sceptre_role,</div>
+<div class="line">it will likely blow up if doing this for region, since AWS almost always requires that.</div>
+</div>
+<div class="line">* Otherwise, any value that has been specified will override the target stack’s</div>
+<div class="line-block">
+<div class="line">configuration, regardless of what has been passed for other parameters.</div>
+</div>
+<div class="line">* In the case that <cite>None</cite> has been specified for all parameters, that will be</div>
+<div class="line-block">
+<div class="line">interpreted as using the target stack’s values for all three, falling back to the</div>
+<div class="line">current stack.</div>
+</div>
+</div>
+</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>service</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The Boto3 service to return a client for.</p></li>
+<li><p><strong>command</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The Boto3 command to call.</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]) – The keyword arguments to supply to &lt;command&gt;.</p></li>
+<li><p><strong>profile</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – The profile to use when invoking the command; Defaults to the stack’s configuration</p></li>
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – The region to use when invoking the command; Default’s to the stack’s configuration</p></li>
+<li><p><strong>stack_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – The name of the stack whose configuration to use. Defaults to the current stack</p></li>
+<li><p><strong>sceptre_role</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – The IAM Role ARN to assume in order to invoke the command; Defaults to
+the stack’s configuration.</p></li>
+<li><p><strong>iam_role</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – DEPRECATED. Use sceptre_role instead.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The response from the Boto3 call.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sceptre.connection_manager.ConnectionManager.create_session_environment_variables">
+<span class="sig-name descname"><span class="pre">create_session_environment_variables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">profile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'[STACK</span> <span class="pre">DEFAULT]'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'[STACK</span> <span class="pre">DEFAULT]'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sceptre_role</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'[STACK</span> <span class="pre">DEFAULT]'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_system_envs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/connection_manager.html#ConnectionManager.create_session_environment_variables"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.connection_manager.ConnectionManager.create_session_environment_variables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the standard AWS environment variables that would need to be passed to a
+subprocess in a hook, resolver, or template handler and allow that subprocess to work with
+the currently configured session.</p>
+<p>The environment variables returned by this method should be everything needed for
+subprocesses to properly interact with AWS using the ConnectionManager’s configurations for
+profile, sceptre_role, and region. By default, they include the other process environment
+variables, such as PATH and any others. If you do not want the other environment variables,
+you can toggle these off via include_system_envs=False.</p>
+<div class="line-block">
+<div class="line">Notes on including system envs:</div>
+<div class="line-block">
+<div class="line">* The AWS_DEFAULT_REGION, AWS_REGION, AWS_ACCESS_KEY_ID, and AWS_SECRET_ACCESS_KEY</div>
+<div class="line-block">
+<div class="line">environment variables (if they are set in the Sceptre process) will be overwritten in</div>
+<div class="line">the returned dict with the correct values from the newly created Session.</div>
+</div>
+<div class="line">* If the AWS_SESSION_TOKEN environment variable is currently set for the process, this</div>
+<div class="line-block">
+<div class="line">will be overwritten with the new session’s token (if there is one) or removed from the</div>
+<div class="line">returned environment variables dict (if the new session doesn’t have a token).</div>
+</div>
+</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>profile</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – The name of the AWS Profile as configured in the local environment. Passing
+None will result in no profile being specified. Defaults to the ConnectionManager’s
+configured profile (if there is one).</p></li>
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – The AWS Region the session should be configured with. Defaults to the
+ConnectionManager’s configured region.</p></li>
+<li><p><strong>sceptre_role</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – The IAM role ARN that is assumed using STS to create the session. Passing
+None will result in no IAM role being assumed. Defaults to the ConnectionManager’s
+configured sceptre_role (if there is one).</p></li>
+<li><p><strong>include_system_envs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – If True, will return a dict with all the system environment
+variables included. This is useful for creating a complete dict of environment variables
+to pass to a subprocess. If set to False, this method will ONLY return the relevant AWS
+environment variables. Defaults to True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A dict of environment variables with the appropriate credentials available for use.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sceptre.connection_manager.ConnectionManager.get_session">
+<span class="sig-name descname"><span class="pre">get_session</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">profile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'[STACK</span> <span class="pre">DEFAULT]'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'[STACK</span> <span class="pre">DEFAULT]'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sceptre_role</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'[STACK</span> <span class="pre">DEFAULT]'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iam_role</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'[STACK</span> <span class="pre">DEFAULT]'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/connection_manager.html#ConnectionManager.get_session"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.connection_manager.ConnectionManager.get_session" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a boto3 session for the targeted profile, region, and sceptre_role.</p>
+<p>For each of profile, region, and sceptre_role, these values will default to the ConnectionManager’s
+configured default values (which correspond to the Stack’s configuration). These values can
+be overridden, however, by passing them explicitly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>profile</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – The name of the AWS Profile as configured in the local environment. Passing
+None will result in no profile being specified. Defaults to the ConnectionManager’s
+configured profile (if there is one).</p></li>
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – The AWS Region the session should be configured with. Defaults to the
+ConnectionManager’s configured region.</p></li>
+<li><p><strong>sceptre_role</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – The IAM role ARN that is assumed using STS to create the session. Passing
+None will result in no IAM role being assumed. Defaults to the ConnectionManager’s
+configured sceptre_role (if there is one).</p></li>
+<li><p><strong>iam_role</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – An alias for sceptre_role; Deprecated in v4.0.0 and will be removed in
+v5.0.0.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/core/session.html#boto3.session.Session" title="(in Boto3 v1.28.62)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Session</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The Boto3 session.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p>botocore.exceptions.ClientError</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="sceptre.connection_manager.ConnectionManager.iam_role">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">iam_role</span></span><a class="headerlink" href="#sceptre.connection_manager.ConnectionManager.iam_role" title="Permalink to this definition">¶</a></dt>
+<dd><div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 4.0.0: </span>This will be removed in 5.0.0. It is being renamed to “sceptre_role”. You should migrate all uses of “iam_role” to that in order to avoid future breakage.</p>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="sceptre.connection_manager.ConnectionManager.iam_role_session_duration">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">iam_role_session_duration</span></span><a class="headerlink" href="#sceptre.connection_manager.ConnectionManager.iam_role_session_duration" title="Permalink to this definition">¶</a></dt>
+<dd><div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 4.0.0: </span>This will be removed in 5.0.0. It is being renamed to “sceptre_role_session_duration”. You should migrate all uses of “iam_role_session_duration” to that in order to avoid future breakage.</p>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sceptre.connection_manager.ConnectionManager.sceptre_role_session_duration">
+<span class="sig-name descname"><span class="pre">sceptre_role_session_duration</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#sceptre.connection_manager.ConnectionManager.sceptre_role_session_duration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-sceptre.context">
+<span id="sceptre-context-module"></span><h2>sceptre.context module<a class="headerlink" href="#module-sceptre.context" title="Permalink to this heading">¶</a></h2>
+<p>sceptre.context</p>
+<p>This module implements the SceptreContext class which holds details about the
+paths used in a Sceptre project.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="sceptre.context.SceptreContext">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.context.</span></span><span class="sig-name descname"><span class="pre">SceptreContext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">command_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">command_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_variables</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_colour</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_dependencies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_scan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/context.html#SceptreContext"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.context.SceptreContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>SceptreContext is a place that holds data that is relevant to the
+project, including references to the project paths such as the path to your
+Sceptre project, templates path, config path, and the default names for
+your configuration files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>project_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Absolute path to the base sceptre project folder</p></li>
+<li><p><strong>command_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – The relative path to either StackGroup or Stack.</p></li>
+<li><p><strong>user_variables</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a>) – Used to replace the value of anyvitem in a Config            file with a value defined by the CLI flag or in a YAML variable            file</p></li>
+<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a>) – The options specified in by the CLI command</p></li>
+<li><p><strong>output_format</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Specify the output format. Available formats:            [yaml, json]</p></li>
+<li><p><strong>no_colour</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – Specify whether colouring should be used in the CLI            output</p></li>
+<li><p><strong>full_scan</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – Specify whether folder scan the config files            True for scan all the config files and False for scan only in the command path</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="sceptre.context.SceptreContext.clone">
+<span class="sig-name descname"><span class="pre">clone</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/context.html#SceptreContext.clone"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.context.SceptreContext.clone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new, deep clone of the context with all the same values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#sceptre.context.SceptreContext" title="sceptre.context.SceptreContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceptreContext</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sceptre.context.SceptreContext.command_path_is_stack">
+<span class="sig-name descname"><span class="pre">command_path_is_stack</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/context.html#SceptreContext.command_path_is_stack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.context.SceptreContext.command_path_is_stack" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if the command path is a file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if the command path is a file</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sceptre.context.SceptreContext.full_command_path">
+<span class="sig-name descname"><span class="pre">full_command_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/context.html#SceptreContext.full_command_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.context.SceptreContext.full_command_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the command path in the format:
+<code class="docutils literal notranslate"><span class="pre">project_path/config_path/command_path</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The absolute path to the path that will be executed</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sceptre.context.SceptreContext.full_config_path">
+<span class="sig-name descname"><span class="pre">full_config_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/context.html#SceptreContext.full_config_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.context.SceptreContext.full_config_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the config path in the format: <code class="docutils literal notranslate"><span class="pre">project_path/config_path</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The absolute path to the config directory</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sceptre.context.SceptreContext.full_templates_path">
+<span class="sig-name descname"><span class="pre">full_templates_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/context.html#SceptreContext.full_templates_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.context.SceptreContext.full_templates_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the templates path in the format: project_path/templates_path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The absolute path to the  templates directory</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-sceptre.exceptions">
+<span id="sceptre-exceptions-module"></span><h2>sceptre.exceptions module<a class="headerlink" href="#module-sceptre.exceptions" title="Permalink to this heading">¶</a></h2>
+<dl class="py exception">
+<dt class="sig sig-object py" id="sceptre.exceptions.CannotPruneStackError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.exceptions.</span></span><span class="sig-name descname"><span class="pre">CannotPruneStackError</span></span><a class="reference internal" href="../_modules/sceptre/exceptions.html#CannotPruneStackError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.exceptions.CannotPruneStackError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.exceptions.SceptreException" title="sceptre.exceptions.SceptreException"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceptreException</span></code></a></p>
+<p>Error raised when an obsolete stack cannot be pruned because another stack depends on it that is
+not itself obsolete.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="sceptre.exceptions.CannotUpdateFailedStackError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.exceptions.</span></span><span class="sig-name descname"><span class="pre">CannotUpdateFailedStackError</span></span><a class="reference internal" href="../_modules/sceptre/exceptions.html#CannotUpdateFailedStackError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.exceptions.CannotUpdateFailedStackError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.exceptions.SceptreException" title="sceptre.exceptions.SceptreException"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceptreException</span></code></a></p>
+<p>Error raised when a failed stack is updated.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="sceptre.exceptions.CircularDependenciesError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.exceptions.</span></span><span class="sig-name descname"><span class="pre">CircularDependenciesError</span></span><a class="reference internal" href="../_modules/sceptre/exceptions.html#CircularDependenciesError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.exceptions.CircularDependenciesError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.exceptions.SceptreException" title="sceptre.exceptions.SceptreException"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceptreException</span></code></a></p>
+<p>Error raised if there are circular dependencies</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="sceptre.exceptions.ConfigFileNotFoundError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.exceptions.</span></span><span class="sig-name descname"><span class="pre">ConfigFileNotFoundError</span></span><a class="reference internal" href="../_modules/sceptre/exceptions.html#ConfigFileNotFoundError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.exceptions.ConfigFileNotFoundError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.exceptions.SceptreException" title="sceptre.exceptions.SceptreException"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceptreException</span></code></a></p>
+<p>Error raised when a config file does not exist.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="sceptre.exceptions.DependencyDoesNotExistError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.exceptions.</span></span><span class="sig-name descname"><span class="pre">DependencyDoesNotExistError</span></span><a class="reference internal" href="../_modules/sceptre/exceptions.html#DependencyDoesNotExistError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.exceptions.DependencyDoesNotExistError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.exceptions.SceptreException" title="sceptre.exceptions.SceptreException"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceptreException</span></code></a></p>
+<p>Error raised when a dependency cannot be found</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="sceptre.exceptions.DependencyStackMissingOutputError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.exceptions.</span></span><span class="sig-name descname"><span class="pre">DependencyStackMissingOutputError</span></span><a class="reference internal" href="../_modules/sceptre/exceptions.html#DependencyStackMissingOutputError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.exceptions.DependencyStackMissingOutputError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.exceptions.SceptreException" title="sceptre.exceptions.SceptreException"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceptreException</span></code></a></p>
+<p>Error raised if a dependency stack does not have the correct outputs.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="sceptre.exceptions.DependencyStackNotLaunchedError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.exceptions.</span></span><span class="sig-name descname"><span class="pre">DependencyStackNotLaunchedError</span></span><a class="reference internal" href="../_modules/sceptre/exceptions.html#DependencyStackNotLaunchedError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.exceptions.DependencyStackNotLaunchedError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.exceptions.SceptreException" title="sceptre.exceptions.SceptreException"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceptreException</span></code></a></p>
+<p>Error raised when a dependency stack has not been launched</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="sceptre.exceptions.InvalidAWSCredentialsError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.exceptions.</span></span><span class="sig-name descname"><span class="pre">InvalidAWSCredentialsError</span></span><a class="reference internal" href="../_modules/sceptre/exceptions.html#InvalidAWSCredentialsError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.exceptions.InvalidAWSCredentialsError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.exceptions.SceptreException" title="sceptre.exceptions.SceptreException"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceptreException</span></code></a></p>
+<p>Error raised when AWS credentials are invalid.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="sceptre.exceptions.InvalidConfigFileError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.exceptions.</span></span><span class="sig-name descname"><span class="pre">InvalidConfigFileError</span></span><a class="reference internal" href="../_modules/sceptre/exceptions.html#InvalidConfigFileError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.exceptions.InvalidConfigFileError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.exceptions.SceptreException" title="sceptre.exceptions.SceptreException"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceptreException</span></code></a></p>
+<p>Error raised when a config file lacks mandatory keys.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="sceptre.exceptions.InvalidHookArgumentSyntaxError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.exceptions.</span></span><span class="sig-name descname"><span class="pre">InvalidHookArgumentSyntaxError</span></span><a class="reference internal" href="../_modules/sceptre/exceptions.html#InvalidHookArgumentSyntaxError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.exceptions.InvalidHookArgumentSyntaxError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.exceptions.SceptreException" title="sceptre.exceptions.SceptreException"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceptreException</span></code></a></p>
+<p>Error raised if a hook’s argument syntax is invalid.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="sceptre.exceptions.InvalidHookArgumentTypeError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.exceptions.</span></span><span class="sig-name descname"><span class="pre">InvalidHookArgumentTypeError</span></span><a class="reference internal" href="../_modules/sceptre/exceptions.html#InvalidHookArgumentTypeError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.exceptions.InvalidHookArgumentTypeError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.exceptions.SceptreException" title="sceptre.exceptions.SceptreException"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceptreException</span></code></a></p>
+<p>Error raised if a hook’s argument type is invalid.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="sceptre.exceptions.InvalidHookArgumentValueError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.exceptions.</span></span><span class="sig-name descname"><span class="pre">InvalidHookArgumentValueError</span></span><a class="reference internal" href="../_modules/sceptre/exceptions.html#InvalidHookArgumentValueError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.exceptions.InvalidHookArgumentValueError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.exceptions.SceptreException" title="sceptre.exceptions.SceptreException"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceptreException</span></code></a></p>
+<p>Error raised if a hook’s argument value is invalid.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="sceptre.exceptions.InvalidResolverArgumentError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.exceptions.</span></span><span class="sig-name descname"><span class="pre">InvalidResolverArgumentError</span></span><a class="reference internal" href="../_modules/sceptre/exceptions.html#InvalidResolverArgumentError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.exceptions.InvalidResolverArgumentError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.exceptions.SceptreException" title="sceptre.exceptions.SceptreException"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceptreException</span></code></a></p>
+<p>Indicates a resolver argument is invalid in some way.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="sceptre.exceptions.InvalidSceptreDirectoryError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.exceptions.</span></span><span class="sig-name descname"><span class="pre">InvalidSceptreDirectoryError</span></span><a class="reference internal" href="../_modules/sceptre/exceptions.html#InvalidSceptreDirectoryError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.exceptions.InvalidSceptreDirectoryError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.exceptions.SceptreException" title="sceptre.exceptions.SceptreException"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceptreException</span></code></a></p>
+<p>Error raised if a sceptre directory is invalid.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="sceptre.exceptions.PathConversionError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.exceptions.</span></span><span class="sig-name descname"><span class="pre">PathConversionError</span></span><a class="reference internal" href="../_modules/sceptre/exceptions.html#PathConversionError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.exceptions.PathConversionError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.exceptions.SceptreException" title="sceptre.exceptions.SceptreException"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceptreException</span></code></a></p>
+<p>Error raised when a path is unable to be converted.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="sceptre.exceptions.ProjectAlreadyExistsError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.exceptions.</span></span><span class="sig-name descname"><span class="pre">ProjectAlreadyExistsError</span></span><a class="reference internal" href="../_modules/sceptre/exceptions.html#ProjectAlreadyExistsError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.exceptions.ProjectAlreadyExistsError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.exceptions.SceptreException" title="sceptre.exceptions.SceptreException"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceptreException</span></code></a></p>
+<p>Error raised when Sceptre project already exists.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="sceptre.exceptions.ProtectedStackError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.exceptions.</span></span><span class="sig-name descname"><span class="pre">ProtectedStackError</span></span><a class="reference internal" href="../_modules/sceptre/exceptions.html#ProtectedStackError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.exceptions.ProtectedStackError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.exceptions.SceptreException" title="sceptre.exceptions.SceptreException"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceptreException</span></code></a></p>
+<p>Error raised upon execution of an action under active protection</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="sceptre.exceptions.RetryLimitExceededError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.exceptions.</span></span><span class="sig-name descname"><span class="pre">RetryLimitExceededError</span></span><a class="reference internal" href="../_modules/sceptre/exceptions.html#RetryLimitExceededError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.exceptions.RetryLimitExceededError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.exceptions.SceptreException" title="sceptre.exceptions.SceptreException"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceptreException</span></code></a></p>
+<p>Error raised if the request limit is exceeded.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="sceptre.exceptions.SceptreException">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.exceptions.</span></span><span class="sig-name descname"><span class="pre">SceptreException</span></span><a class="reference internal" href="../_modules/sceptre/exceptions.html#SceptreException"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.exceptions.SceptreException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
+<p>Base class for all Sceptre errors</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="sceptre.exceptions.StackDoesNotExistError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.exceptions.</span></span><span class="sig-name descname"><span class="pre">StackDoesNotExistError</span></span><a class="reference internal" href="../_modules/sceptre/exceptions.html#StackDoesNotExistError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.exceptions.StackDoesNotExistError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.exceptions.SceptreException" title="sceptre.exceptions.SceptreException"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceptreException</span></code></a></p>
+<p>Error raised when a stack does not exist.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="sceptre.exceptions.TemplateHandlerArgumentsInvalidError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.exceptions.</span></span><span class="sig-name descname"><span class="pre">TemplateHandlerArgumentsInvalidError</span></span><a class="reference internal" href="../_modules/sceptre/exceptions.html#TemplateHandlerArgumentsInvalidError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.exceptions.TemplateHandlerArgumentsInvalidError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.exceptions.SceptreException" title="sceptre.exceptions.SceptreException"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceptreException</span></code></a></p>
+<p>Error raised when the arguments passed to a Template Handler do not
+adhere to the specified JSON schema.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="sceptre.exceptions.TemplateHandlerNotFoundError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.exceptions.</span></span><span class="sig-name descname"><span class="pre">TemplateHandlerNotFoundError</span></span><a class="reference internal" href="../_modules/sceptre/exceptions.html#TemplateHandlerNotFoundError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.exceptions.TemplateHandlerNotFoundError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.exceptions.SceptreException" title="sceptre.exceptions.SceptreException"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceptreException</span></code></a></p>
+<p>Error raised when a Template Handler of a certain type is not found</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="sceptre.exceptions.TemplateNotFoundError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.exceptions.</span></span><span class="sig-name descname"><span class="pre">TemplateNotFoundError</span></span><a class="reference internal" href="../_modules/sceptre/exceptions.html#TemplateNotFoundError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.exceptions.TemplateNotFoundError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.exceptions.SceptreException" title="sceptre.exceptions.SceptreException"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceptreException</span></code></a></p>
+<p>Error raised when a Template file is not found</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="sceptre.exceptions.TemplateSceptreHandlerError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.exceptions.</span></span><span class="sig-name descname"><span class="pre">TemplateSceptreHandlerError</span></span><a class="reference internal" href="../_modules/sceptre/exceptions.html#TemplateSceptreHandlerError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.exceptions.TemplateSceptreHandlerError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.exceptions.SceptreException" title="sceptre.exceptions.SceptreException"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceptreException</span></code></a></p>
+<p>Error raised if sceptre_handler() is not defined correctly in the template.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="sceptre.exceptions.UnknownHookTypeError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.exceptions.</span></span><span class="sig-name descname"><span class="pre">UnknownHookTypeError</span></span><a class="reference internal" href="../_modules/sceptre/exceptions.html#UnknownHookTypeError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.exceptions.UnknownHookTypeError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.exceptions.SceptreException" title="sceptre.exceptions.SceptreException"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceptreException</span></code></a></p>
+<p>Error raised if an unrecognised hook type is received.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="sceptre.exceptions.UnknownStackChangeSetStatusError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.exceptions.</span></span><span class="sig-name descname"><span class="pre">UnknownStackChangeSetStatusError</span></span><a class="reference internal" href="../_modules/sceptre/exceptions.html#UnknownStackChangeSetStatusError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.exceptions.UnknownStackChangeSetStatusError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.exceptions.SceptreException" title="sceptre.exceptions.SceptreException"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceptreException</span></code></a></p>
+<p>Error raised if an unknown stack change set status is received.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="sceptre.exceptions.UnknownStackStatusError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.exceptions.</span></span><span class="sig-name descname"><span class="pre">UnknownStackStatusError</span></span><a class="reference internal" href="../_modules/sceptre/exceptions.html#UnknownStackStatusError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.exceptions.UnknownStackStatusError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.exceptions.SceptreException" title="sceptre.exceptions.SceptreException"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceptreException</span></code></a></p>
+<p>Error raised if an unknown stack status is received.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="sceptre.exceptions.UnsupportedTemplateFileTypeError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.exceptions.</span></span><span class="sig-name descname"><span class="pre">UnsupportedTemplateFileTypeError</span></span><a class="reference internal" href="../_modules/sceptre/exceptions.html#UnsupportedTemplateFileTypeError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.exceptions.UnsupportedTemplateFileTypeError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.exceptions.SceptreException" title="sceptre.exceptions.SceptreException"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceptreException</span></code></a></p>
+<p>Error raised if an unsupported template file type is used.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="sceptre.exceptions.VersionIncompatibleError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.exceptions.</span></span><span class="sig-name descname"><span class="pre">VersionIncompatibleError</span></span><a class="reference internal" href="../_modules/sceptre/exceptions.html#VersionIncompatibleError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.exceptions.VersionIncompatibleError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sceptre.exceptions.SceptreException" title="sceptre.exceptions.SceptreException"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceptreException</span></code></a></p>
+<p>Error raised if configuration incompatible with running version.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-sceptre.helpers">
+<span id="sceptre-helpers-module"></span><h2>sceptre.helpers module<a class="headerlink" href="#module-sceptre.helpers" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="sceptre.helpers.create_deprecated_alias_property">
+<span class="sig-prename descclassname"><span class="pre">sceptre.helpers.</span></span><span class="sig-name descname"><span class="pre">create_deprecated_alias_property</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alias_from</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alias_to</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deprecated_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">removed_in</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/helpers.html#create_deprecated_alias_property"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.helpers.create_deprecated_alias_property" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a property object with a deprecated getter and a deprecated setter that emit warnings
+when used, aliasing to their renamed property names.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>alias_from</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The name of the attribute that is deprecated and that needs to be aliased</p></li>
+<li><p><strong>alias_to</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The name of the attribute to alias the deprecated field to.</p></li>
+<li><p><strong>deprecated_in</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The version in which the property is deprecated.</p></li>
+<li><p><strong>removed_in</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – The version when it will be removed, after which the alias will no longer work.
+This value can be None, indicating that removal is not yet planned.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#property" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">property</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A property object to be assigned directly onto a class.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sceptre.helpers.delete_keys_from_containers">
+<span class="sig-prename descclassname"><span class="pre">sceptre.helpers.</span></span><span class="sig-name descname"><span class="pre">delete_keys_from_containers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keys_to_delete</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/helpers.html#delete_keys_from_containers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.helpers.delete_keys_from_containers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes the indicated keys/indexes from their paired containers.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sceptre.helpers.extract_datetime_from_aws_response_headers">
+<span class="sig-prename descclassname"><span class="pre">sceptre.helpers.</span></span><span class="sig-name descname"><span class="pre">extract_datetime_from_aws_response_headers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">boto_response</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/helpers.html#extract_datetime_from_aws_response_headers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.helpers.extract_datetime_from_aws_response_headers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a datetime.datetime extracted from the response metadata in a
+boto response or None if it’s unable to find or parse one.
+:type boto_response: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>
+:param boto_response: A dictionary returned from a boto client call
+:returns a datetime.datetime or None</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sceptre.helpers.gen_repr">
+<span class="sig-prename descclassname"><span class="pre">sceptre.helpers.</span></span><span class="sig-name descname"><span class="pre">gen_repr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attributes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/helpers.html#gen_repr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.helpers.gen_repr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a standard __repr__ based on instance attributes.
+:type instance: <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>
+:param instance: The instance to represent (<cite>self</cite>).
+:type class_label: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>
+:param class_label: Override the name of the class found through introspection.
+:type attributes: <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]
+:param attributes: List the attributes to include the in representation.
+:rtype: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>
+:returns: A string representation of <cite>instance</cite></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sceptre.helpers.get_external_stack_name">
+<span class="sig-prename descclassname"><span class="pre">sceptre.helpers.</span></span><span class="sig-name descname"><span class="pre">get_external_stack_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/helpers.html#get_external_stack_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.helpers.get_external_stack_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the name given to a stack in CloudFormation.
+:param project_code: The project code, as defined in config.yaml.
+:type project_code: str
+:param stack_name: The name of the stack.
+:type stack_name: str
+:returns: The name given to the stack in CloudFormation.
+:rtype: str</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sceptre.helpers.logging_level">
+<span class="sig-prename descclassname"><span class="pre">sceptre.helpers.</span></span><span class="sig-name descname"><span class="pre">logging_level</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/helpers.html#logging_level"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.helpers.logging_level" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the logging level.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sceptre.helpers.mask_key">
+<span class="sig-prename descclassname"><span class="pre">sceptre.helpers.</span></span><span class="sig-name descname"><span class="pre">mask_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/helpers.html#mask_key"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.helpers.mask_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an masked version of <code class="docutils literal notranslate"><span class="pre">key</span></code>.</p>
+<p>Returned version has all but the last four characters are replaced with the
+character “*”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – The string to mask.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An masked version of the key</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sceptre.helpers.normalise_path">
+<span class="sig-prename descclassname"><span class="pre">sceptre.helpers.</span></span><span class="sig-name descname"><span class="pre">normalise_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/helpers.html#normalise_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.helpers.normalise_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a path to use correct path separator.
+Raises an PathConversionError if the path has a
+trailing slash.
+:param path: A directory path
+:type path: str
+:raises: sceptre.exceptions.PathConversionError
+:returns: A normalised path with forward slashes.
+:returns: string</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sceptre.helpers.null_context">
+<span class="sig-prename descclassname"><span class="pre">sceptre.helpers.</span></span><span class="sig-name descname"><span class="pre">null_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/helpers.html#null_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.helpers.null_context" title="Permalink to this definition">¶</a></dt>
+<dd><p>A context manager that does nothing. This is identical to the nullcontext in py3.7+, but isn’t
+available in py3.6, so providing it here instead.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sceptre.helpers.sceptreise_path">
+<span class="sig-prename descclassname"><span class="pre">sceptre.helpers.</span></span><span class="sig-name descname"><span class="pre">sceptreise_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/helpers.html#sceptreise_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.helpers.sceptreise_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a path to use correct sceptre path separator.
+Raises an PathConversionError if the path has a
+trailing slash.
+:param path: A directory path
+:type path: str
+:raises: sceptre.exceptions.PathConversionError
+:returns: A normalised path with forward slashes.
+:returns: string</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sceptre.helpers.write_debug_file">
+<span class="sig-prename descclassname"><span class="pre">sceptre.helpers.</span></span><span class="sig-name descname"><span class="pre">write_debug_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/helpers.html#write_debug_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.helpers.write_debug_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write some content to a temp file for debug purposes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>content</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – the file content to write.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the full path to the temp file.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-sceptre.logging">
+<span id="sceptre-logging-module"></span><h2>sceptre.logging module<a class="headerlink" href="#module-sceptre.logging" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="sceptre.logging.StackLoggerAdapter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.logging.</span></span><span class="sig-name descname"><span class="pre">StackLoggerAdapter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/logging.html#StackLoggerAdapter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.logging.StackLoggerAdapter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.LoggerAdapter" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoggerAdapter</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="sceptre.logging.StackLoggerAdapter.process">
+<span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/logging.html#StackLoggerAdapter.process"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.logging.StackLoggerAdapter.process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Process the logging message and keyword arguments passed in to
+a logging call to insert contextual information. You can either
+manipulate the message itself, the keyword args or both. Return
+the message and kwargs modified (or not) to suit your needs.</p>
+<p>Normally, you’ll only need to override this one method in a
+LoggerAdapter subclass for your specific needs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.MutableMapping" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MutableMapping</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-sceptre.stack">
+<span id="sceptre-stack-module"></span><h2>sceptre.stack module<a class="headerlink" href="#module-sceptre.stack" title="Permalink to this heading">¶</a></h2>
+<p>sceptre.stack</p>
+<p>This module implements a Stack class, which stores a Stack’s data.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="sceptre.stack.Stack">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.stack.</span></span><span class="sig-name descname"><span class="pre">Stack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template_handler_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template_bucket_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template_key_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">required_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sceptre_user_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hooks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s3_details</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sceptre_role</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iam_role</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dependencies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cloudformation_service_role</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role_arn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">protected</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">external_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">notifications</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_failure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disable_rollback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sceptre_role_session_duration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iam_role_session_duration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obsolete</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack_group_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/stack.html#Stack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.stack.Stack" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Stack stores information about a particular CloudFormation Stack.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The name of the Stack.</p></li>
+<li><p><strong>project_code</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – A code which is prepended to the Stack names            of all Stacks built by Sceptre.</p></li>
+<li><p><strong>template_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The relative path to the CloudFormation, Jinja2,
+or Python template to build the Stack from. If this is filled,
+<cite>template_handler_config</cite> should not be filled. This field has been deprecated since
+version 4.0.0 and will be removed in version 5.0.0.</p></li>
+<li><p><strong>template_handler_config</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>) – Configuration for a Template Handler that can resolve
+its arguments to a template string. Should contain the <cite>type</cite> property to specify
+the type of template handler to load. Conflicts with <cite>template_path</cite>.</p></li>
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The AWS region to build Stacks in.</p></li>
+<li><p><strong>template_bucket_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The name of the S3 bucket the Template is uploaded to.</p></li>
+<li><p><strong>template_key_prefix</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – A prefix to the key used to store templates uploaded to S3</p></li>
+<li><p><strong>required_version</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – A PEP 440 compatible version specifier. If the Sceptre version does            not fall within the given version requirement it will abort.</p></li>
+<li><p><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>) – The keys must match up with the name of the parameter.            The value must be of the type as defined in the template.</p></li>
+<li><p><strong>sceptre_user_data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>) – Data passed into            <cite>sceptre_handler(sceptre_user_data)</cite> function in Python templates            or accessible under <cite>sceptre_user_data</cite> variable within Jinja2            templates.</p></li>
+<li><p><strong>hooks</strong> (<a class="reference internal" href="sceptre.hooks.html#sceptre.hooks.Hook" title="sceptre.hooks.Hook"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hook</span></code></a>) – A list of arbitrary shell or python commands or scripts to            run.</p></li>
+<li><p><strong>s3_details</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>) – Details used for uploading templates to S3.</p></li>
+<li><p><strong>dependencies</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference internal" href="#sceptre.stack.Stack" title="sceptre.stack.Stack"><code class="xref py py-class docutils literal notranslate"><span class="pre">Stack</span></code></a>]) – The relative path to the Stack, including the file            extension of the Stack.</p></li>
+<li><p><strong>cloudformation_service_role</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The ARN of a CloudFormation Service Role that is assumed            by CloudFormation to create, update or delete resources.</p></li>
+<li><p><strong>protected</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – Stack protection against execution.</p></li>
+<li><p><strong>tags</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>) – CloudFormation Tags to be applied to the Stack.</p></li>
+<li><p><strong>external_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The real stack name used for CloudFormation</p></li>
+<li><p><strong>notifications</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – SNS topic ARNs to publish Stack related events to.            A maximum of 5 ARNs can be specified per Stack.</p></li>
+<li><p><strong>on_failure</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – This parameter describes the action taken by            CloudFormation when a Stack fails to create.</p></li>
+<li><p><strong>disable_rollback</strong> – If True, cloudformation will not rollback on deployment failures</p></li>
+<li><p><strong>iam_role</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The ARN of a role for Sceptre to assume before interacting
+with the environment. If not supplied, Sceptre uses the user’s AWS CLI
+credentials. This field has been deprecated since version 4.0.0 and will be removed in
+version 5.0.0.</p></li>
+<li><p><strong>sceptre_role</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The ARN of a role for Sceptre to assume before interacting            with the environment. If not supplied, Sceptre uses the user’s AWS CLI            credentials.</p></li>
+<li><p><strong>iam_role_session_duration</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]) – The duration in seconds of the assumed IAM role session.
+This field has been deprecated since version 4.0.0 and will be removed in version 5.0.0.</p></li>
+<li><p><strong>sceptre_role_session_duration</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]) – The duration in seconds of the assumed IAM role session.</p></li>
+<li><p><strong>profile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The name of the profile as defined in ~/.aws/config and            ~/.aws/credentials.</p></li>
+<li><p><strong>stack_timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – A timeout in minutes before considering the Stack            deployment as failed. After the specified timeout, the Stack will            be rolled back. Specifying zero, as well as omitting the field,            will result in no timeout. Supports only positive integer value.</p></li>
+<li><p><strong>ignore</strong> – If True, this stack will be ignored during launches (but it can be explicitly
+deployed with create, update, and delete commands.</p></li>
+<li><p><strong>obsolete</strong> – If True, this stack will operate the same as if ignore was set, but it will
+also be deleted if the prune command is invoked or the –prune option is used with the
+launch command.</p></li>
+<li><p><strong>sceptre_role_session_duration</strong> – The session duration when Scetre assumes a role.           If not supplied, Sceptre uses default value (3600 seconds)</p></li>
+<li><p><strong>stack_group_config</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>) – The StackGroup config for the Stack</p></li>
+<li><p><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>) – The complete config for the stack. Used by dump config.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sceptre.stack.Stack.cloudformation_service_role">
+<span class="sig-name descname"><span class="pre">cloudformation_service_role</span></span><a class="headerlink" href="#sceptre.stack.Stack.cloudformation_service_role" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a descriptor class used to store an attribute that may BE a single
+Resolver object. If it is a resolver, it will be resolved upon access of this property.
+When resolved, the resolved value will replace the resolver on the stack in order to avoid
+redundant resolutions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Attribute suffix used to store the property in the instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="sceptre.stack.Stack.connection_manager">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">connection_manager</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#sceptre.connection_manager.ConnectionManager" title="sceptre.connection_manager.ConnectionManager"><span class="pre">ConnectionManager</span></a></em><a class="headerlink" href="#sceptre.stack.Stack.connection_manager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the ConnectionManager for the stack, creating it if it has not yet been created.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#sceptre.connection_manager.ConnectionManager" title="sceptre.connection_manager.ConnectionManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConnectionManager</span></code></a></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>ConnectionManager.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sceptre.stack.Stack.hooks">
+<span class="sig-name descname"><span class="pre">hooks</span></span><a class="headerlink" href="#sceptre.stack.Stack.hooks" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a descriptor class used to store an attribute that may contain
+Hook objects. Used to setup Hooks when added as a attribute. Supports
+nested dictionary and lists.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Attribute suffix used to store the property in the instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="sceptre.stack.Stack.iam_role">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">iam_role</span></span><a class="headerlink" href="#sceptre.stack.Stack.iam_role" title="Permalink to this definition">¶</a></dt>
+<dd><div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 4.0.0: </span>This will be removed in 5.0.0. It is being renamed to “sceptre_role”. You should migrate all uses of “iam_role” to that in order to avoid future breakage.</p>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="sceptre.stack.Stack.iam_role_session_duration">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">iam_role_session_duration</span></span><a class="headerlink" href="#sceptre.stack.Stack.iam_role_session_duration" title="Permalink to this definition">¶</a></dt>
+<dd><div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 4.0.0: </span>This will be removed in 5.0.0. It is being renamed to “sceptre_role_session_duration”. You should migrate all uses of “iam_role_session_duration” to that in order to avoid future breakage.</p>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sceptre.stack.Stack.notifications">
+<span class="sig-name descname"><span class="pre">notifications</span></span><a class="headerlink" href="#sceptre.stack.Stack.notifications" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a descriptor class used to store an attribute that may CONTAIN
+Resolver objects. Resolvers will be resolved upon access of this property.
+When resolvers are resolved, they will be replaced in the container with their
+resolved value, in order to avoid redundant resolutions.</p>
+<p>Supports nested dictionary and lists.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Attribute suffix used to store the property in the instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sceptre.stack.Stack.parameters">
+<span class="sig-name descname"><span class="pre">parameters</span></span><a class="headerlink" href="#sceptre.stack.Stack.parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a descriptor class used to store an attribute that may CONTAIN
+Resolver objects. Resolvers will be resolved upon access of this property.
+When resolvers are resolved, they will be replaced in the container with their
+resolved value, in order to avoid redundant resolutions.</p>
+<p>Supports nested dictionary and lists.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Attribute suffix used to store the property in the instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="sceptre.stack.Stack.role_arn">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">role_arn</span></span><a class="headerlink" href="#sceptre.stack.Stack.role_arn" title="Permalink to this definition">¶</a></dt>
+<dd><div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 4.0.0: </span>This will be removed in 5.0.0. It is being renamed to “cloudformation_service_role”. You should migrate all uses of “role_arn” to that in order to avoid future breakage.</p>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sceptre.stack.Stack.s3_details">
+<span class="sig-name descname"><span class="pre">s3_details</span></span><a class="headerlink" href="#sceptre.stack.Stack.s3_details" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a descriptor class used to store an attribute that may CONTAIN
+Resolver objects. Resolvers will be resolved upon access of this property.
+When resolvers are resolved, they will be replaced in the container with their
+resolved value, in order to avoid redundant resolutions.</p>
+<p>Supports nested dictionary and lists.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Attribute suffix used to store the property in the instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sceptre.stack.Stack.sceptre_role">
+<span class="sig-name descname"><span class="pre">sceptre_role</span></span><a class="headerlink" href="#sceptre.stack.Stack.sceptre_role" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a descriptor class used to store an attribute that may BE a single
+Resolver object. If it is a resolver, it will be resolved upon access of this property.
+When resolved, the resolved value will replace the resolver on the stack in order to avoid
+redundant resolutions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Attribute suffix used to store the property in the instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sceptre.stack.Stack.sceptre_role_session_duration">
+<span class="sig-name descname"><span class="pre">sceptre_role_session_duration</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#sceptre.stack.Stack.sceptre_role_session_duration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sceptre.stack.Stack.sceptre_user_data">
+<span class="sig-name descname"><span class="pre">sceptre_user_data</span></span><a class="headerlink" href="#sceptre.stack.Stack.sceptre_user_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a descriptor class used to store an attribute that may CONTAIN
+Resolver objects. Resolvers will be resolved upon access of this property.
+When resolvers are resolved, they will be replaced in the container with their
+resolved value, in order to avoid redundant resolutions.</p>
+<p>Supports nested dictionary and lists.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Attribute suffix used to store the property in the instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sceptre.stack.Stack.tags">
+<span class="sig-name descname"><span class="pre">tags</span></span><a class="headerlink" href="#sceptre.stack.Stack.tags" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a descriptor class used to store an attribute that may CONTAIN
+Resolver objects. Resolvers will be resolved upon access of this property.
+When resolvers are resolved, they will be replaced in the container with their
+resolved value, in order to avoid redundant resolutions.</p>
+<p>Supports nested dictionary and lists.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Attribute suffix used to store the property in the instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="sceptre.stack.Stack.template">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">template</span></span><a class="headerlink" href="#sceptre.stack.Stack.template" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the CloudFormation Template used to create the Stack.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The Stack’s template.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#sceptre.template.Template" title="sceptre.template.Template">Template</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sceptre.stack.Stack.template_bucket_name">
+<span class="sig-name descname"><span class="pre">template_bucket_name</span></span><a class="headerlink" href="#sceptre.stack.Stack.template_bucket_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a descriptor class used to store an attribute that may BE a single
+Resolver object. If it is a resolver, it will be resolved upon access of this property.
+When resolved, the resolved value will replace the resolver on the stack in order to avoid
+redundant resolutions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Attribute suffix used to store the property in the instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sceptre.stack.Stack.template_handler_config">
+<span class="sig-name descname"><span class="pre">template_handler_config</span></span><a class="headerlink" href="#sceptre.stack.Stack.template_handler_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a descriptor class used to store an attribute that may CONTAIN
+Resolver objects. Resolvers will be resolved upon access of this property.
+When resolvers are resolved, they will be replaced in the container with their
+resolved value, in order to avoid redundant resolutions.</p>
+<p>Supports nested dictionary and lists.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Attribute suffix used to store the property in the instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="sceptre.stack.Stack.template_path">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">template_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></em><a class="headerlink" href="#sceptre.stack.Stack.template_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>The path argument from the template_handler config. This field is deprecated as of v4.0.0
+and will be removed in v5.0.0.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 4.0.0: </span>This will be removed in 5.0.0. Use the template Stack Config key instead.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-sceptre.stack_status">
+<span id="sceptre-stack-status-module"></span><h2>sceptre.stack_status module<a class="headerlink" href="#module-sceptre.stack_status" title="Permalink to this heading">¶</a></h2>
+<p>sceptre.stack_status</p>
+<p>This module implemets structs for simplified Stack status and simplified
+ChangeSet status values.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="sceptre.stack_status.StackChangeSetStatus">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.stack_status.</span></span><span class="sig-name descname"><span class="pre">StackChangeSetStatus</span></span><a class="reference internal" href="../_modules/sceptre/stack_status.html#StackChangeSetStatus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.stack_status.StackChangeSetStatus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>StackChangeSetStatus stores simplified ChangeSet statuses.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sceptre.stack_status.StackChangeSetStatus.DEFUNCT">
+<span class="sig-name descname"><span class="pre">DEFUNCT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'defunct'</span></em><a class="headerlink" href="#sceptre.stack_status.StackChangeSetStatus.DEFUNCT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sceptre.stack_status.StackChangeSetStatus.PENDING">
+<span class="sig-name descname"><span class="pre">PENDING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'pending'</span></em><a class="headerlink" href="#sceptre.stack_status.StackChangeSetStatus.PENDING" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sceptre.stack_status.StackChangeSetStatus.READY">
+<span class="sig-name descname"><span class="pre">READY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ready'</span></em><a class="headerlink" href="#sceptre.stack_status.StackChangeSetStatus.READY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="sceptre.stack_status.StackStatus">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.stack_status.</span></span><span class="sig-name descname"><span class="pre">StackStatus</span></span><a class="reference internal" href="../_modules/sceptre/stack_status.html#StackStatus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.stack_status.StackStatus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>StackStatus stores simplified Stack statuses.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sceptre.stack_status.StackStatus.COMPLETE">
+<span class="sig-name descname"><span class="pre">COMPLETE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'complete'</span></em><a class="headerlink" href="#sceptre.stack_status.StackStatus.COMPLETE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sceptre.stack_status.StackStatus.FAILED">
+<span class="sig-name descname"><span class="pre">FAILED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'failed'</span></em><a class="headerlink" href="#sceptre.stack_status.StackStatus.FAILED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sceptre.stack_status.StackStatus.IN_PROGRESS">
+<span class="sig-name descname"><span class="pre">IN_PROGRESS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'in</span> <span class="pre">progress'</span></em><a class="headerlink" href="#sceptre.stack_status.StackStatus.IN_PROGRESS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sceptre.stack_status.StackStatus.PENDING">
+<span class="sig-name descname"><span class="pre">PENDING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'pending'</span></em><a class="headerlink" href="#sceptre.stack_status.StackStatus.PENDING" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-sceptre.stack_status_colourer">
+<span id="sceptre-stack-status-colourer-module"></span><h2>sceptre.stack_status_colourer module<a class="headerlink" href="#module-sceptre.stack_status_colourer" title="Permalink to this heading">¶</a></h2>
+<p>sceptre.stack_status_colourer</p>
+<p>This module implements a StackStatusColourer class, colours any Stack Statuses
+found in a given string.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="sceptre.stack_status_colourer.StackStatusColourer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.stack_status_colourer.</span></span><span class="sig-name descname"><span class="pre">StackStatusColourer</span></span><a class="reference internal" href="../_modules/sceptre/stack_status_colourer.html#StackStatusColourer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.stack_status_colourer.StackStatusColourer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>StackStatusColourer adds colours to stack statuses.
+These are documented here:
+<a class="reference external" href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-describing-stacks.html">https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-describing-stacks.html</a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sceptre.stack_status_colourer.StackStatusColourer.STACK_STATUS_CODES">
+<span class="sig-name descname"><span class="pre">STACK_STATUS_CODES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'CREATE_COMPLETE':</span> <span class="pre">'\x1b[32m',</span> <span class="pre">'CREATE_FAILED':</span> <span class="pre">'\x1b[31m',</span> <span class="pre">'CREATE_IN_PROGRESS':</span> <span class="pre">'\x1b[33m',</span> <span class="pre">'DELETE_COMPLETE':</span> <span class="pre">'\x1b[32m',</span> <span class="pre">'DELETE_FAILED':</span> <span class="pre">'\x1b[31m',</span> <span class="pre">'DELETE_IN_PROGRESS':</span> <span class="pre">'\x1b[33m',</span> <span class="pre">'DELETE_SKIPPED':</span> <span class="pre">'\x1b[36m',</span> <span class="pre">'IMPORT_COMPLETE':</span> <span class="pre">'\x1b[32m',</span> <span class="pre">'IMPORT_IN_PROGRESS':</span> <span class="pre">'\x1b[33m',</span> <span class="pre">'IMPORT_ROLLBACK_COMPLETE':</span> <span class="pre">'\x1b[32m',</span> <span class="pre">'IMPORT_ROLLBACK_FAILED':</span> <span class="pre">'\x1b[31m',</span> <span class="pre">'IMPORT_ROLLBACK_IN_PROGRESS':</span> <span class="pre">'\x1b[33m',</span> <span class="pre">'PENDING':</span> <span class="pre">'\x1b[36m',</span> <span class="pre">'REVIEW_IN_PROGRESS':</span> <span class="pre">'\x1b[33m',</span> <span class="pre">'ROLLBACK_COMPLETE':</span> <span class="pre">'\x1b[31m',</span> <span class="pre">'ROLLBACK_FAILED':</span> <span class="pre">'\x1b[31m',</span> <span class="pre">'ROLLBACK_IN_PROGRESS':</span> <span class="pre">'\x1b[33m',</span> <span class="pre">'UPDATE_COMPLETE':</span> <span class="pre">'\x1b[32m',</span> <span class="pre">'UPDATE_COMPLETE_CLEANUP_IN_PROGRESS':</span> <span class="pre">'\x1b[33m',</span> <span class="pre">'UPDATE_FAILED':</span> <span class="pre">'\x1b[31m',</span> <span class="pre">'UPDATE_IN_PROGRESS':</span> <span class="pre">'\x1b[33m',</span> <span class="pre">'UPDATE_ROLLBACK_COMPLETE':</span> <span class="pre">'\x1b[32m',</span> <span class="pre">'UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS':</span> <span class="pre">'\x1b[33m',</span> <span class="pre">'UPDATE_ROLLBACK_FAILED':</span> <span class="pre">'\x1b[31m',</span> <span class="pre">'UPDATE_ROLLBACK_IN_PROGRESS':</span> <span class="pre">'\x1b[33m'}</span></em><a class="headerlink" href="#sceptre.stack_status_colourer.StackStatusColourer.STACK_STATUS_CODES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sceptre.stack_status_colourer.StackStatusColourer.STACK_STATUS_PATTERN">
+<span class="sig-name descname"><span class="pre">STACK_STATUS_PATTERN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('\\b(CREATE_COMPLETE|CREATE_FAILED|CREATE_IN_PROGRESS|DELETE_COMPLETE|DELETE_FAILED|DELETE_IN_PROGRESS|DELETE_SKIPPED|IMPORT_COMPLETE|IMPORT_IN_PROGRESS|IMPORT_ROLLBACK_COMPLETE|IMPORT_ROLLBACK_FAILED)</span></em><a class="headerlink" href="#sceptre.stack_status_colourer.StackStatusColourer.STACK_STATUS_PATTERN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sceptre.stack_status_colourer.StackStatusColourer.colour">
+<span class="sig-name descname"><span class="pre">colour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/stack_status_colourer.html#StackStatusColourer.colour"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.stack_status_colourer.StackStatusColourer.colour" title="Permalink to this definition">¶</a></dt>
+<dd><p>Colours all Stack Statueses in <code class="docutils literal notranslate"><span class="pre">string</span></code>.</p>
+<p>The colours applied are defined in
+<code class="docutils literal notranslate"><span class="pre">sceptre.stack_status_colourer.StackStatusColourer.STACK_STATUS_CODES</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>string</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – A string to colour.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The string with all stack status values coloured.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-sceptre.template">
+<span id="sceptre-template-module"></span><h2>sceptre.template module<a class="headerlink" href="#module-sceptre.template" title="Permalink to this heading">¶</a></h2>
+<p>sceptre.template</p>
+<p>This module implements a Template class, which stores a CloudFormation template
+and implements methods for uploading it to S3.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="sceptre.template.Template">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sceptre.template.</span></span><span class="sig-name descname"><span class="pre">Template</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handler_config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sceptre_user_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack_group_config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connection_manager</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s3_details</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/template.html#Template"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.template.Template" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Template represents an AWS CloudFormation template. It is responsible for
+loading, storing and optionally uploading local templates for use by
+CloudFormation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – The name of the template. Should be safe to use in filenames and not contain path segments.</p></li>
+<li><p><strong>handler_config</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a>) – The configuration for a Template handler. Must contain a <cite>type</cite>.</p></li>
+<li><p><strong>sceptre_user_data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a>) – A dictionary of arbitrary data to be passed to            a handler function in an external Python script.</p></li>
+<li><p><strong>stack_group_config</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a>) – The StackGroup config for the Stack.</p></li>
+<li><p><strong>connection_manager</strong> (<a class="reference internal" href="#sceptre.connection_manager.ConnectionManager" title="sceptre.connection_manager.ConnectionManager"><em>sceptre.connection_manager.ConnectionManager</em></a>) – </p></li>
+<li><p><strong>s3_details</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="sceptre.template.Template.body">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">body</span></span><a class="headerlink" href="#sceptre.template.Template.body" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents body of the CloudFormation template.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The body of the CloudFormation template.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sceptre.template.Template.get_boto_call_parameter">
+<span class="sig-name descname"><span class="pre">get_boto_call_parameter</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/template.html#Template.get_boto_call_parameter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.template.Template.get_boto_call_parameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the CloudFormation template location.</p>
+<p>Uploads the template to S3 and returns the object’s URL, or returns
+the template itself.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The boto call parameter for the template.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sceptre.template.Template.upload_to_s3">
+<span class="sig-name descname"><span class="pre">upload_to_s3</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sceptre/template.html#Template.upload_to_s3"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sceptre.template.Template.upload_to_s3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uploads the template to <code class="docutils literal notranslate"><span class="pre">bucket_name</span></code> and returns its URL.</p>
+<p>The Template is uploaded with the <code class="docutils literal notranslate"><span class="pre">bucket_key</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The URL of the Template object in S3.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p>botocore.exceptions.ClientError</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="sceptre.cli.html" class="btn btn-neutral float-right" title="sceptre.cli package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="modules.html" class="btn btn-neutral float-left" title="sceptre" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2018, Cloudreach.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+    <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: 4.3.0
+      <span class="fa fa-caret-down"></span>
+    </span>
+
+        <div class="rst-other-versions">
+            <dl id="other-versions">
+                <dt>Versions</dt>
+            </dl>
+            <dl>
+                
+                <dt>Other Links</dt>
+                
+
+                    <dd>
+                        <a href="https://www.cloudreach.com">Cloudreach</a>
+                    </dd>
+                
+
+                    <dd>
+                        <a href="https://docs.sceptre-project.org">Sceptre Home</a>
+                    </dd>
+                
+            </dl>
+            <hr/>
+            Original template provided by <a href="http://www.readthedocs.org">Read the Docs</a>.
+        </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                $.getScript("../../version-helper.js").done(
+                    function () {
+                        versions.forEach(function (item, index) {
+                            if (item !== "4.3.0") {
+                                $('#other-versions').append('<dd><a href="'+ window.location.origin + '/' + item +'">' + item + "<a/></dd>");
+                            }
+                        })
+                    });
+            });
+        </script>
+    </div>
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
