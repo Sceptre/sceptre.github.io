@@ -234,9 +234,9 @@ Config file.</p>
 <p>With this templating some problems will arise, such empty strings as parameters. In the following example you can find a work around for this issues.</p>
 <p>This represents a stack to deploy route53 records, it’s only showing CNAME and ALIAS records to not get too large.</p>
 <p>Stack:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">template</span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">templates/dns-extras.j2</span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">file</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">templates/dns-extras.j2</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">file</span>
 <span class="nt">dependencies</span><span class="p">:</span>
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prod/route53/domain-zone.yaml</span>
 <span class="nt">parameters</span><span class="p">:</span>
