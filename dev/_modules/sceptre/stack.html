@@ -196,6 +196,9 @@
 <span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">deprecation</span> <span class="kn">import</span> <span class="n">deprecated</span>
+
+<span class="kn">from</span> <span class="nn">sceptre</span> <span class="kn">import</span> <span class="n">__version__</span>
 <span class="kn">from</span> <span class="nn">sceptre.connection_manager</span> <span class="kn">import</span> <span class="n">ConnectionManager</span>
 <span class="kn">from</span> <span class="nn">sceptre.exceptions</span> <span class="kn">import</span> <span class="n">InvalidConfigFileError</span>
 <span class="kn">from</span> <span class="nn">sceptre.helpers</span> <span class="kn">import</span> <span class="p">(</span>
@@ -222,9 +225,14 @@
 <span class="sd">    :param project_code: A code which is prepended to the Stack names\</span>
 <span class="sd">            of all Stacks built by Sceptre.</span>
 
+<span class="sd">    :param template_path: The relative path to the CloudFormation, Jinja2,</span>
+<span class="sd">            or Python template to build the Stack from. If this is filled,</span>
+<span class="sd">            `template_handler_config` should not be filled. This field has been deprecated since</span>
+<span class="sd">            version 4.0.0 and will be removed in version 5.0.0.</span>
+
 <span class="sd">    :param template_handler_config: Configuration for a Template Handler that can resolve</span>
 <span class="sd">            its arguments to a template string. Should contain the `type` property to specify</span>
-<span class="sd">            the type of template handler to load.</span>
+<span class="sd">            the type of template handler to load. Conflicts with `template_path`.</span>
 
 <span class="sd">    :param region: The AWS region to build Stacks in.</span>
 
@@ -347,6 +355,7 @@
         <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">project_code</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">region</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">template_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">template_handler_config</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">template_bucket_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">template_key_prefix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -420,7 +429,15 @@
             <span class="n">role_arn</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">template_bucket_name</span> <span class="o">=</span> <span class="n">template_bucket_name</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">template_handler_config</span> <span class="o">=</span> <span class="n">template_handler_config</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_field_with_deprecated_alias</span><span class="p">(</span>
+            <span class="s2">&quot;template_handler_config&quot;</span><span class="p">,</span>
+            <span class="n">template_handler_config</span><span class="p">,</span>
+            <span class="s2">&quot;template_path&quot;</span><span class="p">,</span>
+            <span class="n">template_path</span><span class="p">,</span>
+            <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">preferred_config_name</span><span class="o">=</span><span class="s2">&quot;template&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">s3_details</span> <span class="o">=</span> <span class="n">s3_details</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span> <span class="o">=</span> <span class="n">parameters</span> <span class="ow">or</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sceptre_user_data</span> <span class="o">=</span> <span class="n">sceptre_user_data</span> <span class="ow">or</span> <span class="p">{}</span>
@@ -478,6 +495,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">name</span>
             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">external_name</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">external_name</span>
             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">project_code</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">project_code</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_path</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">template_path</span>
             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">region</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">region</span>
             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_key_prefix</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">template_key_prefix</span>
             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">required_version</span> <span class="o">==</span> <span class="n">stack</span><span class="o">.</span><span class="n">required_version</span>
@@ -554,6 +572,23 @@
             <span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_template</span>
 
+    <span class="nd">@property</span>
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;4.0.0&quot;</span><span class="p">,</span> <span class="s2">&quot;5.0.0&quot;</span><span class="p">,</span> <span class="n">__version__</span><span class="p">,</span> <span class="s2">&quot;Use the template Stack Config key instead.&quot;</span>
+    <span class="p">)</span>
+    <span class="k">def</span> <span class="nf">template_path</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The path argument from the template_handler config. This field is deprecated as of v4.0.0</span>
+<span class="sd">        and will be removed in v5.0.0.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_handler_config</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">]</span>
+
+    <span class="nd">@template_path</span><span class="o">.</span><span class="n">setter</span>
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;4.0.0&quot;</span><span class="p">,</span> <span class="s2">&quot;5.0.0&quot;</span><span class="p">,</span> <span class="n">__version__</span><span class="p">,</span> <span class="s2">&quot;Use the template Stack Config key instead.&quot;</span>
+    <span class="p">)</span>
+    <span class="k">def</span> <span class="nf">template_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">template_handler_config</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span> <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="n">value</span><span class="p">}</span>
+
     <span class="k">def</span> <span class="nf">_set_field_with_deprecated_alias</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">preferred_attribute_name</span><span class="p">,</span>
@@ -572,7 +607,7 @@
 
         <span class="k">if</span> <span class="n">preferred_value</span> <span class="ow">and</span> <span class="n">deprecated_value</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">InvalidConfigFileError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Both &#39;</span><span class="si">{</span><span class="n">preferred_config_name</span><span class="si">}</span><span class="s2">&#39; and &#39;</span><span class="si">{</span><span class="n">deprecated_config_name</span><span class="si">}</span><span class="s2">&#39; are set. You should only set a &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Both &#39;</span><span class="si">{</span><span class="n">preferred_config_name</span><span class="si">}</span><span class="s2">&#39; and &#39;</span><span class="si">{</span><span class="n">deprecated_config_name</span><span class="si">}</span><span class="s2">&#39; are set; You should only set a &quot;</span>
                 <span class="sa">f</span><span class="s2">&quot;value for </span><span class="si">{</span><span class="n">preferred_config_name</span><span class="si">}</span><span class="s2"> because </span><span class="si">{</span><span class="n">deprecated_config_name</span><span class="si">}</span><span class="s2"> is deprecated.&quot;</span>
             <span class="p">)</span>
         <span class="k">elif</span> <span class="n">preferred_value</span><span class="p">:</span>
