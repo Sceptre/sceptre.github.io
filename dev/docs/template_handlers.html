@@ -207,12 +207,18 @@
 <p>Template handlers can be used to resolve a <code class="docutils literal notranslate"><span class="pre">template</span></code> config block to a CloudFormation template. This can be used to
 fetch templates from S3, for example. Users can create their own template handlers to easily add support for other
 template loading mechanisms. See <a class="reference external" href="#custom-template-handlers">Custom Template Handlers</a> for more information.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">template_path</span></code> key is deprecated in favor of the <code class="docutils literal notranslate"><span class="pre">template</span></code> key.</p>
+</div>
 <div class="section" id="available-template-handlers">
 <h2>Available Template Handlers<a class="headerlink" href="#available-template-handlers" title="Permalink to this heading">¶</a></h2>
 <div class="section" id="file">
 <h3>file<a class="headerlink" href="#file" title="Permalink to this heading">¶</a></h3>
 <p>Loads a template from the local file system. This handler supports templates with .json, .yaml, .template, .j2
 and .py extensions.  This is the default template handler type, specifying the <code class="docutils literal notranslate"><span class="pre">file</span></code> type is optional.</p>
+<p>For backwards compatability, when a <code class="docutils literal notranslate"><span class="pre">template_path</span></code> key is specified in the Stack config, it is wired to
+use the <code class="docutils literal notranslate"><span class="pre">file</span></code> template handler.</p>
 <p>Syntax:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">file</span>
